@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, LoginManager, logout_user, current_user
 from pathlib import Path
 import os
-from route_functions import register_user, login, add_connection
+from route_functions import register_user, login, add_connection, add_purpose
 
 path = Path(r"C:\Users\stapi\PycharmProjects\life_scale\instance\living.db")
 
@@ -81,15 +81,6 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-# with app.app_context():
-#     new_user = User(username='user1', email='user1@example.com', password='password', birth_date="11/06/2020")
-#     db.session.add(new_user)
-#     db.session.commit()
-
-# @app.route("/")
-# def home():
-#     return render_template("index.html")
-
 @app.route("/")
 def home():
     return render_template("index.html")
@@ -97,19 +88,19 @@ def home():
 
 @app.route("/registration", methods=["GET", "POST"])
 def implement_registration():
-    # Add the necessary forms.
     if request.method == "POST":
         name = request.form.get("entryUsername").lower()
         email = request.form.get("entryEmail").lower()
         password = request.form.get("entryPassword")
         date_of_birth = request.form.get("entryDate")
         print(f"name: {name}, email: {email}, password: {password}, birth date: {date_of_birth}")
-        return register_user(username=name,
-                             email=email,
-                             password=password,
-                             date_of_birth=date_of_birth,
-                             db=db,
-                             user=User)
+        registered_user = register_user(username=name,
+                                        email=email,
+                                        password=password,
+                                        date_of_birth=date_of_birth,
+                                        db=db,
+                                        user=User, goal=Goal, finances=Finances)
+        return registered_user
     return render_template('register.html')
 
 
@@ -119,7 +110,8 @@ def implements_login():
         user_name = request.form.get("entryUsername").lower()
         user_password = request.form.get("entryPassword")
         print(f"name: {user_name}, password: {user_password}")
-        return login(name=user_name, entered_password=user_password, user=User)
+        log_in = login(name=user_name, entered_password=user_password, user=User)
+        return log_in
     return render_template("login.html")
 
 
@@ -130,13 +122,23 @@ def implements_add_connections():
         relationship_to_person = request.form.get("entryRelate")
         person_date_of_birth = request.form.get("entryDate")
         what_you_think_about_person = request.form.get("relationshipFormControlTextarea")
-        return add_connection(connect_name=person_name,
-                              relationship=relationship_to_person,
-                              date_of_birth=person_date_of_birth,
-                              thoughts_on_relationships=what_you_think_about_person,
-                              db=db,
-                              connection=Connection, id_no=current_user.id)
+        your_connection = add_connection(connect_name=person_name,
+                                         relationship=relationship_to_person,
+                                         date_of_birth=person_date_of_birth,
+                                         thoughts_on_relationships=what_you_think_about_person,
+                                         db=db,
+                                         connection=Connection, id_no=current_user.id)
+        return your_connection
     return render_template('add_connection.html')
+
+
+@app.route("/goals", methods=["GET", "POST"])
+def implements_add_purpose():
+    if request.method == "POST":
+        your_purpose = request.form.get("purposeFormControlTextarea")
+        your_goal = add_purpose(driving_purpose=your_purpose, db=db, id_no=current_user.id, goal=Goal)
+        return your_goal
+    return render_template("goals.html")
 
 
 @app.route("/connections", methods=["GET", "POST"])
