@@ -133,6 +133,12 @@ def implements_add_connections():
 
 
 @app.route("/goals", methods=["GET", "POST"])
+def goals():
+    user_goals = Goal.query.filter_by(id=current_user.id)
+    return render_template("goals.html", user_goals=user_goals)
+
+
+@app.route("/purpose", methods=["GET", "POST"])
 def implements_add_purpose():
     if request.method == "POST":
         your_purpose = request.form.get("purposeFormControlTextarea")

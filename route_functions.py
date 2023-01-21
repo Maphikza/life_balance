@@ -54,4 +54,25 @@ def add_purpose(driving_purpose, db, id_no, goal):
     purpose_edit = goal.query.get(id_no)
     purpose_edit.purpose = driving_purpose
     db.session.commit()
-    return redirect(url_for('home'))
+    return redirect(url_for('goals'))
+
+
+def add_spirituality(the_spirit, db, id_no, goal):
+    spirit_edit = goal.query.get(id_no)
+    spirit_edit.spiritual = the_spirit
+    db.session.commit()
+    return redirect(url_for('goals'))
+
+
+def add_mental(the_mind, db, id_no, goal):
+    mental_edit = goal.query.get(id_no)
+    mental_edit.mental = the_mind
+    db.session.commit()
+    return redirect(url_for('goals'))
+
+
+def add_physical(the_body, db, id_no, goal):
+    body_edit = goal.query.get(id_no)
+    body_edit.mental = the_body
+    db.session.commit()
+    return redirect(url_for('goals'))
