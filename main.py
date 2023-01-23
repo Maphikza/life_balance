@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, LoginManager, logout_user, current_user
 from pathlib import Path
 import os
-from route_functions import register_user, login, add_connection, add_purpose
+from route_functions import register_user, login, add_connection, add_purpose, add_spirituality
 
 path = Path(r"C:\Users\stapi\PycharmProjects\life_scale\instance\living.db")
 
@@ -134,7 +134,8 @@ def implements_add_connections():
 
 @app.route("/goals", methods=["GET", "POST"])
 def goals():
-    user_goals = Goal.query.filter_by(id=current_user.id)
+    user_goals = Goal.query.all()
+    print(dir(user_goals))
     return render_template("goals.html", user_goals=user_goals)
 
 
@@ -144,7 +145,16 @@ def implements_add_purpose():
         your_purpose = request.form.get("purposeFormControlTextarea")
         your_goal = add_purpose(driving_purpose=your_purpose, db=db, id_no=current_user.id, goal=Goal)
         return your_goal
-    return render_template("goals.html")
+    return render_template("purpose.html")
+
+
+@app.route("/spirit", methods=["GET", "POST"])
+def implements_add_spirituality():
+    if request.method == "POST":
+        your_spirit = request.form.get("spiritFormControlTextarea")
+        your_goal = add_spirituality(the_spirit=your_spirit, db=db, id_no=current_user.id, goal=Goal)
+        return your_goal
+    return render_template("spirit.html")
 
 
 @app.route("/connections", methods=["GET", "POST"])
