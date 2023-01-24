@@ -10,15 +10,17 @@
 </head>
 
 <body>
-  <h1>Goals</h1>
-  {% for goal in user_goals %}
-  <div class="card text-bg-light mb-3" style="max-width: 18rem;">
-    <div class="card-body">
-      <h5 class="card-title">Purpose</h5>
-      <p class="card-text">{{goal[1]}}</p>
+  <h1>Thoughts on Purpose</h1>
+  <form class="purpose-form g-3" method="post">
+    <div class="mb-3">
+      <label for="mindFormControlTextarea" class="form-label">The Mind</label>
+      <textarea class="form-control" id="mindFormControlTextarea" name="mindFormControlTextarea"
+        rows="3"></textarea>
     </div>
-  </div>
-  {% endfor %}
+    <div class="col">
+      <button type="submit" class="btn btn-primary mb-3">Submit</button>
+    </div>
+  </form>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
     crossorigin="anonymous"></script>

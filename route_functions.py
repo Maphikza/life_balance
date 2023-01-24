@@ -27,10 +27,7 @@ def login(name, entered_password, user):
         flash("The username or password is incorrect.")
         return redirect(url_for('implements_login'))
     elif main_user:
-        print(main_user.password)
-        print(entered_password)
         main_user_password = check_password_hash(pwhash=main_user.password, password=entered_password)
-        print(main_user_password)
         if not main_user_password:
             flash("The username or password is incorrect.")
             return redirect(url_for('implements_login'))

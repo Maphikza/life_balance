@@ -3,7 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, LoginManager, logout_user, current_user
 from pathlib import Path
 import os
-from route_functions import register_user, login, add_connection, add_purpose, add_spirituality
+from route_functions import register_user, login, add_connection, add_purpose, add_spirituality, add_mental, \
+    add_physical
 
 path = Path(r"C:\Users\stapi\PycharmProjects\life_scale\instance\living.db")
 
@@ -135,7 +136,6 @@ def implements_add_connections():
 @app.route("/goals", methods=["GET", "POST"])
 def goals():
     user_goals = Goal.query.all()
-    print(dir(user_goals))
     return render_template("goals.html", user_goals=user_goals)
 
 
@@ -155,6 +155,24 @@ def implements_add_spirituality():
         your_goal = add_spirituality(the_spirit=your_spirit, db=db, id_no=current_user.id, goal=Goal)
         return your_goal
     return render_template("spirit.html")
+
+
+@app.route("/mind", methods=["GET", "POST"])
+def implements_mental():
+    if request.method == "POST":
+        your_mind = request.form.get("mindFormControlTextarea")
+        your_goal = add_mental(the_mind=your_mind, db=db, id_no=current_user.id, goal=Goal)
+        return your_goal
+    return render_template("mental.html")
+
+
+@app.route("/body", methods=["GET", "POST"])
+def implements_physical():
+    if request.method == "POST":
+        your_body = request.form.get("bodyFormControlTextarea")
+        your_goal = add_physical(the_body=your_body, db=db, id_no=current_user.id, goal=Goal)
+        return your_goal
+    return render_template("physical.html")
 
 
 @app.route("/connections", methods=["GET", "POST"])
