@@ -73,3 +73,10 @@ def add_physical(the_body, db, id_no, goal):
     body_edit.physical_health = the_body
     db.session.commit()
     return redirect(url_for('goals'))
+
+
+def add_emergency(emergency, db, id_no, finances):
+    finance_edit = finances.query.get(id_no)
+    finance_edit.emergency_funds = emergency
+    db.session.commit()
+    return redirect(url_for('finance'))

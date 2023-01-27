@@ -4,7 +4,7 @@ from flask_login import UserMixin, LoginManager, logout_user, current_user
 from pathlib import Path
 import os
 from route_functions import register_user, login, add_connection, add_purpose, add_spirituality, add_mental, \
-    add_physical
+    add_physical, add_emergency
 
 path = Path(r"C:\Users\stapi\PycharmProjects\life_scale\instance\living.db")
 
@@ -173,6 +173,24 @@ def implements_physical():
         your_goal = add_physical(the_body=your_body, db=db, id_no=current_user.id, goal=Goal)
         return your_goal
     return render_template("physical.html")
+
+
+@app.route("/finance", methods=["GET", "POST"])
+def finance():
+    user_finances = Finances.query.filter_by(user_id=current_user.id)
+    return render_template("finance.html", user_finances=user_finances)
+
+
+@app.route("/finance/emergency", methods=["GET", "POST"])
+def emergency_fund():
+    if request.method == "POST":
+        your_emergency_fund = request.form.get("financeFormControlTextarea")
+        your_emergency_fund = add_emergency(emergency=your_emergency_fund,
+                                            db=db,
+                                            id_no=current_user.id,
+                                            finances=Finances)
+        return your_emergency_fund
+    return render_template("finances_emergency.html")
 
 
 @app.route("/connections", methods=["GET", "POST"])
