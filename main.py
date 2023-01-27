@@ -135,7 +135,7 @@ def implements_add_connections():
 
 @app.route("/goals", methods=["GET", "POST"])
 def goals():
-    user_goals = Goal.query.all()
+    user_goals = Goal.query.filter_by(user_id=current_user.id).all()
     return render_template("goals.html", user_goals=user_goals)
 
 

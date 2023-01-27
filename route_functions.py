@@ -70,6 +70,6 @@ def add_mental(the_mind, db, id_no, goal):
 
 def add_physical(the_body, db, id_no, goal):
     body_edit = goal.query.get(id_no)
-    body_edit.mental = the_body
+    body_edit.physical_health = the_body
     db.session.commit()
     return redirect(url_for('goals'))
