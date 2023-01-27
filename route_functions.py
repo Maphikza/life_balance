@@ -80,3 +80,10 @@ def add_emergency(emergency, db, id_no, finances):
     finance_edit.emergency_funds = emergency
     db.session.commit()
     return redirect(url_for('finance'))
+
+
+def add_life_insurance(life_insure, db, id_no, finances):
+    life_insure_edit = finances.query.get(id_no)
+    life_insure_edit.life_insurance = life_insure
+    db.session.commit()
+    return redirect(url_for('finance'))

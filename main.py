@@ -4,7 +4,7 @@ from flask_login import UserMixin, LoginManager, logout_user, current_user
 from pathlib import Path
 import os
 from route_functions import register_user, login, add_connection, add_purpose, add_spirituality, add_mental, \
-    add_physical, add_emergency
+    add_physical, add_emergency, add_life_insurance
 
 path = Path(r"C:\Users\stapi\PycharmProjects\life_scale\instance\living.db")
 
@@ -191,6 +191,18 @@ def emergency_fund():
                                             finances=Finances)
         return your_emergency_fund
     return render_template("finances_emergency.html")
+
+
+@app.route("/finance/life-insure", methods=["GET", "POST"])
+def life_insure():
+    if request == "POST":
+        your_life_insure = request.form.get("lifeinsureFormControlTextarea")
+        your_life_insure = add_life_insurance(life_insure=your_life_insure,
+                                              db=db,
+                                              id_no=current_user.id,
+                                              finances=Finances)
+        return your_life_insure
+    return render_template("life_insure.html")
 
 
 @app.route("/connections", methods=["GET", "POST"])
