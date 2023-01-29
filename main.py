@@ -116,6 +116,27 @@ def implements_login():
     return render_template("login.html")
 
 
+@app.route("/all-finance", methods=["GET", "POST"])
+def all_finances():
+    if request.method == "POST":
+        selected = request.form.get("finance-goals")
+        text = request.form.get("financeFormControlTextarea")
+        finance_edit = Finances.query.get(current_user.id)
+        if selected == "emergency_funds":
+            finance_edit.emergency_funds = text
+        elif selected == "life_insurance":
+            finance_edit.life_insurance = text
+        elif selected == "medical_insurance":
+            finance_edit.medical_insurance = text
+        elif selected == "disability_insurance":
+            finance_edit.disability_insurance = text
+        elif selected == "income_insurance":
+            finance_edit.income_insurance = text
+        db.session.commit()
+        return redirect(url_for('finance'))
+    return render_template("all_finance.html")
+
+
 @app.route("/add_connections", methods=["GET", "POST"])
 def implements_add_connections():
     if request.method == "POST":
