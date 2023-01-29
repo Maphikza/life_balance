@@ -120,18 +120,18 @@ def implements_login():
 def all_finances():
     if request.method == "POST":
         selected = request.form.get("finance-goals")
-        text = request.form.get("financeFormControlTextarea")
+        plan = request.form.get("financeFormControlTextarea")
         finance_edit = Finances.query.get(current_user.id)
         if selected == "emergency_funds":
-            finance_edit.emergency_funds = text
+            finance_edit.emergency_funds = plan
         elif selected == "life_insurance":
-            finance_edit.life_insurance = text
+            finance_edit.life_insurance = plan
         elif selected == "medical_insurance":
-            finance_edit.medical_insurance = text
+            finance_edit.medical_insurance = plan
         elif selected == "disability_insurance":
-            finance_edit.disability_insurance = text
+            finance_edit.disability_insurance = plan
         elif selected == "income_insurance":
-            finance_edit.income_insurance = text
+            finance_edit.income_insurance = plan
         db.session.commit()
         return redirect(url_for('finance'))
     return render_template("all_finance.html")
