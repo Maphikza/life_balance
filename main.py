@@ -44,6 +44,7 @@ class Connection(db.Model):
 class Goal(db.Model):
     __tablename__ = "life goals"
     id = db.Column(db.Integer, primary_key=True)
+    life_goal_title = db.Column(db.String(100), unique=True, nullable=True)
     chosen_goal = db.Column(db.Text, unique=True, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
@@ -120,6 +121,37 @@ def implements_login():
         log_in = login(name=user_name, entered_password=user_password, user=User)
         return log_in
     return render_template("login.html")
+
+
+@app.route("/life-goals", methods=["GET", "POST"])
+def add_life_goal():
+    if request.method == "POST":
+        selected_title = request.form.get("life-goals")
+        your_life_goal = request.form.get("lifeGoalFormControlTextarea")
+        life_goal = Goal(life_goal_title=selected_title,
+                         chosen_goal=your_life_goal,
+                         user_id=current_user.id)
+        db.session.add(life_goal)
+        db.session.commit()
+        return redirect(url_for('goals'))
+    return render_template("life-goals.html")
+
+
+@app.route("/life-goals/edit/<int:life_goal_id>", methods=["GET", "POST"])
+def life_goal_edit(life_goal_id):
+    goal_edit = Goal.query.get(life_goal_id)
+    if request.method == "POST":
+        the_edit = request.form.get("editLifeGoalFormControlTextarea")
+        goal_edit.chosen_goal = the_edit
+        db.session.commit()
+        return redirect(url_for('goals'))
+    return render_template("life-goals-edit.html", life_edit=goal_edit)
+
+
+@app.route("/goals", methods=["GET", "POST"])
+def goals():
+    user_goals = Goal.query.filter_by(user_id=current_user.id).all()
+    return render_template("goals.html", user_goals=user_goals)
 
 
 @app.route("/add_connections", methods=["GET", "POST"])
@@ -207,19 +239,13 @@ def finance():
     return render_template("finance.html", user_finances=user_finances, func=format_number)
 
 
-@app.route("/goals", methods=["GET", "POST"])
-def goals():
-    user_goals = Goal.query.filter_by(user_id=current_user.id).all()
-    return render_template("goals.html", user_goals=user_goals)
-
-
 @app.route("/purpose", methods=["GET", "POST"])
 def implements_add_purpose():
     if request.method == "POST":
         your_purpose = request.form.get("purposeFormControlTextarea")
         your_goal = add_purpose(driving_purpose=your_purpose, db=db, id_no=current_user.id, goal=Goal)
         return your_goal
-    return render_template("purpose.html")
+    return render_template("life-goals.html")
 
 
 @app.route("/spirit", methods=["GET", "POST"])
@@ -237,7 +263,7 @@ def implements_mental():
         your_mind = request.form.get("mindFormControlTextarea")
         your_goal = add_mental(the_mind=your_mind, db=db, id_no=current_user.id, goal=Goal)
         return your_goal
-    return render_template("mental.html")
+    return render_template("life-goals-edit.html")
 
 
 @app.route("/body", methods=["GET", "POST"])
