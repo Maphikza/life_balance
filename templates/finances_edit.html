@@ -4,17 +4,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Life Insurance</title>
+  <title>Finances</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 
 <body>
-  <h1>Life Insurance</h1>
-  <form class="insure-form g-3" method="post">
+  <h1>{{finance_goal.goal_title}} Edit</h1>
+<form class="finance-emergency-form g-3" method="post">
     <div class="mb-3">
-      <label for="lifeinsureFormControlTextarea" class="form-label">Life Insurance</label>
-      <textarea class="form-control" id="lifeinsureFormControlTextarea" name="lifeinsureFormControlTextarea"
+        <label for="quantity_edit" >Target Amount</label>
+        <input class="form-control" type="text" id="quantity_edit" name="quantity_edit"  placeholder="Edit target amount.">
+        <label for="financeFormControlTextarea-edit" class="form-label">Edit Goal Thoughts</label>
+        <textarea class="form-control" id="financeFormControlTextarea-edit" name="financeFormControlTextarea-edit"
         rows="3"></textarea>
     </div>
     <div class="col">

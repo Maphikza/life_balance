@@ -16,17 +16,19 @@
       <label for="financeFormControlTextarea" class="form-label">Finances</label>
       <select class="form-select" aria-label="Default select example" name="finance-goals" id="finance-goals" >
        <option selected>Financial Goals</option>
-       <option value="emergency_funds">Emergency Funds</option>
-       <option value="life_insurance">Life Insurance</option>
-       <option value="medical_insurance">Medical Insurance</option>
-       <option value="disability_insurance">Disability Cover</option>
-       <option value="income_insurance">Income Insurance</option>
+       <option value="Emergency Funds">Emergency Funds</option>
+       <option value="Life Insurance">Life Insurance</option>
+       <option value="Medical Insurance">Medical Insurance</option>
+       <option value="Disability Cover">Disability Cover</option>
+       <option value="Income Insurance">Income Insurance</option>
       </select>
+        <label for="quantity">Target Amount</label>
+        <input class="form-control" type="text" id="quantity" name="quantity" placeholder="Enter your target amount e.g 50000">
       <textarea class="form-control" id="financeFormControlTextarea" name="financeFormControlTextarea"
         rows="3"></textarea>
     </div>
     <div class="col">
-      <button type="submit" class="btn btn-primary mb-3">Submit</button>
+      <button type="submit" class="btn btn-primary mb-3">Add Goal</button>
     </div>
   </form>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"

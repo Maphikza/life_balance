@@ -3,8 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, LoginManager, logout_user, current_user
 from pathlib import Path
 import os
-from route_functions import register_user, login, add_connection, add_purpose, add_spirituality, add_mental, \
-    add_physical, add_emergency, add_life_insurance
+from route_functions import register_user, login, add_purpose, add_spirituality, add_mental, \
+    add_physical
 
 path = Path(r"C:\Users\stapi\PycharmProjects\life_scale\instance\living.db")
 
@@ -44,26 +44,23 @@ class Connection(db.Model):
 class Goal(db.Model):
     __tablename__ = "life goals"
     id = db.Column(db.Integer, primary_key=True)
-    purpose = db.Column(db.Text, nullable=True)
-    spiritual = db.Column(db.Text, nullable=True)
-    mental = db.Column(db.Text, nullable=True)
-    physical_health = db.Column(db.Text, nullable=True)
+    chosen_goal = db.Column(db.Text, unique=True, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 
 class Finances(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    emergency_funds = db.Column(db.String(120), nullable=True)
-    life_insurance = db.Column(db.String(120), nullable=True)
-    medical_insurance = db.Column(db.String(120), nullable=True)
-    disability_insurance = db.Column(db.String(120), nullable=True)
-    income_insurance = db.Column(db.String(120), nullable=True)
+    goal_title = db.Column(db.String(100), unique=True, nullable=True)
+    financial_goal = db.Column(db.String(500), nullable=True)
+    target_amount = db.Column(db.Float, nullable=True)
+    formatted_amount = db.Column(db.String(50), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 
 class Bucketlist(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    bucket_list_item = db.Column(db.String(120), nullable=False)
+    bucket_list_item_title = db.Column(db.String(100), unique=True, nullable=True)
+    bucket_list_item = db.Column(db.String(500), nullable=True)
     item_cost = db.Column(db.Float, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
@@ -75,6 +72,15 @@ else:
     with app.app_context():
         db.create_all()
         print("The database has been created.")
+
+
+def format_number(num):
+    if num >= 1000000:
+        return '{:,.1f}M'.format(num / 1000000)
+    elif num >= 1000:
+        return '{:,.1f}K'.format(num / 1000)
+    else:
+        return '{:,.1f}'.format(num)
 
 
 @login_manager.user_loader
@@ -116,42 +122,89 @@ def implements_login():
     return render_template("login.html")
 
 
-@app.route("/all-finance", methods=["GET", "POST"])
-def all_finances():
-    if request.method == "POST":
-        selected = request.form.get("finance-goals")
-        plan = request.form.get("financeFormControlTextarea")
-        finance_edit = Finances.query.get(current_user.id)
-        if selected == "emergency_funds":
-            finance_edit.emergency_funds = plan
-        elif selected == "life_insurance":
-            finance_edit.life_insurance = plan
-        elif selected == "medical_insurance":
-            finance_edit.medical_insurance = plan
-        elif selected == "disability_insurance":
-            finance_edit.disability_insurance = plan
-        elif selected == "income_insurance":
-            finance_edit.income_insurance = plan
-        db.session.commit()
-        return redirect(url_for('finance'))
-    return render_template("all_finance.html")
-
-
 @app.route("/add_connections", methods=["GET", "POST"])
-def implements_add_connections():
+def add_connections():
     if request.method == "POST":
         person_name = request.form.get("entryName")
         relationship_to_person = request.form.get("entryRelate")
         person_date_of_birth = request.form.get("entryDate")
         what_you_think_about_person = request.form.get("relationshipFormControlTextarea")
-        your_connection = add_connection(connect_name=person_name,
-                                         relationship=relationship_to_person,
-                                         date_of_birth=person_date_of_birth,
-                                         thoughts_on_relationships=what_you_think_about_person,
-                                         db=db,
-                                         connection=Connection, id_no=current_user.id)
-        return your_connection
+        your_connection = Connection(name=person_name,
+                                     relationship_to_user=relationship_to_person,
+                                     birth_date=person_date_of_birth,
+                                     relationship_thoughts=what_you_think_about_person,
+                                     user_id=current_user.id)
+        db.session.add(your_connection)
+        db.session.commit()
+        return redirect(url_for('connections'))
     return render_template('add_connection.html')
+
+
+@app.route("/connections/edit/<int:connect_id>", methods=["GET", "POST"])
+def connections_edit(connect_id):
+    connection_goal_edit = Connection.query.get(connect_id)
+    if request.method == "POST":
+        connection_name = request.form.get("editEntryName")
+        relationship = request.form.get("editEntryRelate")
+        date_of_birth = request.form.get("editEntryDate")
+        thoughts = request.form.get("relationshipFormControlTextareaEdit")
+        if connection_name:
+            connection_goal_edit.name = connection_name
+        if relationship:
+            connection_goal_edit.relationship_to_user = relationship
+        if date_of_birth:
+            connection_goal_edit.birth_date = date_of_birth
+        if thoughts:
+            connection_goal_edit.relationship_thoughts = thoughts
+        db.session.commit()
+        return redirect(url_for('connections'))
+    return render_template("edit-connections.html")
+
+
+@app.route("/connections", methods=["GET", "POST"])
+def connections():
+    user_connections = Connection.query.filter_by(user_id=current_user.id)
+    return render_template("connections.html", user_connections=user_connections)
+
+
+@app.route("/add-finance", methods=["GET", "POST"])
+def add_finance_goals():
+    if request.method == "POST":
+        title = request.form.get("finance-goals")
+        amount = request.form.get("quantity").replace(" ", "")
+        amount_formatted = format_number(float(amount))
+        plan = request.form.get("financeFormControlTextarea")
+        financial_goal = Finances(goal_title=title,
+                                  target_amount=amount,
+                                  formatted_amount=amount_formatted,
+                                  financial_goal=plan,
+                                  user_id=current_user.id)
+        db.session.add(financial_goal)
+        db.session.commit()
+        return redirect(url_for('finance'))
+    return render_template("all_finance.html")
+
+
+@app.route("/finance/edit/<int:goal_id>", methods=["GET", "POST"])
+def finance_edit(goal_id):
+    finance_goal_edit = Finances.query.get(goal_id)
+    if request.method == "POST":
+        goal_edit = request.form.get("financeFormControlTextarea-edit")
+        print(goal_edit)
+        amount = request.form.get("quantity_edit").strip()
+        if goal_edit:
+            finance_goal_edit.financial_goal = goal_edit
+        if amount:
+            finance_goal_edit.target_amount = amount
+        db.session.commit()
+        return redirect(url_for("finance"))
+    return render_template("finances_edit.html", finance_goal=finance_goal_edit)
+
+
+@app.route("/finance", methods=["GET", "POST"])
+def finance():
+    user_finances = Finances.query.filter_by(user_id=current_user.id)
+    return render_template("finance.html", user_finances=user_finances, func=format_number)
 
 
 @app.route("/goals", methods=["GET", "POST"])
@@ -193,43 +246,7 @@ def implements_physical():
         your_body = request.form.get("bodyFormControlTextarea")
         your_goal = add_physical(the_body=your_body, db=db, id_no=current_user.id, goal=Goal)
         return your_goal
-    return render_template("physical.html")
-
-
-@app.route("/finance", methods=["GET", "POST"])
-def finance():
-    user_finances = Finances.query.filter_by(user_id=current_user.id)
-    return render_template("finance.html", user_finances=user_finances)
-
-
-@app.route("/finance/emergency", methods=["GET", "POST"])
-def emergency_fund():
-    if request.method == "POST":
-        your_emergency_fund = request.form.get("financeFormControlTextarea")
-        your_emergency_fund = add_emergency(emergency=your_emergency_fund,
-                                            db=db,
-                                            id_no=current_user.id,
-                                            finances=Finances)
-        return your_emergency_fund
-    return render_template("finances_emergency.html")
-
-
-@app.route("/finance/life-insure", methods=["GET", "POST"])
-def life_insure():
-    if request == "POST":
-        your_life_insure = request.form.get("lifeinsureFormControlTextarea")
-        your_life_insure = add_life_insurance(life_insure=your_life_insure,
-                                              db=db,
-                                              id_no=current_user.id,
-                                              finances=Finances)
-        return your_life_insure
-    return render_template("life_insure.html")
-
-
-@app.route("/connections", methods=["GET", "POST"])
-def connections():
-    user_connections = Connection.query.filter_by(id=current_user.id)
-    return render_template("connections.html", user_connections=user_connections)
+    return render_template("edit-connections.html")
 
 
 @app.route("/logout")

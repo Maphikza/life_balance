@@ -37,16 +37,6 @@ def login(name, entered_password, user):
             return redirect(url_for('home'))
 
 
-def add_connection(connect_name, relationship, date_of_birth, thoughts_on_relationships, connection, db, id_no):
-    new_connection = connection(name=connect_name,
-                                relationship_to_user=relationship,
-                                birth_date=date_of_birth,
-                                relationship_thoughts=thoughts_on_relationships, user_id=id_no)
-    db.session.add(new_connection)
-    db.session.commit()
-    return redirect(url_for('connections'))
-
-
 def add_purpose(driving_purpose, db, id_no, goal):
     purpose_edit = goal.query.get(id_no)
     purpose_edit.purpose = driving_purpose
@@ -75,9 +65,9 @@ def add_physical(the_body, db, id_no, goal):
     return redirect(url_for('goals'))
 
 
-def add_emergency(emergency, db, id_no, finances):
+def edit_finance_goal(goal, db, id_no, finances):
     finance_edit = finances.query.get(id_no)
-    finance_edit.emergency_funds = emergency
+    finance_edit.emergency_funds = goal
     db.session.commit()
     return redirect(url_for('finance'))
 
