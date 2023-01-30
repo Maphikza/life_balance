@@ -100,7 +100,7 @@ def implement_registration():
         email = request.form.get("entryEmail").lower()
         password = request.form.get("entryPassword")
         date_of_birth = request.form.get("entryDate")
-        print(f"name: {name}, email: {email}, password: {password}, birth date: {date_of_birth}")
+        print(f"name: {name}, email: {email}")
         registered_user = register_user(username=name,
                                         email=email,
                                         password=password,
