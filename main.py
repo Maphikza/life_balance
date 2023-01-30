@@ -3,8 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, LoginManager, logout_user, current_user
 from pathlib import Path
 import os
-from route_functions import register_user, login, add_purpose, add_spirituality, add_mental, \
-    add_physical
+from route_functions import register_user, login
 
 path = Path(r"C:\Users\stapi\PycharmProjects\life_scale\instance\living.db")
 
@@ -237,42 +236,6 @@ def finance_edit(goal_id):
 def finance():
     user_finances = Finances.query.filter_by(user_id=current_user.id)
     return render_template("finance.html", user_finances=user_finances, func=format_number)
-
-
-@app.route("/purpose", methods=["GET", "POST"])
-def implements_add_purpose():
-    if request.method == "POST":
-        your_purpose = request.form.get("purposeFormControlTextarea")
-        your_goal = add_purpose(driving_purpose=your_purpose, db=db, id_no=current_user.id, goal=Goal)
-        return your_goal
-    return render_template("life-goals.html")
-
-
-@app.route("/spirit", methods=["GET", "POST"])
-def implements_add_spirituality():
-    if request.method == "POST":
-        your_spirit = request.form.get("spiritFormControlTextarea")
-        your_goal = add_spirituality(the_spirit=your_spirit, db=db, id_no=current_user.id, goal=Goal)
-        return your_goal
-    return render_template("spirit.html")
-
-
-@app.route("/mind", methods=["GET", "POST"])
-def implements_mental():
-    if request.method == "POST":
-        your_mind = request.form.get("mindFormControlTextarea")
-        your_goal = add_mental(the_mind=your_mind, db=db, id_no=current_user.id, goal=Goal)
-        return your_goal
-    return render_template("life-goals-edit.html")
-
-
-@app.route("/body", methods=["GET", "POST"])
-def implements_physical():
-    if request.method == "POST":
-        your_body = request.form.get("bodyFormControlTextarea")
-        your_goal = add_physical(the_body=your_body, db=db, id_no=current_user.id, goal=Goal)
-        return your_goal
-    return render_template("edit-connections.html")
 
 
 @app.route("/logout")
