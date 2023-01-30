@@ -238,6 +238,46 @@ def finance():
     return render_template("finance.html", user_finances=user_finances, func=format_number)
 
 
+@app.route("/add-bucketlist", methods=["GET", "POST"])
+def add_bucketlist_item():
+    if request.method == "POST":
+        item_title = request.form.get("bucketListFormControlInput")
+        cost = request.form.get("costFormControlInput")
+        item_details = request.form.get("bucketListFormControlTextarea")
+        bucket_list_item = Bucketlist(bucket_list_item_title=item_title,
+                                      bucket_list_item=item_details,
+                                      item_cost=cost,
+                                      user_id=current_user.id)
+        db.session.add(bucket_list_item)
+        db.session.commit()
+        return redirect(url_for('bucket_list'))
+    return render_template("add_bucketlist.html")
+
+
+@app.route("/bucket-list/edit/<int:item_id>", methods=["GET", "POST"])
+def edit_bucket_list_item(item_id):
+    bucket_list_edit = Bucketlist.query.get(item_id)
+    if request.method == "POST":
+        title_edit = request.form.get("editBucketListFormControlInput")
+        cost_edit = request.form.get("editCostFormControlInput")
+        item_text_edit = request.form.get("editBucketListFormControlTextarea")
+        if title_edit:
+            bucket_list_edit.bucket_list_item_title = title_edit
+        if cost_edit:
+            bucket_list_edit.item_cost = cost_edit
+        if item_text_edit:
+            bucket_list_edit.bucket_list_item = item_text_edit
+        db.session.commit()
+        return redirect(url_for("bucket_list"))
+    return render_template("edit-bucket-list.html")
+
+
+@app.route("/bucket-list", methods=["GET", "POST"])
+def bucket_list():
+    user_bucketlist = Bucketlist.query.filter_by(user_id=current_user.id)
+    return render_template("bucket-list.html", user_bucketlist=user_bucketlist)
+
+
 @app.route("/logout")
 def logout():
     logout_user()
