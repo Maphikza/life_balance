@@ -11,12 +11,22 @@
 
 <body>
   <h1>Goals</h1>
+  <div class="btn-group">
+  <a href="{{url_for('home')}}" class="btn btn-primary">Home</a>
+    <a href="{{url_for('goals')}}" class="btn btn-primary active" aria-current="page">Goals</a>
+    <a href="{{url_for('connections')}}" class="btn btn-primary">Connections</a>
+    <a href="{{url_for('finance')}}" class="btn btn-primary">Finance</a>
+    <a href="{{url_for('bucket_list')}}" class="btn btn-primary">Bucket List</a>
+    <a href="{{url_for('logout')}}" class="btn btn-primary">logout</a>
+  </div>
   {% for goal in user_goals %}
   {% if goal.life_goal_title != None %}
   <div class="card text-bg-light mb-3" style="max-width: 18rem;">
     <div class="card-body">
       <h5 class="card-title">{{goal.life_goal_title}}</h5>
-      <p class="card-text">{{goal.chosen_goal}}<a type="submit" class="btn btn-primary btn-sm m-1" href="{{url_for('life_goal_edit', life_goal_id=goal.id)}}">Edit</a></p>
+      <p class="card-text">{{goal.chosen_goal}}
+        <a type="submit" class="btn btn-primary btn-sm m-1" href="{{url_for('life_goal_edit', life_goal_id=goal.id)}}">Edit</a>
+        <a type="submit" class="btn btn-primary btn-sm m-1" href="{{url_for('delete_life_goal', life_goal_id=goal.id)}}">Delete</a></p>
     </div>
   </div>
   {% endif %}

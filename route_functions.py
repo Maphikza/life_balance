@@ -9,7 +9,6 @@ def register_user(username, email, password, date_of_birth, user, goal, finances
     db.session.add(new_user)
     db.session.commit()
     registered_user = user.query.filter_by(username=username).first()
-    print(registered_user.id)
     if registered_user:
         new_user_goals = goal(user_id=registered_user.id)
         new_user_finances = finances(user_id=registered_user.id)
@@ -18,7 +17,6 @@ def register_user(username, email, password, date_of_birth, user, goal, finances
         db.session.commit()
         flash("You're registered.")
         return redirect(url_for('implements_login'))
-    # return "User {} was successfully registered.".format(username)
 
 
 def login(name, entered_password, user):
@@ -32,6 +30,5 @@ def login(name, entered_password, user):
             flash("The username or password is incorrect.")
             return redirect(url_for('implements_login'))
         elif main_user_password:
-            print("user_logged in.")
             login_user(user=main_user)
             return redirect(url_for('home'))

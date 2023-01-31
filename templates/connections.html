@@ -11,12 +11,22 @@
 
 <body>
   <h1>Deep Relationships</h1>
+  <div class="btn-group">
+  <a href="{{url_for('home')}}" class="btn btn-primary">Home</a>
+    <a href="{{url_for('goals')}}" class="btn btn-primary" >Goals</a>
+    <a href="{{url_for('connections')}}" class="btn btn-primary active" aria-current="page">Connections</a>
+    <a href="{{url_for('finance')}}" class="btn btn-primary">Finance</a>
+    <a href="{{url_for('bucket_list')}}" class="btn btn-primary">Bucket List</a>
+    <a href="{{url_for('logout')}}" class="btn btn-primary">logout</a>
+  </div>
   {% for connection in user_connections %}
   <div class="card text-bg-light mb-3" style="max-width: 18rem;">
     <div class="card-header">{{connection.name}}</div>
     <div class="card-body">
       <h5 class="card-title">{{connection.relationship_to_user}}</h5>
-      <p class="card-text">{{connection.relationship_thoughts}}<a type="submit" class="btn btn-primary btn-sm m-1" href="{{url_for('connections_edit', connect_id=connection.id)}}">Edit</a></p>
+      <p class="card-text">{{connection.relationship_thoughts}}
+        <a type="submit" class="btn btn-primary btn-sm m-1" href="{{url_for('connections_edit', connect_id=connection.id)}}">Edit</a>
+        <a type="submit" class="btn btn-primary btn-sm m-1" href="{{url_for('delete_connection', connect_id=connection.id)}}">Delete</a></p>
     </div>
   </div>
   {% endfor %}

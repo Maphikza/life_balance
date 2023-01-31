@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import UserMixin, LoginManager, logout_user, current_user
+from flask_login import UserMixin, LoginManager, logout_user, current_user, login_required
 from pathlib import Path
 import os
 from route_functions import register_user, login
@@ -62,6 +62,7 @@ class Bucketlist(db.Model):
     bucket_list_item_title = db.Column(db.String(100), unique=True, nullable=True)
     bucket_list_item = db.Column(db.String(500), nullable=True)
     item_cost = db.Column(db.Float, nullable=True)
+    formatted_cost = db.Column(db.String(50), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 
@@ -100,7 +101,6 @@ def implement_registration():
         email = request.form.get("entryEmail").lower()
         password = request.form.get("entryPassword")
         date_of_birth = request.form.get("entryDate")
-        print(f"name: {name}, email: {email}")
         registered_user = register_user(username=name,
                                         email=email,
                                         password=password,
@@ -116,15 +116,15 @@ def implements_login():
     if request.method == "POST":
         user_name = request.form.get("entryUsername").lower()
         user_password = request.form.get("entryPassword")
-        print(f"name: {user_name}, password: {user_password}")
         log_in = login(name=user_name, entered_password=user_password, user=User)
         return log_in
     return render_template("login.html")
 
 
 @app.route("/life-goals", methods=["GET", "POST"])
+@login_required
 def add_life_goal():
-    if request.method == "POST":
+    if current_user.is_authenticated and request.method == "POST":
         selected_title = request.form.get("life-goals")
         your_life_goal = request.form.get("lifeGoalFormControlTextarea")
         life_goal = Goal(life_goal_title=selected_title,
@@ -137,9 +137,10 @@ def add_life_goal():
 
 
 @app.route("/life-goals/edit/<int:life_goal_id>", methods=["GET", "POST"])
+@login_required
 def life_goal_edit(life_goal_id):
     goal_edit = Goal.query.get(life_goal_id)
-    if request.method == "POST":
+    if current_user.is_authenticated and request.method == "POST":
         the_edit = request.form.get("editLifeGoalFormControlTextarea")
         goal_edit.chosen_goal = the_edit
         db.session.commit()
@@ -147,15 +148,27 @@ def life_goal_edit(life_goal_id):
     return render_template("life-goals-edit.html", life_edit=goal_edit)
 
 
+@app.route("/life-goals/delete/<int:life_goal_id>", methods=["GET", "POST"])
+@login_required
+def delete_life_goal(life_goal_id):
+    if current_user.is_authenticated and current_user.is_authenticated:
+        item_to_delete = Goal.query.get(life_goal_id)
+        db.session.delete(item_to_delete)
+        db.session.commit()
+        return redirect(url_for("goals"))
+
+
 @app.route("/goals", methods=["GET", "POST"])
+@login_required
 def goals():
     user_goals = Goal.query.filter_by(user_id=current_user.id).all()
     return render_template("goals.html", user_goals=user_goals)
 
 
 @app.route("/add_connections", methods=["GET", "POST"])
+@login_required
 def add_connections():
-    if request.method == "POST":
+    if current_user.is_authenticated and request.method == "POST":
         person_name = request.form.get("entryName")
         relationship_to_person = request.form.get("entryRelate")
         person_date_of_birth = request.form.get("entryDate")
@@ -172,9 +185,10 @@ def add_connections():
 
 
 @app.route("/connections/edit/<int:connect_id>", methods=["GET", "POST"])
+@login_required
 def connections_edit(connect_id):
     connection_goal_edit = Connection.query.get(connect_id)
-    if request.method == "POST":
+    if current_user.is_authenticated and request.method == "POST":
         connection_name = request.form.get("editEntryName")
         relationship = request.form.get("editEntryRelate")
         date_of_birth = request.form.get("editEntryDate")
@@ -192,15 +206,27 @@ def connections_edit(connect_id):
     return render_template("edit-connections.html")
 
 
+@app.route("/connections/delete/<int:connect_id>", methods=["GET", "POST"])
+@login_required
+def delete_connection(connect_id):
+    if current_user.is_authenticated:
+        item_to_delete = Connection.query.get(connect_id)
+        db.session.delete(item_to_delete)
+        db.session.commit()
+        return redirect(url_for("connections"))
+
+
 @app.route("/connections", methods=["GET", "POST"])
+@login_required
 def connections():
     user_connections = Connection.query.filter_by(user_id=current_user.id)
     return render_template("connections.html", user_connections=user_connections)
 
 
 @app.route("/add-finance", methods=["GET", "POST"])
+@login_required
 def add_finance_goals():
-    if request.method == "POST":
+    if current_user.is_authenticated and request.method == "POST":
         title = request.form.get("finance-goals")
         amount = request.form.get("quantity").replace(" ", "")
         amount_formatted = format_number(float(amount))
@@ -217,9 +243,10 @@ def add_finance_goals():
 
 
 @app.route("/finance/edit/<int:goal_id>", methods=["GET", "POST"])
+@login_required
 def finance_edit(goal_id):
     finance_goal_edit = Finances.query.get(goal_id)
-    if request.method == "POST":
+    if current_user.is_authenticated and request.method == "POST":
         goal_edit = request.form.get("financeFormControlTextarea-edit")
         print(goal_edit)
         amount = request.form.get("quantity_edit").strip()
@@ -232,21 +259,35 @@ def finance_edit(goal_id):
     return render_template("finances_edit.html", finance_goal=finance_goal_edit)
 
 
+@app.route("/finance/delete/<int:goal_id>", methods=["GET", "POST"])
+@login_required
+def delete_finance_goal(goal_id):
+    if current_user.is_authenticated:
+        item_to_delete = Finances.query.get(goal_id)
+        db.session.delete(item_to_delete)
+        db.session.commit()
+        return redirect(url_for("finance"))
+
+
 @app.route("/finance", methods=["GET", "POST"])
+@login_required
 def finance():
     user_finances = Finances.query.filter_by(user_id=current_user.id)
     return render_template("finance.html", user_finances=user_finances, func=format_number)
 
 
 @app.route("/add-bucketlist", methods=["GET", "POST"])
+@login_required
 def add_bucketlist_item():
-    if request.method == "POST":
+    if current_user.is_authenticated and request.method == "POST":
         item_title = request.form.get("bucketListFormControlInput")
-        cost = request.form.get("costFormControlInput")
+        cost = request.form.get("costFormControlInput").replace(" ", "")
+        cost_formatted = format_number(float(cost))
         item_details = request.form.get("bucketListFormControlTextarea")
         bucket_list_item = Bucketlist(bucket_list_item_title=item_title,
                                       bucket_list_item=item_details,
                                       item_cost=cost,
+                                      formatted_cost=cost_formatted,
                                       user_id=current_user.id)
         db.session.add(bucket_list_item)
         db.session.commit()
@@ -255,9 +296,10 @@ def add_bucketlist_item():
 
 
 @app.route("/bucket-list/edit/<int:item_id>", methods=["GET", "POST"])
+@login_required
 def edit_bucket_list_item(item_id):
     bucket_list_edit = Bucketlist.query.get(item_id)
-    if request.method == "POST":
+    if current_user.is_authenticated and request.method == "POST":
         title_edit = request.form.get("editBucketListFormControlInput")
         cost_edit = request.form.get("editCostFormControlInput")
         item_text_edit = request.form.get("editBucketListFormControlTextarea")
@@ -272,7 +314,18 @@ def edit_bucket_list_item(item_id):
     return render_template("edit-bucket-list.html")
 
 
+@app.route("/bucket-list/delete/<int:item_id>", methods=["GET", "POST"])
+@login_required
+def delete_bucketlist_item(item_id):
+    if current_user.is_authenticated:
+        item_to_delete = Bucketlist.query.get(item_id)
+        db.session.delete(item_to_delete)
+        db.session.commit()
+        return redirect(url_for("bucket_list"))
+
+
 @app.route("/bucket-list", methods=["GET", "POST"])
+@login_required
 def bucket_list():
     user_bucketlist = Bucketlist.query.filter_by(user_id=current_user.id)
     return render_template("bucket-list.html", user_bucketlist=user_bucketlist)
