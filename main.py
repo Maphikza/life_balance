@@ -91,10 +91,6 @@ def format_number(num):
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-# @app.errorhandler(403)
-# def forbidden_access(error):
-#     return render_template()
-
 
 @app.route("/")
 def home():
