@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, LoginManager, logout_user, current_user, login_required
 from pathlib import Path
 import os
+from sqlalchemy.orm.exc import UnmappedInstanceError
 from route_functions import register_user, login
 
 path = Path(r"C:\Users\stapi\PycharmProjects\life_scale\instance\living.db")
@@ -352,21 +353,57 @@ def bucket_list():
 @app.route("/admin", methods=["GET", "POST"])
 @login_required
 def delete_user():
+    """
+    This function takes user id from admin form and systematically removes user data
+    and finally deletes the user profile.
+    :return: url_redirect
+    """
     if current_user.id == 1:
-        user_to_remove = 2
-        # user_to_remove = request.form.get("userID")
-        site_user = User.query.get(user_to_remove)
-        print(site_user)
-        db.session.delete(site_user)
-        db.session.commit()
-        # if request.method == "POST":
-        #     user_to_remove = 2
-        #     # user_to_remove = request.form.get("userID")
-        #     site_user = User.query.filter_by(user_id=user_to_remove)
-        #     print(site_user.username)
+        if request.method == "POST":
+            user_to_remove = int(request.form.get("userID").replace(" ", ""))
+            user_goals = Goal.query.filter_by(user_id=user_to_remove).all()
+            user_connections = Connection.query.filter_by(user_id=user_to_remove)
+            user_finances = Finances.query.filter_by(user_id=user_to_remove)
+            user_bucketlist = Bucketlist.query.filter_by(user_id=current_user.id)
+            for goal_item in user_goals:
+                try:
+                    item_to_delete = Goal.query.get(goal_item.id)
+                    db.session.delete(item_to_delete)
+                    db.session.commit()
+                except (AttributeError, UnmappedInstanceError):
+                    continue
+
+            for relation in user_connections:
+                try:
+                    item_to_delete = Connection.query.get(relation.id)
+                    db.session.delete(item_to_delete)
+                    db.session.commit()
+                except (AttributeError, UnmappedInstanceError):
+                    continue
+
+            for insurance in user_finances:
+                try:
+                    item_to_delete = Finances.query.get(insurance.id)
+                    db.session.delete(item_to_delete)
+                    db.session.commit()
+                except (AttributeError, UnmappedInstanceError):
+                    continue
+
+            for bucket in user_bucketlist:
+                try:
+                    item_to_delete = Bucketlist.query.get(bucket.id)
+                    db.session.delete(item_to_delete)
+                    db.session.commit()
+                except (AttributeError, UnmappedInstanceError):
+                    continue
+            site_user = User.query.get(user_to_remove)
+            db.session.delete(site_user)
+            db.session.commit()
+            flash(f"User: {user_to_remove} is deleted")
+            return redirect(url_for('home'))
     else:
         abort(401)
-    return redirect(url_for('home'))
+    return render_template("admin-delete.html")
 
 
 @app.route("/logout")
