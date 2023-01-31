@@ -19,6 +19,13 @@
     <a href="{{url_for('bucket_list')}}" class="btn btn-primary">Bucket List</a>
     <a href="{{url_for('logout')}}" class="btn btn-primary">logout</a>
   </div>
+  {% with messages = get_flashed_messages() %}
+      {% if messages %}
+          {% for message in messages %}
+              <p class="flashes">{{ message }}</p>
+          {% endfor %}
+      {% endif%}
+  {% endwith %}
   {% for goal in user_finances %}
       {% if goal.goal_title != None %}
   <div class="card text-bg-light mb-3" style="max-width: 18rem;">

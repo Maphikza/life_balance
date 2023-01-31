@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect, url_for
+from flask import Flask, request, render_template, redirect, url_for, flash, abort
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, LoginManager, logout_user, current_user, login_required
 from pathlib import Path
@@ -12,6 +12,8 @@ app.config['SECRET_KEY'] = os.environ.get('LIFE_KEY')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///living.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+
+admin = os.environ.get("admin")
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -43,14 +45,14 @@ class Connection(db.Model):
 class Goal(db.Model):
     __tablename__ = "life goals"
     id = db.Column(db.Integer, primary_key=True)
-    life_goal_title = db.Column(db.String(100), unique=True, nullable=True)
+    life_goal_title = db.Column(db.String(100), nullable=True)
     chosen_goal = db.Column(db.Text, unique=True, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 
 class Finances(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    goal_title = db.Column(db.String(100), unique=True, nullable=True)
+    goal_title = db.Column(db.String(100), nullable=True)
     financial_goal = db.Column(db.String(500), nullable=True)
     target_amount = db.Column(db.Float, nullable=True)
     formatted_amount = db.Column(db.String(50), nullable=True)
@@ -59,7 +61,7 @@ class Finances(db.Model):
 
 class Bucketlist(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    bucket_list_item_title = db.Column(db.String(100), unique=True, nullable=True)
+    bucket_list_item_title = db.Column(db.String(100), nullable=True)
     bucket_list_item = db.Column(db.String(500), nullable=True)
     item_cost = db.Column(db.Float, nullable=True)
     formatted_cost = db.Column(db.String(50), nullable=True)
@@ -87,6 +89,10 @@ def format_number(num):
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
+# @app.errorhandler(403)
+# def forbidden_access(error):
+#     return render_template()
 
 
 @app.route("/")
@@ -117,6 +123,7 @@ def implements_login():
         user_name = request.form.get("entryUsername").lower()
         user_password = request.form.get("entryPassword")
         log_in = login(name=user_name, entered_password=user_password, user=User)
+        print(current_user.id)
         return log_in
     return render_template("login.html")
 
@@ -126,6 +133,12 @@ def implements_login():
 def add_life_goal():
     if current_user.is_authenticated and request.method == "POST":
         selected_title = request.form.get("life-goals")
+        goal_check = Goal.query.filter_by(user_id=current_user.id).all()
+        for goal_title in goal_check:
+            if goal_title.life_goal_title == selected_title:
+                flash("Goal exists, You can only edit or delete this goal.")
+                return redirect(url_for('goals'))
+
         your_life_goal = request.form.get("lifeGoalFormControlTextarea")
         life_goal = Goal(life_goal_title=selected_title,
                          chosen_goal=your_life_goal,
@@ -133,7 +146,7 @@ def add_life_goal():
         db.session.add(life_goal)
         db.session.commit()
         return redirect(url_for('goals'))
-    return render_template("life-goals.html")
+    return render_template("add-life-goals.html")
 
 
 @app.route("/life-goals/edit/<int:life_goal_id>", methods=["GET", "POST"])
@@ -162,7 +175,7 @@ def delete_life_goal(life_goal_id):
 @login_required
 def goals():
     user_goals = Goal.query.filter_by(user_id=current_user.id).all()
-    return render_template("goals.html", user_goals=user_goals)
+    return render_template("life-goals.html", user_goals=user_goals)
 
 
 @app.route("/add_connections", methods=["GET", "POST"])
@@ -231,6 +244,11 @@ def add_finance_goals():
         amount = request.form.get("quantity").replace(" ", "")
         amount_formatted = format_number(float(amount))
         plan = request.form.get("financeFormControlTextarea")
+        goal_check = Finances.query.filter_by(user_id=current_user.id).all()
+        for goal_title in goal_check:
+            if goal_title.goal_title == title:
+                flash("Goal exists, You can only edit or delete this goal.")
+                return redirect(url_for('finance'))
         financial_goal = Finances(goal_title=title,
                                   target_amount=amount,
                                   formatted_amount=amount_formatted,
@@ -239,7 +257,7 @@ def add_finance_goals():
         db.session.add(financial_goal)
         db.session.commit()
         return redirect(url_for('finance'))
-    return render_template("all_finance.html")
+    return render_template("add-finance.html")
 
 
 @app.route("/finance/edit/<int:goal_id>", methods=["GET", "POST"])
@@ -329,6 +347,26 @@ def delete_bucketlist_item(item_id):
 def bucket_list():
     user_bucketlist = Bucketlist.query.filter_by(user_id=current_user.id)
     return render_template("bucket-list.html", user_bucketlist=user_bucketlist)
+
+
+@app.route("/admin", methods=["GET", "POST"])
+@login_required
+def delete_user():
+    if current_user.id == 1:
+        user_to_remove = 2
+        # user_to_remove = request.form.get("userID")
+        site_user = User.query.get(user_to_remove)
+        print(site_user)
+        db.session.delete(site_user)
+        db.session.commit()
+        # if request.method == "POST":
+        #     user_to_remove = 2
+        #     # user_to_remove = request.form.get("userID")
+        #     site_user = User.query.filter_by(user_id=user_to_remove)
+        #     print(site_user.username)
+    else:
+        abort(401)
+    return redirect(url_for('home'))
 
 
 @app.route("/logout")
