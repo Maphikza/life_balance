@@ -1,10 +1,14 @@
 from flask import Flask, request, render_template, redirect, url_for, flash, abort
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, LoginManager, logout_user, current_user, login_required
+from flask_mail import Mail, Message
 from pathlib import Path
 import os
 from sqlalchemy.orm.exc import UnmappedInstanceError
 from route_functions import register_user, login
+from itsdangerous import URLSafeTimedSerializer, SignatureExpired
+from werkzeug.security import generate_password_hash
+import secrets
 
 path = Path(r"C:\Users\stapi\PycharmProjects\life_scale\instance\living.db")
 
@@ -12,12 +16,21 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('LIFE_KEY')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///living.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['MAIL_SERVER'] = "smtp.gmail.com"
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USERNAME'] = os.environ.get("MY_EMAIL")
+app.config['MAIL_PASSWORD'] = os.environ.get("MY_EMAIL_APP_PASSWORD")
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
+
 db = SQLAlchemy(app)
-
-admin = os.environ.get("admin")
-
 login_manager = LoginManager()
 login_manager.init_app(app)
+mail = Mail(app)
+
+s = URLSafeTimedSerializer(secrets.token_urlsafe(16))
+
+admin = os.environ.get("admin")
 
 
 class User(UserMixin, db.Model):
@@ -400,6 +413,43 @@ def delete_user():
     else:
         abort(401)
     return render_template("admin-delete.html")
+
+
+@app.route('/reset_password', methods=['GET', 'POST'])
+def reset_request():
+    if request.method == 'POST':
+        user = User.query.filter_by(email=request.form['emailEntry']).first()
+        if user:
+            token = s.dumps(user.email, salt='email-confirm')
+            msg = Message('Password Reset Request', sender=os.environ.get("MY_EMAIL"), recipients=[user.email])
+            link = url_for('reset_token', token=token, _external=True)
+            msg.body = 'Your link is {}'.format(link)
+            mail.send(msg)
+
+            return '<h1>An email has been sent with instructions to reset your password.</h1>'
+        else:
+            flash(f'This account does not exist with us. However, you can register')
+            return redirect(url_for('reset_request'))
+
+    return render_template('reset_password.html')
+
+
+@app.route('/reset_password/<token>', methods=['GET', 'POST'])
+def reset_token(token):
+    try:
+        email = s.loads(token, salt='email-confirm', max_age=3600)
+    except SignatureExpired:
+        return '<h1>The token is expired!</h1>'
+    user = User.query.filter_by(email=email).first()
+    if user:
+        if request.method == 'POST':
+            hashed_password = generate_password_hash(password=request.form['password'],
+                                                     method='pbkdf2:sha256',
+                                                     salt_length=4)
+            user.password = hashed_password
+            db.session.commit()
+            return '<h1>Your password has been updated!</h1>'
+        return render_template('reset_token.html')
 
 
 @app.route("/logout")
