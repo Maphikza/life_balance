@@ -31,7 +31,7 @@
   <div class="card text-bg-light mb-3" style="max-width: 18rem;">
     <div class="card-body">
       <h5 class="card-title">{{goal.life_goal_title}}</h5>
-      <p class="card-text">{{goal.chosen_goal}}
+         <p class="card-text">{{d_func(goal.chosen_goal)}}
         <a type="submit" class="btn btn-primary btn-sm m-1" href="{{url_for('life_goal_edit', life_goal_id=goal.id)}}">Edit</a>
         <a type="submit" class="btn btn-primary btn-sm m-1" href="{{url_for('delete_life_goal', life_goal_id=goal.id)}}">Delete</a></p>
     </div>

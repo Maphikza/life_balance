@@ -25,7 +25,7 @@
     <div class="card-body">
       <h5 class="card-title">{{goal.bucket_list_item_title}}</h5>
       <h5 class="card-title">R{{goal.formatted_cost}}</h5>
-      <p class="card-text">{{goal.bucket_list_item}}
+      <p class="card-text">{{d_func(goal.bucket_list_item)}}
         <a type="submit" class="btn btn-primary btn-sm m-1" href="{{url_for('edit_bucket_list_item', item_id=goal.id)}}">Edit</a>
         <a type="submit" class="btn btn-primary btn-sm m-1" href="{{url_for('delete_bucketlist_item', item_id=goal.id)}}">Delete</a></p>
     </div>

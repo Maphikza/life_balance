@@ -13,21 +13,21 @@
   <h1>Edit Connections!</h1>
   <form class="connections-edit-form g-3" method="post">
     <div class="mb-3">
-      <label for="editEntryName" class="visually-hidden">Connection Name</label>
+      <label for="editEntryName" >Connection Name</label>
       <input type="text" class="form-control" id="editEntryName" name="editEntryName" placeholder="Edit Username">
     </div>
     <div class="mb-3">
-      <label for="editEntryRelate" class="visually-hidden">Relationship to you</label>
-      <input type="text" class="form-control" id="editEntryRelate" name="editEntryRelate" placeholder="Edit Email">
+      <label for="editEntryRelate" >Edit Relationship</label>
+      <input type="text" class="form-control" id="editEntryRelate" name="editEntryRelate" placeholder="Edit Relationship">
     </div>
     <div class="mb-3">
       <label for="editEntryDate" class="visually-hidden">Date of Birth</label>
       <input type="date" class="form-control" id="editEntryDate" name="editEntryDate">
     </div>
     <div class="mb-3">
-      <label for="relationshipFormControlTextareaEdit" class="form-label">Edit Your thoughts on the Relationship</label>
+      <label for="relationshipFormControlTextareaEdit" class="form-label">Edit Thoughts</label>
       <textarea class="form-control" id="relationshipFormControlTextareaEdit" name="relationshipFormControlTextareaEdit"
-        rows="3"></textarea>
+        rows="3">{{d_func(connect.relationship_thoughts)}}</textarea>
     </div>
     <div class="col">
       <button type="submit" class="btn btn-primary mb-3">Submit Edit</button>

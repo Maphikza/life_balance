@@ -8,6 +8,7 @@ from sqlalchemy.orm.exc import UnmappedInstanceError
 from route_functions import register_user, login
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired
 from werkzeug.security import generate_password_hash
+from cryptography.fernet import Fernet, InvalidToken
 import secrets
 
 path = Path(r"C:\Users\stapi\PycharmProjects\life_scale\instance\living.db")
@@ -31,6 +32,22 @@ mail = Mail(app)
 s = URLSafeTimedSerializer(secrets.token_urlsafe(16))
 
 admin = os.environ.get("admin")
+
+# with app.app_context():
+#     key = Fernet.generate_key()
+#     print(key)
+
+key = os.environ.get("F_KEY")
+
+fernet = Fernet(key)
+
+
+def encrypt_data(data):
+    return fernet.encrypt(data.encode())
+
+
+def decrypt_data(data):
+    return fernet.decrypt(data).decode()
 
 
 class User(UserMixin, db.Model):
@@ -150,6 +167,7 @@ def add_life_goal():
                 return redirect(url_for('goals'))
 
         your_life_goal = request.form.get("lifeGoalFormControlTextarea")
+        your_life_goal = encrypt_data(your_life_goal)
         life_goal = Goal(life_goal_title=selected_title,
                          chosen_goal=your_life_goal,
                          user_id=current_user.id)
@@ -165,10 +183,11 @@ def life_goal_edit(life_goal_id):
     goal_edit = Goal.query.get(life_goal_id)
     if current_user.is_authenticated and request.method == "POST":
         the_edit = request.form.get("editLifeGoalFormControlTextarea")
+        the_edit = encrypt_data(the_edit)
         goal_edit.chosen_goal = the_edit
         db.session.commit()
         return redirect(url_for('goals'))
-    return render_template("life-goals-edit.html", life_edit=goal_edit)
+    return render_template("life-goals-edit.html", life_edit=goal_edit, d_func=decrypt_data)
 
 
 @app.route("/life-goals/delete/<int:life_goal_id>", methods=["GET", "POST"])
@@ -185,7 +204,7 @@ def delete_life_goal(life_goal_id):
 @login_required
 def goals():
     user_goals = Goal.query.filter_by(user_id=current_user.id).all()
-    return render_template("life-goals.html", user_goals=user_goals)
+    return render_template("life-goals.html", user_goals=user_goals, d_func=decrypt_data)
 
 
 @app.route("/add_connections", methods=["GET", "POST"])
@@ -193,9 +212,12 @@ def goals():
 def add_connections():
     if current_user.is_authenticated and request.method == "POST":
         person_name = request.form.get("entryName")
+        person_name = encrypt_data(person_name)
         relationship_to_person = request.form.get("entryRelate")
+        relationship_to_person = encrypt_data(relationship_to_person)
         person_date_of_birth = request.form.get("entryDate")
         what_you_think_about_person = request.form.get("relationshipFormControlTextarea")
+        what_you_think_about_person = encrypt_data(what_you_think_about_person)
         your_connection = Connection(name=person_name,
                                      relationship_to_user=relationship_to_person,
                                      birth_date=person_date_of_birth,
@@ -217,16 +239,19 @@ def connections_edit(connect_id):
         date_of_birth = request.form.get("editEntryDate")
         thoughts = request.form.get("relationshipFormControlTextareaEdit")
         if connection_name:
+            connection_name = encrypt_data(connection_name)
             connection_goal_edit.name = connection_name
         if relationship:
+            relationship = encrypt_data(relationship)
             connection_goal_edit.relationship_to_user = relationship
         if date_of_birth:
             connection_goal_edit.birth_date = date_of_birth
         if thoughts:
+            thoughts = encrypt_data(thoughts)
             connection_goal_edit.relationship_thoughts = thoughts
         db.session.commit()
         return redirect(url_for('connections'))
-    return render_template("edit-connections.html")
+    return render_template("edit-connections.html", connect=connection_goal_edit, d_func=decrypt_data)
 
 
 @app.route("/connections/delete/<int:connect_id>", methods=["GET", "POST"])
@@ -243,7 +268,7 @@ def delete_connection(connect_id):
 @login_required
 def connections():
     user_connections = Connection.query.filter_by(user_id=current_user.id)
-    return render_template("connections.html", user_connections=user_connections)
+    return render_template("connections.html", user_connections=user_connections, d_func=decrypt_data)
 
 
 @app.route("/add-finance", methods=["GET", "POST"])
@@ -253,7 +278,9 @@ def add_finance_goals():
         title = request.form.get("finance-goals")
         amount = request.form.get("quantity").replace(" ", "")
         amount_formatted = format_number(float(amount))
+        amount_formatted = encrypt_data(amount_formatted)
         plan = request.form.get("financeFormControlTextarea")
+        plan = encrypt_data(plan)
         goal_check = Finances.query.filter_by(user_id=current_user.id).all()
         for goal_title in goal_check:
             if goal_title.goal_title == title:
@@ -276,15 +303,19 @@ def finance_edit(goal_id):
     finance_goal_edit = Finances.query.get(goal_id)
     if current_user.is_authenticated and request.method == "POST":
         goal_edit = request.form.get("financeFormControlTextarea-edit")
-        print(goal_edit)
-        amount = request.form.get("quantity_edit").strip()
+        amount = request.form.get("quantity_edit").replace(" ", "")
         if goal_edit:
+            goal_edit = encrypt_data(goal_edit)
             finance_goal_edit.financial_goal = goal_edit
         if amount:
             finance_goal_edit.target_amount = amount
+            formatted_amount = format_number(float(amount))
+            formatted_amount = encrypt_data(formatted_amount)
+            finance_goal_edit.formatted_amount = formatted_amount
+
         db.session.commit()
         return redirect(url_for("finance"))
-    return render_template("finances_edit.html", finance_goal=finance_goal_edit)
+    return render_template("finances_edit.html", finance_goal=finance_goal_edit, d_func=decrypt_data)
 
 
 @app.route("/finance/delete/<int:goal_id>", methods=["GET", "POST"])
@@ -301,7 +332,7 @@ def delete_finance_goal(goal_id):
 @login_required
 def finance():
     user_finances = Finances.query.filter_by(user_id=current_user.id)
-    return render_template("finance.html", user_finances=user_finances, func=format_number)
+    return render_template("finance.html", user_finances=user_finances, func=format_number, d_func=decrypt_data)
 
 
 @app.route("/add-bucketlist", methods=["GET", "POST"])
@@ -312,6 +343,7 @@ def add_bucketlist_item():
         cost = request.form.get("costFormControlInput").replace(" ", "")
         cost_formatted = format_number(float(cost))
         item_details = request.form.get("bucketListFormControlTextarea")
+        item_details = encrypt_data(item_details)
         bucket_list_item = Bucketlist(bucket_list_item_title=item_title,
                                       bucket_list_item=item_details,
                                       item_cost=cost,
@@ -336,10 +368,11 @@ def edit_bucket_list_item(item_id):
         if cost_edit:
             bucket_list_edit.item_cost = cost_edit
         if item_text_edit:
+            item_text_edit = encrypt_data(item_text_edit)
             bucket_list_edit.bucket_list_item = item_text_edit
         db.session.commit()
         return redirect(url_for("bucket_list"))
-    return render_template("edit-bucket-list.html")
+    return render_template("edit-bucket-list.html", user_bucket_list=bucket_list_edit, d_func=decrypt_data)
 
 
 @app.route("/bucket-list/delete/<int:item_id>", methods=["GET", "POST"])
@@ -356,7 +389,7 @@ def delete_bucketlist_item(item_id):
 @login_required
 def bucket_list():
     user_bucketlist = Bucketlist.query.filter_by(user_id=current_user.id)
-    return render_template("bucket-list.html", user_bucketlist=user_bucketlist)
+    return render_template("bucket-list.html", user_bucketlist=user_bucketlist, d_func=decrypt_data)
 
 
 @app.route("/admin", methods=["GET", "POST"])

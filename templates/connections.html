@@ -21,10 +21,10 @@
   </div>
   {% for connection in user_connections %}
   <div class="card text-bg-light mb-3" style="max-width: 18rem;">
-    <div class="card-header">{{connection.name}}</div>
+    <div class="card-header">{{d_func(connection.name)}}</div>
     <div class="card-body">
-      <h5 class="card-title">{{connection.relationship_to_user}}</h5>
-      <p class="card-text">{{connection.relationship_thoughts}}
+      <h5 class="card-title">{{d_func(connection.relationship_to_user)}}</h5>
+      <p class="card-text">{{d_func(connection.relationship_thoughts)}}
         <a type="submit" class="btn btn-primary btn-sm m-1" href="{{url_for('connections_edit', connect_id=connection.id)}}">Edit</a>
         <a type="submit" class="btn btn-primary btn-sm m-1" href="{{url_for('delete_connection', connect_id=connection.id)}}">Delete</a></p>
     </div>

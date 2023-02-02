@@ -17,9 +17,9 @@
         <input class="form-control" type="text" id="quantity_edit" name="quantity_edit"  placeholder="Edit target amount.">
         <label for="financeFormControlTextarea-edit" class="form-label">Edit Goal Thoughts</label>
         <textarea class="form-control" id="financeFormControlTextarea-edit" name="financeFormControlTextarea-edit"
-        rows="3"></textarea>
+        rows="3">{{d_func(finance_goal.financial_goal)}}</textarea>
     </div>
-    <div class="col">
+    <div>
       <button type="submit" class="btn btn-primary mb-3">Submit</button>
     </div>
   </form>

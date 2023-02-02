@@ -15,7 +15,7 @@
     <div class="mb-3">
       <label for="editLifeGoalFormControlTextarea">Edit {{life_edit.life_goal_title}}</label>
       <textarea class="form-control" id="editLifeGoalFormControlTextarea" name="editLifeGoalFormControlTextarea"
-        rows="3"></textarea>
+        rows="3">{{d_func(life_edit.chosen_goal)}}</textarea>
     </div>
     <div class="col">
       <button type="submit" class="btn btn-primary mb-3">Save Edit</button>
