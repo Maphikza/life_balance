@@ -10,30 +10,75 @@
 </head>
 
 <body>
-  <h1>Deep Relationships</h1>
-  <div class="btn-group">
-  <a href="{{url_for('home')}}" class="btn btn-primary">Home</a>
-    <a href="{{url_for('goals')}}" class="btn btn-primary" >Goals</a>
-    <a href="{{url_for('connections')}}" class="btn btn-primary active" aria-current="page">Connections</a>
-    <a href="{{url_for('finance')}}" class="btn btn-primary">Finance</a>
-    <a href="{{url_for('bucket_list')}}" class="btn btn-primary">Bucket List</a>
-    <a href="{{url_for('logout')}}" class="btn btn-primary">logout</a>
-  </div>
-  {% for connection in user_connections %}
-  <div class="card text-bg-light mb-3" style="max-width: 18rem;">
-    <div class="card-header">{{d_func(connection.name)}}</div>
-    <div class="card-body">
-      <h5 class="card-title">{{d_func(connection.relationship_to_user)}}</h5>
-      <p class="card-text">{{d_func(connection.relationship_thoughts)}}
-        <a type="submit" class="btn btn-primary btn-sm m-1" href="{{url_for('connections_edit', connect_id=connection.id)}}">Edit</a>
-        <a type="submit" class="btn btn-primary btn-sm m-1" href="{{url_for('delete_connection', connect_id=connection.id)}}">Delete</a></p>
+  <div class="container-fluid">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="goals navbar">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{{url_for('home')}}">Home</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarConnect"
+          aria-controls="navbarConnect" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarConnect">
+          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('goals')}}">Goals</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{{url_for('connections')}}">Connections</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('finance')}}">Finance</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('bucket_list')}}">Bucket List</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center bg-light">
+        <div class="col-md-9 p-lg-5 mx-auto my-5">
+          <h1 class="display-4 fw-normal">Deep Relationships</h1>
+          <p class="lead fw-normal">"Welcome to the exploration of your close connections and relationships. Our
+            relationships with family, friends, and significant others play a significant role in shaping our lives and
+            determining our happiness. On this page, you will have the opportunity to reflect on the relationships that
+            matter most to you and gain insights into how you can strengthen and deepen them. Whether it's improving
+            communication, setting boundaries, or finding common ground, you'll learn valuable skills to enhance your
+            connections with the people you care about. So take a moment to focus on the relationships that matter most
+            to you, and let's start building deeper connections together."
+          </p>
+          <a type="submit" class="btn btn-dark btn-lg m-1" href="{{url_for('add_connections')}}">Add Connection</a>
+        </div>
+      </div>
+      <div class="row align-items-md-stretch">
+        {% for connection in user_connections %}
+        <div class="col-md-6">
+          <div class="h-100 p-5 bg-light border rounded-3">
+            <h2>{{d_func(connection.name)}} | {{d_func(connection.relationship_to_user)}}</h2><br>
+            <p>{{d_func(connection.relationship_thoughts)}}</p>
+            <a type="submit" class="btn btn-outline-dark btn-sm m-1"
+              href="{{url_for('connections_edit', connect_id=connection.id)}}">Edit</a>
+            <a type="submit" class="btn btn-outline-dark btn-sm m-1"
+              href="{{url_for('delete_connection', connect_id=connection.id)}}">Delete</a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="container">
+      <footer class="py-3 my-4">
+        <p class="text-center text-muted">© 2023 Life Balance, Inc</p>
+      </footer>
     </div>
   </div>
-  {% endfor %}
-  <a type="submit" class="btn btn-primary btn-lg m-1" href="{{url_for('add_connections')}}">Add Connection</a>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-    crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"></script>
 </body>
 
 </html>

@@ -10,29 +10,76 @@
 </head>
 
 <body>
-  <h1>Bucket List</h1>
-  <div class="btn-group">
-    <a href="{{url_for('home')}}" class="btn btn-primary">Home</a>
-    <a href="{{url_for('goals')}}" class="btn btn-primary" >Goals</a>
-    <a href="{{url_for('connections')}}" class="btn btn-primary">Connections</a>
-    <a href="{{url_for('finance')}}" class="btn btn-primary">Finance</a>
-    <a href="{{url_for('bucket_list')}}" class="btn btn-primary active" aria-current="page">Bucket List</a>
-    <a href="{{url_for('logout')}}" class="btn btn-primary">logout</a>
-  </div>
-  {% for goal in user_bucketlist %}
-      {% if goal.goal_title != None %}
-  <div class="card text-bg-light mb-3" style="max-width: 18rem;">
-    <div class="card-body">
-      <h5 class="card-title">{{goal.bucket_list_item_title}}</h5>
-      <h5 class="card-title">R{{goal.formatted_cost}}</h5>
-      <p class="card-text">{{d_func(goal.bucket_list_item)}}
-        <a type="submit" class="btn btn-primary btn-sm m-1" href="{{url_for('edit_bucket_list_item', item_id=goal.id)}}">Edit</a>
-        <a type="submit" class="btn btn-primary btn-sm m-1" href="{{url_for('delete_bucketlist_item', item_id=goal.id)}}">Delete</a></p>
+  <div class="container-fluid">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="goals navbar">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{{url_for('home')}}">Home</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarConnect"
+          aria-controls="navbarConnect" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarConnect">
+          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('goals')}}">Goals</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('connections')}}">Connections</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('finance')}}">Finance</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{{url_for('bucket_list')}}">Bucket List</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+
+      <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center bg-light">
+        <div class="col-md-9 p-lg-5 mx-auto my-5">
+          <h1 class="display-4 fw-normal">Bucket List</h1>
+          <p class="lead fw-normal">"Welcome to our personal bucket list page, where we believe that life is meant to be
+            lived to the fullest. Here, we invite you to reflect on your aspirations, dreams, and goals, and turn them
+            into actionable items that can bring you joy, fulfillment, and a sense of accomplishment. Whether you want
+            to travel the world, learn a new skill, or make a positive impact on the world, a personal bucket list can
+            help you focus your energy and bring meaning to your life. On this page, we will provide inspiration, tips,
+            and resources to help you create and achieve your own unique bucket list. So why wait? Let's start crossing
+            items off your list and make every moment count!"
+          </p>
+          <a type="submit" class="btn btn-dark btn-lg m-1" href="{{url_for('add_bucketlist_item')}}">Add Goal</a>
+        </div>
+      </div>
+      <div class="row align-items-md-stretch">
+        {% for goal in user_bucketlist %}
+        {% if goal.goal_title != None %}
+        <div class="col-md-6">
+          <div class="h-100 p-5 bg-light border rounded-3">
+            <h2>{{goal.bucket_list_item_title}} | R{{goal.formatted_cost}}</h2>
+            <p>{{d_func(goal.bucket_list_item)}}</p>
+            <a type="submit" class="btn btn-outline-dark btn-sm m-1"
+              href="{{url_for('edit_bucket_list_item', item_id=goal.id)}}">Edit</a>
+            <a type="submit" class="btn btn-outline-dark btn-sm m-1"
+              href="{{url_for('delete_bucketlist_item', item_id=goal.id)}}">Delete</a>
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
     </div>
   </div>
-      {% endif %}
-  {% endfor %}
-  <a type="submit" class="btn btn-primary btn-lg m-1" href="{{url_for('add_bucketlist_item')}}">Add Goal</a>
+  <div class="container">
+    <footer class="py-3 my-4">
+      <p class="text-center text-muted">© 2023 Life Balance, Inc</p>
+    </footer>
+  </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
     crossorigin="anonymous"></script>

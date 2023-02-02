@@ -8,7 +8,7 @@ from sqlalchemy.orm.exc import UnmappedInstanceError
 from route_functions import register_user, login
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired
 from werkzeug.security import generate_password_hash
-from cryptography.fernet import Fernet, InvalidToken
+from cryptography.fernet import Fernet
 import secrets
 
 path = Path(r"C:\Users\stapi\PycharmProjects\life_scale\instance\living.db")
@@ -35,7 +35,6 @@ admin = os.environ.get("admin")
 
 # with app.app_context():
 #     key = Fernet.generate_key()
-#     print(key)
 
 key = os.environ.get("F_KEY")
 
@@ -150,7 +149,6 @@ def implements_login():
         user_name = request.form.get("entryUsername").lower()
         user_password = request.form.get("entryPassword")
         log_in = login(name=user_name, entered_password=user_password, user=User)
-        print(current_user.id)
         return log_in
     return render_template("login.html")
 

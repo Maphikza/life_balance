@@ -10,36 +10,83 @@
 </head>
 
 <body>
-  <h1>Financial Goals</h1>
-  <div class="btn-group">
-    <a href="{{url_for('home')}}" class="btn btn-primary">Home</a>
-    <a href="{{url_for('goals')}}" class="btn btn-primary" >Goals</a>
-    <a href="{{url_for('connections')}}" class="btn btn-primary">Connections</a>
-    <a href="{{url_for('finance')}}" class="btn btn-primary active" aria-current="page">Finance</a>
-    <a href="{{url_for('bucket_list')}}" class="btn btn-primary">Bucket List</a>
-    <a href="{{url_for('logout')}}" class="btn btn-primary">logout</a>
-  </div>
-  {% with messages = get_flashed_messages() %}
+  <div class="container-fluid">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="goals navbar">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{{url_for('home')}}">Home</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarConnect"
+          aria-controls="navbarConnect" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarConnect">
+          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('goals')}}">Goals</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('connections')}}">Connections</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{{url_for('finance')}}">Finance</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('bucket_list')}}">Bucket List</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center bg-light">
+        <div class="col-md-9 p-lg-5 mx-auto my-5">
+          <h1 class="display-4 fw-normal">Financial Goals</h1>
+          <p class="lead fw-normal">"Welcome to the finance page; we believe that financial well-being starts
+            with thoughtful planning and reflection. Our goal is to help you make informed decisions about your
+            financial future, so that you can feel secure and confident about your financial security. On this website,
+            we will guide you through important financial topics such as emergency funds, life insurance, medical
+            insurance, disability coverage, and income insurance. By taking the time to reflect on your financial
+            situation and make a plan for the future, you can ensure that you and your loved ones are protected against
+            life's uncertainties. Let's get started on your financial journey today!"
+          </p>
+          <a type="submit" class="btn btn-dark btn-lg m-1" href="{{url_for('add_finance_goals')}}">Add Goal</a>
+        </div>
+      </div>
+
+
+      {% with messages = get_flashed_messages() %}
       {% if messages %}
-          {% for message in messages %}
-              <p class="flashes">{{ message }}</p>
-          {% endfor %}
+      {% for message in messages %}
+      <p class="flashes">{{ message }}</p>
+      {% endfor %}
       {% endif%}
-  {% endwith %}
-  {% for goal in user_finances %}
-      {% if goal.goal_title != None %}
-  <div class="card text-bg-light mb-3" style="max-width: 18rem;">
-    <div class="card-body">
-      <h5 class="card-title">{{goal.goal_title}}</h5>
-      <h5 class="card-title">R{{d_func(goal.formatted_amount)}}</h5>
-      <p class="card-text">{{d_func(goal.financial_goal)}}
-        <a type="submit" class="btn btn-primary btn-sm m-1" href="{{url_for('finance_edit', goal_id=goal.id)}}">Edit</a>
-        <a type="submit" class="btn btn-primary btn-sm m-1" href="{{url_for('delete_finance_goal', goal_id=goal.id)}}">Delete</a></p>
+      {% endwith %}
+      <div class="row align-items-md-stretch">
+        {% for goal in user_finances %}
+        {% if goal.goal_title != None %}
+        <div class="col-md-6">
+          <div class="h-100 p-5 bg-light border rounded-3">
+            <h2>{{goal.goal_title}} | R{{d_func(goal.formatted_amount)}}</h2>
+            <p>{{d_func(goal.financial_goal)}}</p>
+            <a type="submit" class="btn btn-outline-dark btn-sm m-1"
+              href="{{url_for('finance_edit', goal_id=goal.id)}}">Edit</a>
+            <a type="submit" class="btn btn-outline-dark btn-sm m-1"
+              href="{{url_for('delete_finance_goal', goal_id=goal.id)}}">Delete</a>
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
     </div>
   </div>
-      {% endif %}
-  {% endfor %}
-  <a type="submit" class="btn btn-primary btn-lg m-1" href="{{url_for('add_finance_goals')}}">Add Goal</a>
+  <div class="container">
+    <footer class="py-3 my-4">
+      <p class="text-center text-muted">© 2023 Life Balance, Inc</p>
+    </footer>
+  </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
     crossorigin="anonymous"></script>
