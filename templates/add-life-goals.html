@@ -10,25 +10,69 @@
 </head>
 
 <body>
+  <div class="container-fluid">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="goals navbar">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{{url_for('home')}}">Home</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarGoal"
+          aria-controls="navbarGoal" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-  <form class="life-goal-form g-3" method="post">
-    <div class="mb-3">
-        <select class="form-select" aria-label="Default select example" name="life-goals" id="life-goals" >
-       <option selected>Purpose</option>
-       <option value="Spirit">Spirit</option>
-       <option value="Mental">Mental</option>
-       <option value="Physical">Physical</option>
-      </select>
-      <textarea class="form-control" id="lifeGoalFormControlTextarea" name="lifeGoalFormControlTextarea"
-        rows="3"></textarea>
+        <div class="collapse navbar-collapse" id="navbarGoal">
+          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{{url_for('goals')}}">Goals</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('connections')}}">Connections</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('finance')}}">Finance</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('bucket_list')}}">Bucket List</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center bg-light">
+        <div class="col-md-9 p-lg-5 mx-auto my-5">
+          <h4 class="display-5 fw-normal">Choose a Goal and write about it</h4>
+          <div class="container">
+            <form class="life-goal-form g-3" method="post">
+              <div class="mb-3">
+                <select class="form-select fw-normal" aria-label="Default select example" name="life-goals"
+                  id="life-goals">
+                  <option selected>Purpose</option>
+                  <option value="Spirit">Spirit</option>
+                  <option value="Mental">Mental</option>
+                  <option value="Physical">Physical</option>
+                </select>
+                <textarea class="form-control" id="lifeGoalFormControlTextarea" name="lifeGoalFormControlTextarea"
+                  rows="6"></textarea>
+              </div>
+              <div class="col">
+                <button type="submit" class="btn btn-lg btn-dark mb-3">Add Goal</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="col">
-      <button type="submit" class="btn btn-primary mb-3">Add Goal</button>
+    <div class="container">
+      <footer class="py-3 my-4">
+        <p class="text-center text-muted">© 2023 Life Balance, Inc</p>
+      </footer>
     </div>
-  </form>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-    crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"></script>
 </body>
 
 </html>
