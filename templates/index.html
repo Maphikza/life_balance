@@ -68,7 +68,7 @@
   <div class="container">
     <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center bg-light">
       <div class="col-md-9 p-lg-5 mx-auto my-5">
-        <h1 class="display-4 fw-normal">A Balance Human, A balanced world.</h1>
+        <h1 class="display-4 fw-normal">Balanced Human, Balanced World.</h1>
         <p class="lead fw-normal">"Welcome to our innovative web application designed to help you reflect on the most
           important aspects of your life. Our mission is to create a safe and inspiring space where you can explore your
           personal aspirations, relationships, and financial well-being. This app is designed to guide you on a journey
@@ -78,16 +78,20 @@
           financial security. Finally, we'll help you create and achieve your bucket list, turning your dreams into a
           reality. Join us today and start living the life you've always imagined."
         </p>
-        <h4>Where would you like to start.</h4>
-        <div class="btn-group">
-          <a href="{{url_for('goals')}}" class="btn btn-lg btn-dark">Goals</a>
-          <a href="{{url_for('connections')}}" class="btn btn-lg btn-dark">Connections</a>
-          <a href="{{url_for('finance')}}" class="btn btn-lg btn-dark">Finance</a>
-          <a href="{{url_for('bucket_list')}}" class="btn btn-lg btn-dark">Bucket List</a>
-        </div>
       </div>
+    </div>
+  </div>
+  <div class="container text-center">
+    <h2 class="display-5 fw-normal">Where would you like to start.</h2>
+    <div class="row position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center bg-light">
+      <a href="{{url_for('goals')}}" class="btn btn-lg btn-dark col-md-3">Goals</a>
+      <a href="{{url_for('connections')}}" class="btn btn-lg btn-dark col-md-3">Connections</a>
+      <a href="{{url_for('finance')}}" class="btn btn-lg btn-dark col-md-3">Finance</a>
+      <a href="{{url_for('bucket_list')}}" class="btn btn-lg btn-dark col-md-3">Bucket List</a>
+    </div>
+  </div>
       <div class="container">
-        <footer class="py-3 my-4">
+        <footer class="py-3 my-4 pt-5">
           <p class="text-center text-muted">© 2023 Life Balance, Inc</p>
         </footer>
       </div>
