@@ -10,7 +10,7 @@
 </head>
 
 <body>
-  <div class="container-fluid">
+  <div class="container-fluid bg-dark">
     <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="goals navbar">
       <div class="container-fluid">
         <a class="navbar-brand" href="{{url_for('home')}}">Home</a>
@@ -44,7 +44,7 @@
             </li>
             {% if current_user.id == 1 %}
             <li class="nav-item">
-              <a class="nav-link" href="{{url_for('bucket_list')}}">Bucket List</a>
+              <a class="nav-link" href="{{url_for('delete_user')}}">Admin</a>
             </li>
             {% endif %}
             <li class="nav-item">

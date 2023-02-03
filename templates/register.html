@@ -10,28 +10,87 @@
 </head>
 
 <body>
-  <h1>Register!</h1>
-  <form class="registration-form row g-3" method="post">
-    <div class="col">
-      <label for="entryUsername" class="visually-hidden">Username</label>
-      <input type="text" class="form-control" id="entryUsername" name="entryUsername" placeholder="Enter Username">
+  <div class="container-fluid bg-dark">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="goals navbar">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{{url_for('home')}}">Home</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarGoal"
+          aria-controls="navbarGoal" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarGoal">
+          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            {% if not current_user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('implements_login')}}">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{{url_for('implement_registration')}}">Register</a>
+            </li>
+            {% endif %}
+            {% if current_user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('goals')}}">Goals</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('connections')}}">Connections</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('finance')}}">Finance</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('bucket_list')}}">Bucket List</a>
+            </li>
+            {% if current_user.id == 1 %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('bucket_list')}}">Bucket List</a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <div class="container">
+    <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center bg-light">
+      <div class="col-md-9 p-lg-5 mx-auto my-5">
+        <h3 class="display-4 fw-normal">Register
+        </h3>
+        <form class="registration-form row g-3 text-start" method="post">
+          <div>
+            <label for="entryUsername" class="display-6 fw-normal pb-2">Username</label>
+            <input type="text" class="form-control" id="entryUsername" name="entryUsername"
+              placeholder="Enter Username">
+          </div>
+          <div>
+            <label for="entryEmail" class="display-6 fw-normal pb-2">Email</label>
+            <input type="text" class="form-control" id="entryEmail" name="entryEmail" placeholder="Enter Email">
+          </div>
+          <div>
+            <label for="entryDate" class="display-6 fw-normal pb-2">Date of Birth</label>
+            <input type="date" class="form-control" id="entryDate" name="entryDate">
+          </div>
+          <div>
+            <label for="entryPassword" class="display-6 fw-normal pb-2">Password</label>
+            <input type="password" class="form-control" id="entryPassword" name="entryPassword" placeholder="Password">
+          </div>
+          <div>
+            <button type="submit" class="btn btn-lg btn-dark mb-3">Register</button>
+          </div>
+        </form>
+      </div>
     </div>
-    <div class="col">
-      <label for="entryEmail" class="visually-hidden">Email</label>
-      <input type="text" class="form-control" id="entryEmail" name="entryEmail" placeholder="Enter Email">
-    </div>
-    <div class="col">
-      <label for="entryDate" class="visually-hidden">Date of Birth</label>
-      <input type="date" class="form-control" id="entryDate" name="entryDate">
-    </div>
-    <div class="col">
-      <label for="entryPassword" class="visually-hidden">Password</label>
-      <input type="password" class="form-control" id="entryPassword" name="entryPassword" placeholder="Password">
-    </div>
-    <div class="col">
-      <button type="submit" class="btn btn-primary mb-3">Register</button>
-    </div>
-  </form>
+  </div>
+  <div class="container">
+    <footer class="py-3 my-4 pt-5">
+      <p class="text-center text-muted">© 2023 Life Balance, Inc</p>
+    </footer>
+  </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
     crossorigin="anonymous"></script>

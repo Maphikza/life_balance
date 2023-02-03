@@ -10,7 +10,7 @@
 </head>
 
 <body>
-  <div class="container-fluid">
+  <div class="container-fluid bg-dark">
     <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="goals navbar">
       <div class="container-fluid">
         <a class="navbar-brand" href="{{url_for('home')}}">Home</a>
@@ -40,41 +40,41 @@
         </div>
       </div>
     </nav>
-
-    <div class="container">
-      <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center bg-light">
-        <div class="col-md-9 p-lg-5 mx-auto my-5">
-          <h4 class="display-4 fw-normal">Add your Relationships.</h4>
-          <div class="container">
-            <form class="connections-form g-3" method="post">
-              <div class="mb-3">
-                <label for="entryName" class="visually-hidden">Connection Name</label>
-                <input type="text" class="form-control" id="entryName" name="entryName" placeholder="Enter Username">
-              </div>
-              <div class="mb-3">
-                <label for="entryRelate" class="visually-hidden">Relationship to you</label>
-                <input type="text" class="form-control" id="entryRelate" name="entryRelate"
-                  placeholder="Enter Relationship. e.g Friend">
-              </div>
-              <div class="mb-3">
-                <label for="entryDate" class="visually-hidden">Date of Birth</label>
-                <input type="date" class="form-control" id="entryDate" name="entryDate">
-              </div>
-              <div class="mb-3">
-                <label for="relationshipFormControlTextarea" class="form-label display-6 fw-normal">Your thoughts on the
-                  Relationship:</label>
-                <textarea class="form-control" id="relationshipFormControlTextarea"
-                  name="relationshipFormControlTextarea" rows="6"></textarea>
-              </div>
-              <div class="col">
-                <button type="submit" class="btn btn-lg btn-dark mb-3">Add Connection</button>
-              </div>
-            </form>
-          </div>
+  </div>
+  <div class="container">
+    <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center bg-light">
+      <div class="col-md-9 p-lg-5 mx-auto my-5">
+        <h4 class="display-4 fw-normal">Add your Relationships.</h4>
+        <div class="container">
+          <form class="connections-form g-3" method="post">
+            <div class="mb-3">
+              <label for="entryName" class="visually-hidden">Connection Name</label>
+              <input type="text" class="form-control" id="entryName" name="entryName" placeholder="Enter Username">
+            </div>
+            <div class="mb-3">
+              <label for="entryRelate" class="visually-hidden">Relationship to you</label>
+              <input type="text" class="form-control" id="entryRelate" name="entryRelate"
+                placeholder="Enter Relationship. e.g Friend">
+            </div>
+            <div class="mb-3">
+              <label for="entryDate" class="visually-hidden">Date of Birth</label>
+              <input type="date" class="form-control" id="entryDate" name="entryDate">
+            </div>
+            <div class="mb-3">
+              <label for="relationshipFormControlTextarea" class="form-label display-6 fw-normal">Your thoughts on the
+                Relationship:</label>
+              <textarea class="form-control" id="relationshipFormControlTextarea" name="relationshipFormControlTextarea"
+                rows="6"></textarea>
+            </div>
+            <div class="col">
+              <button type="submit" class="btn btn-lg btn-dark mb-3">Add Connection</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
+
   <div class="container">
     <footer class="py-3 my-4">
       <p class="text-center text-muted">© 2023 Life Balance, Inc</p>
