@@ -81,6 +81,7 @@
       </div>
     </div>
   </div>
+  {% if current_user.is_authenticated %}
   <div class="container text-center">
     <h2 class="display-5 fw-normal">Where would you like to start.</h2>
     <div class="row position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center bg-light">
@@ -89,9 +90,10 @@
       <a href="{{url_for('finance')}}" class="btn btn-lg btn-dark col-md-3">Finance</a>
       <a href="{{url_for('bucket_list')}}" class="btn btn-lg btn-dark col-md-3">Bucket List</a>
     </div>
+    {% endif %}
   </div>
       <div class="container">
-        <footer class="py-3 my-4 pt-5">
+        <footer class="footer mt-auto py-3 my-4 pt-5">
           <p class="text-center text-muted">© 2023 Life Balance, Inc</p>
         </footer>
       </div>
