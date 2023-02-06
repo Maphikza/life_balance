@@ -45,6 +45,15 @@
     <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center bg-light">
       <div class="col-md-9 p-lg-5 mx-auto my-5">
         <h4 class="display-5 fw-normal">Work on a goal.</h4>
+        <p class="lead fw-normal mb-4">"Discovering your purpose, spirituality, mental capabilities, and physical health are
+          all crucial elements that contribute to a fulfilling life. By reflecting on what you want your life to stand
+          for, what brings you spiritual grounding, what skills you wish to develop, and what kind of body you aspire to
+          have, you are taking the first step towards setting meaningful goals for yourself. These prompts serve as a
+          starting point for you to explore and refine your personal aspirations. Embrace the journey of self-discovery
+          and make a conscious effort to actively shape the life you desire."
+        </p>
+        <button class="btn btn-dark" type="button" data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Life Goal Primers</button>
 
 
         <div class="container">
@@ -52,7 +61,7 @@
             <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
               id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
               <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasScrollingLabel">To help you think about each Goal.</h5>
+                <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Life Goal Primers</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
               </div>
               <div class="offcanvas-body">
@@ -60,13 +69,16 @@
                   <div class="accordion-item">
                     <h2 class="accordion-header" id="headingOne">
                       <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                         Purpose.
                       </button>
                     </h2>
-                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                       data-bs-parent="#accordionExample">
-                      <div class="accordion-body"><audio controls><source src="{{ url_for('static', filename='synthesized_audio_purpose.mp3') }}" type="audio/mpeg"></audio>
+                      <div class="accordion-body"><audio controls>
+                          <source src="{{ url_for('static', filename='synthesized_audio_purpose.mp3') }}"
+                            type="audio/mpeg">
+                        </audio>
                         Your purpose in life is a reflection of your unique self, and discovering it is a journey of
                         self-discovery. It's not about finding the right answer, but rather exploring and refining your
                         personal values, passions, and aspirations. Embrace this opportunity to actively shape the
@@ -84,7 +96,10 @@
                     </h2>
                     <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
                       data-bs-parent="#accordionExample">
-                      <div class="accordion-body"><audio controls><source src="{{ url_for('static', filename='synthesized_audio_spirit.mp3') }}" type="audio/mpeg"></audio>
+                      <div class="accordion-body"><audio controls>
+                          <source src="{{ url_for('static', filename='synthesized_audio_spirit.mp3') }}"
+                            type="audio/mpeg">
+                        </audio>
                         Embracing spirituality can bring a deeper sense of meaning and connection to your life. Whether
                         you have a established spiritual practice or seeking to explore it, take time to reflect on what
                         brings you a sense of grounding and fulfillment. Consider incorporating activities such as
@@ -98,20 +113,20 @@
                     <h2 class="accordion-header" id="headingThree">
                       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        Self-development Goal.
+                        Mental-development Goal.
                       </button>
                     </h2>
                     <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
                       data-bs-parent="#accordionExample">
-                      <div class="accordion-body">
-                        <strong>This is the third item's accordion body.</strong> It is hidden by default, until the
-                        collapse plugin adds the appropriate classes that we use to style each element. These classes
-                        control the overall appearance, as well as the showing and hiding via CSS transitions. You can
-                        modify any of this with custom CSS or overriding our default variables. It's also worth noting
-                        that
-                        just about any HTML can go within the <code>.accordion-body</code>, though the transition does
-                        limit
-                        overflow.
+                      <div class="accordion-body"><audio controls>
+                          <source src="{{ url_for('static', filename='synthesized_audio_mental.mp3') }}"
+                            type="audio/mpeg">
+                        </audio>
+                        Challenging your mind leads to personal growth and development. Take the initiative to equip
+                        your mind with new knowledge, skills and abilities by setting achievable goals, such as learning
+                        a new language or taking up a new hobby. By treating your mind as a tool that can be sharpened
+                        and honed, you open up a world of possibilities and pave the way for a life of continued
+                        learning and self-improvement.
                       </div>
                     </div>
                   </div>
@@ -124,15 +139,16 @@
                     </h2>
                     <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
                       data-bs-parent="#accordionExample">
-                      <div class="accordion-body">
-                        <strong>This is the third item's accordion body.</strong> It is hidden by default, until the
-                        collapse plugin adds the appropriate classes that we use to style each element. These classes
-                        control the overall appearance, as well as the showing and hiding via CSS transitions. You can
-                        modify any of this with custom CSS or overriding our default variables. It's also worth noting
-                        that
-                        just about any HTML can go within the <code>.accordion-body</code>, though the transition does
-                        limit
-                        overflow.
+                      <div class="accordion-body"><audio controls>
+                          <source src="{{ url_for('static', filename='synthesized_audio_body.mp3') }}"
+                            type="audio/mpeg">
+                        </audio>
+                        Your body is your temple, and taking care of it enhances your overall quality of life. Take
+                        ownership of your physical health by setting goals for your ideal physique, not just in
+                        appearance, but also in functionality. Consider the physical activities you enjoy or wish to
+                        participate in, and imagine what type of body would allow you to fully experience and enjoy
+                        them. Use this insight to create a plan of action that empowers you to achieve and maintain a
+                        healthy and functional body.
                       </div>
                     </div>
                   </div>
@@ -140,9 +156,7 @@
               </div>
             </div>
             <div class="mb-3">
-              <label for="life-goals" class="display-6 fw-normal pb-2">Goal <button class="btn btn-outline-dark"
-                  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling"
-                  aria-controls="offcanvasScrolling">Primers.</button></label>
+              <label for="life-goals" class="display-6 fw-normal pb-1 mt-3">Goal:</label>
               <select class="form-select fw-normal" aria-label="Default select example" name="life-goals"
                 id="life-goals">
                 <option value="Purpose">Purpose</option>
