@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Deep Connections</title>
+  <link href="{{ url_for('static', filename='style.css')}}" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
@@ -43,29 +44,29 @@
       </div>
     </nav>
   </div>
-    <div class="container bg-white pb-4">
-      <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center bg-white">
-        <div class="col-md-9 p-lg-5 mx-auto my-5">
-          <h1 class="display-4 fw-normal">Life Goals</h1>
-          <p class="lead fw-normal">"Welcome to the journey of self-discovery and purpose. Writing your life's mission
-            and goals is a powerful exercise that helps you clarify your values, focus your energy, and create a roadmap
-            for a fulfilling life. In this space, you will have the opportunity to reflect on and define your purpose,
-            set mental development goals to enhance your cognitive abilities, physical health goals to improve your
-            overall well-being, and spiritual goals to connect with your inner self. By taking this time to focus on
-            your personal growth, you'll be equipped to live a more intentional and meaningful life. Let's get started!"
-          </p>
-          <a type="submit" class="btn btn-dark btn-lg m-1" href="{{url_for('add_life_goal')}}">Add Goal</a>
-        </div>
+  <div class="container bg-white pb-4">
+    <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center bg-white">
+      <div class="col-md-9 p-lg-5 mx-auto my-5">
+        <h1 class="display-4 fw-normal">Life Goals</h1>
+        <p class="lead fw-normal">"Welcome to the journey of self-discovery and purpose. Writing your life's mission
+          and goals is a powerful exercise that helps you clarify your values, focus your energy, and create a roadmap
+          for a fulfilling life. In this space, you will have the opportunity to reflect on and define your purpose,
+          set mental development goals to enhance your cognitive abilities, physical health goals to improve your
+          overall well-being, and spiritual goals to connect with your inner self. By taking this time to focus on
+          your personal growth, you'll be equipped to live a more intentional and meaningful life. Let's get started!"
+        </p>
+        <a type="submit" class="btn btn-dark btn-lg m-1" href="{{url_for('add_life_goal')}}">Add Goal</a>
       </div>
+    </div>
 
-      {% with messages = get_flashed_messages() %}
-      {% if messages %}
-      {% for message in messages %}
-      <p class="flashes">{{ message }}</p>
-      {% endfor %}
-      {% endif%}
-      {% endwith %}
-      <div class="row align-items-md-stretch">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <p class="flashes">{{ message }}</p>
+    {% endfor %}
+    {% endif%}
+    {% endwith %}
+    <div class="row align-items-md-stretch">
       {% for goal in user_goals %}
       {% if goal.life_goal_title != None %}
       <div class="col-md-6">
@@ -75,18 +76,31 @@
           <a type="submit" class="btn btn-outline-dark btn-sm m-1"
             href="{{url_for('life_goal_edit', life_goal_id=goal.id)}}">Edit</a>
           <a type="submit" class="btn btn-outline-dark btn-sm m-1"
+            href="{{url_for('life_goal_ai_enhance', life_goal_id=goal.id)}}" id="button1">AI Enhance</a>
+          <a type="submit" class="btn btn-outline-dark btn-sm m-1"
             href="{{url_for('delete_life_goal', life_goal_id=goal.id)}}">Delete</a>
+            <div class="d-flex align-items-center mt-3">
+              <strong id="spinner1">Generating edit...</strong>
+              <div class="spinner-border ms-auto" role="status" aria-hidden="true" id="spinner"></div>
+            </div>
         </div>
       </div>
       {% endif %}
       {% endfor %}
     </div>
-    </div>
+  </div>
   <div class="container-fluid bg-dark pt-2 pb-1">
     <footer class="footer py-3 my-4 bg-dark">
       <p class="text-center text-muted">© 2023 Life Balance, Inc</p>
     </footer>
   </div>
+  <script>
+    document.getElementById("button1").addEventListener("click", function () {
+      document.getElementById("spinner").style.display = "block";
+      document.getElementById("spinner1").style.display = "block";
+      this.setAttribute("disabled", "")
+    });
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
     crossorigin="anonymous"></script>

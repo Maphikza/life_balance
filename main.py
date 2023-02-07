@@ -4,6 +4,7 @@ from flask_login import UserMixin, LoginManager, logout_user, current_user, logi
 from flask_mail import Mail, Message
 from pathlib import Path
 import os
+import openai
 from sqlalchemy.orm.exc import UnmappedInstanceError
 from route_functions import register_user, login
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired
@@ -32,6 +33,22 @@ mail = Mail(app)
 s = URLSafeTimedSerializer(secrets.token_urlsafe(16))
 
 admin = os.environ.get("admin")
+
+openai.api_key = os.environ.get("OPEN_AI_LIFE_KEY")
+
+
+def generate(content: str) -> str:
+    response = openai.Completion.create(
+        model="code-davinci-002",
+        prompt=f"Python code for printing this: '{content}'",
+        temperature=0.7,
+        max_tokens=256,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
+    return response
+
 
 # with app.app_context():
 #     key = Fernet.generate_key()
@@ -157,6 +174,7 @@ def implements_login():
 @login_required
 def add_life_goal():
     if current_user.is_authenticated and request.method == "POST":
+
         selected_title = request.form.get("life-goals")
         goal_check = Goal.query.filter_by(user_id=current_user.id).all()
         for goal_title in goal_check:
@@ -172,7 +190,7 @@ def add_life_goal():
         db.session.add(life_goal)
         db.session.commit()
         return redirect(url_for('goals'))
-    return render_template("add-life-goals.html")
+    return render_template("add-life-goals.html", comp_func=generate)
 
 
 @app.route("/life-goals/edit/<int:life_goal_id>", methods=["GET", "POST"])
@@ -186,6 +204,20 @@ def life_goal_edit(life_goal_id):
         db.session.commit()
         return redirect(url_for('goals'))
     return render_template("life-goals-edit.html", life_edit=goal_edit, d_func=decrypt_data)
+
+
+@app.route("/life-goals/ai-edit/<int:life_goal_id>", methods=["GET", "POST"])
+def life_goal_ai_enhance(life_goal_id):
+    goal_edit = Goal.query.get(life_goal_id)
+    # print(generate(decrypt_data(goal_edit.chosen_goal))["choices"][0]["text"])
+    if current_user.is_authenticated and request.method == "POST":
+        the_edit = request.form.get("aiEditLifeGoalFormControlTextarea")
+        the_edit = encrypt_data(the_edit)
+        goal_edit.chosen_goal = the_edit
+        db.session.commit()
+        return redirect(url_for('goals'))
+
+    return render_template("life-goals-ai-edit.html", life_ai_edit=goal_edit, d_func=decrypt_data, enhancer=generate)
 
 
 @app.route("/life-goals/delete/<int:life_goal_id>", methods=["GET", "POST"])

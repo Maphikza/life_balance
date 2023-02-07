@@ -1,0 +1,11 @@
+#spinner {
+    display: none;
+  }
+  
+#spinner1 {
+    display: none;
+}
+
+.highlight {
+    background-color: gold;
+}
