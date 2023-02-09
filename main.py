@@ -207,9 +207,9 @@ def life_goal_edit(life_goal_id):
 
 
 @app.route("/life-goals/ai-edit/<int:life_goal_id>", methods=["GET", "POST"])
+@login_required
 def life_goal_ai_enhance(life_goal_id):
     goal_edit = Goal.query.get(life_goal_id)
-    # print(generate(decrypt_data(goal_edit.chosen_goal))["choices"][0]["text"])
     if current_user.is_authenticated and request.method == "POST":
         the_edit = request.form.get("aiEditLifeGoalFormControlTextarea")
         the_edit = encrypt_data(the_edit)
@@ -282,6 +282,34 @@ def connections_edit(connect_id):
         db.session.commit()
         return redirect(url_for('connections'))
     return render_template("edit-connections.html", connect=connection_goal_edit, d_func=decrypt_data)
+
+
+@app.route("/connections/ai-edit/<int:connect_id>", methods=["GET", "POST"])
+@login_required
+def connections_ai_enhance_edit(connect_id):
+    connection_goal_edit = Connection.query.get(connect_id)
+    if current_user.is_authenticated and request.method == "POST":
+        connection_name = request.form.get("editEntryName")
+        relationship = request.form.get("editEntryRelate")
+        date_of_birth = request.form.get("editEntryDate")
+        thoughts = request.form.get("relationshipFormControlTextareaEdit")
+        if connection_name:
+            connection_name = encrypt_data(connection_name)
+            connection_goal_edit.name = connection_name
+        if relationship:
+            relationship = encrypt_data(relationship)
+            connection_goal_edit.relationship_to_user = relationship
+        if date_of_birth:
+            connection_goal_edit.birth_date = date_of_birth
+        if thoughts:
+            thoughts = encrypt_data(thoughts)
+            connection_goal_edit.relationship_thoughts = thoughts
+        db.session.commit()
+        return redirect(url_for('connections'))
+    return render_template("connections-ai-enhance.html",
+                           connect_ai_edit=connection_goal_edit,
+                           d_func=decrypt_data,
+                           enhancer=generate)
 
 
 @app.route("/connections/delete/<int:connect_id>", methods=["GET", "POST"])

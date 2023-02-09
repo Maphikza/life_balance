@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Bootstrap demo</title>
+  
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
@@ -41,44 +42,61 @@
       </div>
     </nav>
   </div>
-    <div class="container">
-      <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center bg-light">
-        <div class="col-md-9 p-lg-5 mx-auto my-5">
-          <h1 class="display-4 fw-normal">Deep Relationships</h1>
-          <p class="lead fw-normal">"Welcome to the exploration of your close connections and relationships. Our
-            relationships with family, friends, and significant others play a significant role in shaping our lives and
-            determining our happiness. On this page, you will have the opportunity to reflect on the relationships that
-            matter most to you and gain insights into how you can strengthen and deepen them. Whether it's improving
-            communication, setting boundaries, or finding common ground, you'll learn valuable skills to enhance your
-            connections with the people you care about. So take a moment to focus on the relationships that matter most
-            to you, and let's start building deeper connections together."
-          </p>
-          <a type="submit" class="btn btn-dark btn-lg m-1" href="{{url_for('add_connections')}}">Add Connection</a>
-        </div>
+  <div class="container button-container">
+    <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center bg-light">
+      <div class="col-md-9 p-lg-5 mx-auto my-5">
+        <h1 class="display-4 fw-normal">Deep Relationships</h1>
+        <p class="lead fw-normal">"Welcome to the exploration of your close connections and relationships. Our
+          relationships with family, friends, and significant others play a significant role in shaping our lives and
+          determining our happiness. On this page, you will have the opportunity to reflect on the relationships that
+          matter most to you and gain insights into how you can strengthen and deepen them. Whether it's improving
+          communication, setting boundaries, or finding common ground, you'll learn valuable skills to enhance your
+          connections with the people you care about. So take a moment to focus on the relationships that matter most
+          to you, and let's start building deeper connections together."
+        </p>
+        <a type="submit" class="btn btn-dark btn-lg m-1" href="{{url_for('add_connections')}}">Add Connection</a>
       </div>
-      <div class="row align-items-md-stretch">
-        {% for connection in user_connections %}
-        <div class="col-md-6">
-          <div class="h-100 p-5 bg-light border rounded-3">
-            <h2>{{d_func(connection.name)}} | {{d_func(connection.relationship_to_user)}}</h2><br>
-            <p>{{d_func(connection.relationship_thoughts)}}</p>
-            <a type="submit" class="btn btn-outline-dark btn-sm m-1"
-              href="{{url_for('connections_edit', connect_id=connection.id)}}">Edit</a>
-            <a type="submit" class="btn btn-outline-dark btn-sm m-1"
-              href="{{url_for('delete_connection', connect_id=connection.id)}}">Delete</a>
+    </div>
+    <div class="row align-items-md-stretch">
+      {% for connection in user_connections %}
+      <div class="col-md-6">
+        <div class="h-100 p-5 bg-light border rounded-3">
+          <h2>{{d_func(connection.name)}} | {{d_func(connection.relationship_to_user)}}</h2><br>
+          <p>{{d_func(connection.relationship_thoughts)}}</p>
+          <a type="submit" class="btn btn-outline-dark btn-sm m-1"
+            href="{{url_for('connections_edit', connect_id=connection.id)}}">Edit</a>
+          <a type="submit" class="btn btn-outline-dark btn-sm m-1 ai-button" data-connect-id="{{ connection.id }}"
+            href="{{url_for('connections_ai_enhance_edit', connect_id=connection.id)}}">AI Enhance</a>
+          <a type="submit" class="btn btn-outline-dark btn-sm m-1"
+            href="{{url_for('delete_connection', connect_id=connection.id)}}">Delete</a>
+          <div class="d-flex align-items-center mt-3">
+            <strong id="spinner1_{{ connection.id }}" style="display: none;">Generating edit...</strong>
+            <div class="spinner-border ms-auto" role="status" aria-hidden="true" id="spinner_{{ connection.id }}" style="display: none;"></div>
           </div>
         </div>
-        {% endfor %}
       </div>
+      {% endfor %}
     </div>
-    <div class="container">
-      <footer class="py-3 my-4">
-        <p class="text-center text-muted">© 2023 Life Balance, Inc</p>
-      </footer>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-      crossorigin="anonymous"></script>
+  </div>
+  <div class="container">
+    <footer class="py-3 my-4">
+      <p class="text-center text-muted">© 2023 Life Balance, Inc</p>
+    </footer>
+  </div>
+  <script>
+    document.querySelectorAll(".ai-button").forEach(function (element) {
+      element.addEventListener("click", function () {
+        var spinnerId = "spinner_" + this.dataset.connectId;
+        var spinner1Id = "spinner1_" + this.dataset.connectId;
+        document.getElementById(spinner1Id).style.display = "block";
+        document.getElementById(spinnerId).style.display = "block";
+        this.disabled = true;
+      });
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"></script>
 </body>
 
 </html>
