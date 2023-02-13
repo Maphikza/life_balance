@@ -379,6 +379,30 @@ def finance_edit(goal_id):
     return render_template("finances_edit.html", finance_goal=finance_goal_edit, d_func=decrypt_data)
 
 
+@app.route("/finance/ai-edit/<int:goal_id>", methods=["GET", "POST"])
+@login_required
+def finance_edit_ai_enhance(goal_id):
+    finance_ai_goal_edit = Finances.query.get(goal_id)
+    if current_user.is_authenticated and request.method == "POST":
+        goal_edit = request.form.get("financeFormControlTextarea-edit")
+        amount = request.form.get("quantity_edit").replace(" ", "")
+        if goal_edit:
+            goal_edit = encrypt_data(goal_edit)
+            finance_ai_goal_edit.financial_goal = goal_edit
+        if amount:
+            finance_ai_goal_edit.target_amount = amount
+            formatted_amount = format_number(float(amount))
+            formatted_amount = encrypt_data(formatted_amount)
+            finance_ai_goal_edit.formatted_amount = formatted_amount
+
+        db.session.commit()
+        return redirect(url_for("finance"))
+    return render_template("finance-goals-ai-edit.html",
+                           finance_goal=finance_ai_goal_edit,
+                           d_func=decrypt_data,
+                           enhancer=generate)
+
+
 @app.route("/finance/delete/<int:goal_id>", methods=["GET", "POST"])
 @login_required
 def delete_finance_goal(goal_id):
