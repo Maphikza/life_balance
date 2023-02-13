@@ -44,43 +44,67 @@
   <div class="container">
     <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center bg-light">
       <div class="col-md-9 p-lg-5 mx-auto my-5">
-        <h3 class="display-3 fw-normal pb-3">Edit Connections!
+        <h3 class="display-3 fw-normal pb-3">Edit {{d_func(connect_ai_edit.name)}}'s profile.
         </h3>
-          <form class="connections-edit-form g-3 text-start" method="post">
-            <div class="mb-3">
-              <label for="editEntryName" class="display-6 fw-normal pb-3">Connection Name:</label>
-              <input type="text" class="form-control" id="editEntryName" name="editEntryName"
-                placeholder="Name">
+        <form class="connections-edit-form g-3 text-start" method="post">
+          <div class="mb-3">
+            <label for="editEntryName" class="display-6 fw-normal pb-3">Connection Name:</label>
+            <input type="text" class="form-control" id="editEntryName" name="editEntryName" placeholder="{{d_func(connect_ai_edit.name)}}">
+          </div>
+          <div class="mb-3">
+            <label for="editEntryRelate" class="display-6 fw-normal pb-3">Relationship:</label>
+            <input type="text" class="form-control" id="editEntryRelate" name="editEntryRelate"
+              placeholder="{{d_func(connect_ai_edit.relationship_to_user)}}">
+          </div>
+          <div class="mb-3">
+            <label for="editEntryDate" class="display-6 fw-normal pb-3">Date of Birth:</label>
+            <input type="date" class="form-control" id="editEntryDate" name="editEntryDate">
+          </div>
+          <div class="toast-container position-fixed top-50 start-0 translate-middle-y p-3">
+            <div id="textAreaToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+              <div class="toast-header text-bg-success">
+                <strong class="me-auto">AI Message</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+              </div>
+              <div class="toast-body fw-bold">
+                This text has been edited by an AI and you can make your modifications before saving or save it if
+                you're happy with it.
+              </div>
             </div>
-            <div class="mb-3">
-              <label for="editEntryRelate" class="display-6 fw-normal pb-3">Relationship:</label>
-              <input type="text" class="form-control" id="editEntryRelate" name="editEntryRelate"
-                placeholder="Edit Relationship">
-            </div>
-            <div class="mb-3">
-              <label for="editEntryDate" class="display-6 fw-normal pb-3">Date of Birth:</label>
-              <input type="date" class="form-control" id="editEntryDate" name="editEntryDate">
-            </div>
-            <div class="mb-3">
-              <label for="relationshipFormControlTextareaEdit" class="form-label display-6 fw-normal pb-3">Edit Thoughts:</label>
-              <textarea class="form-control" id="relationshipFormControlTextareaEdit"
-                name="relationshipFormControlTextareaEdit" rows="4">{{ enhancer(d_func(connect_ai_edit.relationship_thoughts))["choices"][0]["text"] }}</textarea>
-            </div>
-            <div class="col">
-              <button type="submit" class="btn btn-lg btn-dark mb-3">Submit Edit</button>
-            </div>
-          </form>
+          </div>
+
+          <div class="mb-3">
+            <label for="relationshipFormControlTextareaEdit" class="form-label display-6 fw-normal pb-3">Edit
+              Thoughts:</label>
+            <textarea class="form-control" id="relationshipFormControlTextareaEdit"
+              name="relationshipFormControlTextareaEdit"
+              rows="4">{{ enhancer(d_func(connect_ai_edit.relationship_thoughts))["choices"][0]["text"] }}</textarea>
+          </div>
+
+          <div class="col">
+            <button type="submit" class="btn btn-lg btn-dark mb-3">Submit Edit</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
-    <div class="container">
-      <footer class="py-3 my-4">
-        <p class="text-center text-muted">© 2023 Life Balance, Inc</p>
-      </footer>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-      crossorigin="anonymous"></script>
+  <div class="container">
+    <footer class="py-3 my-4">
+      <p class="text-center text-muted">© 2023 Life Balance, Inc</p>
+    </footer>
+  </div>
+  <script>
+    document.getElementById("relationshipFormControlTextareaEdit").addEventListener("focus", function () {
+      document.getElementById("textAreaToast").classList.add("show");
+      setTimeout(function () {
+        document.getElementById("textAreaToast").classList.remove("show");
+      }, 4000);
+    });
+
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"></script>
 </body>
 
 </html>

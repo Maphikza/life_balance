@@ -45,120 +45,113 @@
     <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center bg-light">
       <div class="col-md-9 p-lg-5 mx-auto my-5">
         <h4 class="display-5 fw-normal">Work on a goal.</h4>
-        <p class="lead fw-normal mb-4">"Discovering your purpose, spirituality, mental capabilities, and physical health are
+        <p class="lead fw-normal mb-4">"Discovering your purpose, spirituality, mental capabilities, and physical health
+          are
           all crucial elements that contribute to a fulfilling life. By reflecting on what you want your life to stand
           for, what brings you spiritual grounding, what skills you wish to develop, and what kind of body you aspire to
           have, you are taking the first step towards setting meaningful goals for yourself. These prompts serve as a
           starting point for you to explore and refine your personal aspirations. Embrace the journey of self-discovery
           and make a conscious effort to actively shape the life you desire."
         </p>
-        <button class="btn btn-dark" type="button" data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Life Goal Primers</button>
+        <!-- <button class="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling"
+          aria-controls="offcanvasScrolling">Life Goal Primers</button> -->
 
 
         <div class="container">
-          <form class="life-goal-form g-3 text-start" method="post">
-            <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-              id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
-              <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Life Goal Primers</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-              </div>
-              <div class="offcanvas-body">
-                <div class="accordion" id="accordionExample">
-                  <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingOne">
-                      <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                        Purpose.
-                      </button>
-                    </h2>
-                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                      data-bs-parent="#accordionExample">
-                      <div class="accordion-body"><audio controls>
-                          <source src="{{ url_for('static', filename='synthesized_audio_purpose.mp3') }}"
-                            type="audio/mpeg">
-                        </audio>
-                        Your purpose in life is a reflection of your unique self, and discovering it is a journey of
-                        self-discovery. It's not about finding the right answer, but rather exploring and refining your
-                        personal values, passions, and aspirations. Embrace this opportunity to actively shape the
-                        impact you want to make in the world, and know that your purpose is always evolving as you grow
-                        and learn.
-                      </div>
-                    </div>
-                  </div>
-                  <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingTwo">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        Spiritual Goal.
-                      </button>
-                    </h2>
-                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                      data-bs-parent="#accordionExample">
-                      <div class="accordion-body"><audio controls>
-                          <source src="{{ url_for('static', filename='synthesized_audio_spirit.mp3') }}"
-                            type="audio/mpeg">
-                        </audio>
-                        Embracing spirituality can bring a deeper sense of meaning and connection to your life. Whether
-                        you have a established spiritual practice or seeking to explore it, take time to reflect on what
-                        brings you a sense of grounding and fulfillment. Consider incorporating activities such as
-                        prayer or meditation into your daily routine to strengthen your spiritual connection. Make a
-                        conscious effort to prioritize this aspect of your life and watch as it enriches and transforms
-                        you from within.
-                      </div>
-                    </div>
-                  </div>
-                  <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingThree">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        Mental-development Goal.
-                      </button>
-                    </h2>
-                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
-                      data-bs-parent="#accordionExample">
-                      <div class="accordion-body"><audio controls>
-                          <source src="{{ url_for('static', filename='synthesized_audio_mental.mp3') }}"
-                            type="audio/mpeg">
-                        </audio>
-                        Challenging your mind leads to personal growth and development. Take the initiative to equip
-                        your mind with new knowledge, skills and abilities by setting achievable goals, such as learning
-                        a new language or taking up a new hobby. By treating your mind as a tool that can be sharpened
-                        and honed, you open up a world of possibilities and pave the way for a life of continued
-                        learning and self-improvement.
-                      </div>
-                    </div>
-                  </div>
-                  <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingFour">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                        Physical Health Goals.
-                      </button>
-                    </h2>
-                    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
-                      data-bs-parent="#accordionExample">
-                      <div class="accordion-body"><audio controls>
-                          <source src="{{ url_for('static', filename='synthesized_audio_body.mp3') }}"
-                            type="audio/mpeg">
-                        </audio>
-                        Your body is your temple, and taking care of it enhances your overall quality of life. Take
-                        ownership of your physical health by setting goals for your ideal physique, not just in
-                        appearance, but also in functionality. Consider the physical activities you enjoy or wish to
-                        participate in, and imagine what type of body would allow you to fully experience and enjoy
-                        them. Use this insight to create a plan of action that empowers you to achieve and maintain a
-                        healthy and functional body.
-                      </div>
-                    </div>
-                  </div>
+          <div class="modal" id="modal-purpose" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Purpose.</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <p>Your purpose in life is a reflection of your unique self, and discovering it is a journey of
+                    self-discovery. It's not about finding the right answer, but rather exploring and refining your
+                    personal values, passions, and aspirations. Embrace this opportunity to actively shape the
+                    impact you want to make in the world, and know that your purpose is always evolving as you grow
+                    and learn.</p>
+                  <audio controls>
+                    <source src="{{ url_for('static', filename='synthesized_audio_purpose.mp3') }}" type="audio/mpeg">
+                  </audio>
                 </div>
               </div>
             </div>
+          </div>
+          <div class="modal" id="modal-spirit" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Spiritual Goal</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <p>Embracing spirituality can bring a deeper sense of meaning and connection to your life. Whether
+                    you have a established spiritual practice or seeking to explore it, take time to reflect on what
+                    brings you a sense of grounding and fulfillment. Consider incorporating activities such as
+                    prayer or meditation into your daily routine to strengthen your spiritual connection. Make a
+                    conscious effort to prioritize this aspect of your life and watch as it enriches and transforms
+                    you from within.</p>
+                  <audio controls>
+                    <source src="{{ url_for('static', filename='synthesized_audio_spirit.mp3') }}" type="audio/mpeg">
+                  </audio>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal" id="modal-mental" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Mental-development Goal.</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <p>Challenging your mind leads to personal growth and development. Take the initiative to equip
+                    your mind with new knowledge, skills and abilities by setting achievable goals, such as learning
+                    a new language or taking up a new hobby. By treating your mind as a tool that can be sharpened
+                    and honed, you open up a world of possibilities and pave the way for a life of continued
+                    learning and self-improvement.</p>
+                  <audio controls>
+                    <source src="{{ url_for('static', filename='synthesized_audio_mental.mp3') }}" type="audio/mpeg">
+                  </audio>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal" id="modal-physical" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Physical Health Goals.</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <p>Your body is your temple, and taking care of it enhances your overall quality of life. Take
+                    ownership of your physical health by setting goals for your ideal physique, not just in
+                    appearance, but also in functionality. Consider the physical activities you enjoy or wish to
+                    participate in, and imagine what type of body would allow you to fully experience and enjoy
+                    them. Use this insight to create a plan of action that empowers you to achieve and maintain a
+                    healthy and functional body.</p><audio controls>
+                    <source src="{{ url_for('static', filename='synthesized_audio_body.mp3') }}" type="audio/mpeg">
+                  </audio>
+                </div>
+              </div>
+            </div>
+          </div>
+          <form class="life-goal-form g-3 text-start" method="post">
             <div class="mb-3">
               <label for="life-goals" class="display-6 fw-normal pb-1 mt-3">Goal:</label>
+              {% with messages = get_flashed_messages() %}
+              {% if messages %}
+              {% for message in messages %}
+              <p class="flashes" style="color: red;">{{ message }}</p>
+              {% endfor %}
+              {% endif%}
+              {% endwith %}
               <select class="form-select fw-normal" aria-label="Default select example" name="life-goals"
                 id="life-goals">
+                <option value="selection">Select a Goal:</option>
                 <option value="Purpose">Purpose</option>
                 <option value="Spirit">Spirit</option>
                 <option value="Mental">Mental</option>
@@ -168,7 +161,7 @@
             <textarea class="form-control mb-3" id="lifeGoalFormControlTextarea" name="lifeGoalFormControlTextarea"
               rows="6"></textarea>
             <div>
-              <button type="submit" class="btn btn-lg btn-dark mb-3">Add Goal</button>
+              <button type="submit" id="submitButton" class="btn btn-lg btn-dark mb-3">Add Goal</button>
             </div>
         </div>
         </form>
@@ -181,6 +174,39 @@
       <p class="text-center text-muted">© 2023 Life Balance, Inc</p>
     </footer>
   </div>
+  <script>
+    document.getElementById("submitButton").addEventListener("click", function (event) {
+      var selectedOption = document.getElementById("life-goals").value;
+      if (selectedOption === "selection") {
+        event.preventDefault();
+        alert("Please select a specific goal.");
+      }
+    });
+
+    const select = document.getElementById("life-goals");
+    select.addEventListener("change", function () {
+      const selectedOption = select.value;
+
+      if (selectedOption === "Purpose") {
+        document.getElementById("modal-purpose").style.display = "block";
+      } else if (selectedOption === "Spirit") {
+        document.getElementById("modal-spirit").style.display = "block";
+      } else if (selectedOption === "Mental") {
+        document.getElementById("modal-mental").style.display = "block";
+      } else if (selectedOption === "Physical") {
+        document.getElementById("modal-physical").style.display = "block";
+      }
+    });
+
+    const closeButtons = document.querySelectorAll(".btn-close");
+    closeButtons.forEach(function (closeButton) {
+      closeButton.addEventListener("click", function () {
+        const modal = closeButton.closest(".modal");
+        modal.style.display = "none";
+      });
+    });
+
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
     crossorigin="anonymous"></script>

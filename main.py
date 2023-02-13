@@ -83,7 +83,7 @@ class Connection(db.Model):
     __tablename__ = 'life connections'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
-    relationship_to_user = db.Column(db.String(120), nullable=False)
+    relationship_to_user = db.Column(db.String(20), nullable=False)
     birth_date = db.Column(db.String(12), nullable=False)
     relationship_thoughts = db.Column(db.String(120), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
@@ -177,6 +177,9 @@ def add_life_goal():
 
         selected_title = request.form.get("life-goals")
         goal_check = Goal.query.filter_by(user_id=current_user.id).all()
+        if selected_title == 'selection':
+            flash("Please select one of the options.")
+            return redirect(url_for('add_life_goal'))
         for goal_title in goal_check:
             if goal_title.life_goal_title == selected_title:
                 flash("Goal exists, You can only edit or delete this goal.")
