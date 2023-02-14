@@ -156,8 +156,12 @@
                 <option value="Physical">Physical</option>
               </select>
             </div>
-            <textarea class="form-control mb-3" id="lifeGoalFormControlTextarea" name="lifeGoalFormControlTextarea"
-              rows="6"></textarea>
+            <div>
+              <label for="lifeGoalFormControlTextarea" class="form-label display-6 fw-normal">Life Goals:</label>
+              <textarea class="form-control" id="lifeGoalFormControlTextarea" name="lifeGoalFormControlTextarea"
+                rows="6" oninput="countCharacters(this, 1000)"></textarea>
+              <div id="characterCount"></div>
+            </div>
             <div>
               <button type="submit" id="submitButton" class="btn btn-lg btn-dark mb-3">Add Goal</button>
             </div>
@@ -203,6 +207,16 @@
         modal.style.display = "none";
       });
     });
+
+    function countCharacters(textarea, limit) {
+      var value = textarea.value;
+      var characterCount = value.length;
+      var characterCountElement = document.getElementById("characterCount");
+      characterCountElement.innerHTML = characterCount + " / 1000";
+      if (characterCount > limit) {
+        textarea.value = value.slice(0, limit);
+      }
+    }
 
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
