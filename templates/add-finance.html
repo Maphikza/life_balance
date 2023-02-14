@@ -47,7 +47,7 @@
         <h3 class="display-4 fw-normal pb-4">Add Financial Goal
         </h3>
         <div class="container">
-          <form class="finance-emergency-form g-3" method="post">
+          <form class="finance-emergency-form g-3 text-start" method="post">
             <div class="mb-3">
               <select class="form-select" aria-label="Default select example" name="finance-goals" id="finance-goals">
                 <option selected>Emergency Funds</option>
@@ -60,9 +60,13 @@
               <label for="quantity" class="display-6 fw-normal pb-2 pt-2">Target Amount</label>
               <input class="form-control" type="text" id="quantity" name="quantity"
                 placeholder="Enter your target amount e.g 50000">
-                <label for="financeFormControlTextarea" class="form-label display-6 fw-normal pb-2 pt-2">Finances</label>
-              <textarea class="form-control pb-3" id="financeFormControlTextarea" name="financeFormControlTextarea"
-                rows="6"></textarea>
+              <div>
+                <label for="financeFormControlTextarea"
+                  class="form-label display-6 fw-normal pb-2 pt-2">Finances</label>
+                <textarea class="form-control pb-3" id="financeFormControlTextarea" name="financeFormControlTextarea"
+                  rows="6" oninput="countChars(this, 1000)"></textarea>
+                <div id="charNum"></div>
+              </div>
             </div>
             <div class="col">
               <button type="submit" class="btn btn-lg btn-dark mb-3">Add Goal</button>
@@ -72,14 +76,29 @@
       </div>
     </div>
   </div>
+  <script>
+    function countChars(textarea, limit) {
+      var value = textarea.value;
+      var characterCount = value.length;
+      var characterCountElement = document.getElementById("charNum");
+      characterCountElement.innerHTML = characterCount + " / " + limit;
+      if (characterCount > limit) {
+        textarea.value = value.slice(0, limit);
+        characterCountElement.style.color = "red";
+        characterCountElement.innerHTML = "Max limit of " + limit + " characters reached!";
+      } else {
+        characterCountElement.style.color = "inherit";
+      }
+    }
+  </script>
   <div class="container">
     <footer class="py-3 my-4">
       <p class="text-center text-muted">© 2023 Life Balance, Inc</p>
     </footer>
   </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-      crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"></script>
 </body>
 
 </html>

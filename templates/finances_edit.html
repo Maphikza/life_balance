@@ -70,12 +70,17 @@
       var value = textarea.value;
       var characterCount = value.length;
       var characterCountElement = document.getElementById("characterCount");
-      characterCountElement.innerHTML = characterCount + " / 1000";
+      characterCountElement.innerHTML = characterCount + " / " + limit;
       if (characterCount > limit) {
         textarea.value = value.slice(0, limit);
+        characterCountElement.style.color = "red";
+        characterCountElement.innerHTML = "Max limit of " + limit + " characters reached!";
+      } else {
+        characterCountElement.style.color = "inherit";
       }
     }
-    </script>
+
+  </script>
   <div class="container">
     <footer class="py-3 my-4">
       <p class="text-center text-muted">© 2023 Life Balance, Inc</p>

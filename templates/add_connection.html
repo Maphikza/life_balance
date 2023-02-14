@@ -46,7 +46,7 @@
       <div class="col-md-9 p-lg-5 mx-auto my-5">
         <h4 class="display-4 fw-normal">Add your Relationships.</h4>
         <div class="container">
-          <form class="connections-form g-3" method="post">
+          <form class="connections-form g-3 text-start" method="post">
             <div class="mb-3">
               <label for="entryName" class="visually-hidden">Connection Name</label>
               <input type="text" class="form-control" id="entryName" name="entryName" placeholder="Enter Username">
@@ -64,8 +64,10 @@
               <label for="relationshipFormControlTextarea" class="form-label display-6 fw-normal">Your thoughts on the
                 Relationship:</label>
               <textarea class="form-control" id="relationshipFormControlTextarea" name="relationshipFormControlTextarea"
-                rows="6"></textarea>
+                rows="6" oninput="countChars(this,1000)"></textarea>
+              <div id="charNum"></div>
             </div>
+
             <div class="col">
               <button type="submit" class="btn btn-lg btn-dark mb-3">Add Connection</button>
             </div>
@@ -74,6 +76,23 @@
       </div>
     </div>
   </div>
+  <script>
+    function countChars(textarea, limit) {
+      var value = textarea.value;
+      var characterCount = value.length;
+      var characterCountElement = document.getElementById("charNum");
+      characterCountElement.innerHTML = characterCount + " / " + limit;
+      if (characterCount > limit) {
+        textarea.value = value.slice(0, limit);
+        characterCountElement.style.color = "red";
+        characterCountElement.innerHTML = "Max limit of " + limit + " characters reached!";
+      } else {
+        characterCountElement.style.color = "inherit";
+      }
+    }
+
+
+  </script>
 
   <div class="container">
     <footer class="py-3 my-4">

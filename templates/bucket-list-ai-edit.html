@@ -79,7 +79,7 @@
                             class="form-label display-6 fw-normal pb-2">Thoughts:</label>
                         <textarea class="form-control" id="aiEditBucketListFormControlTextarea"
                             name="aiEditBucketListFormControlTextarea" rows="6"
-                            oninput="countCharacters(this)">{{enhancer(d_func(user_bucket_list.bucket_list_item))}}</textarea>
+                            oninput="countCharacters(this, 1500)">{{enhancer(d_func(user_bucket_list.bucket_list_item))}}</textarea>
                         <div id="characterCount"></div>
                     </div>
                     <div>
@@ -96,10 +96,18 @@
             document.getElementById("bucketTextAreaToast").classList.add("show");
         });
 
-        function countCharacters(textarea) {
-            var characterCount = textarea.value.length;
+        function countCharacters(textarea, limit) {
+            var value = textarea.value;
+            var characterCount = value.length;
             var characterCountElement = document.getElementById("characterCount");
-            characterCountElement.innerHTML = characterCount + " characters";
+            characterCountElement.innerHTML = characterCount + " / " + limit;
+            if (characterCount > limit) {
+                textarea.value = value.slice(0, limit);
+                characterCountElement.style.color = "red";
+                characterCountElement.innerHTML = "Max limit of " + limit + " characters reached!";
+            } else {
+                characterCountElement.style.color = "inherit";
+            }
         }
     </script>
     <div class="container">
