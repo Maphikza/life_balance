@@ -75,16 +75,31 @@
           <p>{{d_func(goal.financial_goal)}}</p>
           <a type="submit" class="btn btn-outline-dark btn-sm m-1"
             href="{{url_for('finance_edit', goal_id=goal.id)}}">Edit</a>
-          <a type="submit" class="btn btn-outline-dark btn-sm m-1"
+          <a type="submit" class="btn btn-outline-dark btn-sm m-1 ai-button" data-goal-id="{{ goal.id }}"
             href="{{url_for('finance_edit_ai_enhance', goal_id=goal.id)}}">AI Enhance</a>
           <a type="submit" class="btn btn-outline-dark btn-sm m-1"
             href="{{url_for('delete_finance_goal', goal_id=goal.id)}}">Delete</a>
+            <div class="d-flex align-items-center mt-3">
+              <strong id="spinner1_{{ goal.id }}" style="display: none;">Generating edit...</strong>
+              <div class="spinner-border ms-auto" role="status" aria-hidden="true" id="spinner_{{ goal.id }}" style="display: none;"></div>
+            </div>
         </div>
       </div>
       {% endif %}
       {% endfor %}
     </div>
   </div>
+  <script>
+    document.querySelectorAll(".ai-button").forEach(function (element) {
+      element.addEventListener("click", function () {
+        var spinnerId = "spinner_" + this.dataset.goalId;
+        var spinner1Id = "spinner1_" + this.dataset.goalId;
+        document.getElementById(spinner1Id).style.display = "block";
+        document.getElementById(spinnerId).style.display = "block";
+        this.disabled = true;
+      });
+    });
+  </script>
   <div class="container">
     <footer class="py-3 my-4">
       <p class="text-center text-muted">© 2023 Life Balance, Inc</p>
