@@ -61,8 +61,10 @@
           <div class="mb-3">
             <label for="bucketListFormControlTextarea" class="form-label display-6 fw-normal">Thoughts:</label>
             <textarea class="form-control" id="bucketListFormControlTextarea" rows="6"
-              name="bucketListFormControlTextarea"></textarea>
+              name="bucketListFormControlTextarea" oninput="countCharacters(this, 1499)"></textarea>
+            <div id="characterCount"></div>
           </div>
+
           <div class="col">
             <button type="submit" class="btn btn-lg btn-dark mb-3">Add Goal</button>
           </div>
@@ -70,6 +72,17 @@
       </div>
     </div>
   </div>
+  <script>
+    function countCharacters(textarea, limit) {
+      var value = textarea.value;
+      var characterCount = value.length;
+      var characterCountElement = document.getElementById("characterCount");
+      characterCountElement.innerHTML = characterCount + " / 1500";
+      if (characterCount > limit) {
+        textarea.value = value.slice(0, limit);
+      }
+    }
+  </script>
   <div class="container">
     <footer class="py-3 my-4">
       <p class="text-center text-muted">© 2023 Life Balance, Inc</p>
