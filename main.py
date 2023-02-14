@@ -446,18 +446,42 @@ def edit_bucket_list_item(item_id):
     bucket_list_edit = Bucketlist.query.get(item_id)
     if current_user.is_authenticated and request.method == "POST":
         title_edit = request.form.get("editBucketListFormControlInput")
-        cost_edit = request.form.get("editCostFormControlInput")
+        cost_edit = request.form.get("editCostFormControlInput").replace(" ", "")
         item_text_edit = request.form.get("editBucketListFormControlTextarea")
         if title_edit:
             bucket_list_edit.bucket_list_item_title = title_edit
         if cost_edit:
             bucket_list_edit.item_cost = cost_edit
+            bucket_list_edit.formatted_cost = format_number(float(cost_edit))
         if item_text_edit:
             item_text_edit = encrypt_data(item_text_edit)
             bucket_list_edit.bucket_list_item = item_text_edit
         db.session.commit()
         return redirect(url_for("bucket_list"))
     return render_template("edit-bucket-list.html", user_bucket_list=bucket_list_edit, d_func=decrypt_data)
+
+
+@app.route("/bucket-list/ai-edit/<int:item_id>", methods=["GET", "POST"])
+@login_required
+def ai_edit_bucket_list_item(item_id):
+    bucket_list_edit = Bucketlist.query.get(item_id)
+    if current_user.is_authenticated and request.method == "POST":
+        title_edit = request.form.get("aiEditBucketListFormControlInput")
+        cost_edit = request.form.get("aiEditCostFormControlInput").replace(" ", "")
+        item_text_edit = request.form.get("aiEditBucketListFormControlTextarea")
+        if title_edit:
+            bucket_list_edit.bucket_list_item_title = title_edit
+        if cost_edit:
+            bucket_list_edit.item_cost = cost_edit
+            bucket_list_edit.formatted_cost = format_number(float(cost_edit))
+        if item_text_edit:
+            item_text_edit = encrypt_data(item_text_edit)
+            bucket_list_edit.bucket_list_item = item_text_edit
+        db.session.commit()
+        return redirect(url_for("bucket_list"))
+    return render_template("bucket-list-ai-edit.html",
+                           user_bucket_list=bucket_list_edit,
+                           d_func=decrypt_data, enhancer=generate)
 
 
 @app.route("/bucket-list/delete/<int:item_id>", methods=["GET", "POST"])

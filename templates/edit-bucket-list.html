@@ -59,9 +59,12 @@
               placeholder="How much would it cost if any?">
           </div>
           <div class="mb-3">
-            <label for="editBucketListFormControlTextarea" class="form-label display-6 fw-normal pb-2">Thoughts:</label>
+            <label for="editBucketListFormControlTextarea"
+              class="form-label display-6 fw-normal pb-2">Thoughts:</label>
             <textarea class="form-control" id="editBucketListFormControlTextarea"
-              name="editBucketListFormControlTextarea" rows="6">{{d_func(user_bucket_list.bucket_list_item)}}</textarea>
+              name="editBucketListFormControlTextarea" rows="6"
+              oninput="countCharacters(this, 999)">{{d_func(user_bucket_list.bucket_list_item)}}</textarea>
+            <div id="characterCount"></div>
           </div>
           <div>
             <button type="submit" class="btn btn-lg btn-dark mb-3">Save Edit</button>
@@ -70,7 +73,17 @@
       </div>
     </div>
   </div>
-
+  <script>
+    function countCharacters(textarea, limit) {
+      var value = textarea.value;
+      var characterCount = value.length;
+      var characterCountElement = document.getElementById("characterCount");
+      characterCountElement.innerHTML = characterCount + " / 1000";
+      if (characterCount > limit) {
+        textarea.value = value.slice(0, limit);
+      }
+    }
+  </script>
   <div class="container">
     <footer class="py-3 my-4">
       <p class="text-center text-muted">© 2023 Life Balance, Inc</p>
