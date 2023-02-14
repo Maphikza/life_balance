@@ -50,10 +50,13 @@
             <label for="quantity_edit" class="display-6 fw-normal pb-2">Target Amount:</label>
             <input class="form-control" type="text" id="quantity_edit" name="quantity_edit"
               placeholder="Edit target amount.">
+          </div>
+          <div>
             <label for="financeFormControlTextarea-edit" class="form-label display-6 fw-normal pb-2 pt-2">Edit Goal
               Thoughts:</label>
             <textarea class="form-control" id="financeFormControlTextarea-edit" name="financeFormControlTextarea-edit"
-              rows="6">{{d_func(finance_goal.financial_goal)}}</textarea>
+              rows="6" oninput="countCharacters(this, 1000)">{{d_func(finance_goal.financial_goal)}}</textarea>
+            <div id="characterCount"></div>
           </div>
           <div>
             <button type="submit" class="btn btn-lg btn-dark mb-3">Submit</button>
@@ -62,6 +65,17 @@
       </div>
     </div>
   </div>
+  <script>
+    function countCharacters(textarea, limit) {
+      var value = textarea.value;
+      var characterCount = value.length;
+      var characterCountElement = document.getElementById("characterCount");
+      characterCountElement.innerHTML = characterCount + " / 1000";
+      if (characterCount > limit) {
+        textarea.value = value.slice(0, limit);
+      }
+    }
+    </script>
   <div class="container">
     <footer class="py-3 my-4">
       <p class="text-center text-muted">© 2023 Life Balance, Inc</p>
