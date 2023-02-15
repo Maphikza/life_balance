@@ -62,7 +62,14 @@
       </div>
     </div>
   </div>
+  <div class="container footer-container">
+    <footer class="footer mt-auto py-3 my-4 pt-5">
+      <p>&copy; <span id="year"></span> Life Balance, Inc</p>
+    </footer>
+  </div>
   <script>
+    document.getElementById("year").innerHTML = new Date().getFullYear();
+
     function countCharacters(textarea, limit) {
       var value = textarea.value;
       var characterCount = value.length;
