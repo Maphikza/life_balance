@@ -105,10 +105,14 @@
     function countCharacters(textarea, limit) {
       var value = textarea.value;
       var characterCount = value.length;
-      var characterCountElement = document.getElementById("characterCount");
-      characterCountElement.innerHTML = characterCount + " / 1000";
+      var characterCountElement = textarea.parentElement.querySelector("#characterCount");
+      characterCountElement.innerHTML = characterCount + " / " + limit;
       if (characterCount > limit) {
         textarea.value = value.slice(0, limit);
+        characterCountElement.style.color = "red";
+        characterCountElement.innerHTML = "Max limit of " + limit + " characters reached!";
+      } else {
+        characterCountElement.style.color = "inherit";
       }
     }
   </script>
