@@ -45,24 +45,44 @@
     <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center bg-light">
       <div class="col-md-9 p-lg-5 mx-auto my-5">
         <h4 class="display-4 fw-normal">Add your Relationships.</h4>
+        <div class="container accordion-container-connect pb-2">
+          <div class="accordion accordion-flush" id="accordionFlushConnect">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="flush-headingOne">
+                <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                  Primer on relationships.
+                </button>
+              </h2>
+              <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                data-bs-parent="#accordionFlushConnect">
+                <div class="accordion-body">Reflecting on what a person means to you can help you develop deeper
+                  connections with them. Consider what you would like to say to them while they are alive, how often you
+                  need to make time for them, and what you would say to them on their birthday or at their funeral.
+                  While this can be a heavy exercise, it can help you think more deeply about the person and be more
+                  intentional in your interactions with them in the future. Use this exercise as an opportunity to
+                  strengthen your relationships with those who matter most to you.</div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="container">
           <form class="connections-form g-3 text-start" method="post">
             <div class="mb-3">
-              <label for="entryName" class="visually-hidden">Connection Name</label>
-              <input type="text" class="form-control" id="entryName" name="entryName" placeholder="Enter Username">
+              <label for="entryName" class="fw-bold">Connection Name</label>
+              <input type="text" class="form-control" id="entryName" name="entryName" placeholder="Name">
             </div>
             <div class="mb-3">
-              <label for="entryRelate" class="visually-hidden">Relationship to you</label>
+              <label for="entryRelate" class="fw-bold">Relationship to you</label>
               <input type="text" class="form-control" id="entryRelate" name="entryRelate"
-                placeholder="Enter Relationship. e.g Friend">
+                placeholder="Relationship. e.g Friend">
             </div>
             <div class="mb-3">
-              <label for="entryDate" class="visually-hidden">Date of Birth</label>
+              <label for="entryDate" class="fw-bold">Date of Birth</label>
               <input type="date" class="form-control" id="entryDate" name="entryDate">
             </div>
             <div class="mb-3">
-              <label for="relationshipFormControlTextarea" class="form-label display-6 fw-normal">Your thoughts on the
-                Relationship:</label>
+              <label for="relationshipFormControlTextarea" class="form-label fw-bold">Your thoughts:</label>
               <textarea class="form-control" id="relationshipFormControlTextarea" name="relationshipFormControlTextarea"
                 rows="6" oninput="countChars(this,1000)"></textarea>
               <div id="charNum"></div>

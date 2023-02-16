@@ -48,11 +48,11 @@
         <p class=" fw-normal mb-4">We have provided with some primers for you to think about how to approach each goal.
         </p>
 
-        <div class="container accordion-container pb-3">
+        <div class="container accordion-container pb-4">
           <div class="accordion accordion-flush" id="accordionFlushPrimers">
             <div class="accordion-item">
               <h2 class="accordion-header" id="flush-headingOne">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
                   data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
                   Purpose
                 </button>
@@ -78,7 +78,7 @@
             </div>
             <div class="accordion-item">
               <h2 class="accordion-header" id="flush-headingTwo">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
                   data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
                   Spiritual Goal
                 </button>
@@ -104,7 +104,7 @@
               </div>
               <div class="accordion-item">
                 <h2 class="accordion-header" id="flush-headingThree">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
                     data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
                     Self-development
                   </button>
@@ -130,7 +130,7 @@
                 </div>
                 <div class="accordion-item">
                   <h2 class="accordion-header" id="flush-headingFour">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
                       data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
                       Physical Health and Fitness
                     </button>
@@ -169,9 +169,10 @@
                   {% endfor %}
                   {% endif%}
                   {% endwith %}
+                  <label for="life-goals" class="form-label fw-bold">Choose:</label>
                   <select class="form-select fw-normal" aria-label="Default select example" name="life-goals"
                     id="life-goals">
-                    <option value="selection">Select a Goal:</option>
+                    <option value="selection">  Select a Goal:</option>
                     <option value="Purpose">Purpose</option>
                     <option value="Spirit">Spirituality</option>
                     <option value="Mental">Self-Development</option>
@@ -179,7 +180,7 @@
                   </select>
                 </div>
                 <div>
-                  <label for="lifeGoalFormControlTextarea" class="form-label display-6 fw-normal">Work it out:</label>
+                  <label for="lifeGoalFormControlTextarea" class="form-label fw-bold">Work it out:</label>
                   <textarea class="form-control mb-1" id="lifeGoalFormControlTextarea"
                     name="lifeGoalFormControlTextarea" rows="6" oninput="countCharacters(this, 1000)"></textarea>
                   <div id="characterCount"></div>
