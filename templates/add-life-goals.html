@@ -59,14 +59,14 @@
             {% endif%}
             {% endwith %}
             <label for="life-goals" class="form-label fw-bold">Choose:</label>
-            <select class="form-select fw-normal" aria-label="Default select example" name="life-goals" id="life-goals">
+            <select class="form-select fw-normal border-secondary" aria-label="Default select example" name="life-goals" id="life-goals">
               <option value="selection"> Select a Goal:</option>
               <option value="Purpose">Purpose</option>
               <option value="Spirit">Spirituality</option>
               <option value="Mental">Self-Development</option>
               <option value="Physical">Physical Health and Fitness</option>
             </select>
-            <div class="card border-light goal-card purpose-card show">
+            <div class="card border-secondary rounded-0 rounded-bottom border-top-0 goal-card purpose-card show ">
               <div class="card-body">
                 <div class="accordion accordion-flush" id="accordionEmergency">
                   <div class="accordion-item">
@@ -124,7 +124,7 @@
                 </div>
               </div>
             </div>
-            <div class="card border-light goal-card spiritual-card show">
+            <div class="card border-secondary rounded-0 rounded-bottom border-top-0 goal-card spiritual-card show">
               <div class="card-body">
                 <div class="accordion accordion-flush" id="accordionEmergency">
                   <div class="accordion-item">
@@ -185,7 +185,7 @@
                 </div>
               </div>
             </div>
-            <div class="card border-light goal-card self-development-card show">
+            <div class="card border-secondary rounded-0 rounded-bottom border-top-0 goal-card self-development-card show">
               <div class="card-body">
                 <div class="accordion accordion-flush" id="accordionEmergency">
                   <div class="accordion-item">
@@ -241,7 +241,7 @@
                 </div>
               </div>
             </div>
-            <div class="card border-light goal-card physical-fitness-card show">
+            <div class="card border-secondary rounded-0 rounded-bottom border-top-0 goal-card physical-fitness-card show">
               <div class="card-body">
                 <div class="accordion accordion-flush" id="accordionEmergency">
                   <div class="accordion-item">
@@ -402,12 +402,15 @@
       // Show the card that matches the selected value
       if (selectedValue === "Purpose") {
         purposeCard.style.display = "block";
+        selectGoal.classList.add("rounded-0", "rounded-top");
       } else if (selectedValue === "Spirit") {
         spiritualCard.style.display = "block";
       } else if (selectedValue === "Mental") {
         selfDevCard.style.display = "block";
       } else if (selectedValue === "Physical") {
         fitnessCard.style.display = "block";
+      } else {
+        selectGoal.classList.remove("rounded-0", "rounded-top");
       }
     });
 
