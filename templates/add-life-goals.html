@@ -172,7 +172,7 @@
                   <label for="life-goals" class="form-label fw-bold">Choose:</label>
                   <select class="form-select fw-normal" aria-label="Default select example" name="life-goals"
                     id="life-goals">
-                    <option value="selection">  Select a Goal:</option>
+                    <option value="selection"> Select a Goal:</option>
                     <option value="Purpose">Purpose</option>
                     <option value="Spirit">Spirituality</option>
                     <option value="Mental">Self-Development</option>
@@ -215,6 +215,30 @@
         }
 
         document.getElementById("year").innerHTML = new Date().getFullYear();
+
+        const form = document.querySelector('form');
+        const submitButton = document.querySelector('#submitButton');
+        const select = document.querySelector('#life-goals');
+
+        form.addEventListener('submit', (event) => {
+          if (select.value === 'selection') {
+            event.preventDefault();
+            select.classList.add('is-invalid');
+            const error = document.createElement('div');
+            error.classList.add('invalid-feedback');
+            error.innerText = 'Please select a valid option';
+            select.after(error);
+          }
+        });
+
+        select.addEventListener('change', () => {
+          select.classList.remove('is-invalid');
+          const error = select.nextElementSibling;
+          if (error && error.classList.contains('invalid-feedback')) {
+            error.remove();
+          }
+        });
+
 
       </script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
