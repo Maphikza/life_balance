@@ -36,10 +36,11 @@
 }
 
 /* .goal-card {
-  display: none;
-}
+  min-height: 1rem;
+  background-color: red;
+} */
 
-.goal-card.show {
+/* .goal-card.show {
   display: block;
 } */
 
