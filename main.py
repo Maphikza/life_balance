@@ -343,6 +343,9 @@ def add_finance_goals():
         plan = request.form.get("financeFormControlTextarea")
         plan = encrypt_data(plan)
         goal_check = Finances.query.filter_by(user_id=current_user.id).all()
+        if title == 'selection':
+            flash("Please select one of the options.")
+            return redirect(url_for('add_finance_goals'))
         for goal_title in goal_check:
             if goal_title.goal_title == title:
                 flash("Goal exists, You can only edit or delete this goal.")

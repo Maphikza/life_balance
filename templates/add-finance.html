@@ -48,8 +48,8 @@
         </h3>
         <div class="container">
           <p>
-            <button class="btn btn-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFinancePrimers"
-              aria-expanded="false" aria-controls="collapseFinancePrimers">
+            <button class="btn btn-dark" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseFinancePrimers" aria-expanded="false" aria-controls="collapseFinancePrimers">
               Primers
             </button>
           </p>
@@ -157,7 +157,8 @@
           <form class="finance-emergency-form g-3 text-start" method="post">
             <div class="mb-3">
               <select class="form-select" aria-label="Default select example" name="finance-goals" id="finance-goals">
-                <option selected>Emergency Funds</option>
+                <option value="selection">Select Goal</option>
+                <option value="Emergency Funds">Emergency Funds</option>
                 <option value="Life Insurance">Life Insurance</option>
                 <option value="Medical Insurance">Medical Insurance</option>
                 <option value="Disability Cover">Disability Cover</option>
@@ -176,7 +177,7 @@
               </div>
             </div>
             <div class="col">
-              <button type="submit" class="btn btn-lg btn-dark mb-3">Add Goal</button>
+              <button type="submit" id="submitButton" class="btn btn-lg btn-dark mb-3">Add Goal</button>
             </div>
           </form>
         </div>
@@ -197,6 +198,30 @@
         characterCountElement.style.color = "inherit";
       }
     }
+
+    const form = document.querySelector('form');
+    const submitButton = document.querySelector('#submitButton');
+    const select = document.querySelector('#finance-goals');
+
+    form.addEventListener('submit', (event) => {
+      if (select.value === 'selection') {
+        event.preventDefault();
+        select.classList.add('is-invalid');
+        const error = document.createElement('div');
+        error.classList.add('invalid-feedback');
+        error.innerText = 'Please select a valid option';
+        select.after(error);
+      }
+    });
+
+    select.addEventListener('change', () => {
+      select.classList.remove('is-invalid');
+      const error = select.nextElementSibling;
+      if (error && error.classList.contains('invalid-feedback')) {
+        error.remove();
+      }
+    });
+
   </script>
   <div class="container footer-container">
     <footer class="footer mt-auto py-3 my-4 pt-5">
