@@ -1,20 +1,6 @@
-/* #spinner {
-    display: none;
-  }
-  
-#spinner1 {
-    display: none;
+body {
+  background-color: white;
 }
-
-.highlight {
-    background-color: gold;
-} */
-
-/* .footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-  } */
 
 .footer-container {
   display: flex;
@@ -35,13 +21,9 @@
   display: block;
 }
 
-/* .goal-card {
-  min-height: 1rem;
-  background-color: red;
-} */
-
-/* .goal-card.show {
-  display: block;
-} */
+audio {
+  width: 15rem;
+  border-radius: 0px;
+}
 
 
