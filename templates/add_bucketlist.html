@@ -46,21 +46,26 @@
   <div class="container">
     <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center bg-light">
       <div class="col-md-9 p-lg-5 mx-auto my-5">
-        <h3 class="display-4 fw-normal pb-3">Add Bucket List Item
+        <h3 class="display-6 fw-normal pb-3">Add Bucket List
         </h3>
+        <p class="text-center fs-4 pb-3">The Bucket List section is where you can dream big and plan out the experiences you want to have in life.
+          It's a chance to think about what brings you joy, what challenges you want to overcome, and what you want to
+          achieve. Start by brainstorming a list of things you've always wanted to do, no matter how big or small. Then,
+          prioritize the items on your list and set goals for when and how you'll achieve them. Remember, life is short,
+          so don't be afraid to dream big and make the most of your time!</p>
         <form class="bucket-list-form g-3 text-start" method="post">
-          <div class="mb-3">
-            <label for="bucketListFormControlInput" class="form-label display-6 fw-normal">Title:</label>
+          <div class="mb-2">
+            <label for="bucketListFormControlInput" class="form-label fw-bold">Title:</label>
             <input type="text" class="form-control" id="bucketListFormControlInput" name="bucketListFormControlInput"
               placeholder="Bucket List Item">
           </div>
-          <div class="mb-3">
-            <label for="costFormControlInput" class="form-label display-6 fw-normal">Cost:</label>
+          <div class="mb-2">
+            <label for="costFormControlInput" class="form-label fw-bold">Cost:</label>
             <input type="text" class="form-control" id="costFormControlInput" name="costFormControlInput"
               placeholder="How much would it cost to accomplish.">
           </div>
-          <div class="mb-3">
-            <label for="bucketListFormControlTextarea" class="form-label display-6 fw-normal">Thoughts:</label>
+          <div class="mb-2">
+            <label for="bucketListFormControlTextarea" class="form-label fw-bold">Thoughts:</label>
             <textarea class="form-control" id="bucketListFormControlTextarea" rows="6"
               name="bucketListFormControlTextarea" oninput="countCharacters(this, 1000)"></textarea>
             <div id="characterCount"></div>
