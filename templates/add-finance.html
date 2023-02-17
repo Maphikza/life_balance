@@ -158,13 +158,408 @@
             <div class="mb-3">
               <select class="form-select" aria-label="Default select example" name="finance-goals" id="finance-goals">
                 <option value="selection">Select Goal</option>
-                <option value="Emergency Funds">Emergency Funds</option>
-                <option value="Life Insurance">Life Insurance</option>
-                <option value="Medical Insurance">Medical Insurance</option>
-                <option value="Disability Cover">Disability Cover</option>
-                <option value="Income Insurance">Income Insurance</option>
-                <option value="Income Insurance">Retirement Fund</option>
+                <option value="Emergency Funds" data-target="emergency-funds-card">Emergency Funds</option>
+                <option value="Life Insurance" data-target="life-insurance-card">Life Insurance</option>
+                <option value="Medical Insurance" data-target="medical-insurance-card">Medical Insurance</option>
+                <option value="Disability Cover" data-target="disability-cover-card">Disability Cover</option>
+                <option value="Income Insurance" data-target="income-insurance-card">Income Insurance</option>
+                <option value="Retirement Fund" data-target="retirement-fund-card">Retirement Fund</option>
               </select>
+              <div class="card border-light finance-card emergency-funds-card show">
+                <div class="card-body">
+                  <div class="accordion accordion-flush" id="accordionEmergency">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingEmergency">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                          data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-stars" viewBox="0 0 16 16">
+                            <path
+                              d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828l.645-1.937zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.734 1.734 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.734 1.734 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.734 1.734 0 0 0 3.407 2.31l.387-1.162zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L10.863.1z" />
+                          </svg> Emergency Funds Primer
+                        </button>
+                      </h2>
+                      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingEmergency"
+                        data-bs-parent="#accordionEmergency">
+                        <div class="accordion-body">
+                          <h5 class="card-title">Listen to Primer</h5>
+                          <div class="pt-2 text-center">
+                            <audio controls>
+                              <source src="{{ url_for('static', filename='synthesized_audio_body.mp3') }}"
+                                type="audio/mpeg">
+                            </audio>
+                          </div>
+                          <p class="card-text">
+                          <p>
+                            <a class="btn btn-link" data-bs-toggle="collapse" href="#collapseExample" role="button"
+                              aria-expanded="false" aria-controls="collapseExample">
+                              Read it rather.
+                            </a>
+                          </p>
+                          <div class="collapse" id="collapseExample">
+                            <div class="card card-body">
+                              <p class="card-text">
+                                We only have one body, and it's responsible for carrying us through this lifetime. It's
+                                important
+                                to consider how we can contribute to its longevity, strength, and overall health. While
+                                aesthetics
+                                may be important to some, this section is focused on physical health and fitness as a
+                                crucial
+                                part
+                                of a fulfilling life. Keeping your body in a healthy state allows you to pursue your
+                                life's work
+                                in optimal physical condition, and it's a gift you give to yourself and your loved ones.
+
+                                In this section, you can focus on what you can control: what you choose to eat and what
+                                you do
+                                to
+                                keep your body strong and fit to do the things you want to do. It's helpful to consider
+                                the
+                                physical activities you want to engage in comfortably, such as climbing, hiking,
+                                running, or
+                                playing with your children. Remember, the details of what physical health and fitness
+                                look like
+                                for you, and what's required to achieve and maintain it, are totally up to you.
+                              </p>
+                            </div>
+                          </div>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card border-light finance-card life-insurance-card show">
+                <div class="card-body">
+                  <div class="accordion accordion-flush" id="accordionLife">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingLife">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                          data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-stars" viewBox="0 0 16 16">
+                            <path
+                              d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828l.645-1.937zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.734 1.734 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.734 1.734 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.734 1.734 0 0 0 3.407 2.31l.387-1.162zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L10.863.1z" />
+                          </svg> Life Insurane Primer
+                        </button>
+                      </h2>
+                      <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingLife"
+                        data-bs-parent="#accordionLife">
+                        <div class="accordion-body">
+                          <h5 class="card-title">Listen to Primer</h5>
+                          <div class="pt-2 text-center">
+                            <audio controls>
+                              <source src="{{ url_for('static', filename='synthesized_audio_body.mp3') }}"
+                                type="audio/mpeg">
+                            </audio>
+                          </div>
+                          <p class="card-text">
+                          <p>
+                            <a class="btn btn-link" data-bs-toggle="collapse" href="#collapseExample" role="button"
+                              aria-expanded="false" aria-controls="collapseExample">
+                              Read it rather.
+                            </a>
+                          </p>
+                          <div class="collapse" id="collapseExample">
+                            <div class="card card-body">
+                              <p class="card-text">
+                                We only have one body, and it's responsible for carrying us through this lifetime.
+                                It's
+                                important
+                                to consider how we can contribute to its longevity, strength, and overall health.
+                                While
+                                aesthetics
+                                may be important to some, this section is focused on physical health and fitness as a
+                                crucial
+                                part
+                                of a fulfilling life. Keeping your body in a healthy state allows you to pursue your
+                                life's work
+                                in optimal physical condition, and it's a gift you give to yourself and your loved
+                                ones.
+
+                                In this section, you can focus on what you can control: what you choose to eat and
+                                what
+                                you do
+                                to
+                                keep your body strong and fit to do the things you want to do. It's helpful to
+                                consider
+                                the
+                                physical activities you want to engage in comfortably, such as climbing, hiking,
+                                running, or
+                                playing with your children. Remember, the details of what physical health and fitness
+                                look like
+                                for you, and what's required to achieve and maintain it, are totally up to you.
+                              </p>
+                            </div>
+                          </div>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card border-light finance-card medical-insurance-card show">
+                <div class="card-body">
+                  <div class="accordion accordion-flush" id="accordionMedical">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingMedical">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                          data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-stars" viewBox="0 0 16 16">
+                            <path
+                              d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828l.645-1.937zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.734 1.734 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.734 1.734 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.734 1.734 0 0 0 3.407 2.31l.387-1.162zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L10.863.1z" />
+                          </svg> Medical Insurane Primer
+                        </button>
+                      </h2>
+                      <div id="collapseThree" class="accordion-collapse collapse show" aria-labelledby="headingMedical"
+                        data-bs-parent="#accordionMedical">
+                        <div class="accordion-body">
+                          <h5 class="card-title">Listen to Primer</h5>
+                          <div class="pt-2 text-center">
+                            <audio controls>
+                              <source src="{{ url_for('static', filename='synthesized_audio_body.mp3') }}"
+                                type="audio/mpeg">
+                            </audio>
+                          </div>
+                          <p class="card-text">
+                          <p>
+                            <a class="btn btn-link" data-bs-toggle="collapse" href="#collapseExample" role="button"
+                              aria-expanded="false" aria-controls="collapseExample">
+                              Read it rather.
+                            </a>
+                          </p>
+                          <div class="collapse" id="collapseExample">
+                            <div class="card card-body">
+                              <p class="card-text">
+                                We only have one body, and it's responsible for carrying us through this lifetime. It's
+                                important
+                                to consider how we can contribute to its longevity, strength, and overall health. While
+                                aesthetics
+                                may be important to some, this section is focused on physical health and fitness as a
+                                crucial
+                                part
+                                of a fulfilling life. Keeping your body in a healthy state allows you to pursue your
+                                life's work
+                                in optimal physical condition, and it's a gift you give to yourself and your loved ones.
+
+                                In this section, you can focus on what you can control: what you choose to eat and what
+                                you do
+                                to
+                                keep your body strong and fit to do the things you want to do. It's helpful to consider
+                                the
+                                physical activities you want to engage in comfortably, such as climbing, hiking,
+                                running, or
+                                playing with your children. Remember, the details of what physical health and fitness
+                                look like
+                                for you, and what's required to achieve and maintain it, are totally up to you.
+                              </p>
+                            </div>
+                          </div>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card border-light finance-card disability-cover-card show">
+                <div class="card-body">
+                  <div class="accordion accordion-flush" id="accordionDisability">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingDisability">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                          data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-stars" viewBox="0 0 16 16">
+                            <path
+                              d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828l.645-1.937zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.734 1.734 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.734 1.734 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.734 1.734 0 0 0 3.407 2.31l.387-1.162zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L10.863.1z" />
+                          </svg> Disability Cover Primer
+                        </button>
+                      </h2>
+                      <div id="collapseFour" class="accordion-collapse collapse show"
+                        aria-labelledby="headingDisability" data-bs-parent="#accordionDisability">
+                        <div class="accordion-body">
+                          <h5 class="card-title">Listen to Primer</h5>
+                          <div class="pt-2 text-center">
+                            <audio controls>
+                              <source src="{{ url_for('static', filename='synthesized_audio_body.mp3') }}"
+                                type="audio/mpeg">
+                            </audio>
+                          </div>
+                          <p class="card-text">
+                          <p>
+                            <a class="btn btn-link" data-bs-toggle="collapse" href="#collapseDisable" role="button"
+                              aria-expanded="false" aria-controls="collapseDisable">
+                              Read it rather.
+                            </a>
+                          </p>
+                          <div class="collapse" id="collapseDisable">
+                            <div class="card card-body">
+                              <p class="card-text">
+                                We only have one body, and it's responsible for carrying us through this lifetime. It's
+                                important
+                                to consider how we can contribute to its longevity, strength, and overall health. While
+                                aesthetics
+                                may be important to some, this section is focused on physical health and fitness as a
+                                crucial
+                                part
+                                of a fulfilling life. Keeping your body in a healthy state allows you to pursue your
+                                life's work
+                                in optimal physical condition, and it's a gift you give to yourself and your loved ones.
+
+                                In this section, you can focus on what you can control: what you choose to eat and what
+                                you do
+                                to
+                                keep your body strong and fit to do the things you want to do. It's helpful to consider
+                                the
+                                physical activities you want to engage in comfortably, such as climbing, hiking,
+                                running, or
+                                playing with your children. Remember, the details of what physical health and fitness
+                                look like
+                                for you, and what's required to achieve and maintain it, are totally up to you.
+                              </p>
+                            </div>
+                          </div>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card border-light finance-card income-insurance-card show">
+                <div class="card-body">
+                  <div class="accordion accordion-flush" id="accordionIncome">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingIncome">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                          data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-stars" viewBox="0 0 16 16">
+                            <path
+                              d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828l.645-1.937zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.734 1.734 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.734 1.734 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.734 1.734 0 0 0 3.407 2.31l.387-1.162zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L10.863.1z" />
+                          </svg> Income Cover Primer
+                        </button>
+                      </h2>
+                      <div id="collapseFive" class="accordion-collapse collapse show" aria-labelledby="headingIncome"
+                        data-bs-parent="#accordionIncome">
+                        <div class="accordion-body">
+                          <h5 class="card-title">Listen to Primer</h5>
+                          <div class="pt-2 text-center">
+                            <audio controls>
+                              <source src="{{ url_for('static', filename='synthesized_audio_body.mp3') }}"
+                                type="audio/mpeg">
+                            </audio>
+                          </div>
+                          <p class="card-text">
+                          <p>
+                            <a class="btn btn-link" data-bs-toggle="collapse" href="#collapseIncome" role="button"
+                              aria-expanded="false" aria-controls="collapseIncome">
+                              Read it rather.
+                            </a>
+                          </p>
+                          <div class="collapse" id="collapseIncome">
+                            <div class="card card-body">
+                              <p class="card-text">
+                                We only have one body, and it's responsible for carrying us through this lifetime. It's
+                                important
+                                to consider how we can contribute to its longevity, strength, and overall health. While
+                                aesthetics
+                                may be important to some, this section is focused on physical health and fitness as a
+                                crucial
+                                part
+                                of a fulfilling life. Keeping your body in a healthy state allows you to pursue your
+                                life's work
+                                in optimal physical condition, and it's a gift you give to yourself and your loved ones.
+
+                                In this section, you can focus on what you can control: what you choose to eat and what
+                                you do
+                                to
+                                keep your body strong and fit to do the things you want to do. It's helpful to consider
+                                the
+                                physical activities you want to engage in comfortably, such as climbing, hiking,
+                                running, or
+                                playing with your children. Remember, the details of what physical health and fitness
+                                look like
+                                for you, and what's required to achieve and maintain it, are totally up to you.
+                              </p>
+                            </div>
+                          </div>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card border-light finance-card retirement-fund-card show">
+                <div class="card-body">
+                  <div class="accordion accordion-flush" id="accordionRetirement">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingRetire">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                          data-bs-target="#collapseSix" aria-expanded="true" aria-controls="collapseSix">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-stars" viewBox="0 0 16 16">
+                            <path
+                              d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828l.645-1.937zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.734 1.734 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.734 1.734 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.734 1.734 0 0 0 3.407 2.31l.387-1.162zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L10.863.1z" />
+                          </svg> Retirement Fund Primer
+                        </button>
+                      </h2>
+                      <div id="collapseSix" class="accordion-collapse collapse show" aria-labelledby="headingRetire"
+                        data-bs-parent="#accordionRetirement">
+                        <div class="accordion-body">
+                          <h5 class="card-title">Listen to Primer</h5>
+                          <div class="pt-2 text-center">
+                            <audio controls>
+                              <source src="{{ url_for('static', filename='synthesized_audio_body.mp3') }}"
+                                type="audio/mpeg">
+                            </audio>
+                          </div>
+                          <p class="card-text">
+                          <p>
+                            <a class="btn btn-link" data-bs-toggle="collapse" href="#collapseRetire" role="button"
+                              aria-expanded="false" aria-controls="collapseRetire">
+                              Read it rather.
+                            </a>
+                          </p>
+                          <div class="collapse" id="collapseRetire">
+                            <div class="card card-body">
+                              <p class="card-text">
+                                We only have one body, and it's responsible for carrying us through this lifetime. It's
+                                important
+                                to consider how we can contribute to its longevity, strength, and overall health. While
+                                aesthetics
+                                may be important to some, this section is focused on physical health and fitness as a
+                                crucial
+                                part
+                                of a fulfilling life. Keeping your body in a healthy state allows you to pursue your
+                                life's work
+                                in optimal physical condition, and it's a gift you give to yourself and your loved ones.
+
+                                In this section, you can focus on what you can control: what you choose to eat and what
+                                you do
+                                to
+                                keep your body strong and fit to do the things you want to do. It's helpful to consider
+                                the
+                                physical activities you want to engage in comfortably, such as climbing, hiking,
+                                running, or
+                                playing with your children. Remember, the details of what physical health and fitness
+                                look like
+                                for you, and what's required to achieve and maintain it, are totally up to you.
+                              </p>
+                            </div>
+                          </div>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <label for="quantity" class="display-6 fw-normal pb-2 pt-2">Target Amount</label>
               <input class="form-control" type="text" id="quantity" name="quantity"
                 placeholder="Enter your target amount e.g 50000">
@@ -198,7 +593,7 @@
         characterCountElement.style.color = "inherit";
       }
     }
-
+    // this is for making sure user has selected option, it checks and informs the user if they forgot to select an option.
     const form = document.querySelector('form');
     const submitButton = document.querySelector('#submitButton');
     const select = document.querySelector('#finance-goals');
@@ -221,6 +616,29 @@
         error.remove();
       }
     });
+
+    // this will handles the displaying of cards as options are selected.
+
+    const myForm = document.querySelector('.finance-emergency-form');
+    const mySelect = document.querySelector('#finance-goals');
+
+    mySelect.addEventListener('change', function () {
+      const selectedOption = this.options[this.selectedIndex];
+      const targetCard = document.querySelector(`.${selectedOption.dataset.target}`);
+      const allCards = document.querySelectorAll('.finance-card');
+
+      if (selectedOption.value !== 'selection') {
+        allCards.forEach(card => card.style.display = 'none');
+        targetCard.style.display = 'block';
+      } else {
+        allCards.forEach(card => card.style.display = 'none');
+      }
+    });
+
+    // hide all cards on page load
+    const allCards = document.querySelectorAll('.finance-card');
+    allCards.forEach(card => card.style.display = 'none');
+
 
   </script>
   <div class="container footer-container">

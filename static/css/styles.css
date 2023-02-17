@@ -26,3 +26,13 @@
   margin-top: auto;
   text-align: center;
 }
+
+.finance-card {
+  display: none;
+}
+
+.finance-card.show {
+  display: block;
+}
+
+
