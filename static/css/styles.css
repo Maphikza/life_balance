@@ -26,4 +26,10 @@ audio {
   border-radius: 0px;
 }
 
+.goal-card {
+  display: none;
+}
 
+.goal-card.show {
+  display: block;
+}
