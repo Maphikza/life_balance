@@ -52,4 +52,21 @@ audio {
 .goal-stretch {
   background-color: #737E80;
   color: whitesmoke;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.mid-breaker {
+  height: 0.5rem;
+  border: none;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+  margin-bottom: 2rem;
+}
+
+.break-lines{
+  height: 0.5rem;
+}
+
+.goal-text {
+  font-family: 'Open Sans', sans-serif;
+  font-size: large;
 }

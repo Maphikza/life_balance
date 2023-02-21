@@ -51,9 +51,10 @@
   <div class="container main-page">
     <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center">
       <div class="col-md-9 p-lg-5 mx-auto my-5">
-        <h4 class="display-4 fw-normal">Work on a goal</h4>
-        <p class="lead fw-normal mb-4">We have provided with some primers for you to think about how to approach each goal.
+        <h4 class="display-3 fw-bold pb-2">Work on a goal</h4>
+        <p class="lead fw-normal fs-4 mb-4 pb-2"><em>We have provided with some primers for you to think about how to approach each goal.</em>
         </p>
+        <hr class="mid-breaker">
 
         <form class="life-goal-form g-3 text-start" method="post">
           <div class="mb-3">
@@ -64,7 +65,7 @@
             {% endfor %}
             {% endif%}
             {% endwith %}
-            <label for="life-goals" class="form-label fw-bold">Choose:</label>
+            <label for="life-goals" class="form-label fw-bold fs-5">Choose:</label>
             <select class="form-select fw-normal border-secondary" aria-label="Default select example" name="life-goals" id="life-goals">
               <option value="selection"> Select a Goal:</option>
               <option value="Purpose">Purpose</option>
@@ -312,16 +313,17 @@
             </div>
           </div>
           <div>
-            <label for="lifeGoalFormControlTextarea" class="form-label fw-bold">Work it out:</label>
+            <label for="lifeGoalFormControlTextarea" class="form-label fw-bold fs-5">Work it out:</label>
             <textarea class="form-control mb-1" id="lifeGoalFormControlTextarea" name="lifeGoalFormControlTextarea"
               rows="6" oninput="countCharacters(this, 1000)"></textarea>
             <div id="characterCount"></div>
             <div id="message"></div>
           </div>
           <div>
-            <button type="submit" id="submitButton" class="btn btn-lg btn-dark mb-3" style="background-color: #1D282E;">Add Goal</button>
+            <button type="submit" id="submitButton" class="btn btn-lg btn-dark mb-3 fw-normal fs-5" style="background-color: #1D282E;">Add Goal</button>
           </div>
         </form>
+        <hr class="mid-breaker mt-4">
       </div>
     </div>
   </div>
@@ -429,8 +431,8 @@
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
     crossorigin="anonymous"></script>
   <div class="container footer-container">
-    <footer class="footer mt-auto py-3 my-4 pt-5">
-      <p>&copy; <span id="year"></span> Life Balance, Inc</p>
+    <footer class="footer mt-auto py-3 my-4 pt-5 fw-bold fs-5">
+      <p>&copy; <span id="year"></span> LifePath, Inc</p>
     </footer>
   </div>
   <script>
