@@ -1,5 +1,5 @@
 body {
-  background-color: white;
+  background-color: #EEF6F9;
 }
 
 .footer-container {
@@ -32,4 +32,19 @@ audio {
 
 .goal-card.show {
   display: block;
+}
+
+.page-header {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.main-page {
+  font-family: 'Montserrat', sans-serif;
+  color: #1D282E;
+  background-color: #EEF6F9;
+}
+
+.my-navbar {
+  background-color: #1D282E;
+  font-family: 'Open Sans', sans-serif;
 }
