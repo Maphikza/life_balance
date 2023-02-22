@@ -4,17 +4,23 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Edit Bucket List</title>
+    <title>LifePath</title>
+    <link href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet">
 </head>
 
-<body>
-    <div class="container-fluid bg-dark">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="goals navbar">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="{{url_for('home')}}">LifePath</a>
+<body class="main-page">
+    <header class="main-page">
+        <nav class="my-navbar navbar navbar-expand-md navbar-dark" aria-label="goals navbar">
+            <div class="container-fluid my-navbar">
+                <a class="navbar-brand fw-normal fs-3 my-navbar" href="{{url_for('home')}}">LifePath</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarConnect"
                     aria-controls="navbarConnect" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -42,13 +48,13 @@
                 </div>
             </div>
         </nav>
-    </div>
+    </header>
 
-    <div class="container">
-        <div class="toast-container position-fixed top-50 start-0 translate-middle-y p-3">
+    <div class="container main-page">
+        <div class="toast-container position-fixed bottom-0 start-50 translate-middle-x p-3">
             <div id="bucketTextAreaToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-header text-bg-success">
-                    <strong class="me-auto">AI Message</strong>
+                <div class="toast-header" style="background-color: #4C8891">
+                    <strong class="me-auto toast-title">AI Message</strong>
                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
                 <div class="toast-body fw-bold">
@@ -57,36 +63,36 @@
                 </div>
             </div>
         </div>
-        <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center bg-light">
+        <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center">
             <div class="col-md-9 p-lg-5 mx-auto my-5">
-                <h3 class="display-4 fw-normal">Edit Item.
-                </h3>
+                <h4 class="display-4 fw-bold pb-3">Edit Item
+                </h4>
+                <hr class="mid-breaker mt-4">
                 <form class="ai-edit-list-form g-3 text-start" method="post">
                     <div class="mb-3">
-                        <label for="aiEditBucketListFormControlInput"
-                            class="form-label display-6 fw-normal pb-2">Title:</label>
+                        <label for="aiEditBucketListFormControlInput" class="fs-5 fw-bold">Title:</label>
                         <input type="text" class="form-control" id="aiEditBucketListFormControlInput"
                             name="aiEditBucketListFormControlInput"
                             placeholder="{{user_bucket_list.bucket_list_item_title}}">
                     </div>
                     <div class="mb-3">
-                        <label for="aiEditCostFormControlInput"
-                            class="form-label display-6 fw-normal pb-2">Cost:</label>
+                        <label for="aiEditCostFormControlInput" class="fs-5 fw-bold">Cost:</label>
                         <input type="text" class="form-control" id="aiEditCostFormControlInput"
                             name="aiEditCostFormControlInput" placeholder="{{user_bucket_list.item_cost}}">
                     </div>
-                    <div class="mb-3">
-                        <label for="aiEditBucketListFormControlTextarea"
-                            class="form-label display-6 fw-normal pb-2">Thoughts:</label>
+                    <div class="mb-1">
+                        <label for="aiEditBucketListFormControlTextarea" class="fs-5 fw-bold">Thoughts:</label>
                         <textarea class="form-control" id="aiEditBucketListFormControlTextarea"
                             name="aiEditBucketListFormControlTextarea" rows="6"
                             oninput="countCharacters(this, 1500)">{{enhancer(d_func(user_bucket_list.bucket_list_item))}}</textarea>
                         <div id="characterCount"></div>
                     </div>
                     <div>
-                        <button type="submit" class="btn btn-lg btn-dark mb-3">Save Edit</button>
+                        <button type="submit" class="btn btn-lg btn-dark mb-3 fw-normal fs-5"
+                            style="background-color: #453C41;">Save Edit</button>
                     </div>
                 </form>
+                <hr class="mid-breaker mt-4">
             </div>
         </div>
     </div>

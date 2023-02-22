@@ -4,17 +4,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Finances</title>
+  <title>LifePath</title>
+  <link href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-  <link href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet">
 </head>
 
-<body>
-  <div class="container-fluid bg-dark">
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="goals navbar">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="{{url_for('home')}}">LifePath</a>
+<body class="main-page">
+  <header class="main-page">
+    <nav class="my-navbar navbar navbar-expand-md navbar-dark" aria-label="goals navbar">
+      <div class="container-fluid my-navbar">
+        <a class="navbar-brand fw-normal fs-3 my-navbar" href="{{url_for('home')}}">LifePath</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarConnect"
           aria-controls="navbarConnect" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -41,35 +47,38 @@
         </div>
       </div>
     </nav>
-  </div>
-  <div class="container">
+  </header>
+  <div class="container main-page">
 
-    <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center bg-light">
-      <div class="col-md-9 p-lg-5 mx-auto my-5">
-        <h1 class="display-4 fw-normal">Bucket List</h1>
-        <p class="lead fw-normal">"Welcome to our personal bucket list page, where we believe that life is meant to be
+    <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center">
+      <div class="col-lg-10 col-md-9 p-lg-5 mx-auto my-5">
+        <h1 class="display-3 fw-bold pb-2">Bucket List</h1>
+        <p class="lead fw-normal fs-4"><em>"Welcome to your personal bucket list page, where we believe that life is meant to be
           lived to the fullest. Here, we invite you to reflect on your aspirations, dreams, and goals, and turn them
           into actionable items that can bring you joy, fulfillment, and a sense of accomplishment. Whether you want
           to travel the world, learn a new skill, or make a positive impact on the world, a personal bucket list can
           help you focus your energy and bring meaning to your life. On this page, we will provide inspiration, tips,
           and resources to help you create and achieve your own unique bucket list. So why wait? Let's start crossing
-          items off your list and make every moment count!"
+          items off your list and make every moment count!"</em>
         </p>
-        <a type="submit" class="btn btn-dark btn-lg m-1" href="{{url_for('add_bucketlist_item')}}">Add Goal</a>
+        <a type="submit" class="btn btn-dark btn-lg m-1" href="{{url_for('add_bucketlist_item')}}" style="background-color: #453C41">Add Goal</a>
       </div>
     </div>
+    <hr class="mid-breaker">
     <div class="row align-items-md-stretch">
       {% for goal in user_bucketlist %}
       {% if goal.goal_title != None %}
       <div class="col-md-6">
-        <div class="h-100 p-5 bg-light border rounded-3">
+        <div class="h-100 p-5 goal-stretch border rounded-0">
           <h2>{{goal.bucket_list_item_title}} | R{{goal.formatted_cost}}</h2>
+          <hr class="break-lines">
           <p>{{d_func(goal.bucket_list_item)}}</p>
-          <a type="submit" class="btn btn-outline-dark btn-sm m-1"
+          <hr class="break-lines">
+          <a type="submit" class="btn btn-outline-light btn-sm m-1"
             href="{{url_for('edit_bucket_list_item', item_id=goal.id)}}">Edit</a>
-          <a type="submit" class="btn btn-outline-dark btn-sm m-1 ai-button" data-goal-id="{{ goal.id }}"
+          <a type="submit" class="btn btn-outline-light btn-sm m-1 ai-button" data-goal-id="{{ goal.id }}"
             href="{{url_for('ai_edit_bucket_list_item', item_id=goal.id)}}">AI Enhance</a>
-          <a type="submit" class="btn btn-outline-dark btn-sm m-1"
+          <a type="submit" class="btn btn-outline-light btn-sm m-1"
             href="{{url_for('delete_bucketlist_item', item_id=goal.id)}}">Delete</a>
           <div class="d-flex align-items-center mt-3">
             <strong id="goal_spinner1_{{goal.id}}" style="display: none;">Generating edit...</strong>
@@ -81,6 +90,7 @@
       {% endif %}
       {% endfor %}
     </div>
+    <hr class="mid-breaker mt-4">
   </div>
   <script>
     document.querySelectorAll(".ai-button").forEach(function (element) {
@@ -94,8 +104,8 @@
     });
   </script>
   <div class="container footer-container">
-    <footer class="footer mt-auto py-3 my-4 pt-5">
-      <p>&copy; <span id="year"></span> Life Balance, Inc</p>
+    <footer class="footer mt-auto py-3 my-4 pt-5 text-center fw-bold fs-5">
+      <p>&copy; <span id="year"></span> LifePath, Inc</p>
     </footer>
   </div>
   <script>

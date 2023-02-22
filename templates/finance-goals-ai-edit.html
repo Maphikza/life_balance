@@ -63,15 +63,16 @@
     </div>
     <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center">
       <div class="col-md-9 p-lg-5 mx-auto my-5">
-        <h3 class="display-4 fw-bold pb-3">{{finance_goal.goal_title}} Edit</h3>
+        <h4 class="display-4 fw-bold pb-3">{{finance_goal.goal_title}} Edit</h4>
+        <hr class="mid-breaker mt-4">
         <form class="finance-emergency-form g-3 text-start" method="post">
           <div class="mb-3">
-            <label for="quantity_edit" class="fs-4 fw-bold pb-1">Target Amount:</label>
+            <label for="quantity_edit" class="fs-5 fw-bold">Target Amount:</label>
             <input class="form-control" type="text" id="quantity_edit" name="quantity_edit"
               placeholder="{{finance_goal.target_amount}}">
           </div>
           <div class="mb-1">
-            <label for="aifinanceFormControlTextarea-edit" class="form-label fs-4 fw-bold pb-1">Edit Goal
+            <label for="aifinanceFormControlTextarea-edit" class="fs-5 fw-bold">Edit Goal
               Thoughts:</label>
             <textarea class="form-control" id="aifinanceFormControlTextarea-edit"
               name="aifinanceFormControlTextarea-edit" rows="6"
@@ -82,6 +83,7 @@
             <button type="submit" class="btn btn-lg btn-dark mb-3 fw-normal fs-5" style="background-color: #453C41">Save Edit</button>
           </div>
         </form>
+        <hr class="mid-breaker mt-4">
       </div>
     </div>
   </div>
