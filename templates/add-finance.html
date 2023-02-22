@@ -4,17 +4,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Finance</title>
+  <title>Finances</title>
+  <link href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-  <link href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet">
 </head>
 
-<body>
-  <div class="container-fluid bg-dark">
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="goals navbar">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="{{url_for('home')}}">LifePath</a>
+<body class="main-page">
+  <header class="main-page">
+    <nav class="my-navbar navbar navbar-expand-md navbar-dark" aria-label="goals navbar">
+      <div class="container-fluid my-navbar">
+        <a class="navbar-brand fw-normal fs-3" href="{{url_for('home')}}">LifePath</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarConnect"
           aria-controls="navbarConnect" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -41,7 +47,7 @@
         </div>
       </div>
     </nav>
-  </div>
+  </header>
   <div class="container">
     <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center bg-light">
       <div class="col-md-9 p-lg-5 mx-auto my-5">
@@ -82,7 +88,8 @@
                           <h5 class="card-title">Listen</h5>
                           <div class="text-center">
                             <audio controls controlsList="nodownload">
-                              <source src="{{ url_for('static', filename='synthesized_audio_bella_emergency_fund.mp3') }}"
+                              <source
+                                src="{{ url_for('static', filename='synthesized_audio_bella_emergency_fund.mp3') }}"
                                 type="audio/mpeg">
                             </audio>
                           </div>
@@ -134,14 +141,15 @@
                           <h5 class="card-title">Listen to Primer</h5>
                           <div class="pt-2 text-center">
                             <audio controls>
-                              <source src="{{ url_for('static', filename='synthesized_audio_bella_life_insurance.mp3') }}"
+                              <source
+                                src="{{ url_for('static', filename='synthesized_audio_bella_life_insurance.mp3') }}"
                                 type="audio/mpeg">
                             </audio>
                           </div>
                           <p class="card-text">
                           <p>
-                            <a class="btn btn-outline-dark" data-bs-toggle="collapse" href="#collapseLife"
-                              role="button" aria-expanded="false" aria-controls="collapseLife">
+                            <a class="btn btn-outline-dark" data-bs-toggle="collapse" href="#collapseLife" role="button"
+                              aria-expanded="false" aria-controls="collapseLife">
                               Life Insurance Primer
                             </a>
                           </p>
@@ -353,8 +361,8 @@
                           </div>
                           <p class="card-text">
                           <p>
-                            <a class="btn btn-outline-dark" data-bs-toggle="collapse" href="#collapseRetire" role="button"
-                              aria-expanded="false" aria-controls="collapseRetire">
+                            <a class="btn btn-outline-dark" data-bs-toggle="collapse" href="#collapseRetire"
+                              role="button" aria-expanded="false" aria-controls="collapseRetire">
                               Retirememnt Fund Primer
                             </a>
                           </p>
