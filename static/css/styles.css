@@ -40,17 +40,19 @@ audio {
 
 .main-page {
   font-family: 'Montserrat', sans-serif;
-  color: #1D282E;
-  background-color: #EEF6F9;
+  color: #453C41;
+  background-color: #ECEBE9;
+  /* #EEF6F9 */
 }
 
 .my-navbar {
-  background-color: #1D282E;
+  background-color: #4C8891;
   font-family: 'Open Sans', sans-serif;
+  /* #1D282E */
 }
 
 .goal-stretch {
-  background-color: #737E80;
+  background-color: #4C8891;
   color: whitesmoke;
   font-family: 'Open Sans', sans-serif;
 }
