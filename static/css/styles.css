@@ -72,3 +72,11 @@ audio {
   font-family: 'Open Sans', sans-serif;
   font-size: large;
 }
+
+.accordion-text {
+  color: #453C41;
+}
+
+.toast-title {
+  color: whitesmoke;
+}

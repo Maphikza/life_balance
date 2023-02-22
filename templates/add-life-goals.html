@@ -78,7 +78,7 @@
                 <div class="accordion accordion-flush" id="accordionPurpose">
                   <div class="accordion-item">
                     <h2 class="accordion-header" id="flush-headingOne">
-                      <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
+                      <button class="accordion-button collapsed fw-bold accordion-text" type="button" data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                           class="bi bi-stars" viewBox="0 0 16 16">
@@ -91,7 +91,7 @@
                       data-bs-parent="#accordionFlushPrimers">
                       <div class="accordion-body">
                         <div class="text-center">
-                          <p class="fw-bold fs-5"> You can listen or read the primer.</p>
+                          <p class="fw-bold fs-5 accordion-text"> You can listen or read the primer.</p>
                           <audio controls controlsList="nodownload">
                             <source src="{{ url_for('static', filename='synthesized_audio_bella_purpose.mp3') }}"
                               type="audio/mpeg">
@@ -99,7 +99,7 @@
                         </div>
                         <p class="text-center mt-2">
                           <a class="btn btn-dark fw-normal" data-bs-toggle="collapse" href="#collapsePurposePrimer" role="button"
-                            aria-expanded="false" aria-controls="collapsePurposePrimer">
+                            aria-expanded="false" aria-controls="collapsePurposePrimer" style="background-color: #453C41">
                             Read Purpose Primer
                           </a>
                         </p>
@@ -137,7 +137,7 @@
                 <div class="accordion accordion-flush" id="accordionSpirit">
                   <div class="accordion-item">
                     <h2 class="accordion-header" id="flush-headingTwo">
-                      <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
+                      <button class="accordion-button collapsed fw-bold accordion-text" type="button" data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                           class="bi bi-stars" viewBox="0 0 16 16">
@@ -150,14 +150,14 @@
                       data-bs-parent="#accordionFlushPrimers">
                       <div class="accordion-body">
                         <div class="text-center">
-                          <p class="fw-bold fs-5"> You can listen or read the primer.</p>
+                          <p class="fw-bold fs-5 accordion-text"> You can listen or read the primer.</p>
                           <audio controls controlsList="nodownload">
                             <source src="{{ url_for('static', filename='synthesized_audio_bella_spirit.mp3') }}"
                               type="audio/mpeg">
                           </audio>
                         </div>
                         <p class="text-center mt-2">
-                          <a class="btn btn-dark fw-normal" style="background-color: #1D282E;" data-bs-toggle="collapse" href="#collapseSpiritualPrimer"
+                          <a class="btn btn-dark fw-normal" style="background-color: #453C41" data-bs-toggle="collapse" href="#collapseSpiritualPrimer"
                             role="button" aria-expanded="false" aria-controls="collapseSpiritualPrimer">
                             Read Spiritual Primer
                           </a>
@@ -199,7 +199,7 @@
                 <div class="accordion accordion-flush" id="accordionMental">
                   <div class="accordion-item">
                     <h2 class="accordion-header" id="flush-headingThree">
-                      <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
+                      <button class="accordion-button collapsed fw-bold accordion-text" type="button" data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                           class="bi bi-stars" viewBox="0 0 16 16">
@@ -212,7 +212,7 @@
                       aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushPrimers">
                       <div class="accordion-body">
                         <div class="pt-2 text-center">
-                          <p class="fw-bold fs-5"> You can listen or read the primer.</p>
+                          <p class="fw-bold fs-5 accordion-text"> You can listen or read the primer.</p>
                           <audio controls controlsList="nodownload">
                             <source src="{{ url_for('static', filename='synthesized_audio_bella_mental.mp3') }}"
                               type="audio/mpeg">
@@ -220,8 +220,8 @@
                         </div>
                         <p class="text-center mt-2">
                           <a class="btn btn-dark" data-bs-toggle="collapse" href="#collapseSelf-devPrimer" role="button"
-                            aria-expanded="false" aria-controls="collapseSelf-devPrimer">
-                            Read Primer
+                            aria-expanded="false" aria-controls="collapseSelf-devPrimer" style="background-color: #453C41">
+                            Read Self-development Primer
                           </a>
                         </p>
                         <div class="collapse" id="collapseSelf-devPrimer">
@@ -256,7 +256,7 @@
                 <div class="accordion accordion-flush" id="accordionBody">
                   <div class="accordion-item">
                     <h2 class="accordion-header" id="flush-headingFour">
-                      <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
+                      <button class="accordion-button collapsed fw-bold accordion-text" type="button" data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                           class="bi bi-stars" viewBox="0 0 16 16">
@@ -269,7 +269,7 @@
                       data-bs-parent="#accordionFlushPrimers">
                       <div class="accordion-body">
                         <div class="pt-2 text-center">
-                          <p class="fw-bold fs-5"> You can listen or read the primer.</p>
+                          <p class="fw-bold fs-5 accordion-text"> You can listen or read the primer.</p>
                           <audio controls controlsList="nodownload">
                             <source src="{{ url_for('static', filename='synthesized_audio_bella_body.mp3') }}"
                               type="audio/mpeg">
@@ -277,8 +277,8 @@
                         </div>
                         <p class="text-center mt-2">
                           <a class="btn btn-dark" data-bs-toggle="collapse" href="#collapsePhysicalPrimer" role="button"
-                            aria-expanded="false" aria-controls="collapsePhysicalPrimer">
-                            Read Primer
+                            aria-expanded="false" aria-controls="collapsePhysicalPrimer" style="background-color: #453C41">
+                            Read Health & Fitness Primer
                           </a>
                         </p>
                         <div class="collapse" id="collapsePhysicalPrimer">
@@ -320,7 +320,7 @@
             <div id="message"></div>
           </div>
           <div>
-            <button type="submit" id="submitButton" class="btn btn-lg btn-dark mb-3 fw-normal fs-5" style="background-color: #1D282E;">Add Goal</button>
+            <button type="submit" id="submitButton" class="btn btn-lg btn-dark mb-3 fw-normal fs-5" style="background-color: #453C41;">Add Goal</button>
           </div>
         </form>
         <hr class="mid-breaker mt-4">
