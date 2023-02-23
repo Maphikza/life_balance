@@ -10,8 +10,18 @@
   <link href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet">
 </head>
 
-<body>
-  <div class="container-fluid pt-5" style="height: 54rem;">
+<body class="main-page">
+  <noscript>
+    <style>
+      #js-disabled-message {
+        display: block !important;
+      }
+    </style>
+    <div id="js-disabled-message" class="alert alert-danger">
+      This website requires JavaScript to function properly. Please enable JavaScript in your browser settings.
+    </div>
+  </noscript>
+  <header class="container-fluid pt-5" style="height: 54rem;">
     <div class="container w-50 pt-5">
       <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center bg-light">
         <div class="col-md-9 p-lg-5 mx-auto my-5">
@@ -28,7 +38,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </header>
   <div class="container footer-container">
     <footer class="footer mt-auto py-3 my-4 pt-5">
       <p>&copy; <span id="year"></span> Life Balance, Inc</p>
