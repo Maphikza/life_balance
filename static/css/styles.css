@@ -2,6 +2,10 @@ body {
   background-color: #EEF6F9;
 }
 
+.flashes {
+  color: red;
+}
+
 .footer-container {
   display: flex;
   min-height: 32vh;

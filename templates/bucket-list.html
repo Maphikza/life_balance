@@ -17,16 +17,6 @@
 </head>
 
 <body class="main-page">
-  <noscript>
-    <style>
-      #js-disabled-message {
-        display: block !important;
-      }
-    </style>
-    <div id="js-disabled-message" class="alert alert-danger">
-      This website requires JavaScript to function properly. Please enable JavaScript in your browser settings.
-    </div>
-  </noscript>
   <header class="main-page">
     <nav class="my-navbar navbar navbar-expand-md navbar-dark" aria-label="goals navbar">
       <div class="container-fluid my-navbar">
@@ -72,6 +62,16 @@
             and resources to help you create and achieve your own unique bucket list. So why wait? Let's start crossing
             items off your list and make every moment count!"</em>
         </p>
+        <noscript>
+          <style>
+            #js-disabled-message {
+              display: block !important;
+            }
+          </style>
+          <div id="js-disabled-message" class="alert alert-danger">
+            This website requires JavaScript to function properly. Please enable JavaScript in your browser settings.
+          </div>
+        </noscript>
         <a type="submit" class="btn btn-dark btn-lg m-1" href="{{url_for('add_bucketlist_item')}}"
           style="background-color: #453C41">Add Goal</a>
       </div>

@@ -336,8 +336,18 @@ def connections():
 @login_required
 def add_finance_goals():
     if current_user.is_authenticated and request.method == "POST":
+        state = request.form.get("status")
+        if state and state == "False":
+            flash("Please enable Javascript in your browser settings.")
+            return redirect(url_for('add_finance_goals'))
         title = request.form.get("finance-goals")
         amount = request.form.get("quantity").replace(" ", "")
+        if amount:
+            try:
+                float(amount)
+            except ValueError:
+                flash("You can only enter positive digits e.g 5 instead of 'five'.")
+                return redirect(url_for('add_finance_goals'))
         amount_formatted = format_number(float(amount))
         amount_formatted = encrypt_data(amount_formatted)
         plan = request.form.get("financeFormControlTextarea")
@@ -427,8 +437,18 @@ def finance():
 @login_required
 def add_bucketlist_item():
     if current_user.is_authenticated and request.method == "POST":
+        state = request.form.get("status")
+        if state and state == "False":
+            flash("Please enable Javascript in your browser settings.")
+            return redirect(url_for('add_bucketlist_item'))
         item_title = request.form.get("bucketListFormControlInput")
         cost = request.form.get("costFormControlInput").replace(" ", "")
+        if cost:
+            try:
+                float(cost)
+            except ValueError:
+                flash("You can only enter positive digits e.g 5 instead of 'five'.")
+                return redirect(url_for('add_bucketlist_item'))
         cost_formatted = format_number(float(cost))
         item_details = request.form.get("bucketListFormControlTextarea")
         item_details = encrypt_data(item_details)

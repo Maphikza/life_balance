@@ -17,16 +17,6 @@
 </head>
 
 <body class="main-page">
-  <noscript>
-    <style>
-      #js-disabled-message {
-        display: block !important;
-      }
-    </style>
-    <div id="js-disabled-message" class="alert alert-danger">
-      This website requires JavaScript to function properly. Please enable JavaScript in your browser settings.
-    </div>
-  </noscript>
   <header class="main-page">
     <nav class="my-navbar navbar navbar-expand-md navbar-dark" aria-label="goals navbar">
       <div class="container-fluid my-navbar">
@@ -85,6 +75,13 @@
             <input type="text" class="form-control" id="costFormControlInput" name="costFormControlInput"
               placeholder="How much would it cost to accomplish.">
           </div>
+          {% with messages = get_flashed_messages() %}
+          {% if messages %}
+          {% for message in messages %}
+          <p class="flashes">{{ message }}</p>
+          {% endfor %}
+          {% endif%}
+          {% endwith %}
           <div id="costErrorMessage" class="invalid-feedback"></div>
           <div class="mb-1">
             <label for="bucketListFormControlTextarea" class="fw-bold fs-5">Thoughts:</label>
@@ -92,7 +89,18 @@
               name="bucketListFormControlTextarea" oninput="countCharacters(this, 1000)"></textarea>
             <div id="characterCount"></div>
           </div>
-
+          <noscript>
+            <style>
+              #js-disabled-message {
+                display: block !important;
+              }
+            </style>
+            <div id="js-disabled-message" class="alert alert-danger">
+              This website requires JavaScript to function properly. Please enable JavaScript in your browser settings.
+              You will not be able to modify or save any of your work.
+            </div>
+            <input type="hidden" name="status" id="status" value="False">
+          </noscript>
           <div class="col">
             <button type="submit" class="btn btn-lg btn-dark mb-3 fw-normal fs-5" style="background-color: #453C41;">Add
               Goal</button>
