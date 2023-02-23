@@ -75,6 +75,7 @@
             <input type="text" class="form-control" id="costFormControlInput" name="costFormControlInput"
               placeholder="How much would it cost to accomplish.">
           </div>
+          <div id="costErrorMessage" class="invalid-feedback"></div>
           <div class="mb-1">
             <label for="bucketListFormControlTextarea" class="fw-bold fs-5">Thoughts:</label>
             <textarea class="form-control" id="bucketListFormControlTextarea" rows="6"
@@ -83,7 +84,8 @@
           </div>
 
           <div class="col">
-            <button type="submit" class="btn btn-lg btn-dark mb-3 fw-normal fs-5" style="background-color: #453C41;">Add Goal</button>
+            <button type="submit" class="btn btn-lg btn-dark mb-3 fw-normal fs-5" style="background-color: #453C41;">Add
+              Goal</button>
           </div>
         </form>
         <hr class="mid-breaker mt-4">
@@ -104,6 +106,31 @@
         characterCountElement.style.color = "inherit";
       }
     }
+
+    const costInput = document.getElementById('costFormControlInput');
+    const costErrorMessage = document.getElementById('costErrorMessage');
+    const form = document.querySelector('form');
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const costValue = parseFloat(costInput.value.trim().replace(/\D+/g, ''));
+      if (isNaN(costValue) || costValue < 0) {
+        costInput.classList.add('is-invalid');
+        costErrorMessage.textContent = 'Cost must be a positive number and numerical. e.g 1 instead of "one"';
+        costErrorMessage.style.display = 'block';
+        return;
+      }
+
+      // If the cost input is valid, you can submit the form here
+      form.submit();
+    });
+
+    costInput.addEventListener('input', () => {
+      costInput.classList.remove('is-invalid');
+      costErrorMessage.style.display = 'none';
+    });
+
   </script>
   <div class="container footer-container">
     <footer class="footer mt-auto py-3 my-4 pt-5">

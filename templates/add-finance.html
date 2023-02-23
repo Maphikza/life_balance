@@ -53,359 +53,368 @@
       <div class="col-md-9 p-lg-5 mx-auto my-5">
         <h4 class="display-3 fw-bold pb-2">Financial Goals
         </h4>
-          <p class="lead fw-normal fs-4 mb-4 pb-2"><em>We have provided with some primers for you to think about how to approach each goal.</em>
-          </p>
-          <hr class="mid-breaker">
-          <form class="finance-emergency-form g-3 text-start" method="post">
-            <div class="mb-3">
-              <select class="form-select border-secondary fw-bold" aria-label="Default select example"
-                name="finance-goals" id="finance-goals">
-                <option value="selection">Select Goal</option>
-                <option value="Emergency Funds" data-target="emergency-funds-card">Emergency Funds</option>
-                <option value="Life Insurance" data-target="life-insurance-card">Life Insurance</option>
-                <option value="Medical Insurance" data-target="medical-insurance-card">Medical Insurance</option>
-                <option value="Disability Cover" data-target="disability-cover-card">Disability Cover</option>
-                <option value="Income Insurance" data-target="income-insurance-card">Income Insurance</option>
-                <option value="Retirement Fund" data-target="retirement-fund-card">Retirement Fund</option>
-              </select>
-              <div class="card border-secondary rounded-0 rounded-bottom finance-card emergency-funds-card show text-center">
-                <div class="card-body">
-                  <div class="accordion accordion-flush" id="accordionEmergency">
-                    <div class="accordion-item">
-                      <h2 class="accordion-header" id="headingEmergency">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                          data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-stars" viewBox="0 0 16 16">
-                            <path
-                              d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828l.645-1.937zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.734 1.734 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.734 1.734 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.734 1.734 0 0 0 3.407 2.31l.387-1.162zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L10.863.1z" />
-                          </svg> Emergency Funds Primer
-                        </button>
-                      </h2>
-                      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingEmergency"
-                        data-bs-parent="#accordionEmergency">
-                        <div class="accordion-body">
-                          <p class="card-text">
-                      
-                          <div class="text-center">
-                            <p class="fw-bold fs-5 accordion-text"> You can listen or read the primer.</p>
-                            <audio controls controlsList="nodownload">
-                              <source
-                                src="{{ url_for('static', filename='synthesized_audio_bella_emergency_fund.mp3') }}"
-                                type="audio/mpeg">
-                            </audio>
-                          </div>
-                          <p>
-                            <a class="btn btn-dark fw-normal" data-bs-toggle="collapse"
-                              href="#collapseEmergency" role="button" aria-expanded="false"
-                              aria-controls="collapseEmergency" style="background-color: #453C41">
-                              Read Emergency Fund Primer
-                            </a>
-                          </p>
-                          <div class="collapse" id="collapseEmergency">
-                            <div class="card card-body border-light">
-                              <p class="card-text">
-                                In this section, we will focus on the importance of being prepared for emergencies. It
-                                is essential to have some financial redundancy to handle unexpected events that may
-                                disrupt your budget and potentially lead to a debt spiral. This is not a precise plan,
-                                but rather a guide to help you think about the emergencies that are most relevant to
-                                your situation. For example, if your car breaks down and requires servicing, or if a
-                                water pipe bursts and needs fixing, you should have a buffer amount set aside to absorb
-                                the shock.
-                              </p>
-                            </div>
-                          </div>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card border-secondary rounded-0 rounded-bottom finance-card life-insurance-card show text-center">
-                <div class="card-body">
-                  <div class="accordion accordion-flush" id="accordionLife">
-                    <div class="accordion-item">
-                      <h2 class="accordion-header" id="headingLife">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                          data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-stars" viewBox="0 0 16 16">
-                            <path
-                              d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828l.645-1.937zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.734 1.734 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.734 1.734 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.734 1.734 0 0 0 3.407 2.31l.387-1.162zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L10.863.1z" />
-                          </svg> Life Insurance Primer
-                        </button>
-                      </h2>
-                      <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingLife"
-                        data-bs-parent="#accordionLife">
-                        <div class="accordion-body">
-                          
-                          <div class="text-center">
-                            <p class="fw-bold fs-5 accordion-text"> You can listen or read the primer.</p>
-                            <audio controls>
-                              <source
-                                src="{{ url_for('static', filename='synthesized_audio_bella_life_insurance.mp3') }}"
-                                type="audio/mpeg">
-                            </audio>
-                          </div>
+        <p class="lead fw-normal fs-4 mb-4 pb-2"><em>We have provided with some primers for you to think about how to
+            approach each goal.</em>
+        </p>
+        <hr class="mid-breaker">
+        <form class="finance-emergency-form g-3 text-start" method="post">
+          <div class="mb-3">
+            <select class="form-select border-secondary fw-bold" aria-label="Default select example"
+              name="finance-goals" id="finance-goals">
+              <option value="selection">Select Goal</option>
+              <option value="Emergency Funds" data-target="emergency-funds-card">Emergency Funds</option>
+              <option value="Life Insurance" data-target="life-insurance-card">Life Insurance</option>
+              <option value="Medical Insurance" data-target="medical-insurance-card">Medical Insurance</option>
+              <option value="Disability Cover" data-target="disability-cover-card">Disability Cover</option>
+              <option value="Income Insurance" data-target="income-insurance-card">Income Insurance</option>
+              <option value="Retirement Fund" data-target="retirement-fund-card">Retirement Fund</option>
+            </select>
+            <div
+              class="card border-secondary rounded-0 rounded-bottom finance-card emergency-funds-card show text-center">
+              <div class="card-body">
+                <div class="accordion accordion-flush" id="accordionEmergency">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingEmergency">
+                      <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                          class="bi bi-stars" viewBox="0 0 16 16">
+                          <path
+                            d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828l.645-1.937zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.734 1.734 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.734 1.734 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.734 1.734 0 0 0 3.407 2.31l.387-1.162zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L10.863.1z" />
+                        </svg> Emergency Funds Primer
+                      </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingEmergency"
+                      data-bs-parent="#accordionEmergency">
+                      <div class="accordion-body">
+                        <p class="card-text">
 
-                          <p>
-                            <a class="btn btn-dark fw-normal" data-bs-toggle="collapse" href="#collapseLife" role="button"
-                              aria-expanded="false" aria-controls="collapseLife" style="background-color: #453C41">
-                              Read Life Insurance Primer
-                            </a>
-                          </p>
-                          <div class="collapse" id="collapseLife">
-                            <div class="card card-body border-light">
-                              <p class="card-text">
-                                Although we may not want to confront our mortality, death is an inevitable part of life,
-                                and being prepared is essential. Life insurance is a way to provide for our loved ones
-                                who remain behind, especially if we are still in the process of building our wealth and
-                                savings. Without proper coverage, an unexpected death can leave our families in a
-                                difficult situation. We have all seen examples of families who have lost an income
-                                earner and struggled to make ends meet. It is crucial to think about how much coverage
-                                you need and to consider what you would want for your family in the event of your
-                                absence. This section may be difficult, but we believe it is an important issue to
-                                address in your life's journey.
-                              </p>
-                            </div>
-                          </div>
-                          </p>
+                        <div class="text-center">
+                          <p class="fw-bold fs-5 accordion-text"> You can listen or read the primer.</p>
+                          <audio controls controlsList="nodownload">
+                            <source src="{{ url_for('static', filename='synthesized_audio_bella_emergency_fund.mp3') }}"
+                              type="audio/mpeg">
+                          </audio>
                         </div>
+                        <p>
+                          <a class="btn btn-dark fw-normal" data-bs-toggle="collapse" href="#collapseEmergency"
+                            role="button" aria-expanded="false" aria-controls="collapseEmergency"
+                            style="background-color: #453C41">
+                            Read Emergency Fund Primer
+                          </a>
+                        </p>
+                        <div class="collapse" id="collapseEmergency">
+                          <div class="card card-body border-light">
+                            <p class="card-text">
+                              In this section, we will focus on the importance of being prepared for emergencies. It
+                              is essential to have some financial redundancy to handle unexpected events that may
+                              disrupt your budget and potentially lead to a debt spiral. This is not a precise plan,
+                              but rather a guide to help you think about the emergencies that are most relevant to
+                              your situation. For example, if your car breaks down and requires servicing, or if a
+                              water pipe bursts and needs fixing, you should have a buffer amount set aside to absorb
+                              the shock.
+                            </p>
+                          </div>
+                        </div>
+                        </p>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div class="card border-secondary rounded-0 rounded-bottom finance-card medical-insurance-card show text-center">
-                <div class="card-body">
-                  <div class="accordion accordion-flush" id="accordionMedical">
-                    <div class="accordion-item">
-                      <h2 class="accordion-header" id="headingMedical">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                          data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-stars" viewBox="0 0 16 16">
-                            <path
-                              d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828l.645-1.937zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.734 1.734 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.734 1.734 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.734 1.734 0 0 0 3.407 2.31l.387-1.162zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L10.863.1z" />
-                          </svg> Medical Insurane Primer
-                        </button>
-                      </h2>
-                      <div id="collapseThree" class="accordion-collapse collapse show" aria-labelledby="headingMedical"
-                        data-bs-parent="#accordionMedical">
-                        <div class="accordion-body">
-                          
-                          <div class="text-center">
-                            <p class="fw-bold fs-5 accordion-text"> You can listen or read the primer.</p>
-                            <audio controls>
-                              <source src="{{ url_for('static', filename='synthesized_audio_bella_medical.mp3') }}"
-                                type="audio/mpeg">
-                            </audio>
-                          </div>
-                          
-                          <p>
-                            <a class="btn btn-dark fw-normal" data-bs-toggle="collapse" href="#collapseExample"
-                              role="button" aria-expanded="false" aria-controls="collapseExample" style="background-color: #453C41">
-                              Read Medical Insurance Primer
-                            </a>
-                          </p>
-                          <div class="collapse" id="collapseExample">
-                            <div class="card card-body border-light">
-                              <p class="card-text">
-                                Although we strive to maintain good health, medical issues can arise despite our best
-                                efforts. These can place a significant financial burden on ourselves and our families.
-                                Since we cannot always prevent illness, it's important to prepare for the potential
-                                financial costs associated with healthcare. One of the most effective ways to do this is
-                                by purchasing medical insurance or medical aid. If you live in a country where
-                                healthcare is provided by the state, you may not need to worry about this section.
-                              </p>
-                            </div>
-                          </div>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card border-secondary rounded-0 rounded-bottom finance-card disability-cover-card show text-center">
-                <div class="card-body">
-                  <div class="accordion accordion-flush" id="accordionDisability">
-                    <div class="accordion-item">
-                      <h2 class="accordion-header" id="headingDisability">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                          data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-stars" viewBox="0 0 16 16">
-                            <path
-                              d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828l.645-1.937zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.734 1.734 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.734 1.734 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.734 1.734 0 0 0 3.407 2.31l.387-1.162zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L10.863.1z" />
-                          </svg> Disability Cover Primer
-                        </button>
-                      </h2>
-                      <div id="collapseFour" class="accordion-collapse collapse show"
-                        aria-labelledby="headingDisability" data-bs-parent="#accordionDisability">
-                        <div class="accordion-body">
-                          
-                          <div class="text-center">
-                            <p class="fw-bold fs-5 accordion-text"> You can listen or read the primer.</p>
-                            <audio controls>
-                              <source src="{{ url_for('static', filename='synthesized_audio_body.mp3') }}"
-                                type="audio/mpeg">
-                            </audio>
-                          </div>
-                          
-                          <p>
-                            <a class="btn btn-dark" data-bs-toggle="collapse" href="#collapseDisable"
-                              role="button" aria-expanded="false" aria-controls="collapseDisable" style="background-color: #453C41">
-                              Read Disability Cover Primer
-                            </a>
-                          </p>
-                          <div class="collapse" id="collapseDisable">
-                            <div class="card card-body border-light">
-                              <p class="card-text">
-                                Dealing with a disability due to illness or injury can be emotionally and financially
-                                challenging. When faced with a situation like this, it's important to consider your
-                                ability to cope with the possibility of not earning an income while you recover or make
-                                adjustments to your career. You may need to have some income to pay your bills during
-                                this time. While this is not a comprehensive list of all the things you need to think
-                                about, it's a useful starting point to help you consider how much money you may need in
-                                such a case. This can give you some time to think about your next steps for living your
-                                life going forward.
-                              </p>
-                            </div>
-                          </div>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card border-secondary rounded-0 rounded-bottom finance-card income-insurance-card show text-center">
-                <div class="card-body">
-                  <div class="accordion accordion-flush" id="accordionIncome">
-                    <div class="accordion-item">
-                      <h2 class="accordion-header" id="headingIncome">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                          data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-stars" viewBox="0 0 16 16">
-                            <path
-                              d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828l.645-1.937zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.734 1.734 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.734 1.734 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.734 1.734 0 0 0 3.407 2.31l.387-1.162zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L10.863.1z" />
-                          </svg> Income Cover Primer
-                        </button>
-                      </h2>
-                      <div id="collapseFive" class="accordion-collapse collapse show" aria-labelledby="headingIncome"
-                        data-bs-parent="#accordionIncome">
-                        <div class="accordion-body">
-                          
-                          <div class="text-center">
-                            <p class="fw-bold fs-5 accordion-text"> You can listen or read the primer.</p>
-                            <audio controls>
-                              <source src="{{ url_for('static', filename='synthesized_audio_bella_income.mp3') }}"
-                                type="audio/mpeg">
-                            </audio>
-                          </div>
-                          
-                          <p>
-                            <a class="btn btn-dark" data-bs-toggle="collapse" href="#collapseIncome"
-                              role="button" aria-expanded="false" aria-controls="collapseIncome" style="background-color: #453C41">
-                              Read Income Protection Primer
-                            </a>
-                          </p>
-                          <div class="collapse" id="collapseIncome">
-                            <div class="card card-body border-light">
-                              <p class="card-text">
-                                Job security is never guaranteed, and being laid off can be a distressing experience.
-                                Unfortunately, it's a possibility we all need to consider. If we do lose our jobs, we
-                                must have basic protection for our income. We will still have bills to pay and will need
-                                time to find another job. While finding a new job can happen quickly, it may take
-                                several months. Considering income insurance is a good idea to protect against potential
-                                financial stress during this time. We encourage you to take some time to reflect on how
-                                you would manage if you were to lose your job. Depending on your personal circumstances
-                                and financial well-being, you may or may not require income insurance. It's crucial to
-                                have a plan in place to help you manage in case you find yourself going through
-                                something like this.
-                              </p>
-                            </div>
-                          </div>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card border-secondary rounded-0 rounded-bottom finance-card retirement-fund-card show text-center">
-                <div class="card-body">
-                  <div class="accordion accordion-flush" id="accordionRetirement">
-                    <div class="accordion-item">
-                      <h2 class="accordion-header" id="headingRetire">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                          data-bs-target="#collapseSix" aria-expanded="true" aria-controls="collapseSix"> 
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-stars" viewBox="0 0 16 16">
-                            <path
-                              d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828l.645-1.937zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.734 1.734 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.734 1.734 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.734 1.734 0 0 0 3.407 2.31l.387-1.162zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L10.863.1z" />
-                          </svg> Retirement Fund Primer
-                        </button>
-                      </h2>
-                      <div id="collapseSix" class="accordion-collapse collapse show" aria-labelledby="headingRetire"
-                        data-bs-parent="#accordionRetirement">
-                        <div class="accordion-body">
-                          
-                          <div class="text-center">
-                            <p class="fw-bold fs-5 accordion-text"> You can listen or read the primer.</p>
-                            <audio controls>
-                              <source src="{{ url_for('static', filename='synthesized_audio_bella_retirement.mp3') }}"
-                                type="audio/mpeg">
-                            </audio>
-                          </div>
-                        
-                          <p>
-                            <a class="btn btn-dark" data-bs-toggle="collapse" href="#collapseRetire"
-                              role="button" aria-expanded="false" aria-controls="collapseRetire" style="background-color: #453C41">
-                              Read Retirement Fund Primer
-                            </a>
-                          </p>
-                          <div class="collapse" id="collapseRetire">
-                            <div class="card card-body border-light">
-                              <p class="card-text">
-                                As we age, retirement becomes a reality we must all face. It's important to plan ahead
-                                for this stage of life, as we'll eventually reach a point where we're no longer able to
-                                work and earn an income. With people living longer and longer beyond retirement age,
-                                it's crucial to ensure that you have enough funds to support yourself throughout your
-                                retirement years while also considering the possibility of leaving an inheritance. Your
-                                approach to retirement planning will depend on your personal philosophy and financial
-                                goals. This section serves as a guide to help you consider this aspect of life and
-                                ensure that you're prepared for it.
-                              </p>
-                            </div>
-                          </div>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div>
-              <label for="quantity" class="fw-bold fs-5 pt-2">Target Amount</label>
-              <input class="form-control border-secondary" type="text" id="quantity" name="quantity"
-                placeholder="Enter your target amount e.g 50000">
-              </div>
-              <div class="mb-1">
-                <label for="financeFormControlTextarea" class="fw-bold fs-5 pt-2">Finances</label>
-                <textarea class="form-control border-secondary pb-2" id="financeFormControlTextarea"
-                  name="financeFormControlTextarea" rows="6" oninput="countChars(this, 1000)"></textarea>
-                <div id="charNum"></div>
-                <div>
-                  <button type="submit" id="submitButton" class="btn btn-lg btn-dark mb-3 w-normal fs-5" style="background-color: #453C41">Add Goal</button>
                 </div>
               </div>
             </div>
-          </form>
-          <hr class="mid-breaker mt-4">
+            <div
+              class="card border-secondary rounded-0 rounded-bottom finance-card life-insurance-card show text-center">
+              <div class="card-body">
+                <div class="accordion accordion-flush" id="accordionLife">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingLife">
+                      <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                          class="bi bi-stars" viewBox="0 0 16 16">
+                          <path
+                            d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828l.645-1.937zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.734 1.734 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.734 1.734 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.734 1.734 0 0 0 3.407 2.31l.387-1.162zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L10.863.1z" />
+                        </svg> Life Insurance Primer
+                      </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingLife"
+                      data-bs-parent="#accordionLife">
+                      <div class="accordion-body">
+
+                        <div class="text-center">
+                          <p class="fw-bold fs-5 accordion-text"> You can listen or read the primer.</p>
+                          <audio controls>
+                            <source src="{{ url_for('static', filename='synthesized_audio_bella_life_insurance.mp3') }}"
+                              type="audio/mpeg">
+                          </audio>
+                        </div>
+
+                        <p>
+                          <a class="btn btn-dark fw-normal" data-bs-toggle="collapse" href="#collapseLife" role="button"
+                            aria-expanded="false" aria-controls="collapseLife" style="background-color: #453C41">
+                            Read Life Insurance Primer
+                          </a>
+                        </p>
+                        <div class="collapse" id="collapseLife">
+                          <div class="card card-body border-light">
+                            <p class="card-text">
+                              Although we may not want to confront our mortality, death is an inevitable part of life,
+                              and being prepared is essential. Life insurance is a way to provide for our loved ones
+                              who remain behind, especially if we are still in the process of building our wealth and
+                              savings. Without proper coverage, an unexpected death can leave our families in a
+                              difficult situation. We have all seen examples of families who have lost an income
+                              earner and struggled to make ends meet. It is crucial to think about how much coverage
+                              you need and to consider what you would want for your family in the event of your
+                              absence. This section may be difficult, but we believe it is an important issue to
+                              address in your life's journey.
+                            </p>
+                          </div>
+                        </div>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="card border-secondary rounded-0 rounded-bottom finance-card medical-insurance-card show text-center">
+              <div class="card-body">
+                <div class="accordion accordion-flush" id="accordionMedical">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingMedical">
+                      <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                          class="bi bi-stars" viewBox="0 0 16 16">
+                          <path
+                            d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828l.645-1.937zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.734 1.734 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.734 1.734 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.734 1.734 0 0 0 3.407 2.31l.387-1.162zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L10.863.1z" />
+                        </svg> Medical Insurane Primer
+                      </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse show" aria-labelledby="headingMedical"
+                      data-bs-parent="#accordionMedical">
+                      <div class="accordion-body">
+
+                        <div class="text-center">
+                          <p class="fw-bold fs-5 accordion-text"> You can listen or read the primer.</p>
+                          <audio controls>
+                            <source src="{{ url_for('static', filename='synthesized_audio_bella_medical.mp3') }}"
+                              type="audio/mpeg">
+                          </audio>
+                        </div>
+
+                        <p>
+                          <a class="btn btn-dark fw-normal" data-bs-toggle="collapse" href="#collapseExample"
+                            role="button" aria-expanded="false" aria-controls="collapseExample"
+                            style="background-color: #453C41">
+                            Read Medical Insurance Primer
+                          </a>
+                        </p>
+                        <div class="collapse" id="collapseExample">
+                          <div class="card card-body border-light">
+                            <p class="card-text">
+                              Although we strive to maintain good health, medical issues can arise despite our best
+                              efforts. These can place a significant financial burden on ourselves and our families.
+                              Since we cannot always prevent illness, it's important to prepare for the potential
+                              financial costs associated with healthcare. One of the most effective ways to do this is
+                              by purchasing medical insurance or medical aid. If you live in a country where
+                              healthcare is provided by the state, you may not need to worry about this section.
+                            </p>
+                          </div>
+                        </div>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="card border-secondary rounded-0 rounded-bottom finance-card disability-cover-card show text-center">
+              <div class="card-body">
+                <div class="accordion accordion-flush" id="accordionDisability">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingDisability">
+                      <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                          class="bi bi-stars" viewBox="0 0 16 16">
+                          <path
+                            d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828l.645-1.937zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.734 1.734 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.734 1.734 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.734 1.734 0 0 0 3.407 2.31l.387-1.162zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L10.863.1z" />
+                        </svg> Disability Cover Primer
+                      </button>
+                    </h2>
+                    <div id="collapseFour" class="accordion-collapse collapse show" aria-labelledby="headingDisability"
+                      data-bs-parent="#accordionDisability">
+                      <div class="accordion-body">
+
+                        <div class="text-center">
+                          <p class="fw-bold fs-5 accordion-text"> You can listen or read the primer.</p>
+                          <audio controls>
+                            <source src="{{ url_for('static', filename='synthesized_audio_body.mp3') }}"
+                              type="audio/mpeg">
+                          </audio>
+                        </div>
+
+                        <p>
+                          <a class="btn btn-dark" data-bs-toggle="collapse" href="#collapseDisable" role="button"
+                            aria-expanded="false" aria-controls="collapseDisable" style="background-color: #453C41">
+                            Read Disability Cover Primer
+                          </a>
+                        </p>
+                        <div class="collapse" id="collapseDisable">
+                          <div class="card card-body border-light">
+                            <p class="card-text">
+                              Dealing with a disability due to illness or injury can be emotionally and financially
+                              challenging. When faced with a situation like this, it's important to consider your
+                              ability to cope with the possibility of not earning an income while you recover or make
+                              adjustments to your career. You may need to have some income to pay your bills during
+                              this time. While this is not a comprehensive list of all the things you need to think
+                              about, it's a useful starting point to help you consider how much money you may need in
+                              such a case. This can give you some time to think about your next steps for living your
+                              life going forward.
+                            </p>
+                          </div>
+                        </div>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="card border-secondary rounded-0 rounded-bottom finance-card income-insurance-card show text-center">
+              <div class="card-body">
+                <div class="accordion accordion-flush" id="accordionIncome">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingIncome">
+                      <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                          class="bi bi-stars" viewBox="0 0 16 16">
+                          <path
+                            d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828l.645-1.937zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.734 1.734 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.734 1.734 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.734 1.734 0 0 0 3.407 2.31l.387-1.162zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L10.863.1z" />
+                        </svg> Income Cover Primer
+                      </button>
+                    </h2>
+                    <div id="collapseFive" class="accordion-collapse collapse show" aria-labelledby="headingIncome"
+                      data-bs-parent="#accordionIncome">
+                      <div class="accordion-body">
+
+                        <div class="text-center">
+                          <p class="fw-bold fs-5 accordion-text"> You can listen or read the primer.</p>
+                          <audio controls>
+                            <source src="{{ url_for('static', filename='synthesized_audio_bella_income.mp3') }}"
+                              type="audio/mpeg">
+                          </audio>
+                        </div>
+
+                        <p>
+                          <a class="btn btn-dark" data-bs-toggle="collapse" href="#collapseIncome" role="button"
+                            aria-expanded="false" aria-controls="collapseIncome" style="background-color: #453C41">
+                            Read Income Protection Primer
+                          </a>
+                        </p>
+                        <div class="collapse" id="collapseIncome">
+                          <div class="card card-body border-light">
+                            <p class="card-text">
+                              Job security is never guaranteed, and being laid off can be a distressing experience.
+                              Unfortunately, it's a possibility we all need to consider. If we do lose our jobs, we
+                              must have basic protection for our income. We will still have bills to pay and will need
+                              time to find another job. While finding a new job can happen quickly, it may take
+                              several months. Considering income insurance is a good idea to protect against potential
+                              financial stress during this time. We encourage you to take some time to reflect on how
+                              you would manage if you were to lose your job. Depending on your personal circumstances
+                              and financial well-being, you may or may not require income insurance. It's crucial to
+                              have a plan in place to help you manage in case you find yourself going through
+                              something like this.
+                            </p>
+                          </div>
+                        </div>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="card border-secondary rounded-0 rounded-bottom finance-card retirement-fund-card show text-center">
+              <div class="card-body">
+                <div class="accordion accordion-flush" id="accordionRetirement">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingRetire">
+                      <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseSix" aria-expanded="true" aria-controls="collapseSix">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                          class="bi bi-stars" viewBox="0 0 16 16">
+                          <path
+                            d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828l.645-1.937zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.734 1.734 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.734 1.734 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.734 1.734 0 0 0 3.407 2.31l.387-1.162zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L10.863.1z" />
+                        </svg> Retirement Fund Primer
+                      </button>
+                    </h2>
+                    <div id="collapseSix" class="accordion-collapse collapse show" aria-labelledby="headingRetire"
+                      data-bs-parent="#accordionRetirement">
+                      <div class="accordion-body">
+
+                        <div class="text-center">
+                          <p class="fw-bold fs-5 accordion-text"> You can listen or read the primer.</p>
+                          <audio controls>
+                            <source src="{{ url_for('static', filename='synthesized_audio_bella_retirement.mp3') }}"
+                              type="audio/mpeg">
+                          </audio>
+                        </div>
+
+                        <p>
+                          <a class="btn btn-dark" data-bs-toggle="collapse" href="#collapseRetire" role="button"
+                            aria-expanded="false" aria-controls="collapseRetire" style="background-color: #453C41">
+                            Read Retirement Fund Primer
+                          </a>
+                        </p>
+                        <div class="collapse" id="collapseRetire">
+                          <div class="card card-body border-light">
+                            <p class="card-text">
+                              As we age, retirement becomes a reality we must all face. It's important to plan ahead
+                              for this stage of life, as we'll eventually reach a point where we're no longer able to
+                              work and earn an income. With people living longer and longer beyond retirement age,
+                              it's crucial to ensure that you have enough funds to support yourself throughout your
+                              retirement years while also considering the possibility of leaving an inheritance. Your
+                              approach to retirement planning will depend on your personal philosophy and financial
+                              goals. This section serves as a guide to help you consider this aspect of life and
+                              ensure that you're prepared for it.
+                            </p>
+                          </div>
+                        </div>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <label for="quantity" class="fw-bold fs-5 pt-2">Target Amount</label>
+              <input class="form-control border-secondary" type="text" id="quantity" name="quantity"
+                placeholder="Enter your target amount e.g 50000">
+            </div>
+            <div id="targetErrorMessage" class="invalid-feedback"></div>
+
+            <div class="mb-1">
+              <label for="financeFormControlTextarea" class="fw-bold fs-5 pt-2">Finances</label>
+              <textarea class="form-control border-secondary pb-2" id="financeFormControlTextarea"
+                name="financeFormControlTextarea" rows="6" oninput="countChars(this, 1000)"></textarea>
+              <div id="charNum"></div>
+              <div>
+                <button type="submit" id="submitButton" class="btn btn-lg btn-dark mb-3 w-normal fs-5"
+                  style="background-color: #453C41">Add Goal</button>
+              </div>
+            </div>
+          </div>
+        </form>
+        <hr class="mid-breaker mt-4">
       </div>
     </div>
   </div>
@@ -473,6 +482,31 @@
     allCards.forEach(card => card.style.display = 'none');
 
 
+  </script>
+  <script>
+    const costInput = document.getElementById('quantity');
+    const costErrorMessage = document.getElementById('targetErrorMessage');
+    const financeForm = document.querySelector('form.finance-emergency-form');
+
+    financeForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const costValue = parseFloat(costInput.value.trim().replace(/\D+/g, ''));
+      if (isNaN(costValue) || costValue < 0) {
+        costInput.classList.add('is-invalid');
+        costErrorMessage.textContent = 'Target amount must be a positive number and numerical. e.g 1 instead of "one"';
+        costErrorMessage.style.display = 'block';
+        return;
+      }
+
+      // If the cost input is valid, you can submit the form here
+      financeForm.submit();
+    });
+
+    costInput.addEventListener('input', () => {
+      costInput.classList.remove('is-invalid');
+      costErrorMessage.style.display = 'none';
+    });
   </script>
   <div class="container footer-container">
     <footer class="footer mt-auto py-3 my-4 pt-5">
