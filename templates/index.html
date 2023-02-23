@@ -17,16 +17,6 @@
 </head>
 
 <body class="main-page">
-  <noscript>
-    <style>
-      #js-disabled-message {
-        display: block !important;
-      }
-    </style>
-    <div id="js-disabled-message" class="alert alert-danger">
-      This website requires JavaScript to function properly. Please enable JavaScript in your browser settings.
-    </div>
-  </noscript>
   <header class="main-page">
     <nav class="my-navbar navbar navbar-expand-md navbar-dark" aria-label="goals navbar">
       <div class="container-fluid my-navbar">
@@ -99,6 +89,16 @@
         </div>
       </div>
     </div>
+    <noscript>
+      <style>
+        #js-disabled-message {
+          display: block !important;
+        }
+      </style>
+      <div id="js-disabled-message" class="alert alert-danger">
+        This website requires JavaScript to function properly. Please enable JavaScript in your browser settings.
+      </div>
+    </noscript>
     {% if current_user.is_authenticated %}
     <div class="container text-center main-page">
       <h2 class="display-5 fw-normal">Where would you like to begin?</h2>

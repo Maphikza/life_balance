@@ -11,20 +11,10 @@
 </head>
 
 <body class="main-page">
-  <noscript>
-    <style>
-      #js-disabled-message {
-        display: block !important;
-      }
-    </style>
-    <div id="js-disabled-message" class="alert alert-danger">
-      This website requires JavaScript to function properly. Please enable JavaScript in your browser settings.
-    </div>
-  </noscript>
-  <header class="container-fluid bg-dark">
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="goals navbar">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="{{url_for('home')}}">LifePath</a>
+  <header class="main-page">
+    <nav class="my-navbar navbar navbar-expand-md navbar-dark" aria-label="goals navbar">
+      <div class="container-fluid my-navbar">
+        <a class="navbar-brand fw-normal fs-3 my-navbar" href="{{url_for('home')}}">LifePath</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarGoal"
           aria-controls="navbarGoal" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -34,10 +24,10 @@
           <ul class="navbar-nav me-auto mb-2 mb-md-0">
             {% if not current_user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link" href="{{url_for('implements_login')}}">Login</a>
+              <a class="nav-link fs-5" href="{{url_for('implements_login')}}">Login</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{{url_for('implement_registration')}}">Register</a>
+              <a class="nav-link active fs-5" aria-current="page" href="{{url_for('implement_registration')}}">Register</a>
             </li>
             {% endif %}
             {% if current_user.is_authenticated %}
@@ -67,38 +57,48 @@
       </div>
     </nav>
   </header>
-  <div class="container">
-    <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center bg-light">
+  <div class="container main-page">
+    <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center">
       <div class="col-md-9 p-lg-5 mx-auto my-5">
-        <h3 class="display-4 fw-normal">Register
-        </h3>
+        <h4 class="display-4 fw-normal pb-2 page-header">Register
+        </h4>
         <form class="registration-form row g-3 text-start" method="post">
           <div>
-            <label for="entryUsername" class="display-6 fw-normal pb-2">Username</label>
+            <label for="entryUsername" class="fw-bold fs-5">Username:</label>
             <input type="text" class="form-control" id="entryUsername" name="entryUsername"
-              placeholder="Enter Username">
+              placeholder="Username">
           </div>
           <div>
-            <label for="entryEmail" class="display-6 fw-normal pb-2">Email</label>
-            <input type="text" class="form-control" id="entryEmail" name="entryEmail" placeholder="Enter Email">
+            <label for="entryEmail" class="fw-bold fs-5">Email:</label>
+            <input type="text" class="form-control" id="entryEmail" name="entryEmail" placeholder="Email">
           </div>
           <div>
-            <label for="entryDate" class="display-6 fw-normal pb-2">Date of Birth</label>
+            <label for="entryDate" class="fw-bold fs-5">Date of Birth:</label>
             <input type="date" class="form-control" id="entryDate" name="entryDate">
           </div>
           <div>
-            <label for="entryPassword" class="display-6 fw-normal pb-2">Password</label>
+            <label for="entryPassword" class="fw-bold fs-5">Password:</label>
             <input type="password" class="form-control" id="entryPassword" name="entryPassword" placeholder="Password">
           </div>
           <div>
-            <button type="submit" class="btn btn-lg btn-dark mb-3">Register</button>
+            <button type="submit" class="btn btn-lg btn-dark" style="background-color: #453C41;">Register</button>
           </div>
         </form>
+        <noscript>
+          <style>
+            #js-disabled-message {
+              display: block !important;
+            }
+          </style>
+          <div id="js-disabled-message" class="alert alert-danger">
+            This website requires JavaScript to function properly. Please enable JavaScript in your browser settings.
+          </div>
+        </noscript>
       </div>
     </div>
   </div>
-  <div class="container footer-container">
-    <footer class="footer mt-auto py-3 my-4 pt-5">
+  <div class="container footer-container main-page">
+    <footer class="footer mt-auto py-3 my-4 pt-5 fw-bold fs-5">
       <p>&copy; <span id="year"></span> Life Balance, Inc</p>
     </footer>
   </div>
