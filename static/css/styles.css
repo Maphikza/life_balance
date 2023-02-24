@@ -84,3 +84,24 @@ audio {
 .toast-title {
   color: whitesmoke;
 }
+
+/* Default font sizes */
+.page-header {
+  font-size: 3rem;
+}
+
+.lead {
+  font-size: 1.5rem;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+  .page-header {
+    font-size: 2rem;
+  }
+
+  .lead {
+    font-size: 0.5rem;
+  }
+}
+
