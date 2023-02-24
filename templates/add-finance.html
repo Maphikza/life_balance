@@ -58,7 +58,14 @@
             approach each goal.</em>
         </p>
         <hr class="mid-breaker">
-        <form class="finance-emergency-form g-3 text-start" method="post">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <p class="flashes">{{ message }}</p>
+        {% endfor %}
+        {% endif%}
+        {% endwith %}
+        <form class="finance-emergency-form g-3 text-start" method="post" onsubmit="return validateForm()">
           <div class="mb-3">
             <select class="form-select border-secondary fw-bold" aria-label="Default select example"
               name="finance-goals" id="finance-goals">
@@ -401,13 +408,6 @@
               <input class="form-control border-secondary" type="text" id="quantity" name="quantity"
                 placeholder="Enter your target amount e.g 50000">
             </div>
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-            {% for message in messages %}
-            <p class="flashes">{{ message }}</p>
-            {% endfor %}
-            {% endif%}
-            {% endwith %}
             <noscript>
               <style>
                 #js-disabled-message {
@@ -416,7 +416,7 @@
               </style>
               <div id="js-disabled-message" class="alert alert-danger">
                 This website requires JavaScript to function properly. Please enable JavaScript in your browser
-                settings.
+                settings and reload the page.
               </div>
               <input type="hidden" name="status" value="False">
             </noscript>
@@ -505,6 +505,7 @@
   </script>
   <script>
     const costInput = document.getElementById('quantity');
+    const selectElement = document.getElementById('finance-goals');
     const costErrorMessage = document.getElementById('targetErrorMessage');
     const financeForm = document.querySelector('form.finance-emergency-form');
 
@@ -517,6 +518,10 @@
         costErrorMessage.textContent = 'Target amount must be a positive number and numerical. e.g 1 instead of "one"';
         costErrorMessage.style.display = 'block';
         return;
+      } else if (selectElement.value === 'selection') {
+        event.preventDefault();
+        errorMessage.textContent = 'Please select a goal.';
+        errorMessage.style.display = 'block';
       }
 
       // If the cost input is valid, you can submit the form here
@@ -529,8 +534,8 @@
     });
   </script>
   <div class="container footer-container">
-    <footer class="footer mt-auto py-3 my-4 pt-5">
-      <p>&copy; <span id="year"></span> Life Balance, Inc</p>
+    <footer class="footer mt-auto py-3 my-4 pt-5 text-center fw-bold fs-5">
+      <p>&copy; <span id="year"></span> LifePath, Inc</p>
     </footer>
   </div>
   <script>

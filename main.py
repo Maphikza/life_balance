@@ -335,6 +335,8 @@ def connections():
 @app.route("/add-finance", methods=["GET", "POST"])
 @login_required
 def add_finance_goals():
+    value_list = ["Emergency Funds", "Life Insurance", "Medical Insurance",
+                  "Disability Cover", "Income Insurance", "Retirement Fund"]
     if current_user.is_authenticated and request.method == "POST":
         state = request.form.get("status")
         if state and state == "False":
@@ -353,8 +355,8 @@ def add_finance_goals():
         plan = request.form.get("financeFormControlTextarea")
         plan = encrypt_data(plan)
         goal_check = Finances.query.filter_by(user_id=current_user.id).all()
-        if title == 'selection':
-            flash("Please select one of the options.")
+        if title == 'selection' or title not in value_list:
+            flash("Please select one of the valid options.")
             return redirect(url_for('add_finance_goals'))
         for goal_title in goal_check:
             if goal_title.goal_title == title:
@@ -376,12 +378,21 @@ def add_finance_goals():
 def finance_edit(goal_id):
     finance_goal_edit = Finances.query.get(goal_id)
     if current_user.is_authenticated and request.method == "POST":
+        state = request.form.get("status")
+        if state and state == "False":
+            flash("Please enable Javascript in your browser settings.")
+            return redirect(url_for('finance_edit', goal_id=finance_goal_edit.id))
         goal_edit = request.form.get("financeFormControlTextarea-edit")
         amount = request.form.get("quantity_edit").replace(" ", "")
         if goal_edit:
             goal_edit = encrypt_data(goal_edit)
             finance_goal_edit.financial_goal = goal_edit
         if amount:
+            try:
+                float(amount)
+            except ValueError:
+                flash("You can only enter positive digits e.g 5 instead of 'five'.")
+                return redirect(url_for('finance_edit', goal_id=finance_goal_edit.id))
             finance_goal_edit.target_amount = amount
             formatted_amount = format_number(float(amount))
             formatted_amount = encrypt_data(formatted_amount)
@@ -397,12 +408,21 @@ def finance_edit(goal_id):
 def finance_edit_ai_enhance(goal_id):
     finance_ai_goal_edit = Finances.query.get(goal_id)
     if current_user.is_authenticated and request.method == "POST":
-        goal_edit = request.form.get("financeFormControlTextarea-edit")
+        state = request.form.get("status")
+        if state and state == "False":
+            flash("Please enable Javascript in your browser settings.")
+            return redirect(url_for('finance_edit_ai_enhance', goal_id=finance_ai_goal_edit.id))
+        goal_edit = request.form.get("aifinanceFormControlTextarea-edit")
         amount = request.form.get("quantity_edit").replace(" ", "")
         if goal_edit:
             goal_edit = encrypt_data(goal_edit)
             finance_ai_goal_edit.financial_goal = goal_edit
         if amount:
+            try:
+                float(amount)
+            except ValueError:
+                flash("You can only enter positive digits e.g 5 instead of 'five'.")
+                return redirect(url_for('finance_edit_ai_enhance', goal_id=finance_ai_goal_edit.id))
             finance_ai_goal_edit.target_amount = amount
             formatted_amount = format_number(float(amount))
             formatted_amount = encrypt_data(formatted_amount)
