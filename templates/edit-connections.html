@@ -97,19 +97,7 @@
     </div>
   </div>
   <script>
-    function countCharacters(textarea, limit) {
-      var value = textarea.value;
-      var characterCount = value.length;
-      var characterCountElement = textarea.parentElement.querySelector("#characterCount");
-      characterCountElement.innerHTML = characterCount + " / " + limit;
-      if (characterCount > limit) {
-        textarea.value = value.slice(0, limit);
-        characterCountElement.style.color = "red";
-        characterCountElement.innerHTML = "Max limit of " + limit + " characters reached!";
-      } else {
-        characterCountElement.style.color = "inherit";
-      }
-    }
+    function countCharacters(e,r){var t=e.value,a=t.length,c=e.parentElement.querySelector("#characterCount");c.innerHTML=a+" / "+r,a>r?(e.value=t.slice(0,r),c.style.color="red",c.innerHTML="Max limit of "+r+" characters reached!"):c.style.color="inherit"}
   </script>
   <div class="container footer-container">
     <footer class="footer mt-auto py-3 my-4 pt-5 text-center fw-bold fs-5">

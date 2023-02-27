@@ -117,27 +117,7 @@
     </footer>
   </div>
   <script>
-    document.getElementById("year").innerHTML = new Date().getFullYear();
-
-    document.addEventListener("DOMContentLoaded", function () {
-      document.getElementById("relationshipFormControlTextareaEdit").focus();
-      document.getElementById("relationshipFormControlTextareaEdit").select();
-      document.getElementById("textAreaToast").classList.add("show");
-    });
-
-    function countCharacters(textarea, limit) {
-      var value = textarea.value;
-      var characterCount = value.length;
-      var characterCountElement = textarea.parentElement.querySelector("#characterCount");
-      characterCountElement.innerHTML = characterCount + " / " + limit;
-      if (characterCount > limit) {
-        textarea.value = value.slice(0, limit);
-        characterCountElement.style.color = "red";
-        characterCountElement.innerHTML = "Max limit of " + limit + " characters reached!";
-      } else {
-        characterCountElement.style.color = "inherit";
-      }
-    }
+    function countCharacters(e,t){var r=e.value,n=r.length,a=e.parentElement.querySelector("#characterCount");a.innerHTML=n+" / "+t,n>t?(e.value=r.slice(0,t),a.style.color="red",a.innerHTML="Max limit of "+t+" characters reached!"):a.style.color="inherit"}document.getElementById("year").innerHTML=new Date().getFullYear(),document.addEventListener("DOMContentLoaded",function(){document.getElementById("relationshipFormControlTextareaEdit").focus(),document.getElementById("relationshipFormControlTextareaEdit").select(),document.getElementById("textAreaToast").classList.add("show")});
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"

@@ -12,8 +12,12 @@ from werkzeug.security import generate_password_hash
 from cryptography.fernet import Fernet
 import secrets
 import re
+from jsmin import jsmin
+import zlib
 
 path = Path(r"C:\Users\stapi\PycharmProjects\life_scale\instance\living.db")
+
+# To compress and minify my js-script using jinja.
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('LIFE_KEY')
@@ -139,9 +143,23 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
+def compress_it(template_path: str):
+    with open(f"templates/{template_path}", 'r') as f:
+        template_str = f.read()
+    template_str = re.sub(r'<!--(.*?)-->', '', template_str)
+    template_str = re.sub(r'<script>(.*?)</script>',
+                          lambda match: '<script>' + jsmin.jsmin(match.group(1)) + '</script>', template_str)
+
+
+@app.template_filter('compress')
+def compress(value):
+    compressed_data = zlib.compress(value.encode())
+    return compressed_data.decode('latin1')
+
+
 @app.route("/")
 def home():
-    return render_template("index.html")
+    return render_template("index.html", compress=compress)
 
 
 @app.route("/registration", methods=["GET", "POST"])
@@ -238,6 +256,7 @@ def delete_life_goal(life_goal_id):
 @login_required
 def goals():
     user_goals = Goal.query.filter_by(user_id=current_user.id).all()
+    compress_it("life-goals.html")
     return render_template("life-goals.html", user_goals=user_goals, d_func=decrypt_data)
 
 
@@ -555,7 +574,9 @@ def delete_bucketlist_item(item_id):
 @login_required
 def bucket_list():
     user_bucketlist = Bucketlist.query.filter_by(user_id=current_user.id)
-    return render_template("bucket-list.html", user_bucketlist=user_bucketlist, d_func=decrypt_data)
+    return render_template("bucket-list.html",
+                           user_bucketlist=user_bucketlist,
+                           d_func=decrypt_data)
 
 
 @app.route("/admin", methods=["GET", "POST"])
