@@ -84,7 +84,14 @@
         <div class="h-100 p-5 goal-stretch border rounded-0">
           <h2>{{goal.bucket_list_item_title}} | R{{goal.formatted_cost}}</h2>
           <hr class="break-lines">
-          <p id="goal-text-{{goal.id}}" class="goal-text"><em>"{{d_func(goal.bucket_list_item)}}"</em></p>
+          <p id="goal-text-{{goal.id}}" class="goal-text">
+            <span id="short-text-{{goal.id}}">{{d_func(goal.bucket_list_item) | truncate(150)}}</span>
+            {% if goal.bucket_list_item|length > 150 %}
+            <span id="dots-{{goal.id}}"></span>
+            <span id="more-{{goal.id}}" style="display: none;">{{d_func(goal.bucket_list_item)}}</span>
+            <a href="#" onclick="showMore('{{goal.id}}', event)" id="read-more-{{goal.id}}" style="color: whitesmoke;">Read more</a>
+            {% endif %}
+          </p>
           <hr class="break-lines">
           <a type="submit" class="btn btn-outline-light btn-sm m-1"
             href="{{url_for('edit_bucket_list_item', item_id=goal.id)}}">Edit</a>
@@ -102,8 +109,6 @@
       {% endif %}
       {% endfor %}
     </div>
-
-
     <hr class="mid-breaker mt-4">
   </div>
 
@@ -119,26 +124,26 @@
     });
   </script>
 
-  <script>
-    var goalTextElements = document.querySelectorAll('.goal-text');
-    for (var i = 0; i < goalTextElements.length; i++) {
-      var goalTextElement = goalTextElements[i];
-      var goalTextContent = goalTextElement.textContent;
-      if (goalTextContent.length > 150) {
-        var truncatedText = goalTextContent.substring(0, 150) + '...';
-        var readMoreLink = document.createElement('a');
-        readMoreLink.textContent = 'read more';
-        readMoreLink.href = '#';
-        readMoreLink.addEventListener('click', function (e) {
-          e.preventDefault();
-          this.parentNode.textContent = goalTextContent;
-        });
-        var ellipsis = document.createTextNode(' ');
-        goalTextElement.textContent = truncatedText;
-        goalTextElement.appendChild(ellipsis);
-        goalTextElement.appendChild(readMoreLink);
-      }
+<script>
+  function showMore(goalId, event) {
+    event.preventDefault();
+    var dots = document.getElementById("dots-" + goalId);
+    var moreText = document.getElementById("more-" + goalId);
+    var shortText = document.getElementById("short-text-" + goalId);
+    var btnText = document.getElementById("read-more-" + goalId);
+  
+    if (dots.style.display === "none") {
+      dots.style.display = "inline";
+      btnText.innerHTML = "Read more";
+      moreText.style.display = "none";
+      shortText.style.display = "inline";
+    } else {
+      dots.style.display = "none";
+      btnText.innerHTML = "Show less";
+      moreText.style.display = "inline";
+      shortText.style.display = "none";
     }
+  }
   </script>
 
 

@@ -75,6 +75,7 @@
             <label for="editCostFormControlInput" class="fs-5 fw-bold">Cost:</label>
             <input type="text" class="form-control" id="editCostFormControlInput" name="editCostFormControlInput"
               placeholder="How much would it cost if any?">
+            <span id="costError" class="text-danger"></span>
           </div>
           <div class="mb-1">
             <label for="editBucketListFormControlTextarea" class="fs-5 fw-bold">Thoughts:</label>
@@ -84,13 +85,46 @@
             <div id="characterCount"></div>
           </div>
           <div>
-            <button type="submit" class="btn btn-lg btn-dark mb-3fw-normal fs-5" style="background-color: #453C41;">Save Edit</button>
+            <button type="submit" class="btn btn-lg btn-dark mb-3fw-normal fs-5" style="background-color: #453C41;">Save
+              Edit</button>
           </div>
         </form>
         <hr class="mid-breaker mt-4">
       </div>
     </div>
   </div>
+  <script>
+    // Get references to the form and input fields
+    const form = document.querySelector(".edit-list-form");
+    const costInput = document.querySelector("#editCostFormControlInput");
+    const costError = document.querySelector("#costError");
+
+    // Define a function to validate the input
+    function validateInput() {
+      const input = costInput.value.trim();
+
+      // Check if the input is a positive number  !(/^\d+$/
+      if (!(/^\d+$/.test(input) || /^\d+\.\d+$/.test(input)) || parseFloat(input) <= 0) {
+        // Display an error message next to the input
+        costError.textContent = "Please enter a positive digit number e.g. 1 instead of 'one'";
+        costInput.classList.add("is-invalid");
+        return false;
+      }
+
+      // If the input is valid, remove the error message and allow the form submission to proceed
+      costError.textContent = "";
+      costInput.classList.remove("is-invalid");
+      return true;
+    }
+
+    // Add an event listener to the form to run the validation function before submission
+    form.addEventListener("submit", (event) => {
+      if (!validateInput()) {
+        event.preventDefault();
+      }
+    });
+
+  </script>
   <script>
     function countCharacters(textarea, limit) {
       var value = textarea.value;

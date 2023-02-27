@@ -11,6 +11,7 @@ from itsdangerous import URLSafeTimedSerializer, SignatureExpired
 from werkzeug.security import generate_password_hash
 from cryptography.fernet import Fernet
 import secrets
+import re
 
 path = Path(r"C:\Users\stapi\PycharmProjects\life_scale\instance\living.db")
 
@@ -463,6 +464,7 @@ def add_bucketlist_item():
             return redirect(url_for('add_bucketlist_item'))
         item_title = request.form.get("bucketListFormControlInput")
         cost = request.form.get("costFormControlInput").replace(" ", "")
+        cost = re.sub(r'(?!\.)\D', '', cost)
         if cost:
             try:
                 float(cost)
@@ -488,12 +490,23 @@ def add_bucketlist_item():
 def edit_bucket_list_item(item_id):
     bucket_list_edit = Bucketlist.query.get(item_id)
     if current_user.is_authenticated and request.method == "POST":
+        state = request.form.get("status")
+        if state and state == "False":
+            flash("Please enable Javascript in your browser settings.")
+            return redirect(url_for('edit_bucket_list_item', item_id=bucket_list_edit.id))
         title_edit = request.form.get("editBucketListFormControlInput")
         cost_edit = request.form.get("editCostFormControlInput").replace(" ", "")
+        cost_edit = re.sub(r'(?!\.)\D', '', cost_edit)
+        print(cost_edit)
         item_text_edit = request.form.get("editBucketListFormControlTextarea")
         if title_edit:
             bucket_list_edit.bucket_list_item_title = title_edit
         if cost_edit:
+            try:
+                float(cost_edit)
+            except ValueError:
+                flash("You can only enter positive digits e.g 5 instead of 'five'.")
+                return redirect(url_for('edit_bucket_list_item', item_id=bucket_list_edit.id))
             bucket_list_edit.item_cost = cost_edit
             bucket_list_edit.formatted_cost = format_number(float(cost_edit))
         if item_text_edit:
@@ -511,6 +524,7 @@ def ai_edit_bucket_list_item(item_id):
     if current_user.is_authenticated and request.method == "POST":
         title_edit = request.form.get("aiEditBucketListFormControlInput")
         cost_edit = request.form.get("aiEditCostFormControlInput").replace(" ", "")
+        cost_edit = re.sub(r'(?!\.)\D', '', cost_edit)
         item_text_edit = request.form.get("aiEditBucketListFormControlTextarea")
         if title_edit:
             bucket_list_edit.bucket_list_item_title = title_edit
