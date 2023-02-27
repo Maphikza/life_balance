@@ -85,10 +85,10 @@
           <h2>{{goal.bucket_list_item_title}} | R{{goal.formatted_cost}}</h2>
           <hr class="break-lines">
           <p id="goal-text-{{goal.id}}" class="goal-text">
-            <span id="short-text-{{goal.id}}">{{d_func(goal.bucket_list_item) | truncate(150)}}</span>
-            {% if goal.bucket_list_item|length > 150 %}
+            <span id="short-text-{{goal.id}}"><em>"{{d_func(goal.bucket_list_item) | truncate(150)}}"</em></span>
+            {% if d_func(goal.bucket_list_item)|length > 150 %}
             <span id="dots-{{goal.id}}"></span>
-            <span id="more-{{goal.id}}" style="display: none;">{{d_func(goal.bucket_list_item)}}</span>
+            <span id="more-{{goal.id}}" style="display: none;"><em>"{{d_func(goal.bucket_list_item)}}"</em></span>
             <a href="#" onclick="showMore('{{goal.id}}', event)" id="read-more-{{goal.id}}" style="color: whitesmoke;">Read more</a>
             {% endif %}
           </p>

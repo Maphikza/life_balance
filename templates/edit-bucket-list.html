@@ -103,8 +103,8 @@
     function validateInput() {
       const input = costInput.value.trim();
 
-      // Check if the input is a positive number  !(/^\d+$/
-      if (!(/^\d+$/.test(input) || /^\d+\.\d+$/.test(input)) || parseFloat(input) <= 0) {
+      // Check if the input is empty or a positive number
+      if (input !== "" && !(/^\d+$/.test(input) || /^\d+\.\d+$/.test(input)) || parseFloat(input) <= 0) {
         // Display an error message next to the input
         costError.textContent = "Please enter a positive digit number e.g. 1 instead of 'one'";
         costInput.classList.add("is-invalid");
@@ -123,8 +123,8 @@
         event.preventDefault();
       }
     });
-
   </script>
+
   <script>
     function countCharacters(textarea, limit) {
       var value = textarea.value;
