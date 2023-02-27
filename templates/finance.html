@@ -91,7 +91,7 @@
       {% if goal.goal_title != None %}
       <div class="col-md-6">
         <div class="h-100 p-5 goal-stretch border rounded-0">
-          <h2>{{goal.goal_title}} | R{{d_func(goal.formatted_amount)}}</h2>
+          <h2>{{goal.goal_title}} | {{current_user.country}}{{d_func(goal.formatted_amount)}}</h2>
           <hr class="break-lines">
           <p id="goal-text-{{goal.id}}" class="goal-text">
             <span id="short-text-{{goal.id}}"><em>"{{d_func(goal.financial_goal) | truncate(150)}}"</em></span>

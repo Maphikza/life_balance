@@ -9,7 +9,7 @@ def register_user(username, email, password, date_of_birth, user, goal, finances
                     email=email,
                     password=hashed_password,
                     birth_date=date_of_birth,
-                    currency=money,
+                    country=money,
                     verified=verification)
     db.session.add(new_user)
     db.session.commit()
