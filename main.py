@@ -12,8 +12,6 @@ from werkzeug.security import generate_password_hash
 from cryptography.fernet import Fernet
 import secrets
 import re
-from jsmin import jsmin
-import zlib
 
 path = Path(r"C:\Users\stapi\PycharmProjects\life_scale\instance\living.db")
 
@@ -78,6 +76,8 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(120), nullable=False)
     birth_date = db.Column(db.String(12), nullable=False)
+    country = db.Column(db.String(50), nullable=False)
+    verified = db.Column(db.Boolean, nullable=False)
     connections = db.relationship('Connection', backref='user', lazy=True)
     goals = db.relationship('Goal', backref='user', lazy=True)
     finances = db.relationship('Finances', backref='user', lazy=True)
@@ -143,23 +143,9 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-def compress_it(template_path: str):
-    with open(f"templates/{template_path}", 'r') as f:
-        template_str = f.read()
-    template_str = re.sub(r'<!--(.*?)-->', '', template_str)
-    template_str = re.sub(r'<script>(.*?)</script>',
-                          lambda match: '<script>' + jsmin.jsmin(match.group(1)) + '</script>', template_str)
-
-
-@app.template_filter('compress')
-def compress(value):
-    compressed_data = zlib.compress(value.encode())
-    return compressed_data.decode('latin1')
-
-
 @app.route("/")
 def home():
-    return render_template("index.html", compress=compress)
+    return render_template("index.html")
 
 
 @app.route("/registration", methods=["GET", "POST"])
@@ -256,7 +242,6 @@ def delete_life_goal(life_goal_id):
 @login_required
 def goals():
     user_goals = Goal.query.filter_by(user_id=current_user.id).all()
-    compress_it("life-goals.html")
     return render_template("life-goals.html", user_goals=user_goals, d_func=decrypt_data)
 
 
