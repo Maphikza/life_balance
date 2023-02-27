@@ -3,9 +3,14 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user
 
 
-def register_user(username, email, password, date_of_birth, user, goal, finances, db):
+def register_user(username, email, password, date_of_birth, user, goal, finances, money, verification, db):
     hashed_password = generate_password_hash(password=password, method='pbkdf2:sha256', salt_length=4)
-    new_user = user(username=username, email=email, password=hashed_password, birth_date=date_of_birth)
+    new_user = user(username=username,
+                    email=email,
+                    password=hashed_password,
+                    birth_date=date_of_birth,
+                    currency=money,
+                    verified=verification)
     db.session.add(new_user)
     db.session.commit()
     registered_user = user.query.filter_by(username=username).first()

@@ -155,10 +155,13 @@ def implement_registration():
         email = request.form.get("entryEmail").lower()
         password = request.form.get("entryPassword")
         date_of_birth = request.form.get("entryDate")
+        country_currency = request.form.get("country")
         registered_user = register_user(username=name,
                                         email=email,
                                         password=password,
                                         date_of_birth=date_of_birth,
+                                        money=country_currency,
+                                        verification=False,
                                         db=db,
                                         user=User, goal=Goal, finances=Finances)
         return registered_user
