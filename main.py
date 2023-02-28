@@ -397,6 +397,7 @@ def add_finance_goals():
             return redirect(url_for('add_finance_goals'))
         title = request.form.get("finance-goals")
         amount = request.form.get("quantity").replace(" ", "")
+        amount = re.sub(r'(?!\.)\D', '', amount)
         if amount:
             try:
                 float(amount)

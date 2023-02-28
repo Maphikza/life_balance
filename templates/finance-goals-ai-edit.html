@@ -18,7 +18,7 @@
 
 <body class="main-page">
 
-  <header class="main-page">
+  <header class="main-page navs-link">
     <nav class="my-navbar navbar navbar-expand-md navbar-dark" aria-label="goals navbar">
       <div class="container-fluid my-navbar">
         <a class="navbar-brand fw-normal fs-3" href="{{url_for('home')}}">LifePath</a>
@@ -113,7 +113,7 @@
     </footer>
   </div>
   <script>
-  const quantityEditInput=document.getElementById("quantity_edit"),financeForm=document.querySelector("form.finance-emergency-form");financeForm.addEventListener("submit",t=>{let e=quantityEditInput.value.trim();if(""!==e){let i=parseFloat(e);if(isNaN(i)||!Number.isInteger(i)){t.preventDefault();let n=document.createElement("div");n.classList.add("invalid-feedback"),n.innerHTML='Target amount must be a positive integer. e.g. 1 instead of "one"',quantityEditInput.classList.contains("is-invalid")||(quantityEditInput.classList.add("is-invalid"),quantityEditInput.parentNode.appendChild(n))}}}),quantityEditInput.addEventListener("input",()=>{quantityEditInput.classList.remove("is-invalid");let t=quantityEditInput.parentNode.querySelector(".invalid-feedback");null!==t&&t.parentNode.removeChild(t)});
+  const quantityEditInput=document.getElementById("quantity_edit"),financeForm=document.querySelector("form.finance-emergency-form");financeForm.addEventListener("submit",t=>{let e=quantityEditInput.value.trim();if(""!==e){let i=parseFloat(e);if(isNaN(i)||!Number.isInteger(i)){t.preventDefault();let n=document.createElement("div");n.classList.add("invalid-feedback"),n.innerHTML='Target amount must be a positive integer. e.g. 1 instead of "one" or $1',quantityEditInput.classList.contains("is-invalid")||(quantityEditInput.classList.add("is-invalid"),quantityEditInput.parentNode.appendChild(n))}}}),quantityEditInput.addEventListener("input",()=>{quantityEditInput.classList.remove("is-invalid");let t=quantityEditInput.parentNode.querySelector(".invalid-feedback");null!==t&&t.parentNode.removeChild(t)});
   </script>
   
   <script>

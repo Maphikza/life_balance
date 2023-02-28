@@ -18,7 +18,7 @@
 
 <body class="main-page">
 
-  <header class="main-page">
+  <header class="main-page navs-link">
     <nav class="my-navbar navbar navbar-expand-md navbar-dark" aria-label="goals navbar">
       <div class="container-fluid my-navbar">
         <a class="navbar-brand fw-normal fs-3" href="{{url_for('home')}}">LifePath</a>
@@ -407,6 +407,7 @@
               <label for="quantity" class="fw-bold fs-5 pt-2">Target Amount</label>
               <input class="form-control border-secondary" type="text" id="quantity" name="quantity"
                 placeholder="Enter your target amount e.g 50000">
+              <span id="quantity-error" class="text-danger"></span>
             </div>
             <noscript>
               <style>
@@ -438,6 +439,61 @@
       </div>
     </div>
   </div>
+  <script>
+    const regex = /^[\d .]+$/;
+    // Get the "quantity" input field
+    const quantityInput = document.getElementById("quantity");
+
+    // Get the error message element
+    const quantityError = document.getElementById("quantity-error");
+
+    // Get the form and the submit button
+    const my_form = document.querySelector("form");
+    const my_submitButton = document.querySelector("#submitButton");
+
+    // Add an event listener to the form submit event
+    my_form.addEventListener("submit", function (event) {
+      // Get the value entered by the user
+      const quantityValue = quantityInput.value;
+
+      // Check if the value contains only digits
+      if (!regex.test(quantityValue)) {
+        // Display an error message next to the input field
+        quantityError.textContent = "Please enter only digits in the 'Target Amount' field.";
+        // Prevent the form from being submitted
+        event.preventDefault();
+        // Disable the submit button
+        my_submitButton.disabled = true;
+      } else {
+        // Clear the error message
+        quantityError.textContent = "";
+        // Enable the submit button
+        my_submitButton.disabled = false;
+      }
+    });
+
+    // Add an event listener to the "quantity" input field
+    quantityInput.addEventListener("input", function () {
+      // Get the value entered by the user
+      const quantityValue = quantityInput.value;
+
+      // Check if the value contains only digits
+      if (!regex.test(quantityValue)) {
+        // Display an error message next to the input field
+        quantityError.textContent = "Please enter only digits in the 'Target Amount' field. e.g. 1 instead of $1.";
+        // Disable the submit button
+        my_submitButton.disabled = true;
+      } else {
+        // Clear the error message
+        quantityError.textContent = "";
+        // Enable the submit button
+        my_submitButton.disabled = false;
+      }
+    });
+
+
+
+  </script>
   <script>
     function countChars(textarea, limit) {
       var value = textarea.value;
@@ -533,6 +589,7 @@
       costErrorMessage.style.display = 'none';
     });
   </script>
+
   <div class="container footer-container">
     <footer class="footer mt-auto py-3 my-4 pt-5 text-center fw-bold fs-5">
       <p>&copy; <span id="year"></span> LifePath, Inc</p>
