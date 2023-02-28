@@ -256,11 +256,10 @@ def life_goal_edit(life_goal_id):
 def life_goal_ai_enhance(life_goal_id):
     goal_edit = Goal.query.get(life_goal_id)
     if current_user.is_authenticated and request.method == "POST":
-        if current_user.is_authenticated and request.method == "POST":
-            state = request.form.get("status")
-            if state and state == "False":
-                flash("Please enable Javascript in your browser settings.")
-                return redirect(url_for('life_goal_ai_enhance'))
+        state = request.form.get("status")
+        if state and state == "False":
+            flash("Please enable Javascript in your browser settings.")
+            return redirect(url_for('life_goal_ai_enhance'))
         the_edit = request.form.get("aiEditLifeGoalFormControlTextarea")
         the_edit = encrypt_data(the_edit)
         goal_edit.chosen_goal = the_edit
@@ -291,12 +290,19 @@ def goals():
 @login_required
 def add_connections():
     if current_user.is_authenticated and request.method == "POST":
+        state = request.form.get("status")
+        if state and state == "False":
+            flash("Please enable Javascript in your browser settings.")
+            return redirect(url_for('add_connections'))
         person_name = request.form.get("entryName")
         person_name = encrypt_data(person_name)
         relationship_to_person = request.form.get("entryRelate")
         relationship_to_person = encrypt_data(relationship_to_person)
         person_date_of_birth = request.form.get("entryDate")
         what_you_think_about_person = request.form.get("relationshipFormControlTextarea")
+        if not person_name or not relationship_to_person or not person_date_of_birth or not what_you_think_about_person:
+            flash("Please make sure that you have filled in the entire form.")
+            return redirect(url_for('add_connections'))
         what_you_think_about_person = encrypt_data(what_you_think_about_person)
         your_connection = Connection(name=person_name,
                                      relationship_to_user=relationship_to_person,

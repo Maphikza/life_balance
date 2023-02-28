@@ -19,17 +19,7 @@
 </head>
 
 <body class="main-page">
-  <noscript>
-    <style>
-      #js-disabled-message {
-        display: block !important;
-      }
-    </style>
-    <div id="js-disabled-message" class="alert alert-danger">
-      This website requires JavaScript to function properly. Please enable JavaScript in your browser settings.
-    </div>
-  </noscript>
-  <header class="main-page">
+  <header class="main-page navs-link">
     <nav class="my-navbar navbar navbar-expand-md navbar-dark" aria-label="goals navbar">
       <div class="container-fluid my-navbar">
         <a class="navbar-brand fw-normal fs-3 my-navbar" href="{{url_for('home')}}">LifePath</a>
@@ -65,38 +55,50 @@
       <div class="col-md-9 p-lg-5 mx-auto my-5">
         <h4 class="display-3 fw-bold pb-2">Relationships.</h4>
         <p class="lead fw-normal fs-4"><em>Reflecting on what a person means to you can help you develop deeper
-          connections with them. Consider what you would like to say to them while they are alive, how often you
-          need to make time for them, and what you would say to them on their birthday or at their funeral.
-          While this can be a heavy exercise, it can help you think more deeply about the person and be more
-          intentional in your interactions with them in the future. Use this exercise as an opportunity to
-          strengthen your relationships with those who matter most to you.</em>
+            connections with them. Consider what you would like to say to them while they are alive, how often you
+            need to make time for them, and what you would say to them on their birthday or at their funeral.
+            While this can be a heavy exercise, it can help you think more deeply about the person and be more
+            intentional in your interactions with them in the future. Use this exercise as an opportunity to
+            strengthen your relationships with those who matter most to you.</em>
         </p>
 
         <div class="container main-page">
           <hr class="mid-breaker mt-4">
-          <form class="connections-form g-3 text-start" method="post">
+          <form class="connections-form g-3 text-start needs-validation" method="post">
             <div class="mb-3">
               <label for="entryName" class="fw-bold fs-5">Name</label>
-              <input type="text" class="form-control" id="entryName" name="entryName" placeholder="Name">
+              <input type="text" class="form-control" id="entryName" name="entryName" placeholder="Name" required>
             </div>
             <div class="mb-3">
               <label for="entryRelate" class="fw-bold fs-5">Relationship</label>
               <input type="text" class="form-control" id="entryRelate" name="entryRelate"
-                placeholder="Relationship. e.g Friend">
+                placeholder="Relationship. e.g Friend" required>
             </div>
             <div class="mb-3">
               <label for="entryDate" class="fw-bold fs-5">Birthday</label>
-              <input type="date" class="form-control" id="entryDate" name="entryDate">
+              <input type="date" class="form-control" id="entryDate" name="entryDate" required>
             </div>
-            <div class="mb-1">
+            <div class="mb-1 has-validation">
               <label for="relationshipFormControlTextarea" class="fw-bold fs-5">Your thoughts</label>
               <textarea class="form-control" id="relationshipFormControlTextarea" name="relationshipFormControlTextarea"
-                rows="6" oninput="countChars(this,1000)"></textarea>
+                rows="6" oninput="countChars(this,1000)" required></textarea>
               <div id="charNum"></div>
             </div>
-
+            <noscript>
+              <style>
+                #js-disabled-message {
+                  display: block !important;
+                }
+              </style>
+              <div id="js-disabled-message" class="alert alert-danger">
+                This website requires JavaScript to function properly. Please enable JavaScript in your browser
+                settings.
+              </div>
+              <input type="hidden" name="status" id="status" value="False">
+            </noscript>
             <div class="col">
-              <button type="submit" class="btn btn-lg btn-dark mb-3 w-normal fs-5" style="background-color: #453C41">Add Connection</button>
+              <button type="submit" class="btn btn-lg btn-dark mb-3 w-normal fs-5" style="background-color: #453C41">Add
+                Connection</button>
             </div>
           </form>
           <hr class="mid-breaker mt-4">
@@ -123,8 +125,8 @@
   </script>
 
   <div class="container footer-container">
-    <footer class="footer mt-auto py-3 my-4 pt-5">
-      <p>&copy; <span id="year"></span> Life Balance, Inc</p>
+    <footer class="footer mt-auto py-3 my-4 pt-5 text-center fw-bold fs-5">
+      <p>&copy; <span id="year"></span> LifePath, Inc</p>
     </footer>
   </div>
   <script>

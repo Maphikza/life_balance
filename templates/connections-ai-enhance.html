@@ -19,17 +19,7 @@
 </head>
 
 <body class="main-page">
-  <noscript>
-    <style>
-      #js-disabled-message {
-        display: block !important;
-      }
-    </style>
-    <div id="js-disabled-message" class="alert alert-danger">
-      This website requires JavaScript to function properly. Please enable JavaScript in your browser settings.
-    </div>
-  </noscript>
-  <header class="main-page">
+  <header class="main-page navs-link">
     <nav class="my-navbar navbar navbar-expand-md navbar-dark" aria-label="goals navbar">
       <div class="container-fluid my-navbar">
         <a class="navbar-brand fw-normal fs-3 my-navbar" href="{{url_for('home')}}">LifePath</a>
@@ -102,7 +92,17 @@
               oninput="countCharacters(this, 1000)">{{ enhancer(d_func(connect_ai_edit.relationship_thoughts))["choices"][0]["text"] }}</textarea>
             <div id="characterCount"></div>
           </div>
-
+          <noscript>
+            <style>
+              #js-disabled-message {
+                display: block !important;
+              }
+            </style>
+            <div id="js-disabled-message" class="alert alert-danger">
+              This website requires JavaScript to function properly. Please enable JavaScript in your browser settings.
+            </div>
+            <input type="hidden" name="status" id="status" value="False">
+          </noscript>
           <div class="col">
             <button type="submit" class="btn btn-lg btn-dark mb-3" style="background-color: #453C41">Submit Edit</button>
           </div>
