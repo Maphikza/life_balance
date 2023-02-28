@@ -116,37 +116,11 @@
 
 
   <script>
-    document.querySelectorAll(".ai-button").forEach(function (element) {
-      element.addEventListener("click", function () {
-        var spinnerId = "goal_spinner_" + this.dataset.goalId;
-        var spinner1Id = "goal_spinner1_" + this.dataset.goalId;
-        document.getElementById(spinner1Id).style.display = "block";
-        document.getElementById(spinnerId).style.display = "block";
-        this.disabled = true;
-      });
-    });
+  document.querySelectorAll(".ai-button").forEach(function(t){t.addEventListener("click",function(){var t="goal_spinner_"+this.dataset.goalId,e="goal_spinner1_"+this.dataset.goalId;document.getElementById(e).style.display="block",document.getElementById(t).style.display="block",this.disabled=!0})});
   </script>
 
   <script>
-    function showMore(goalId, event) {
-      event.preventDefault();
-      var dots = document.getElementById("dots-" + goalId);
-      var moreText = document.getElementById("more-" + goalId);
-      var shortText = document.getElementById("short-text-" + goalId);
-      var btnText = document.getElementById("read-more-" + goalId);
-
-      if (dots.style.display === "none") {
-        dots.style.display = "inline";
-        btnText.innerHTML = "Read more";
-        moreText.style.display = "none";
-        shortText.style.display = "inline";
-      } else {
-        dots.style.display = "none";
-        btnText.innerHTML = "Show less";
-        moreText.style.display = "inline";
-        shortText.style.display = "none";
-      }
-    }
+  function showMore(e,n){n.preventDefault();var l=document.getElementById("dots-"+e),t=document.getElementById("more-"+e),s=document.getElementById("short-text-"+e),y=document.getElementById("read-more-"+e);"none"===l.style.display?(l.style.display="inline",y.innerHTML="Read more",t.style.display="none",s.style.display="inline"):(l.style.display="none",y.innerHTML="Show less",t.style.display="inline",s.style.display="none")}
   </script>
 
 
