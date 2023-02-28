@@ -7,7 +7,7 @@ import os
 import openai
 from sqlalchemy.orm.exc import UnmappedInstanceError
 from route_functions import register_user, login
-from itsdangerous import URLSafeTimedSerializer, SignatureExpired
+from itsdangerous import URLSafeTimedSerializer, SignatureExpired, BadSignature
 from werkzeug.security import generate_password_hash
 from cryptography.fernet import Fernet
 import secrets
@@ -27,6 +27,8 @@ app.config['MAIL_USERNAME'] = os.environ.get("MY_EMAIL")
 app.config['MAIL_PASSWORD'] = os.environ.get("MY_EMAIL_APP_PASSWORD")
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
+app.config["MAIL_DEFAULT_SENDER"] = os.environ.get("MY_EMAIL")
+
 
 db = SQLAlchemy(app)
 login_manager = LoginManager()
@@ -72,7 +74,7 @@ def decrypt_data(data):
 class User(UserMixin, db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
+    username = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(120), nullable=False)
     birth_date = db.Column(db.String(12), nullable=False)
@@ -156,6 +158,10 @@ def implement_registration():
         password = request.form.get("entryPassword")
         date_of_birth = request.form.get("entryDate")
         country_currency = request.form.get("country")
+        token = s.dumps(email, salt="email-verification")
+        msg = Message("Verify Your Email", recipients=[email])
+        msg.body = f"Click the link to verify your email: {url_for('verify_email', token=token, _external=True)}"
+        mail.send(msg)
         registered_user = register_user(username=name,
                                         email=email,
                                         password=password,
@@ -166,6 +172,22 @@ def implement_registration():
                                         user=User, goal=Goal, finances=Finances)
         return registered_user
     return render_template('register.html')
+
+
+@app.route("/verify-email/<token>")
+def verify_email(token):
+    try:
+        # Validate the token and mark the user as verified
+        email = s.loads(token, salt="email-verification", max_age=3600)
+        user = User.query.filter_by(email=email).first()
+        user.verified = True
+        db.session.commit()
+
+        return "Email verification successful."
+    except SignatureExpired:
+        return "The verification link has expired. Please try again."
+    except BadSignature:
+        return "The verification link is invalid. Please check your email and try again."
 
 
 @app.route("/login", methods=["GET", "POST"])

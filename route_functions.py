@@ -20,9 +20,7 @@ def register_user(username, email, password, date_of_birth, user, goal, finances
         db.session.add(new_user_goals)
         db.session.add(new_user_finances)
         db.session.commit()
-        flash("You're registered.")
-        return redirect(url_for('implements_login'))
-
+        return "Registration successful. Check your email to verify your account."
 
 def login(name, entered_password, user):
     main_user = user.query.filter_by(username=name).first()
