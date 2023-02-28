@@ -17,17 +17,8 @@
 </head>
 
 <body class="main-page">
-  <noscript>
-    <style>
-      #js-disabled-message {
-        display: block !important;
-      }
-    </style>
-    <div id="js-disabled-message" class="alert alert-danger">
-      This website requires JavaScript to function properly. Please enable JavaScript in your browser settings.
-    </div>
-  </noscript>
-  <header class="main-page">
+
+  <header class="main-page navs-link">
     <nav class="my-navbar navbar navbar-expand-md navbar-dark" aria-label="goals navbar">
       <div class="container-fluid my-navbar">
         <a class="navbar-brand fw-normal fs-3 my-navbar" href="{{url_for('home')}}">LifePath</a>
@@ -84,6 +75,17 @@
               oninput="countCharacters(this, 1000)">{{d_func(user_bucket_list.bucket_list_item)}}</textarea>
             <div id="characterCount"></div>
           </div>
+          <noscript>
+            <style>
+              #js-disabled-message {
+                display: block !important;
+              }
+            </style>
+            <div id="js-disabled-message" class="alert alert-danger">
+              This website requires JavaScript to function properly. Please enable JavaScript in your browser settings.
+            </div>
+            <input type="hidden" name="status" id="status" value="False">
+          </noscript>
           <div>
             <button type="submit" class="btn btn-lg btn-dark mb-3fw-normal fs-5" style="background-color: #453C41;">Save
               Edit</button>
@@ -142,8 +144,8 @@
 
   </script>
   <div class="container footer-container">
-    <footer class="footer mt-auto py-3 my-4 pt-5">
-      <p>&copy; <span id="year"></span> Life Balance, Inc</p>
+    <footer class="footer mt-auto py-3 my-4 pt-5 text-center fw-bold fs-5">
+      <p>&copy; <span id="year"></span> LifePath, Inc</p>
     </footer>
   </div>
   <script>

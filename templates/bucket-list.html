@@ -17,7 +17,7 @@
 </head>
 
 <body class="main-page">
-  <header class="main-page">
+  <header class="main-page navs-link">
     <nav class="my-navbar navbar navbar-expand-md navbar-dark" aria-label="goals navbar">
       <div class="container-fluid my-navbar">
         <a class="navbar-brand fw-normal fs-3 my-navbar" href="{{url_for('home')}}">LifePath</a>
@@ -71,6 +71,7 @@
           <div id="js-disabled-message" class="alert alert-danger">
             This website requires JavaScript to function properly. Please enable JavaScript in your browser settings.
           </div>
+          <input type="hidden" name="status" id="status" value="False">
         </noscript>
         <a type="submit" class="btn btn-dark btn-lg m-1" href="{{url_for('add_bucketlist_item')}}"
           style="background-color: #453C41">Add Goal</a>

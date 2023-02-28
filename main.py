@@ -515,7 +515,7 @@ def add_bucketlist_item():
         if state and state == "False":
             flash("Please enable Javascript in your browser settings.")
             return redirect(url_for('add_bucketlist_item'))
-        item_title = request.form.get("bucketListFormControlInput")
+        item_title = request.form.get("bucketListFormControlInput").title()
         cost = request.form.get("costFormControlInput").replace(" ", "")
         cost = re.sub(r'(?!\.)\D', '', cost)
         if cost:
@@ -547,10 +547,9 @@ def edit_bucket_list_item(item_id):
         if state and state == "False":
             flash("Please enable Javascript in your browser settings.")
             return redirect(url_for('edit_bucket_list_item', item_id=bucket_list_edit.id))
-        title_edit = request.form.get("editBucketListFormControlInput")
+        title_edit = request.form.get("editBucketListFormControlInput").title()
         cost_edit = request.form.get("editCostFormControlInput").replace(" ", "")
         cost_edit = re.sub(r'(?!\.)\D', '', cost_edit)
-        print(cost_edit)
         item_text_edit = request.form.get("editBucketListFormControlTextarea")
         if title_edit:
             bucket_list_edit.bucket_list_item_title = title_edit
