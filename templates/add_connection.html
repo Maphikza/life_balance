@@ -107,21 +107,7 @@
     </div>
   </div>
   <script>
-    function countChars(textarea, limit) {
-      var value = textarea.value;
-      var characterCount = value.length;
-      var characterCountElement = document.getElementById("charNum");
-      characterCountElement.innerHTML = characterCount + " / " + limit;
-      if (characterCount > limit) {
-        textarea.value = value.slice(0, limit);
-        characterCountElement.style.color = "red";
-        characterCountElement.innerHTML = "Max limit of " + limit + " characters reached!";
-      } else {
-        characterCountElement.style.color = "inherit";
-      }
-    }
-
-
+  function countChars(e,r){var l=e.value,n=l.length,t=document.getElementById("charNum");t.innerHTML=n+" / "+r,n>r?(e.value=l.slice(0,r),t.style.color="red",t.innerHTML="Max limit of "+r+" characters reached!"):t.style.color="inherit"}
   </script>
 
   <div class="container footer-container">
