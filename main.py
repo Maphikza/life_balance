@@ -15,8 +15,6 @@ import re
 
 path = Path(r"C:\Users\stapi\PycharmProjects\life_scale\instance\living.db")
 
-# To compress and minify my js-script using jinja.
-
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('LIFE_KEY')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///living.db'
@@ -29,13 +27,12 @@ app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
 app.config["MAIL_DEFAULT_SENDER"] = os.environ.get("MY_EMAIL")
 
-
 db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 mail = Mail(app)
 
-s = URLSafeTimedSerializer(secrets.token_urlsafe(16))
+s = URLSafeTimedSerializer(app.config['SECRET_KEY'])
 
 admin = os.environ.get("admin")
 
@@ -174,6 +171,11 @@ def implement_registration():
     return render_template('register.html')
 
 
+@app.route("/registration/success")
+def registration_success():
+    return render_template("registration_success.html")
+
+
 @app.route("/verify-email/<token>")
 def verify_email(token):
     try:
@@ -182,12 +184,14 @@ def verify_email(token):
         user = User.query.filter_by(email=email).first()
         user.verified = True
         db.session.commit()
-
-        return "Email verification successful."
+        success_message = "Email verification successful."
+        return render_template("email-verification.html", response=success_message)
     except SignatureExpired:
-        return "The verification link has expired. Please try again."
+        expired_link_message = "The verification link has expired. Please try again."
+        return render_template("email-verification.html", response=expired_link_message)
     except BadSignature:
-        return "The verification link is invalid. Please check your email and try again."
+        invalid_link_message = "The verification link is invalid. Please check your email and try again."
+        return render_template("email-verification.html", response=invalid_link_message)
 
 
 @app.route("/login", methods=["GET", "POST"])

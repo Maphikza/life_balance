@@ -2,13 +2,17 @@ body {
   background-color: #EEF6F9;
 }
 
+.login {
+  height: 47rem;
+}
+
 .flashes {
   color: red;
 }
 
 .footer-container {
   display: flex;
-  min-height: 32vh;
+  /* min-height: 32vh; */
   flex-direction: column;
 }
 
@@ -103,5 +107,9 @@ audio {
   .lead {
     font-size: 0.5rem;
   }
+}
+
+.email-conf {
+  height: 32rem;
 }
 

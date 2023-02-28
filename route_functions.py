@@ -1,4 +1,4 @@
-from flask import url_for, redirect, flash
+from flask import url_for, redirect, flash, render_template
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user
 
@@ -20,18 +20,22 @@ def register_user(username, email, password, date_of_birth, user, goal, finances
         db.session.add(new_user_goals)
         db.session.add(new_user_finances)
         db.session.commit()
-        return "Registration successful. Check your email to verify your account."
+        return redirect(url_for('registration_success'))
+
 
 def login(name, entered_password, user):
     main_user = user.query.filter_by(username=name).first()
     if not main_user:
         flash("The username or password is incorrect.")
         return redirect(url_for('implements_login'))
+    elif main_user and main_user.verified != 1:
+        flash("You need to verify your account before logging in.")
+        return redirect(url_for('implements_login'))
     elif main_user:
         main_user_password = check_password_hash(pwhash=main_user.password, password=entered_password)
         if not main_user_password:
             flash("The username or password is incorrect.")
             return redirect(url_for('implements_login'))
-        elif main_user_password:
+        elif main_user_password and main_user.verified == 1:
             login_user(user=main_user)
             return redirect(url_for('home'))
