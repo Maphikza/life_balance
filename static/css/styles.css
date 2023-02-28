@@ -6,6 +6,11 @@ body {
   height: 47rem;
 }
 
+.home {
+  height: 47rem;
+}
+
+
 .flashes {
   color: red;
 }
@@ -59,6 +64,10 @@ audio {
   /* #1D282E */
 }
 
+.navs-link {
+  font-size: larger;
+}
+
 .goal-stretch {
   background-color: #4C8891;
   color: whitesmoke;
@@ -106,6 +115,10 @@ audio {
 
   .lead {
     font-size: 0.5rem;
+  }
+
+  .home {
+    height: 55rem;
   }
 }
 

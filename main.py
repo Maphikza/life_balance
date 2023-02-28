@@ -208,6 +208,10 @@ def implements_login():
 @login_required
 def add_life_goal():
     if current_user.is_authenticated and request.method == "POST":
+        state = request.form.get("status")
+        if state and state == "False":
+            flash("Please enable Javascript in your browser settings.")
+            return redirect(url_for('add_life_goal'))
 
         selected_title = request.form.get("life-goals")
         goal_check = Goal.query.filter_by(user_id=current_user.id).all()
@@ -235,6 +239,10 @@ def add_life_goal():
 def life_goal_edit(life_goal_id):
     goal_edit = Goal.query.get(life_goal_id)
     if current_user.is_authenticated and request.method == "POST":
+        state = request.form.get("status")
+        if state and state == "False":
+            flash("Please enable Javascript in your browser settings.")
+            return redirect(url_for('life_goal_edit'))
         the_edit = request.form.get("editLifeGoalFormControlTextarea")
         the_edit = encrypt_data(the_edit)
         goal_edit.chosen_goal = the_edit
@@ -248,6 +256,11 @@ def life_goal_edit(life_goal_id):
 def life_goal_ai_enhance(life_goal_id):
     goal_edit = Goal.query.get(life_goal_id)
     if current_user.is_authenticated and request.method == "POST":
+        if current_user.is_authenticated and request.method == "POST":
+            state = request.form.get("status")
+            if state and state == "False":
+                flash("Please enable Javascript in your browser settings.")
+                return redirect(url_for('life_goal_ai_enhance'))
         the_edit = request.form.get("aiEditLifeGoalFormControlTextarea")
         the_edit = encrypt_data(the_edit)
         goal_edit.chosen_goal = the_edit

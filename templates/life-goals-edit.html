@@ -19,17 +19,7 @@
 </head>
 
 <body class="main-page">
-  <noscript>
-    <style>
-      #js-disabled-message {
-        display: block !important;
-      }
-    </style>
-    <div id="js-disabled-message" class="alert alert-danger">
-      This website requires JavaScript to function properly. Please enable JavaScript in your browser settings.
-    </div>
-  </noscript>
-  <header class="main-page">
+  <header class="main-page navs-link">
     <nav class="my-navbar navbar navbar-expand-md navbar-dark" aria-label="goals navbar">
       <div class="container-fluid my-navbar">
         <a class="navbar-brand fw-normal fs-3" href="{{url_for('home')}}">LifePath</a>
@@ -61,7 +51,7 @@
     </nav>
   </header>
 
-  <div class="container main-page">
+  <div class="container main-page home">
     <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center">
       <div class="col-md-9 p-lg-5 mx-auto my-5">
         <h4 class="display-3 fw-bold pb-2">Edit Goal
@@ -75,6 +65,17 @@
               rows="6" oninput="countCharacters(this, 1000)">{{d_func(life_edit.chosen_goal)}}</textarea>
             <div id="characterCount"></div>
           </div>
+          <noscript>
+            <style>
+              #js-disabled-message {
+                display: block !important;
+              }
+            </style>
+            <div id="js-disabled-message" class="alert alert-danger">
+              This website requires JavaScript to function properly. Please enable JavaScript in your browser settings.
+            </div>
+            <input type="hidden" name="status" id="status" value="False">
+          </noscript>
           <div>
             <button type="submit" class="btn btn-lg btn-dark mb-3 fw-normal fs-5"
               style="background-color: #453C41;">Save Edit</button>
