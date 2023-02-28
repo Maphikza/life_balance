@@ -96,52 +96,11 @@
     </div>
   </div>
   <script>
-    // Get references to the form and input fields
-    const form = document.querySelector(".edit-list-form");
-    const costInput = document.querySelector("#editCostFormControlInput");
-    const costError = document.querySelector("#costError");
-
-    // Define a function to validate the input
-    function validateInput() {
-      const input = costInput.value.trim();
-
-      // Check if the input is empty or a positive number
-      if (input !== "" && !(/^\d+$/.test(input) || /^\d+\.\d+$/.test(input)) || parseFloat(input) <= 0) {
-        // Display an error message next to the input
-        costError.textContent = "Please enter a positive digit number e.g. 1 instead of 'one'";
-        costInput.classList.add("is-invalid");
-        return false;
-      }
-
-      // If the input is valid, remove the error message and allow the form submission to proceed
-      costError.textContent = "";
-      costInput.classList.remove("is-invalid");
-      return true;
-    }
-
-    // Add an event listener to the form to run the validation function before submission
-    form.addEventListener("submit", (event) => {
-      if (!validateInput()) {
-        event.preventDefault();
-      }
-    });
+   const form=document.querySelector(".edit-list-form"),costInput=document.querySelector("#editCostFormControlInput"),costError=document.querySelector("#costError");function validateInput(){let t=costInput.value.trim();return""!==t&&!(/^\d+$/.test(t)||/^\d+\.\d+$/.test(t))||0>=parseFloat(t)?(costError.textContent="Please enter a positive digit number e.g. 1 instead of 'one'",costInput.classList.add("is-invalid"),!1):(costError.textContent="",costInput.classList.remove("is-invalid"),!0)}form.addEventListener("submit",t=>{validateInput()||t.preventDefault()});
   </script>
 
   <script>
-    function countCharacters(textarea, limit) {
-      var value = textarea.value;
-      var characterCount = value.length;
-      var characterCountElement = document.getElementById("characterCount");
-      characterCountElement.innerHTML = characterCount + " / " + limit;
-      if (characterCount > limit) {
-        textarea.value = value.slice(0, limit);
-        characterCountElement.style.color = "red";
-        characterCountElement.innerHTML = "Max limit of " + limit + " characters reached!";
-      } else {
-        characterCountElement.style.color = "inherit";
-      }
-    }
-
+  function countCharacters(e,r){var t=e.value,a=t.length,c=document.getElementById("characterCount");c.innerHTML=a+" / "+r,a>r?(e.value=t.slice(0,r),c.style.color="red",c.innerHTML="Max limit of "+r+" characters reached!"):c.style.color="inherit"}
   </script>
   <div class="container footer-container">
     <footer class="footer mt-auto py-3 my-4 pt-5 text-center fw-bold fs-5">
