@@ -95,51 +95,11 @@
     </div>
   </div>
   <script>
-    const quantityEditInput = document.getElementById('quantity_edit');
-    const financeForm = document.querySelector('form.finance-emergency-form');
-
-    financeForm.addEventListener('submit', (event) => {
-      const quantityEditValue = quantityEditInput.value.trim();
-      if (quantityEditValue !== '') {
-        const quantityEditNumber = parseFloat(quantityEditValue);
-        if (isNaN(quantityEditNumber) || !Number.isInteger(quantityEditNumber)) {
-          event.preventDefault();
-          const errorDiv = document.createElement('div');
-          errorDiv.classList.add('invalid-feedback');
-          errorDiv.innerHTML = 'Target amount must be a positive digit. e.g. 1 instead of "one" or $1';
-
-          if (!quantityEditInput.classList.contains('is-invalid')) {
-            quantityEditInput.classList.add('is-invalid');
-            quantityEditInput.parentNode.appendChild(errorDiv);
-          }
-        }
-      }
-    });
-
-    quantityEditInput.addEventListener('input', () => {
-      quantityEditInput.classList.remove('is-invalid');
-      const errorDiv = quantityEditInput.parentNode.querySelector('.invalid-feedback');
-      if (errorDiv !== null) {
-        errorDiv.parentNode.removeChild(errorDiv);
-      }
-    });
+  const quantityEditInput=document.getElementById("quantity_edit"),financeForm=document.querySelector("form.finance-emergency-form");financeForm.addEventListener("submit",t=>{let e=quantityEditInput.value.trim();if(""!==e){let i=parseFloat(e);if(isNaN(i)||!Number.isInteger(i)){t.preventDefault();let n=document.createElement("div");n.classList.add("invalid-feedback"),n.innerHTML='Target amount must be a positive digit. e.g. 1 instead of "one" or $1',quantityEditInput.classList.contains("is-invalid")||(quantityEditInput.classList.add("is-invalid"),quantityEditInput.parentNode.appendChild(n))}}}),quantityEditInput.addEventListener("input",()=>{quantityEditInput.classList.remove("is-invalid");let t=quantityEditInput.parentNode.querySelector(".invalid-feedback");null!==t&&t.parentNode.removeChild(t)});
   </script>
 
   <script>
-    function countCharacters(textarea, limit) {
-      var value = textarea.value;
-      var characterCount = value.length;
-      var characterCountElement = document.getElementById("characterCount");
-      characterCountElement.innerHTML = characterCount + " / " + limit;
-      if (characterCount > limit) {
-        textarea.value = value.slice(0, limit);
-        characterCountElement.style.color = "red";
-        characterCountElement.innerHTML = "Max limit of " + limit + " characters reached!";
-      } else {
-        characterCountElement.style.color = "inherit";
-      }
-    }
-
+  function countCharacters(e,r){var t=e.value,a=t.length,c=document.getElementById("characterCount");c.innerHTML=a+" / "+r,a>r?(e.value=t.slice(0,r),c.style.color="red",c.innerHTML="Max limit of "+r+" characters reached!"):c.style.color="inherit"}
   </script>
   <div class="container footer-container">
     <footer class="footer mt-auto py-3 my-4 pt-5 text-center fw-bold fs-5">
