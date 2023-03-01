@@ -7,7 +7,7 @@ body {
 }
 
 .home {
-  height: 47rem;
+  height: 43rem;
 }
 
 
@@ -24,6 +24,10 @@ body {
 .footer {
   margin-top: auto;
   text-align: center;
+}
+
+.footer-list {
+  color: #453C41;
 }
 
 .finance-card {

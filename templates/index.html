@@ -72,7 +72,7 @@
       {% endif%}
       {% endwith %}
       <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center">
-        <div class="col-md-9 p-lg-5 mx-auto my-5 main-page">
+        <div class="col-lg-12 col-md-9 p-lg-5 my-1 mx-auto main-page">
           <h1 class="display-4 fw-bold main-page page-header">Explore yourself.</h1>
           <p class="lead fw-normal fs-3 main-page"><em>"Welcome to LifePath! Our website provides a space for
               self-reflection
@@ -85,7 +85,6 @@
           </p>
         </div>
       </div>
-    
     <noscript>
       <style>
         #js-disabled-message {
@@ -112,8 +111,16 @@
     </div>
   </div>
   <div class="container footer-container">
-    <footer class="footer mt-auto py-3 my-4 pt-5 text-center fw-bold fs-5">
+    <footer class="footer mt-auto  my-4 pt-5 text-center fw-bold fs-5">
+      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        <li class="nav-item"><a href="{{url_for('contact')}}" class="nav-link px-2" style="color: #453C41;">Contact Us</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2" style="color: #453C41;">Privacy-Policy</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2" style="color: #453C41;">Pricing</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2" style="color: #453C41;">About</a></li>
+      </ul>
       <p>&copy; <span id="year"></span> LifePath, Inc</p>
+      <!-- <p class="col-4"><a href="url_for('contact')" class="btn btn-link fw-bold" style="color: #453C41;">Contact Us</a></p>
+      <p class="col-4"><a class="btn btn-link" href="#" style="color: #453C41;">Privacy Policy</a></p> -->
     </footer>
   </div>
   <script>

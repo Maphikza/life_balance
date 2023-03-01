@@ -10,7 +10,6 @@ from route_functions import register_user, login
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired, BadSignature
 from werkzeug.security import generate_password_hash
 from cryptography.fernet import Fernet
-import secrets
 import re
 
 path = Path(r"C:\Users\stapi\PycharmProjects\life_scale\instance\living.db")
@@ -466,7 +465,7 @@ def finance_edit_ai_enhance(goal_id):
         if state and state == "False":
             flash("Please enable Javascript in your browser settings.")
             return redirect(url_for('finance_edit_ai_enhance', goal_id=finance_ai_goal_edit.id))
-        goal_edit = request.form.get("aifinanceFormControlTextarea-edit")
+        goal_edit = request.form.get("aiFinanceFormControlTextarea-edit")
         amount = request.form.get("quantity_edit").replace(" ", "")
         if goal_edit:
             goal_edit = encrypt_data(goal_edit)
@@ -703,6 +702,23 @@ def reset_token(token):
             db.session.commit()
             return '<h1>Your password has been updated!</h1>'
         return render_template('reset_token.html')
+
+
+@app.route("/contact", methods=["GET", "POST"])
+def contact():
+    if request.method == "POST":
+        if current_user.is_authenticated:
+            email_address = current_user.email
+        else:
+            email_address = request.form.get("messageFormControlTextarea")
+
+        email_subject = request.form.get("Subject")
+        email_message = request.form.get("messageFormControlTextarea")
+        msg = Message(f'{email_subject}', sender=os.environ.get("MY_EMAIL"), recipients=[os.environ.get("MY_EMAIL")])
+        msg.body = f'Email from {email_address}\nMessage:\n {email_message}'
+        mail.send(msg)
+
+    return render_template("contact.html")
 
 
 @app.route("/logout")
