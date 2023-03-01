@@ -41,8 +41,8 @@ openai.api_key = os.environ.get("OPEN_AI_LIFE_KEY")
 
 def generate(content: str) -> str:
     response = openai.Completion.create(
-        model="code-davinci-002",
-        prompt=f"Python code for printing this: '{content}'",
+        model="text-ada-001",
+        prompt=f"rephrase this like a wise philosopher: '{content}'",
         temperature=0.7,
         max_tokens=256,
         top_p=1,
