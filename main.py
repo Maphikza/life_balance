@@ -13,6 +13,7 @@ from cryptography.fernet import Fernet
 import re
 
 path = Path(r"C:\Users\stapi\PycharmProjects\life_scale\instance\living.db")
+COMPANY_NAME = "LifePath"
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('LIFE_KEY')
@@ -143,7 +144,7 @@ def load_user(user_id):
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    return render_template("index.html", name=COMPANY_NAME)
 
 
 @app.route("/registration", methods=["GET", "POST"])
@@ -710,15 +711,20 @@ def contact():
         if current_user.is_authenticated:
             email_address = current_user.email
         else:
-            email_address = request.form.get("messageFormControlTextarea")
+            email_address = request.form.get("entryEmail")
 
         email_subject = request.form.get("Subject")
         email_message = request.form.get("messageFormControlTextarea")
         msg = Message(f'{email_subject}', sender=os.environ.get("MY_EMAIL"), recipients=[os.environ.get("MY_EMAIL")])
-        msg.body = f'Email from {email_address}\nMessage:\n {email_message}'
+        msg.body = f'Email from {email_address}\nMessage:\n{email_message}'
         mail.send(msg)
 
     return render_template("contact.html")
+
+
+@app.route("/privacy-policy")
+def privacy():
+    return render_template("privacy.html", name=COMPANY_NAME)
 
 
 @app.route("/logout")
