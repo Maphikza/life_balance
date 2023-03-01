@@ -727,6 +727,11 @@ def privacy():
     return render_template("privacy.html", name=COMPANY_NAME)
 
 
+@app.route("/mission")
+def mission():
+    return render_template("mission.html")
+
+
 @app.route("/logout")
 def logout():
     logout_user()
