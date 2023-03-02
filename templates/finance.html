@@ -8,6 +8,9 @@
   <link href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,7 +20,7 @@
 </head>
 
 <body class="main-page">
-  
+
   <header class="main-page navs-link">
     <nav class="my-navbar navbar navbar-expand-md navbar-dark" aria-label="goals navbar">
       <div class="container-fluid my-navbar">
@@ -53,7 +56,7 @@
     <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center">
       <div class="col-lg-12 col-md-9 p-lg-5 mx-auto my-5">
         <h1 class="display-3 fw-bold pb-2">Finances</h1>
-        <p class="lead fw-normal fs-4"><em>Having your finances in order is crucial for a well balanced life. While we
+        <p class="lead fw-normal fs-3"><em>Having your finances in order is crucial for a well balanced life. While we
             hope for the
             best, unexpected situations can sometimes impact our financial well-being. This section offers a chance to
             reflect on some uncomfortable topics that are nonetheless essential to address. A strong financial plan
@@ -125,11 +128,11 @@
     <hr class="mid-breaker mt-4">
   </div>
   <script>
-    document.querySelectorAll(".ai-button").forEach(function(t){t.addEventListener("click",function(){var t="goal_spinner_"+this.dataset.goalId,e="goal_spinner1_"+this.dataset.goalId;document.getElementById(e).style.display="block",document.getElementById(t).style.display="block",this.disabled=!0})});
+    document.querySelectorAll(".ai-button").forEach(function (t) { t.addEventListener("click", function () { var t = "goal_spinner_" + this.dataset.goalId, e = "goal_spinner1_" + this.dataset.goalId; document.getElementById(e).style.display = "block", document.getElementById(t).style.display = "block", this.disabled = !0 }) });
   </script>
   <script>
-    function showMore(e,n){n.preventDefault();var l=document.getElementById("dots-"+e),t=document.getElementById("more-"+e),s=document.getElementById("short-text-"+e),y=document.getElementById("read-more-"+e);"none"===l.style.display?(l.style.display="inline",y.innerHTML="Read more",t.style.display="none",s.style.display="inline"):(l.style.display="none",y.innerHTML="Show less",t.style.display="inline",s.style.display="none")}
-    </script>
+    function showMore(e, n) { n.preventDefault(); var l = document.getElementById("dots-" + e), t = document.getElementById("more-" + e), s = document.getElementById("short-text-" + e), y = document.getElementById("read-more-" + e); "none" === l.style.display ? (l.style.display = "inline", y.innerHTML = "Read more", t.style.display = "none", s.style.display = "inline") : (l.style.display = "none", y.innerHTML = "Show less", t.style.display = "inline", s.style.display = "none") }
+  </script>
   <div class="container footer-container">
     <footer class="footer mt-auto py-3 my-4 pt-5 text-center fw-bold fs-5">
       <p>&copy; <span id="year"></span> LifePath, Inc</p>

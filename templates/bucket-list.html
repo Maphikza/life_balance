@@ -8,6 +8,9 @@
   <link href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -53,14 +56,14 @@
     <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center">
       <div class="col-lg-12 col-md-9 p-lg-5 mx-auto my-5">
         <h1 class="display-3 fw-bold pb-2">Bucket List</h1>
-        <p class="lead fw-normal fs-4"><em>"Welcome to your personal bucket list page, where we believe that life is
+        <p class="lead fw-normal fs-3"><em>Welcome to your personal bucket list page, where we believe that life is
             meant to be
             lived to the fullest. Here, we invite you to reflect on your aspirations, dreams, and goals, and turn them
             into actionable items that can bring you joy, fulfillment, and a sense of accomplishment. Whether you want
             to travel the world, learn a new skill, or make a positive impact on the world, a personal bucket list can
             help you focus your energy and bring meaning to your life. On this page, we will provide inspiration, tips,
             and resources to help you create and achieve your own unique bucket list. So why wait? Let's start crossing
-            items off your list and make every moment count!"</em>
+            items off your list and make every moment count!</em>
         </p>
         <noscript>
           <style>
@@ -116,11 +119,11 @@
 
 
   <script>
-  document.querySelectorAll(".ai-button").forEach(function(t){t.addEventListener("click",function(){var t="goal_spinner_"+this.dataset.goalId,e="goal_spinner1_"+this.dataset.goalId;document.getElementById(e).style.display="block",document.getElementById(t).style.display="block",this.disabled=!0})});
+    document.querySelectorAll(".ai-button").forEach(function (t) { t.addEventListener("click", function () { var t = "goal_spinner_" + this.dataset.goalId, e = "goal_spinner1_" + this.dataset.goalId; document.getElementById(e).style.display = "block", document.getElementById(t).style.display = "block", this.disabled = !0 }) });
   </script>
 
   <script>
-  function showMore(e,n){n.preventDefault();var l=document.getElementById("dots-"+e),t=document.getElementById("more-"+e),s=document.getElementById("short-text-"+e),y=document.getElementById("read-more-"+e);"none"===l.style.display?(l.style.display="inline",y.innerHTML="Read more",t.style.display="none",s.style.display="inline"):(l.style.display="none",y.innerHTML="Show less",t.style.display="inline",s.style.display="none")}
+    function showMore(e, n) { n.preventDefault(); var l = document.getElementById("dots-" + e), t = document.getElementById("more-" + e), s = document.getElementById("short-text-" + e), y = document.getElementById("read-more-" + e); "none" === l.style.display ? (l.style.display = "inline", y.innerHTML = "Read more", t.style.display = "none", s.style.display = "inline") : (l.style.display = "none", y.innerHTML = "Show less", t.style.display = "inline", s.style.display = "none") }
   </script>
 
 

@@ -24,10 +24,12 @@ body {
 .footer {
   margin-top: auto;
   text-align: center;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
 .footer-list {
   color: #453C41;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
 .finance-card {
@@ -52,11 +54,11 @@ audio {
 }
 
 .page-header {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
 .main-page {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   color: #453C41;
   background-color: #ECEBE9;
   /* #EEF6F9 */
@@ -64,7 +66,7 @@ audio {
 
 .my-navbar {
   background-color: #4C8891;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   /* #1D282E */
 }
 
@@ -75,7 +77,7 @@ audio {
 .goal-stretch {
   background-color: #4C8891;
   color: whitesmoke;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
 .mid-breaker {
@@ -90,8 +92,8 @@ audio {
 }
 
 .goal-text {
-  font-family: 'Open Sans', sans-serif;
-  font-size: large;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: larger;
 }
 
 .accordion-text {
@@ -118,7 +120,7 @@ audio {
   }
 
   .lead {
-    font-size: 0.5rem;
+    font-size: 0.2rem;
   }
 
   .home {
