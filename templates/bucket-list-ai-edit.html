@@ -8,6 +8,9 @@
     <link href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -115,11 +118,19 @@
     <script>
     document.addEventListener("DOMContentLoaded",function(){document.getElementById("aiEditBucketListFormControlTextarea").focus(),document.getElementById("aiEditBucketListFormControlTextarea").select(),document.getElementById("bucketTextAreaToast").classList.add("show")});function countCharacters(e,t){var a=e.value,n=a.length,r=document.getElementById("characterCount");r.innerHTML=n+" / "+t,n>t?(e.value=a.slice(0,t),r.style.color="red",r.innerHTML="Max limit of "+t+" characters reached!"):r.style.color="inherit"}
     </script>
-    <div class="container footer-container">
-        <footer class="footer mt-auto py-3 my-4 pt-5 text-center fw-bold fs-5">
-            <p>&copy; <span id="year"></span> LifePath, Inc</p>
-        </footer>
-    </div>
+  <div class="container footer-container">
+    <footer class="footer mt-auto  my-4 pt-5 text-center fw-bold fs-5">
+      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        <li class="nav-item"><a href="{{url_for('mission')}}" class="nav-link px-2" style="color: #453C41;">Mission</a>
+        </li>
+        <li class="nav-item"><a type="button" href="{{url_for('privacy')}}" class="nav-link px-2"
+            style="color: #453C41;">Privacy</a></li>
+        <li class="nav-item"><a href="{{url_for('contact')}}" class="nav-link px-2" style="color: #453C41;">Contact</a>
+        </li>
+      </ul>
+      <p>&copy; <span id="year"></span> LifePath, Inc</p>
+    </footer>
+  </div>
     <script>
         document.getElementById("year").innerHTML = new Date().getFullYear();
     </script>
