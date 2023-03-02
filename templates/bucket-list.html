@@ -127,11 +127,19 @@
   </script>
 
 
-  <div class="container footer-container">
-    <footer class="footer mt-auto py-3 my-4 pt-5 text-center fw-bold fs-5">
-      <p>&copy; <span id="year"></span> LifePath, Inc</p>
-    </footer>
-  </div>
+<div class="container footer-container">
+  <footer class="footer mt-auto  my-4 pt-5 text-center fw-bold fs-5">
+    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+      <li class="nav-item"><a href="{{url_for('mission')}}" class="nav-link px-2" style="color: #453C41;">Mission</a>
+      </li>
+      <li class="nav-item"><a type="button" href="{{url_for('privacy')}}" class="nav-link px-2"
+          style="color: #453C41;">Privacy</a></li>
+      <li class="nav-item"><a href="{{url_for('contact')}}" class="nav-link px-2" style="color: #453C41;">Contact</a>
+      </li>
+    </ul>
+    <p>&copy; <span id="year"></span> LifePath, Inc</p>
+  </footer>
+</div>
   <script>
     document.getElementById("year").innerHTML = new Date().getFullYear();
   </script>
