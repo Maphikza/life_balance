@@ -8,6 +8,9 @@
   <link href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -116,10 +119,19 @@
   <script>
     function countCharacters(e,t){var s=e.value,r=s.length,o=document.getElementById("characterCount");o.innerHTML=r+" / "+t,r>t?(e.value=s.slice(0,t),o.style.color="red",o.innerHTML="Max limit of "+t+" characters reached!"):o.style.color="inherit"}const costInput=document.getElementById("costFormControlInput"),costErrorMessage=document.getElementById("costErrorMessage"),form=document.querySelector("form");form.addEventListener("submit",e=>{e.preventDefault();let t=parseFloat(costInput.value.trim().replace(/\D+/g,""));if(isNaN(t)||t<0){costInput.classList.add("is-invalid"),costErrorMessage.textContent='Cost must be a positive digit. e.g 1 instead of "one"',costErrorMessage.style.display="block";return}form.submit()}),costInput.addEventListener("input",()=>{costInput.classList.remove("is-invalid"),costErrorMessage.style.display="none"});
   </script>
-  <div class="container footer-container">
-    <footer class="footer mt-auto py-3 my-4 pt-5 text-center fw-bold fs-5">
-      <p>&copy; <span id="year"></span> LifePath, Inc</p>
-  </div>
+<div class="container footer-container">
+  <footer class="footer mt-auto  my-4 pt-5 text-center fw-bold fs-5">
+    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+      <li class="nav-item"><a href="{{url_for('mission')}}" class="nav-link px-2" style="color: #453C41;">Mission</a>
+      </li>
+      <li class="nav-item"><a type="button" href="{{url_for('privacy')}}" class="nav-link px-2"
+          style="color: #453C41;">Privacy</a></li>
+      <li class="nav-item"><a href="{{url_for('contact')}}" class="nav-link px-2" style="color: #453C41;">Contact</a>
+      </li>
+    </ul>
+    <p>&copy; <span id="year"></span> LifePath, Inc</p>
+  </footer>
+</div>
   <script>
     document.getElementById("year").innerHTML = new Date().getFullYear();
   </script>
