@@ -48,9 +48,8 @@
             </li>
           </ul>
           <div class="text-end pe-5">
-            <a href="https://www.buymeacoffee.com/siphiwereah" target="_blank"><img
-                    src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee"
-                    style="height: 40px !important;width: 170px !important;"></a>
+            <a href="https://www.buymeacoffee.com/siphiwereah" target="_blank" rel="noopener noreferrer" class="pizza"><img
+                    src="https://img.buymeacoffee.com/button-api/?text=Buy us a pizza&emoji=&slug=siphiwereah&button_colour=FFDD00&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=ffffff" /></a>
         </div>
         </div>
       </div>
@@ -132,19 +131,19 @@
   </script>
 
 
-<div class="container footer-container">
-  <footer class="footer mt-auto  my-4 pt-5 text-center fw-bold fs-5">
-    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-      <li class="nav-item"><a href="{{url_for('mission')}}" class="nav-link px-2" style="color: #453C41;">Mission</a>
-      </li>
-      <li class="nav-item"><a type="button" href="{{url_for('privacy')}}" class="nav-link px-2"
-          style="color: #453C41;">Privacy</a></li>
-      <li class="nav-item"><a href="{{url_for('contact')}}" class="nav-link px-2" style="color: #453C41;">Contact</a>
-      </li>
-    </ul>
-    <p>&copy; <span id="year"></span> LifePath, Inc</p>
-  </footer>
-</div>
+  <div class="container footer-container">
+    <footer class="footer mt-auto  my-4 pt-5 text-center fw-bold fs-5">
+      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        <li class="nav-item"><a href="{{url_for('mission')}}" class="nav-link px-2" style="color: #453C41;">Mission</a>
+        </li>
+        <li class="nav-item"><a type="button" href="{{url_for('privacy')}}" class="nav-link px-2"
+            style="color: #453C41;">Privacy</a></li>
+        <li class="nav-item"><a href="{{url_for('contact')}}" class="nav-link px-2" style="color: #453C41;">Contact</a>
+        </li>
+      </ul>
+      <p>&copy; <span id="year"></span> LifePath, Inc</p>
+    </footer>
+  </div>
   <script>
     document.getElementById("year").innerHTML = new Date().getFullYear();
   </script>

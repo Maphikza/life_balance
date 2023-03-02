@@ -10,6 +10,10 @@ body {
   height: 43rem;
 }
 
+.pizza {
+  border-radius: 50px;
+}
+
 
 .flashes {
   color: red;
