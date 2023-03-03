@@ -78,7 +78,7 @@
               {{life_ai_edit.life_goal_title}}:</label>
             <textarea class="form-control" id="aiEditLifeGoalFormControlTextarea" name=aiEditLifeGoalFormControlTextarea
               rows="6"
-              oninput="countCharacters(this, 1000)">{{ enhancer(d_func(life_ai_edit.chosen_goal))["choices"][0]["text"] }}</textarea>
+              oninput="countCharacters(this, 1000)">{{ enhancer(d_func(life_ai_edit.chosen_goal)) }}</textarea>
             <div id="characterCount"></div>
           </div>
           <noscript>
