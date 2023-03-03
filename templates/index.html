@@ -36,12 +36,12 @@
               <a class="nav-link" href="{{url_for('implements_login')}}">Login</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{url_for('implement_registration')}}">Register</a>
+              <a class="nav-link" href="{{url_for('implement_registration')}}">Sign up</a>
             </li>
             {% endif %}
             {% if current_user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{{url_for('goals')}}">Goals</a>
+              <a class="nav-link active" aria-current="page" href="{{url_for('goals')}}">Life</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{url_for('connections')}}">Relationships</a>
@@ -63,9 +63,10 @@
             {% endif %}
           </ul>
           <div class="text-end pe-5">
-            <a href="https://www.buymeacoffee.com/siphiwereah" target="_blank" rel="noopener noreferrer" class="pizza"><img
-                    src="https://img.buymeacoffee.com/button-api/?text=Buy us a pizza&emoji=&slug=siphiwereah&button_colour=FFDD00&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=ffffff" /></a>
-        </div>
+            <a href="https://www.buymeacoffee.com/siphiwereah" target="_blank" rel="noopener noreferrer"
+              class="pizza"><img
+                src="https://img.buymeacoffee.com/button-api/?text=Buy us a pizza&emoji=&slug=siphiwereah&button_colour=FFDD00&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=ffffff" /></a>
+          </div>
         </div>
       </div>
     </nav>
@@ -80,16 +81,21 @@
     {% endwith %}
     <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center">
       <div class="col-md-9 p-lg-5 my-1 mx-auto main-page">
-        <h1 class="display-4 fw-bold main-page page-header mb-3">Explore yourself.</h1>
-        <p class="lead fw-normal fs-2"><em>Welcome to {{name}}! Our website provides a space for
-            self-reflection
-            and personal
-            growth in today's noisy world. Our platform is all about you and aims to help you explore fundamental
-            topics
-            such as your life's purpose, close relationships, financial well-being, and bucket list experiences. So,
-            take
-            the plunge!</em>
+        <h1 class="display-4 fw-bold main-page page-header mb-3">Welcome to {{name}}!</h1>
+        <p class="lead fw-normal fs-2"><em>This is a place, where we encourage you to explore life's big questions and
+            discover new insights about yourself. Our service is designed to guide you towards your true purpose,
+            whatever that may be. By reflecting on important questions about yourself, your relationships, and your
+            future, you can gain a deeper understanding of who you are and what matters most to you.
+
+            Join us on a journey of self-discovery and start exploring.</em>
         </p>
+        {% if not current_user.is_authenticated %}
+      <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center">
+        <a href="{{url_for('implements_login')}}" class="btn btn-lg btn-dark" style="background-color: #453C41;">Login</a>
+        <a href="{{url_for('implement_registration')}}" class="btn btn-lg btn-dark"
+          style="background-color: #453C41;">Sign up</a>
+      </div>
+      {% endif %}
       </div>
     </div>
     <noscript>
@@ -104,7 +110,7 @@
     </noscript>
     {% if current_user.is_authenticated %}
     <div class="container text-center main-page">
-      <h2 class="display-5 fw-normal">Where would you like to begin?</h2>
+      <h3 class="display-5 fw-bold"><em>Where would you like to begin {{current_user.username.title()}}?</em></h3>
       <div class="row position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center">
         <a href="{{url_for('goals')}}" class="btn btn-lg btn-dark col-md-3" style="background-color: #453C41;">Life</a>
         <a href="{{url_for('connections')}}" class="btn btn-lg btn-dark col-md-3"
