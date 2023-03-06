@@ -105,7 +105,7 @@
                         <div class="text-center">
                           <p class="fw-bold fs-5 accordion-text"> You can listen or read the primer.</p>
                           <audio controls controlsList="nodownload">
-                            <source src="{{ url_for('static', filename='synthesized_audio_bella_emergency_fund.mp3') }}"
+                            <source src="{{ url_for('static', filename='bella_emergency_fund.mp3') }}"
                               type="audio/mpeg">
                           </audio>
                         </div>
@@ -158,7 +158,7 @@
                         <div class="text-center">
                           <p class="fw-bold fs-5 accordion-text"> You can listen or read the primer.</p>
                           <audio controls>
-                            <source src="{{ url_for('static', filename='synthesized_audio_bella_life_insurance.mp3') }}"
+                            <source src="{{ url_for('static', filename='bella_life_insurance.mp3') }}"
                               type="audio/mpeg">
                           </audio>
                         </div>
@@ -212,7 +212,7 @@
                         <div class="text-center">
                           <p class="fw-bold fs-5 accordion-text"> You can listen or read the primer.</p>
                           <audio controls>
-                            <source src="{{ url_for('static', filename='synthesized_audio_bella_medical.mp3') }}"
+                            <source src="{{ url_for('static', filename='bella_medical.mp3') }}"
                               type="audio/mpeg">
                           </audio>
                         </div>
@@ -265,7 +265,7 @@
                         <div class="text-center">
                           <p class="fw-bold fs-5 accordion-text"> You can listen or read the primer.</p>
                           <audio controls>
-                            <source src="{{ url_for('static', filename='synthesized_audio_body.mp3') }}"
+                            <source src="{{ url_for('static', filename='disability_insure.mp3') }}"
                               type="audio/mpeg">
                           </audio>
                         </div>
@@ -320,7 +320,7 @@
                         <div class="text-center">
                           <p class="fw-bold fs-5 accordion-text"> You can listen or read the primer.</p>
                           <audio controls>
-                            <source src="{{ url_for('static', filename='synthesized_audio_bella_income.mp3') }}"
+                            <source src="{{ url_for('static', filename='bella_income.mp3') }}"
                               type="audio/mpeg">
                           </audio>
                         </div>
@@ -374,7 +374,7 @@
                         <div class="text-center">
                           <p class="fw-bold fs-5 accordion-text"> You can listen or read the primer.</p>
                           <audio controls>
-                            <source src="{{ url_for('static', filename='synthesized_audio_bella_retirement.mp3') }}"
+                            <source src="{{ url_for('static', filename='bella_retirement.mp3') }}"
                               type="audio/mpeg">
                           </audio>
                         </div>
@@ -408,7 +408,7 @@
             <div>
               <label for="quantity" class="fw-bold fs-5 pt-2">Target Amount</label>
               <input class="form-control border-secondary" type="text" id="quantity" name="quantity"
-                placeholder="Enter your target amount e.g 50000">
+                placeholder="e.g 50000">
               <span id="quantity-error" class="text-danger"></span>
             </div>
             <noscript>
@@ -429,7 +429,7 @@
               <label for="financeFormControlTextarea" class="fw-bold fs-5 pt-2">Finances</label>
               <textarea class="form-control border-secondary pb-2" id="financeFormControlTextarea"
                 name="financeFormControlTextarea" rows="6" oninput="countChars(this, 1000)"
-                placeholder="By the time I retire, I want to have ... in savings and investments to live comfortably and travel the world..."></textarea>
+                placeholder="e.g By the time I retire, I want to have ... in savings and investments to live comfortably and travel the world..."></textarea>
               <div id="charNum"></div>
               <div>
                 <button type="submit" id="submitButton" class="btn btn-lg btn-dark mb-3 w-normal fs-5"
