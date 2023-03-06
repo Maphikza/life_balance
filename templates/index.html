@@ -82,20 +82,25 @@
     <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center">
       <div class="col-md-9 p-lg-5 my-1 mx-auto main-page">
         <h1 class="display-4 fw-bold main-page page-header mb-3">Welcome to {{name}}!</h1>
-        <p class="lead fw-normal fs-2"><em>This is a place, where we encourage you to explore life's big questions and
-            discover new insights about yourself. Our service is designed to guide you towards your true purpose,
-            whatever that may be. By reflecting on important questions about yourself, your relationships, and your
-            future, you can gain a deeper understanding of who you are and what matters most to you.
+        <p class="lead fw-normal fs-2"><em>In today's busy world, it can be hard to find time for self-reflection and
+            personal growth. That's why we've created a platform to help you explore life's big questions
+            and discover what truly matters. Our mission is to provide you with the tools and guidance you need to
+            create a life filled with purpose and meaning.
 
-            Join us on a journey of self-discovery and start exploring.</em>
+            We believe everyone deserves to find their own path in life, and we're here to help you on that journey. By
+            working through the questions and topics we provide,
+            you'll be able to gain a deeper understanding of yourself and what matters most to you.
+
+            Join us on this journey of self-discovery!</em>
         </p>
         {% if not current_user.is_authenticated %}
-      <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center">
-        <a href="{{url_for('implements_login')}}" class="btn btn-lg btn-dark" style="background-color: #453C41;">Login</a>
-        <a href="{{url_for('implement_registration')}}" class="btn btn-lg btn-dark"
-          style="background-color: #453C41;">Sign up</a>
-      </div>
-      {% endif %}
+        <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center">
+          <a href="{{url_for('implements_login')}}" class="btn btn-lg btn-dark"
+            style="background-color: #453C41;">Login</a>
+          <a href="{{url_for('implement_registration')}}" class="btn btn-lg btn-dark"
+            style="background-color: #453C41;">Sign up</a>
+        </div>
+        {% endif %}
       </div>
     </div>
     <noscript>

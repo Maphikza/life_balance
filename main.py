@@ -61,7 +61,7 @@ def generate(content: str) -> str:
         model="gpt-3.5-turbo-0301",
         messages=[
             {"role": "system", "content": f'{prompt}'},
-            {"role": "user", "content": f'{content}'}
+            {"role": "user", "content": f'"*[{content}]*"'}
         ]
     )
     print(response["choices"][0]["message"]["content"])
