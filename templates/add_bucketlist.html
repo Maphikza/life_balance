@@ -57,26 +57,22 @@
       <div class="col-md-9 p-lg-5 mx-auto my-5">
         <h3 class="display-3 fw-bold pb-2">Add Bucket List
         </h3>
-        <p class="lead fw-normal fs-4 pb-3"><em>The Bucket List section is where you can dream big and plan out the
-            experiences you want to have in life.
-            It's a chance to think about what brings you joy, what challenges you want to overcome, and what you want to
-            achieve. Start by brainstorming a list of things you've always wanted to do, no matter how big or small.
-            Then,
-            prioritize the items on your list and set goals for when and how you'll achieve them. Remember, life is
-            short,
-            so don't be afraid to dream big and make the most of your time!</em></p>
+        <p class="lead fw-normal fs-4 pb-3"><em>The Bucket List section is where you can explore your passions and plan
+            out the experiences you want to have in life. It's a chance to think about what brings you joy, what
+            challenges you want to overcome, and what you want to achieve. Begin by brainstorming a list of things
+            you've always wanted to do, regardless of how big or small they may seem. </em></p>
 
         <hr class="mid-breaker">
         <form class="bucket-list-form g-3 text-start" method="post">
           <div class="mb-2">
             <label for="bucketListFormControlInput" class="fw-bold fs-5">Title:</label>
             <input type="text" class="form-control" id="bucketListFormControlInput" name="bucketListFormControlInput"
-              placeholder="Bucket List Item">
+              placeholder="e.g Climb Kilimanjaro.">
           </div>
           <div class="mb-2">
             <label for="costFormControlInput" class="fw-bold fs-5">Cost:</label>
             <input type="text" class="form-control" id="costFormControlInput" name="costFormControlInput"
-              placeholder="How much would it cost to accomplish.">
+              placeholder="e.g 3000">
           </div>
           {% with messages = get_flashed_messages() %}
           {% if messages %}
@@ -89,7 +85,8 @@
           <div class="mb-1">
             <label for="bucketListFormControlTextarea" class="fw-bold fs-5">Thoughts:</label>
             <textarea class="form-control" id="bucketListFormControlTextarea" rows="6"
-              name="bucketListFormControlTextarea" oninput="countCharacters(this, 1000)"></textarea>
+              name="bucketListFormControlTextarea" oninput="countCharacters(this, 1000)"
+              placeholder="e.g 'I have always wanted to climb Mount Kilimanjaro since I was a teenager. The idea of standing at the top of Africa's highest mountain has always been a dream of mine. I can't wait to challenge myself both physically and mentally as I embark on this once-in-a-lifetime adventure. From the breathtaking views to the sense of accomplishment I'll feel at the summit, I know this climb will be an unforgettable experience that I'll cherish for the rest of my life.'"></textarea>
             <div id="characterCount"></div>
           </div>
           <noscript>
@@ -106,7 +103,7 @@
           </noscript>
           <div class="col">
             <button type="submit" class="btn btn-lg btn-dark mb-3 fw-normal fs-5" style="background-color: #453C41;">Add
-              Goal</button>
+              to List</button>
           </div>
         </form>
         <hr class="mid-breaker mt-4">
@@ -114,24 +111,24 @@
     </div>
   </div>
   <script>
-  const theform=document.querySelector(".bucket-list-form"),thecostInput=document.querySelector("#costFormControlInput"),thecostErrorMessage=document.querySelector("#costErrorMessage");theform.addEventListener("submit",e=>{let t=costInput.value.replace(/[.\s]/g,"");/^\d+$/.test(t)||(e.preventDefault(),thecostInput.classList.add("is-invalid"),thecostErrorMessage.innerText="Please enter a valid cost (digits only).")}),costInput.addEventListener("input",()=>{thecostInput.classList.remove("is-invalid"),thecostErrorMessage.innerText=""});
+    const theform = document.querySelector(".bucket-list-form"), thecostInput = document.querySelector("#costFormControlInput"), thecostErrorMessage = document.querySelector("#costErrorMessage"); theform.addEventListener("submit", e => { let t = costInput.value.replace(/[.\s]/g, ""); /^\d+$/.test(t) || (e.preventDefault(), thecostInput.classList.add("is-invalid"), thecostErrorMessage.innerText = "Please enter a valid cost (digits only).") }), costInput.addEventListener("input", () => { thecostInput.classList.remove("is-invalid"), thecostErrorMessage.innerText = "" });
   </script>
   <script>
-    function countCharacters(e,t){var s=e.value,r=s.length,o=document.getElementById("characterCount");o.innerHTML=r+" / "+t,r>t?(e.value=s.slice(0,t),o.style.color="red",o.innerHTML="Max limit of "+t+" characters reached!"):o.style.color="inherit"}const costInput=document.getElementById("costFormControlInput"),costErrorMessage=document.getElementById("costErrorMessage"),form=document.querySelector("form");form.addEventListener("submit",e=>{e.preventDefault();let t=parseFloat(costInput.value.trim().replace(/\D+/g,""));if(isNaN(t)||t<0){costInput.classList.add("is-invalid"),costErrorMessage.textContent='Cost must be a positive digit. e.g 1 instead of "one"',costErrorMessage.style.display="block";return}form.submit()}),costInput.addEventListener("input",()=>{costInput.classList.remove("is-invalid"),costErrorMessage.style.display="none"});
+    function countCharacters(e, t) { var s = e.value, r = s.length, o = document.getElementById("characterCount"); o.innerHTML = r + " / " + t, r > t ? (e.value = s.slice(0, t), o.style.color = "red", o.innerHTML = "Max limit of " + t + " characters reached!") : o.style.color = "inherit" } const costInput = document.getElementById("costFormControlInput"), costErrorMessage = document.getElementById("costErrorMessage"), form = document.querySelector("form"); form.addEventListener("submit", e => { e.preventDefault(); let t = parseFloat(costInput.value.trim().replace(/\D+/g, "")); if (isNaN(t) || t < 0) { costInput.classList.add("is-invalid"), costErrorMessage.textContent = 'Cost must be a positive digit. e.g 1 instead of "one"', costErrorMessage.style.display = "block"; return } form.submit() }), costInput.addEventListener("input", () => { costInput.classList.remove("is-invalid"), costErrorMessage.style.display = "none" });
   </script>
-<div class="container footer-container">
-  <footer class="footer mt-auto  my-4 pt-5 text-center fw-bold fs-5">
-    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-      <li class="nav-item"><a href="{{url_for('mission')}}" class="nav-link px-2" style="color: #453C41;">Mission</a>
-      </li>
-      <li class="nav-item"><a type="button" href="{{url_for('privacy')}}" class="nav-link px-2"
-          style="color: #453C41;">Privacy</a></li>
-      <li class="nav-item"><a href="{{url_for('contact')}}" class="nav-link px-2" style="color: #453C41;">Contact</a>
-      </li>
-    </ul>
-    <p>&copy; <span id="year"></span> LifePath, Inc</p>
-  </footer>
-</div>
+  <div class="container footer-container">
+    <footer class="footer mt-auto  my-4 pt-5 text-center fw-bold fs-5">
+      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        <li class="nav-item"><a href="{{url_for('mission')}}" class="nav-link px-2" style="color: #453C41;">Mission</a>
+        </li>
+        <li class="nav-item"><a type="button" href="{{url_for('privacy')}}" class="nav-link px-2"
+            style="color: #453C41;">Privacy</a></li>
+        <li class="nav-item"><a href="{{url_for('contact')}}" class="nav-link px-2" style="color: #453C41;">Contact</a>
+        </li>
+      </ul>
+      <p>&copy; <span id="year"></span> LifePath, Inc</p>
+    </footer>
+  </div>
   <script>
     document.getElementById("year").innerHTML = new Date().getFullYear();
   </script>
