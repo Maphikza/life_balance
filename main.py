@@ -64,21 +64,7 @@ def generate(content: str) -> str:
             {"role": "user", "content": f'"*[{content}]*"'}
         ]
     )
-    print(response["choices"][0]["message"]["content"])
     return response["choices"][0]["message"]["content"]
-
-
-# def generate(content: str) -> str:
-#     response = openai.Completion.create(
-#         model="text-ada-001",
-#         prompt=f"rephrase this like a wise philosopher: '{content}'",
-#         temperature=0.7,
-#         max_tokens=256,
-#         top_p=1,
-#         frequency_penalty=0,
-#         presence_penalty=0
-#     )
-#     return response
 
 
 # with app.app_context():
@@ -145,6 +131,13 @@ class Bucketlist(db.Model):
     bucket_list_item = db.Column(db.String(500), nullable=True)
     item_cost = db.Column(db.Float, nullable=True)
     formatted_cost = db.Column(db.String(50), nullable=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+
+class DailyJournal(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    entry_date = db.Column(db.String(50), nullable=True)
+    journal_entry = db.Column(db.String(1500), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 
