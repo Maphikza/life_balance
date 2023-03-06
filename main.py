@@ -756,7 +756,7 @@ def contact():
         msg.body = f'Email from {email_address}\nMessage:\n{email_message}'
         mail.send(msg)
 
-    return render_template("contact.html")
+    return render_template("contact.html", name=COMPANY_NAME)
 
 
 @app.route("/privacy-policy")
@@ -766,7 +766,7 @@ def privacy():
 
 @app.route("/mission")
 def mission():
-    return render_template("mission.html")
+    return render_template("mission.html", name=COMPANY_NAME)
 
 
 @app.route("/logout")
