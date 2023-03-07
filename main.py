@@ -6,7 +6,7 @@ from pathlib import Path
 import os
 import openai
 from sqlalchemy.orm.exc import UnmappedInstanceError
-from route_functions import register_user, login
+from route_functions import register_user, login, create_admin_user
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired, BadSignature
 from werkzeug.security import generate_password_hash
 from cryptography.fernet import Fernet
@@ -92,10 +92,13 @@ class User(UserMixin, db.Model):
     birth_date = db.Column(db.String(12), nullable=False)
     country = db.Column(db.String(50), nullable=False)
     verified = db.Column(db.Boolean, nullable=False)
+    is_admin = db.Column(db.Boolean, default=False)
+    use_count = db.Column(db.Integer, default=20)
     connections = db.relationship('Connection', backref='user', lazy=True)
     goals = db.relationship('Goal', backref='user', lazy=True)
     finances = db.relationship('Finances', backref='user', lazy=True)
     bucket_list = db.relationship('Bucketlist', backref='user', lazy=True)
+    daily_journal = db.relationship('DailyJournal', backref='user', lazy=True)
 
 
 class Connection(db.Model):
@@ -148,6 +151,7 @@ else:
     with app.app_context():
         db.create_all()
         print("The database has been created.")
+        create_admin_user(User, db, "hehehe")
 
 
 def format_number(num):
@@ -270,7 +274,7 @@ def life_goal_edit(life_goal_id):
         goal_edit.chosen_goal = the_edit
         db.session.commit()
         return redirect(url_for('goals'))
-    return render_template("life-goals-edit.html", life_edit=goal_edit, d_func=decrypt_data)
+    return render_template("life-goals-edit.html", life_edit=goal_edit, d_func=decrypt_data, name=COMPANY_NAME)
 
 
 @app.route("/life-goals/ai-edit/<int:life_goal_id>", methods=["GET", "POST"])
@@ -607,7 +611,10 @@ def edit_bucket_list_item(item_id):
 @login_required
 def ai_edit_bucket_list_item(item_id):
     bucket_list_edit = Bucketlist.query.get(item_id)
-    if current_user.is_authenticated and request.method == "POST":
+    user = User.query.get(current_user.id)
+    if current_user.is_authenticated and current_user.use_count > 0 and request.method == "POST":
+        user.use_count -= 1
+        db.session.commit()
         title_edit = request.form.get("aiEditBucketListFormControlInput")
         cost_edit = request.form.get("aiEditCostFormControlInput").replace(" ", "")
         cost_edit = re.sub(r'(?!\.)\D', '', cost_edit)

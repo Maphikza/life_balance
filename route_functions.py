@@ -1,6 +1,17 @@
-from flask import url_for, redirect, flash, render_template
+from flask import url_for, redirect, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user
+import os
+
+
+def create_admin_user(user, db, password):
+    hashed_password = generate_password_hash(password=password, method='pbkdf2:sha256', salt_length=4)
+    admin = user(username=os.environ.get("ADMIN_NAME").lower(), email=os.environ.get("ADMIN_EMAIL").lower(),
+                 password=hashed_password,
+                 birth_date="1987-11-11", country="R", verified=True, is_admin=True)
+    db.session.add(admin)
+    db.session.commit()
+    print("Admin Account created!!!")
 
 
 def register_user(username, email, password, date_of_birth, user, goal, finances, money, verification, db):
