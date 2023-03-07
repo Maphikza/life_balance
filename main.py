@@ -25,7 +25,7 @@ app.config['MAIL_USERNAME'] = os.environ.get("MY_EMAIL")
 app.config['MAIL_PASSWORD'] = os.environ.get("MY_EMAIL_APP_PASSWORD")
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
-app.config["MAIL_DEFAULT_SENDER"] = os.environ.get("MY_EMAIL")
+app.config["MAIL_DEFAULT_SENDER"] = os.environ.get("MY_EMAIL")S
 
 db = SQLAlchemy(app)
 login_manager = LoginManager()
@@ -190,12 +190,12 @@ def implement_registration():
                                         db=db,
                                         user=User, goal=Goal, finances=Finances)
         return registered_user
-    return render_template('register.html')
+    return render_template('register.html', name=COMPANY_NAME)
 
 
 @app.route("/registration/success")
 def registration_success():
-    return render_template("registration_success.html")
+    return render_template("registration_success.html", name=COMPANY_NAME)
 
 
 @app.route("/verify-email/<token>")
@@ -207,13 +207,13 @@ def verify_email(token):
         user.verified = True
         db.session.commit()
         success_message = "Email verification successful."
-        return render_template("email-verification.html", response=success_message)
+        return render_template("email-verification.html", response=success_message, name=COMPANY_NAME)
     except SignatureExpired:
         expired_link_message = "The verification link has expired. Please try again."
-        return render_template("email-verification.html", response=expired_link_message)
+        return render_template("email-verification.html", response=expired_link_message, name=COMPANY_NAME)
     except BadSignature:
         invalid_link_message = "The verification link is invalid. Please check your email and try again."
-        return render_template("email-verification.html", response=invalid_link_message)
+        return render_template("email-verification.html", response=invalid_link_message, name=COMPANY_NAME)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -223,7 +223,7 @@ def implements_login():
         user_password = request.form.get("entryPassword")
         log_in = login(name=user_name, entered_password=user_password, user=User)
         return log_in
-    return render_template("login.html")
+    return render_template("login.html", name=COMPANY_NAME)
 
 
 @app.route("/life-goals", methods=["GET", "POST"])
@@ -253,7 +253,7 @@ def add_life_goal():
         db.session.add(life_goal)
         db.session.commit()
         return redirect(url_for('goals'))
-    return render_template("add-life-goals.html", comp_func=generate)
+    return render_template("add-life-goals.html", comp_func=generate, name=COMPANY_NAME)
 
 
 @app.route("/life-goals/edit/<int:life_goal_id>", methods=["GET", "POST"])
@@ -290,7 +290,8 @@ def life_goal_ai_enhance(life_goal_id):
         db.session.commit()
         return redirect(url_for('goals'))
 
-    return render_template("life-goals-ai-edit.html", life_ai_edit=goal_edit, d_func=decrypt_data, enhancer=generate)
+    return render_template("life-goals-ai-edit.html",
+                           life_ai_edit=goal_edit, d_func=decrypt_data, enhancer=generate, name=COMPANY_NAME)
 
 
 @app.route("/life-goals/delete/<int:life_goal_id>", methods=["GET", "POST"])
@@ -307,7 +308,7 @@ def delete_life_goal(life_goal_id):
 @login_required
 def goals():
     user_goals = Goal.query.filter_by(user_id=current_user.id).all()
-    return render_template("life-goals.html", user_goals=user_goals, d_func=decrypt_data)
+    return render_template("life-goals.html", user_goals=user_goals, d_func=decrypt_data, name=COMPANY_NAME)
 
 
 @app.route("/add_connections", methods=["GET", "POST"])
@@ -336,7 +337,7 @@ def add_connections():
         db.session.add(your_connection)
         db.session.commit()
         return redirect(url_for('connections'))
-    return render_template('add_connection.html')
+    return render_template('add_connection.html', name=COMPANY_NAME)
 
 
 @app.route("/connections/edit/<int:connect_id>", methods=["GET", "POST"])
@@ -361,7 +362,8 @@ def connections_edit(connect_id):
             connection_goal_edit.relationship_thoughts = thoughts
         db.session.commit()
         return redirect(url_for('connections'))
-    return render_template("edit-connections.html", connect=connection_goal_edit, d_func=decrypt_data)
+    return render_template("edit-connections.html",
+                           connect=connection_goal_edit, d_func=decrypt_data, name=COMPANY_NAME)
 
 
 @app.route("/connections/ai-edit/<int:connect_id>", methods=["GET", "POST"])
@@ -391,7 +393,7 @@ def connections_ai_enhance_edit(connect_id):
     return render_template("connections-ai-enhance.html",
                            connect_ai_edit=connection_goal_edit,
                            d_func=decrypt_data,
-                           enhancer=generate)
+                           enhancer=generate, name=COMPANY_NAME)
 
 
 @app.route("/connections/delete/<int:connect_id>", methods=["GET", "POST"])
@@ -408,7 +410,8 @@ def delete_connection(connect_id):
 @login_required
 def connections():
     user_connections = Connection.query.filter_by(user_id=current_user.id)
-    return render_template("connections.html", user_connections=user_connections, d_func=decrypt_data)
+    return render_template("connections.html",
+                           user_connections=user_connections, d_func=decrypt_data, name=COMPANY_NAME)
 
 
 @app.route("/add-finance", methods=["GET", "POST"])
@@ -450,7 +453,7 @@ def add_finance_goals():
         db.session.add(financial_goal)
         db.session.commit()
         return redirect(url_for('finance'))
-    return render_template("add-finance.html")
+    return render_template("add-finance.html", name=COMPANY_NAME)
 
 
 @app.route("/finance/edit/<int:goal_id>", methods=["GET", "POST"])
@@ -480,7 +483,8 @@ def finance_edit(goal_id):
 
         db.session.commit()
         return redirect(url_for("finance"))
-    return render_template("finances_edit.html", finance_goal=finance_goal_edit, d_func=decrypt_data)
+    return render_template("finances_edit.html",
+                           finance_goal=finance_goal_edit, d_func=decrypt_data, name=COMPANY_NAME)
 
 
 @app.route("/finance/ai-edit/<int:goal_id>", methods=["GET", "POST"])
@@ -515,7 +519,7 @@ def finance_edit_ai_enhance(goal_id):
     return render_template("finance-goals-ai-edit.html",
                            finance_goal=finance_ai_goal_edit,
                            d_func=decrypt_data,
-                           enhancer=generate)
+                           enhancer=generate, name=COMPANY_NAME)
 
 
 @app.route("/finance/delete/<int:goal_id>", methods=["GET", "POST"])
@@ -532,7 +536,8 @@ def delete_finance_goal(goal_id):
 @login_required
 def finance():
     user_finances = Finances.query.filter_by(user_id=current_user.id)
-    return render_template("finance.html", user_finances=user_finances, func=format_number, d_func=decrypt_data)
+    return render_template("finance.html",
+                           user_finances=user_finances, func=format_number, d_func=decrypt_data, name=COMPANY_NAME)
 
 
 @app.route("/add-bucketlist", methods=["GET", "POST"])
@@ -563,7 +568,7 @@ def add_bucketlist_item():
         db.session.add(bucket_list_item)
         db.session.commit()
         return redirect(url_for('bucket_list'))
-    return render_template("add_bucketlist.html")
+    return render_template("add_bucketlist.html", name=COMPANY_NAME)
 
 
 @app.route("/bucket-list/edit/<int:item_id>", methods=["GET", "POST"])
@@ -594,7 +599,8 @@ def edit_bucket_list_item(item_id):
             bucket_list_edit.bucket_list_item = item_text_edit
         db.session.commit()
         return redirect(url_for("bucket_list"))
-    return render_template("edit-bucket-list.html", user_bucket_list=bucket_list_edit, d_func=decrypt_data)
+    return render_template("edit-bucket-list.html",
+                           user_bucket_list=bucket_list_edit, d_func=decrypt_data, name=COMPANY_NAME)
 
 
 @app.route("/bucket-list/ai-edit/<int:item_id>", methods=["GET", "POST"])
@@ -620,7 +626,7 @@ def ai_edit_bucket_list_item(item_id):
         return redirect(url_for("bucket_list"))
     return render_template("bucket-list-ai-edit.html",
                            user_bucket_list=bucket_list_edit,
-                           d_func=decrypt_data, enhancer=generate)
+                           d_func=decrypt_data, enhancer=generate, name=COMPANY_NAME)
 
 
 @app.route("/bucket-list/delete/<int:item_id>", methods=["GET", "POST"])
@@ -639,7 +645,7 @@ def bucket_list():
     user_bucketlist = Bucketlist.query.filter_by(user_id=current_user.id)
     return render_template("bucket-list.html",
                            user_bucketlist=user_bucketlist,
-                           d_func=decrypt_data)
+                           d_func=decrypt_data, name=COMPANY_NAME)
 
 
 @app.route("/admin", methods=["GET", "POST"])
@@ -695,7 +701,7 @@ def delete_user():
             return redirect(url_for('home'))
     else:
         abort(401)
-    return render_template("admin-delete.html")
+    return render_template("admin-delete.html", name=COMPANY_NAME)
 
 
 @app.route('/reset_password', methods=['GET', 'POST'])
@@ -714,7 +720,7 @@ def reset_request():
             flash(f'This account does not exist with us. However, you can register')
             return redirect(url_for('reset_request'))
 
-    return render_template('reset_password.html')
+    return render_template('reset_password.html', name=COMPANY_NAME)
 
 
 @app.route('/reset_password/<token>', methods=['GET', 'POST'])
@@ -732,7 +738,7 @@ def reset_token(token):
             user.password = hashed_password
             db.session.commit()
             return '<h1>Your password has been updated!</h1>'
-        return render_template('reset_token.html')
+        return render_template('reset_token.html', name=COMPANY_NAME)
 
 
 @app.route("/contact", methods=["GET", "POST"])
