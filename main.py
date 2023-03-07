@@ -811,6 +811,12 @@ def mission():
     return render_template("mission.html", name=COMPANY_NAME)
 
 
+@app.route("/journal", methods=["GET", "POST"])
+@login_required
+def journal():
+    return render_template("daily-journal.html", name=COMPANY_NAME)
+
+
 @app.route("/logout")
 def logout():
     logout_user()

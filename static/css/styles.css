@@ -18,6 +18,14 @@ body {
   color: #4C8891;
 }
 
+.journal-side {
+  height: 44rem;
+}
+
+.journal-main {
+  height: 44rem;
+}
+
 .flashes {
   color: red;
 }
