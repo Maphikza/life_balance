@@ -112,10 +112,17 @@
           <hr class="break-lines">
           <a type="submit" class="btn btn-outline-light btn-sm m-1"
             href="{{url_for('life_goal_edit', life_goal_id=goal.id)}}">Edit</a>
+          {% if current_user.use_count > 0 %}
           <a type="submit" class="btn btn-outline-light btn-sm m-1 ai-button" data-goal-id="{{goal.id}}"
             href="{{url_for('life_goal_ai_enhance', life_goal_id=goal.id)}}" id="button1">AI Enhance</a>
+          {% endif %}
           <a type="submit" class="btn btn-outline-light btn-sm m-1"
             href="{{url_for('delete_life_goal', life_goal_id=goal.id)}}">Delete</a>
+          {% if current_user.use_count <= 0 %}
+          <div>
+            <p class="fw-normal fs-5 mt-2 ps-1">You have run out of AI-Edits for this month.</p>
+          </div>
+          {% endif %}
           <div class="d-flex align-items-center mt-3">
             <strong id="goal_spinner1_{{goal.id}}" style="display: none;">Generating edit...</strong>
             <div class="spinner-border ms-auto" role="status" aria-hidden="true" id="goal_spinner_{{goal.id}}"

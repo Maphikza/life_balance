@@ -108,10 +108,17 @@
           <hr class="break-lines">
           <a type="submit" class="btn btn-outline-light btn-sm m-1"
             href="{{url_for('connections_edit', connect_id=connection.id)}}">Edit</a>
+          {% if current_user.use_count > 0 %}
           <a type="submit" class="btn btn-outline-light btn-sm m-1 ai-button" data-connect-id="{{ connection.id }}"
             href="{{url_for('connections_ai_enhance_edit', connect_id=connection.id)}}">AI Enhance</a>
+          {% endif %}
           <a type="submit" class="btn btn-outline-light btn-sm m-1"
             href="{{url_for('delete_connection', connect_id=connection.id)}}">Delete</a>
+            {% if current_user.use_count <= 0 %}
+            <div>
+              <p class="fw-normal fs-5 mt-2 ps-1">You have run out of AI-Edits for this month.</p>
+            </div>
+            {% endif %}
           <div class="d-flex align-items-center mt-3">
             <strong id="spinner1_{{ connection.id }}" style="display: none;">Generating edit...</strong>
             <div class="spinner-border ms-auto" role="status" aria-hidden="true" id="spinner_{{ connection.id }}"

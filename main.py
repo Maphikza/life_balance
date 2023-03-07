@@ -11,9 +11,13 @@ from itsdangerous import URLSafeTimedSerializer, SignatureExpired, BadSignature
 from werkzeug.security import generate_password_hash
 from cryptography.fernet import Fernet
 import re
+from datetime import datetime
 
 path = Path(r"C:\Users\stapi\PycharmProjects\life_scale\instance\living.db")
 COMPANY_NAME = "LifePath"
+now = datetime.now()
+current_month = now.month
+print(now.day)
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('LIFE_KEY')
@@ -94,6 +98,8 @@ class User(UserMixin, db.Model):
     verified = db.Column(db.Boolean, nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
     use_count = db.Column(db.Integer, default=20)
+    use_count_month = db.Column(db.Integer, nullable=False, default=current_month)
+    subscriber = db.Column(db.Boolean, default=False)
     connections = db.relationship('Connection', backref='user', lazy=True)
     goals = db.relationship('Goal', backref='user', lazy=True)
     finances = db.relationship('Finances', backref='user', lazy=True)
@@ -166,6 +172,16 @@ def format_number(num):
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
+
+# This is the function for resetting the ai_edit credits at the beginning of every month.
+def reset_edit_credits():
+    user = User.query.get(int(current_user.id))
+    if user.use_count_month != current_month:
+        user.use_count = 20  # Set the default value for use_count
+        user.use_count_month = current_month  # Update the use_count_month field to the current month
+        db.session.commit()  # Commit the changes to the database
+        print("Work is done.")
 
 
 @app.route("/")
@@ -281,7 +297,10 @@ def life_goal_edit(life_goal_id):
 @login_required
 def life_goal_ai_enhance(life_goal_id):
     goal_edit = Goal.query.get(life_goal_id)
-    if current_user.is_authenticated and request.method == "POST":
+    if current_user.is_authenticated and current_user.use_count > 0 and request.method == "POST":
+        user = User.query.get(current_user.id)
+        user.use_count = current_user.use_count - 1
+        db.session.commit()
         state = request.form.get("status")
         if state and state == "False":
             flash("Please enable Javascript in your browser settings.")
@@ -312,6 +331,9 @@ def delete_life_goal(life_goal_id):
 @login_required
 def goals():
     user_goals = Goal.query.filter_by(user_id=current_user.id).all()
+    if now.day == 1:
+        with app.app_context():
+            reset_edit_credits()
     return render_template("life-goals.html", user_goals=user_goals, d_func=decrypt_data, name=COMPANY_NAME)
 
 
@@ -374,7 +396,10 @@ def connections_edit(connect_id):
 @login_required
 def connections_ai_enhance_edit(connect_id):
     connection_goal_edit = Connection.query.get(connect_id)
-    if current_user.is_authenticated and request.method == "POST":
+    if current_user.is_authenticated and current_user.use_count > 0 and request.method == "POST":
+        user = User.query.get(current_user.id)
+        user.use_count = current_user.use_count - 1
+        db.session.commit()
         connection_name = request.form.get("editEntryName")
         relationship = request.form.get("editEntryRelate")
         date_of_birth = request.form.get("editEntryDate")
@@ -495,7 +520,10 @@ def finance_edit(goal_id):
 @login_required
 def finance_edit_ai_enhance(goal_id):
     finance_ai_goal_edit = Finances.query.get(goal_id)
-    if current_user.is_authenticated and request.method == "POST":
+    if current_user.is_authenticated and current_user.use_count > 0 and request.method == "POST":
+        user = User.query.get(current_user.id)
+        user.use_count = current_user.use_count - 1
+        db.session.commit()
         state = request.form.get("status")
         if state and state == "False":
             flash("Please enable Javascript in your browser settings.")
@@ -611,9 +639,9 @@ def edit_bucket_list_item(item_id):
 @login_required
 def ai_edit_bucket_list_item(item_id):
     bucket_list_edit = Bucketlist.query.get(item_id)
-    user = User.query.get(current_user.id)
     if current_user.is_authenticated and current_user.use_count > 0 and request.method == "POST":
-        user.use_count -= 1
+        user = User.query.get(current_user.id)
+        user.use_count = current_user.use_count - 1
         db.session.commit()
         title_edit = request.form.get("aiEditBucketListFormControlInput")
         cost_edit = request.form.get("aiEditCostFormControlInput").replace(" ", "")
