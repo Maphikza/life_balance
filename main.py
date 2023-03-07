@@ -25,7 +25,7 @@ app.config['MAIL_USERNAME'] = os.environ.get("MY_EMAIL")
 app.config['MAIL_PASSWORD'] = os.environ.get("MY_EMAIL_APP_PASSWORD")
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
-app.config["MAIL_DEFAULT_SENDER"] = os.environ.get("MY_EMAIL")S
+app.config["MAIL_DEFAULT_SENDER"] = os.environ.get("MY_EMAIL")
 
 db = SQLAlchemy(app)
 login_manager = LoginManager()

@@ -23,7 +23,7 @@
   <header class="main-page navs-link">
     <nav class="my-navbar navbar navbar-expand-md navbar-dark" aria-label="goals navbar">
       <div class="container-fluid my-navbar">
-        <a class="navbar-brand fw-normal fs-3 my-navbar" href="{{url_for('home')}}">LifePath</a>
+        <a class="navbar-brand fw-normal fs-3 my-navbar" href="{{url_for('home')}}">{{name}}</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarGoal"
           aria-controls="navbarGoal" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon my-navbar"></span>
@@ -116,9 +116,8 @@
             <li class="nav-item"><a type="button" href="{{url_for('privacy')}}" class="nav-link px-2 active" style="color: #453C41;">Privacy</a></li>
             <li class="nav-item"><a href="{{url_for('contact')}}" class="nav-link px-2"
                     style="color: #453C41;">Contact</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2" style="color: #453C41;">Pricing</a></li>
         </ul>
-        <p>&copy; <span id="year"></span> LifePath, Inc</p>
+        <p>&copy; <span id="year"></span> {{name}}, Inc</p>
     </footer>
 </div>
   <script>
