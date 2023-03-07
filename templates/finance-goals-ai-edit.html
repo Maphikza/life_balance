@@ -77,7 +77,12 @@
         {% endif%}
         {% endwith %}
         <form class="finance-emergency-form g-3 text-start" method="post">
-          <h6 class="fw-normal fs-5">You have <em class="edit-count fw-bold">{{current_user.use_count}}</em> AI-Edits left.</h6>
+          {% if current_user.use_count > 8 %}
+          <h6 class="fw-normal fs-5">You have <em class="edit-count fw-bold">{{current_user.use_count}}</em> AI-edits left.</h6>
+          {% endif %}
+          {% if current_user.use_count <= 8 %}
+          <h6 class="fw-normal fs-5">You have <em class="edit-count fw-bold" style="color: orangered;">{{current_user.use_count}}</em> AI-edits left.</h6>
+          {% endif %}
           <div class="mb-3">
             <label for="quantity_edit" class="fs-5 fw-bold">Target Amount:</label>
             <input class="form-control" type="text" id="quantity_edit" name="quantity_edit"

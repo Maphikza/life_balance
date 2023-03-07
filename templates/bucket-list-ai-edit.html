@@ -73,65 +73,72 @@
                 </h4>
                 <hr class="mid-breaker mt-4">
                 <form class="ai-edit-list-form g-3 text-start" method="post">
-                    <h6 class="fw-normal fs-5">You have <em class="edit-count fw-bold">{{current_user.use_count}}</em> AI-Edits left.</h6>
-                    <div class="mb-3">
-                        <label for="aiEditBucketListFormControlInput" class="fs-5 fw-bold">Title:</label>
-                        <input type="text" class="form-control" id="aiEditBucketListFormControlInput"
-                            name="aiEditBucketListFormControlInput"
-                            placeholder="{{user_bucket_list.bucket_list_item_title}}">
-                    </div>
-                    <div class="mb-3">
-                        <label for="aiEditCostFormControlInput" class="fs-5 fw-bold">Cost:</label>
-                        <input type="text" class="form-control" id="aiEditCostFormControlInput"
-                            name="aiEditCostFormControlInput" placeholder="{{user_bucket_list.item_cost}}">
-                    </div>
-                    <div class="mb-1">
-                        <label for="aiEditBucketListFormControlTextarea" class="fs-5 fw-bold">Thoughts:</label>
-                        <textarea class="form-control" id="aiEditBucketListFormControlTextarea"
-                            name="aiEditBucketListFormControlTextarea" rows="6"
-                            oninput="countCharacters(this, 1500)">{{enhancer(d_func(user_bucket_list.bucket_list_item))}}</textarea>
-                        <div id="characterCount"></div>
-                    </div>
-                    <noscript>
-                        <style>
-                            #js-disabled-message {
-                                display: block !important;
-                            }
-                        </style>
-                        <div id="js-disabled-message" class="alert alert-danger">
-                            This website requires JavaScript to function properly. Please enable JavaScript in your
-                            browser settings.
+                    {% if current_user.use_count > 8 %}
+                    <h6 class="fw-normal fs-5">You have <em class="edit-count fw-bold">{{current_user.use_count}}</em> AI-edits left.</h6>
+                    {% endif %}
+                    {% if current_user.use_count <= 8 %} 
+                    <h6 class="fw-normal fs-5">You have <em class="edit-count fw-bold" style="color: orangered;">{{current_user.use_count}}</em> AI-edits left.</h6>
+                    {% endif %}
+                        <div class="mb-3">
+                            <label for="aiEditBucketListFormControlInput" class="fs-5 fw-bold">Title:</label>
+                            <input type="text" class="form-control" id="aiEditBucketListFormControlInput"
+                                name="aiEditBucketListFormControlInput"
+                                placeholder="{{user_bucket_list.bucket_list_item_title}}">
                         </div>
-                        <input type="hidden" name="status" id="status" value="False">
-                    </noscript>
-                    <div>
-                        <button type="submit" class="btn btn-lg btn-dark mb-3 fw-normal fs-5"
-                            style="background-color: #453C41;">Save Edit</button>
-                    </div>
+                        <div class="mb-3">
+                            <label for="aiEditCostFormControlInput" class="fs-5 fw-bold">Cost:</label>
+                            <input type="text" class="form-control" id="aiEditCostFormControlInput"
+                                name="aiEditCostFormControlInput" placeholder="{{user_bucket_list.item_cost}}">
+                        </div>
+                        <div class="mb-1">
+                            <label for="aiEditBucketListFormControlTextarea" class="fs-5 fw-bold">Thoughts:</label>
+                            <textarea class="form-control" id="aiEditBucketListFormControlTextarea"
+                                name="aiEditBucketListFormControlTextarea" rows="6"
+                                oninput="countCharacters(this, 1500)">{{enhancer(d_func(user_bucket_list.bucket_list_item))}}</textarea>
+                            <div id="characterCount"></div>
+                        </div>
+                        <noscript>
+                            <style>
+                                #js-disabled-message {
+                                    display: block !important;
+                                }
+                            </style>
+                            <div id="js-disabled-message" class="alert alert-danger">
+                                This website requires JavaScript to function properly. Please enable JavaScript in your
+                                browser settings.
+                            </div>
+                            <input type="hidden" name="status" id="status" value="False">
+                        </noscript>
+                        <div>
+                            <button type="submit" class="btn btn-lg btn-dark mb-3 fw-normal fs-5"
+                                style="background-color: #453C41;">Save Edit</button>
+                        </div>
                 </form>
                 <hr class="mid-breaker mt-4">
             </div>
         </div>
     </div>
     <script>
-    const form=document.querySelector(".ai-edit-list-form"),costInput=form.querySelector("#aiEditCostFormControlInput");form.addEventListener("submit",t=>{let e=costInput.value.replace(/[ .]/g,"");if(!/^\d+$/.test(e)){t.preventDefault(),costInput.classList.add("is-invalid");let n=document.createElement("div");n.classList.add("invalid-feedback"),n.innerText='Please enter a valid number for cost e.g. 1 instead of $1 or "one"',costInput.after(n)}}),costInput.addEventListener("input",()=>{costInput.classList.remove("is-invalid");let t=costInput.nextElementSibling;t&&t.classList.contains("invalid-feedback")&&t.remove()});
+        const form = document.querySelector(".ai-edit-list-form"), costInput = form.querySelector("#aiEditCostFormControlInput"); form.addEventListener("submit", t => { let e = costInput.value.replace(/[ .]/g, ""); if (!/^\d+$/.test(e)) { t.preventDefault(), costInput.classList.add("is-invalid"); let n = document.createElement("div"); n.classList.add("invalid-feedback"), n.innerText = 'Please enter a valid number for cost e.g. 1 instead of $1 or "one"', costInput.after(n) } }), costInput.addEventListener("input", () => { costInput.classList.remove("is-invalid"); let t = costInput.nextElementSibling; t && t.classList.contains("invalid-feedback") && t.remove() });
     </script>
     <script>
-    document.addEventListener("DOMContentLoaded",function(){document.getElementById("aiEditBucketListFormControlTextarea").focus(),document.getElementById("aiEditBucketListFormControlTextarea").select(),document.getElementById("bucketTextAreaToast").classList.add("show")});function countCharacters(e,t){var a=e.value,n=a.length,r=document.getElementById("characterCount");r.innerHTML=n+" / "+t,n>t?(e.value=a.slice(0,t),r.style.color="red",r.innerHTML="Max limit of "+t+" characters reached!"):r.style.color="inherit"}
+        document.addEventListener("DOMContentLoaded", function () { document.getElementById("aiEditBucketListFormControlTextarea").focus(), document.getElementById("aiEditBucketListFormControlTextarea").select(), document.getElementById("bucketTextAreaToast").classList.add("show") }); function countCharacters(e, t) { var a = e.value, n = a.length, r = document.getElementById("characterCount"); r.innerHTML = n + " / " + t, n > t ? (e.value = a.slice(0, t), r.style.color = "red", r.innerHTML = "Max limit of " + t + " characters reached!") : r.style.color = "inherit" }
     </script>
-  <div class="container footer-container">
-    <footer class="footer mt-auto  my-4 pt-5 text-center fw-bold fs-5">
-      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-        <li class="nav-item"><a href="{{url_for('mission')}}" class="nav-link px-2" style="color: #453C41;">Mission</a>
-        </li>
-        <li class="nav-item"><a type="button" href="{{url_for('privacy')}}" class="nav-link px-2"
-            style="color: #453C41;">Privacy</a></li>
-        <li class="nav-item"><a href="{{url_for('contact')}}" class="nav-link px-2" style="color: #453C41;">Contact</a>
-        </li>
-      </ul>
-      <p>&copy; <span id="year"></span> {{name}}, Inc</p>
-    </footer>
-  </div>
+    <div class="container footer-container">
+        <footer class="footer mt-auto  my-4 pt-5 text-center fw-bold fs-5">
+            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                <li class="nav-item"><a href="{{url_for('mission')}}" class="nav-link px-2"
+                        style="color: #453C41;">Mission</a>
+                </li>
+                <li class="nav-item"><a type="button" href="{{url_for('privacy')}}" class="nav-link px-2"
+                        style="color: #453C41;">Privacy</a></li>
+                <li class="nav-item"><a href="{{url_for('contact')}}" class="nav-link px-2"
+                        style="color: #453C41;">Contact</a>
+                </li>
+            </ul>
+            <p>&copy; <span id="year"></span> {{name}}, Inc</p>
+        </footer>
+    </div>
     <script>
         document.getElementById("year").innerHTML = new Date().getFullYear();
     </script>

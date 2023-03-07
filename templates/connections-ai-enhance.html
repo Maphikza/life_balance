@@ -60,7 +60,12 @@
         </h3>
         <hr class="mid-breaker mt-4">
         <form class="connections-edit-form g-3 text-start" method="post">
-          <h6 class="fw-normal fs-5">You have <em class="edit-count fw-bold">{{current_user.use_count}}</em> AI-Edits left.</h6>
+          {% if current_user.use_count > 8 %}
+          <h6 class="fw-normal fs-5">You have <em class="edit-count fw-bold">{{current_user.use_count}}</em> AI-edits left.</h6>
+          {% endif %}
+          {% if current_user.use_count <= 8 %}
+          <h6 class="fw-normal fs-5">You have <em class="edit-count fw-bold" style="color: orangered;">{{current_user.use_count}}</em> AI-edits left.</h6>
+          {% endif %}
           <div class="mb-3">
             <label for="editEntryName" class="fs-4 fw-bold pb-2">Connection Name:</label>
             <input type="text" class="form-control" id="editEntryName" name="editEntryName"

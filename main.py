@@ -17,7 +17,6 @@ path = Path(r"C:\Users\stapi\PycharmProjects\life_scale\instance\living.db")
 COMPANY_NAME = "LifePath"
 now = datetime.now()
 current_month = now.month
-print(now.day)
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('LIFE_KEY')
@@ -331,7 +330,7 @@ def delete_life_goal(life_goal_id):
 @login_required
 def goals():
     user_goals = Goal.query.filter_by(user_id=current_user.id).all()
-    if now.day == 1:
+    if current_user.use_count_month != current_month:
         with app.app_context():
             reset_edit_credits()
     return render_template("life-goals.html", user_goals=user_goals, d_func=decrypt_data, name=COMPANY_NAME)
@@ -439,6 +438,9 @@ def delete_connection(connect_id):
 @login_required
 def connections():
     user_connections = Connection.query.filter_by(user_id=current_user.id)
+    if current_user.use_count_month != current_month:
+        with app.app_context():
+            reset_edit_credits()
     return render_template("connections.html",
                            user_connections=user_connections, d_func=decrypt_data, name=COMPANY_NAME)
 
@@ -568,6 +570,9 @@ def delete_finance_goal(goal_id):
 @login_required
 def finance():
     user_finances = Finances.query.filter_by(user_id=current_user.id)
+    if current_user.use_count_month != current_month:
+        with app.app_context():
+            reset_edit_credits()
     return render_template("finance.html",
                            user_finances=user_finances, func=format_number, d_func=decrypt_data, name=COMPANY_NAME)
 
@@ -678,6 +683,9 @@ def delete_bucketlist_item(item_id):
 @login_required
 def bucket_list():
     user_bucketlist = Bucketlist.query.filter_by(user_id=current_user.id)
+    if current_user.use_count_month != current_month:
+        with app.app_context():
+            reset_edit_credits()
     return render_template("bucket-list.html",
                            user_bucketlist=user_bucketlist,
                            d_func=decrypt_data, name=COMPANY_NAME)
