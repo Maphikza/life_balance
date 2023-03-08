@@ -160,13 +160,22 @@ else:
         create_admin_user(User, db, "hehehe")
 
 
-def format_number(num):
-    if num >= 1000000:
-        return '{:,.1f}M'.format(num / 1000000)
-    elif num >= 1000:
-        return '{:,.1f}K'.format(num / 1000)
-    else:
-        return '{:,.1f}'.format(num)
+def format_number(number):
+    if number == 0:
+        return '0'
+    elif number < 0:
+        return 'minus ' + format_number(abs(number))
+
+    suffixes = ['', 'K', 'M', 'B', 'T']
+    suffix_idx = 0
+
+    while abs(number) >= 1000 and suffix_idx < len(suffixes)-1:
+        suffix_idx += 1
+        number /= 1000
+
+    words = f'{number:.2f}{suffixes[suffix_idx]}'
+
+    return words
 
 
 @login_manager.user_loader
@@ -461,6 +470,8 @@ def add_finance_goals():
         title = request.form.get("finance-goals")
         amount = request.form.get("quantity").replace(" ", "")
         amount = re.sub(r'(?!\.)\D', '', amount)
+        if len(amount) > 13:
+            amount = amount[:13]
         if amount:
             try:
                 float(amount)
@@ -501,6 +512,9 @@ def finance_edit(goal_id):
             return redirect(url_for('finance_edit', goal_id=finance_goal_edit.id))
         goal_edit = request.form.get("financeFormControlTextarea-edit")
         amount = request.form.get("quantity_edit").replace(" ", "")
+        amount = re.sub(r'(?!\.)\D', '', amount)
+        if len(amount) > 13:
+            amount = amount[:13]
         if goal_edit:
             goal_edit = encrypt_data(goal_edit)
             finance_goal_edit.financial_goal = goal_edit
@@ -535,6 +549,9 @@ def finance_edit_ai_enhance(goal_id):
             return redirect(url_for('finance_edit_ai_enhance', goal_id=finance_ai_goal_edit.id))
         goal_edit = request.form.get("aiFinanceFormControlTextarea-edit")
         amount = request.form.get("quantity_edit").replace(" ", "")
+        amount = re.sub(r'(?!\.)\D', '', amount)
+        if len(amount) > 13:  # trying to keep things 'reasonable'.
+            amount = amount[:13]
         if goal_edit:
             if goal_edit.startswith('"') and goal_edit.endswith('"'):
                 goal_edit = goal_edit[1:-2]
@@ -591,6 +608,8 @@ def add_bucketlist_item():
         item_title = request.form.get("bucketListFormControlInput").title()
         cost = request.form.get("costFormControlInput").replace(" ", "")
         cost = re.sub(r'(?!\.)\D', '', cost)
+        if len(cost) > 13:  # trying to keep things 'reasonable'.
+            cost = cost[:13]
         if cost:
             try:
                 float(cost)
@@ -623,6 +642,8 @@ def edit_bucket_list_item(item_id):
         title_edit = request.form.get("editBucketListFormControlInput").title()
         cost_edit = request.form.get("editCostFormControlInput").replace(" ", "")
         cost_edit = re.sub(r'(?!\.)\D', '', cost_edit)
+        if len(cost_edit) > 13:  # trying to keep things 'reasonable'.
+            cost_edit = cost_edit[:13]
         item_text_edit = request.form.get("editBucketListFormControlTextarea")
         if title_edit:
             bucket_list_edit.bucket_list_item_title = title_edit
@@ -654,6 +675,8 @@ def ai_edit_bucket_list_item(item_id):
         title_edit = request.form.get("aiEditBucketListFormControlInput")
         cost_edit = request.form.get("aiEditCostFormControlInput").replace(" ", "")
         cost_edit = re.sub(r'(?!\.)\D', '', cost_edit)
+        if len(cost_edit) > 13:  # trying to keep things 'reasonable'.
+            cost_edit = cost_edit[:13]
         item_text_edit = request.form.get("aiEditBucketListFormControlTextarea")
         if title_edit:
             bucket_list_edit.bucket_list_item_title = title_edit
