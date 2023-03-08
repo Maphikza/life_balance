@@ -153,7 +153,7 @@ class DailyJournal(db.Model):
 with app.app_context():
     db.create_all()
     print("The database has been created.")
-    create_admin_user(User, db, "hehehe")
+    # create_admin_user(User, db, "hehehe")
 
 
 def format_number(number):
