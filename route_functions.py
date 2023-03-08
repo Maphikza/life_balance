@@ -8,19 +8,20 @@ def create_admin_user(user, db, password):
     hashed_password = generate_password_hash(password=password, method='pbkdf2:sha256', salt_length=4)
     admin = user(username=os.environ.get("ADMIN_NAME").lower(), email=os.environ.get("ADMIN_EMAIL").lower(),
                  password=hashed_password,
-                 birth_date="1987-11-11", country="R", verified=True, is_admin=True)
+                 birth_date="1987-11-11", country_name="South Africa", currency_symbol="R", verified=True, is_admin=True)
     db.session.add(admin)
     db.session.commit()
     print("Admin Account created!!!")
 
 
-def register_user(username, email, password, date_of_birth, user, goal, finances, money, verification, db):
+def register_user(username, email, password, date_of_birth, user, goal, finances, money, state, verification, db):
     hashed_password = generate_password_hash(password=password, method='pbkdf2:sha256', salt_length=4)
     new_user = user(username=username,
                     email=email,
                     password=hashed_password,
                     birth_date=date_of_birth,
-                    country=money,
+                    country_name=state,
+                    currency_symbol=money,
                     verified=verification)
     db.session.add(new_user)
     db.session.commit()

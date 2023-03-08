@@ -93,7 +93,8 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(120), nullable=False)
     birth_date = db.Column(db.String(12), nullable=False)
-    country = db.Column(db.String(50), nullable=False)
+    country_name = db.Column(db.String(80), nullable=False)
+    currency_symbol = db.Column(db.String(50), nullable=False)
     verified = db.Column(db.Boolean, nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
     use_count = db.Column(db.Integer, default=20)
@@ -195,7 +196,8 @@ def implement_registration():
         email = request.form.get("entryEmail").lower()
         password = request.form.get("entryPassword")
         date_of_birth = request.form.get("entryDate")
-        country_currency = request.form.get("country")
+        country_currency = request.form.get("country").split(";")[-1]
+        country = request.form.get("country").split(";")[0]
         token = s.dumps(email, salt="email-verification")
         msg = Message("Verify Your Email", recipients=[email])
         msg.body = f"Click the link to verify your email: {url_for('verify_email', token=token, _external=True)}"
@@ -204,6 +206,7 @@ def implement_registration():
                                         email=email,
                                         password=password,
                                         date_of_birth=date_of_birth,
+                                        state=country,
                                         money=country_currency,
                                         verification=False,
                                         db=db,
