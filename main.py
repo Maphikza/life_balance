@@ -151,13 +151,13 @@ class DailyJournal(db.Model):
 
 
 # Checking if the database exists and if it does not exist we create it.
-if path.exists():
-    pass
-else:
-    with app.app_context():
-        db.create_all()
-        print("The database has been created.")
-        create_admin_user(User, db, "hehehe")
+# if path.exists():
+#     pass
+# else:
+#     with app.app_context():
+#         db.create_all()
+#         print("The database has been created.")
+#         create_admin_user(User, db, "hehehe")
 
 
 def format_number(number):
