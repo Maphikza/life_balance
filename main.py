@@ -150,14 +150,10 @@ class DailyJournal(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 
-# Checking if the database exists and if it does not exist we create it.
-# if path.exists():
-#     pass
-# else:
-#     with app.app_context():
-#         db.create_all()
-#         print("The database has been created.")
-#         create_admin_user(User, db, "hehehe")
+with app.app_context():
+    db.create_all()
+    print("The database has been created.")
+    create_admin_user(User, db, "hehehe")
 
 
 def format_number(number):
