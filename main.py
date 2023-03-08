@@ -814,7 +814,8 @@ def mission():
 @app.route("/journal", methods=["GET", "POST"])
 @login_required
 def journal():
-    return render_template("daily-journal.html", name=COMPANY_NAME)
+    if current_user.is_admin:
+        return render_template("daily-journal.html", name=COMPANY_NAME)
 
 
 @app.route("/logout")

@@ -22,55 +22,58 @@
 <body class="main-page">
     <header class="main-page navs-link">
         <nav class="my-navbar navbar navbar-expand-md navbar-dark" aria-label="goals navbar">
-            <div class="container-fluid my-navbar">
-                <a class="navbar-brand fw-normal fs-3 my-navbar" href="{{url_for('home')}}">{{name}}</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarGoal"
-                    aria-controls="navbarGoal" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarGoal">
-                    <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                        {% if not current_user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{url_for('implements_login')}}">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page"
-                                href="{{url_for('implement_registration')}}">Sign up</a>
-                        </li>
-                        {% endif %}
-                        {% if current_user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{url_for('goals')}}">Life</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{url_for('connections')}}">Relationships</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{url_for('finance')}}">Finance</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{url_for('bucket_list')}}">Bucket List</a>
-                        </li>
-                        {% if current_user.id == 1 %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{url_for('bucket_list')}}">Bucket List</a>
-                        </li>
-                        {% endif %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
-                        </li>
-                        {% endif %}
-                    </ul>
-                    <div class="text-end pe-5">
-                        <a href="https://www.buymeacoffee.com/siphiwereah" target="_blank" rel="noopener noreferrer" class="pizza"><img
-                                src="https://img.buymeacoffee.com/button-api/?text=Buy us a pizza&emoji=&slug=siphiwereah&button_colour=FFDD00&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=ffffff" /></a>
-                    </div>
-                </div>
+          <div class="container-fluid my-navbar">
+            <a class="navbar-brand fw-normal fs-3 my-navbar" href="{{url_for('home')}}">{{name}}</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarGoal"
+              aria-controls="navbarGoal" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon my-navbar"></span>
+            </button>
+    
+            <div class="collapse navbar-collapse my-navbar" id="navbarGoal">
+              <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                {% if not current_user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{{url_for('implements_login')}}">Login</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{url_for('implement_registration')}}">Sign up</a>
+                </li>
+                {% endif %}
+                {% if current_user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{{url_for('goals')}}">Life</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{url_for('connections')}}">Relationships</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{url_for('finance')}}">Finances</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{url_for('bucket_list')}}">Bucket List</a>
+                </li>
+                {% if current_user.is_admin %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{{url_for('journal')}}">Daily-Journal</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{url_for('delete_user')}}">Admin</a>
+                </li>
+                {% endif %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
+                </li>
+                {% endif %}
+              </ul>
+              <div class="text-end pe-5">
+                <a href="https://www.buymeacoffee.com/siphiwereah" target="_blank" rel="noopener noreferrer"
+                  class="pizza"><img
+                    src="https://img.buymeacoffee.com/button-api/?text=Buy us a pizza&emoji=&slug=siphiwereah&button_colour=FFDD00&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=ffffff" /></a>
+              </div>
             </div>
+          </div>
         </nav>
-    </header>
+      </header>
     <div class="container-fluid main-page">
         {% with messages = get_flashed_messages() %}
         {% if messages %}
