@@ -20,7 +20,7 @@ current_month = now.month
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('LIFE_KEY')
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL", "sqlite:///living.db")
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("MY_DATABASE_URL", "sqlite:///living.db")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['MAIL_SERVER'] = "smtp.gmail.com"
 app.config['MAIL_PORT'] = 587
@@ -150,10 +150,10 @@ class DailyJournal(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 
-with app.app_context():
-    db.create_all()
-    print("The database has been created.")
-    create_admin_user(User, db, "hehehe")
+# with app.app_context():
+#     db.create_all()
+#     print("The database has been created.")
+    # create_admin_user(User, db, "hehehe")
 
 
 def format_number(number):
