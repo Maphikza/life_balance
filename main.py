@@ -150,9 +150,9 @@ class DailyJournal(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 
-# with app.app_context():
-#     db.create_all()
-#     print("The database has been created.")
+with app.app_context():
+    db.create_all()
+    print("The database has been created.")
     # create_admin_user(User, db, "hehehe")
 
 
