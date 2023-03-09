@@ -20,7 +20,7 @@ current_month = now.month
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('LIFE_KEY')
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("MY_DATABASE_URL", "sqlite:///living.db")
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL", "sqlite:///living.db")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['MAIL_SERVER'] = "smtp.gmail.com"
 app.config['MAIL_PORT'] = 587
@@ -72,7 +72,11 @@ def generate(content: str) -> str:
 
 # with app.app_context():
 #     key = Fernet.generate_key()
+#     print(key)
 
+# with app.app_context():
+#     key = os.environ.get("F_KEY")
+#     fernet = Fernet(key)
 key = os.environ.get("F_KEY")
 
 fernet = Fernet(key)
@@ -150,10 +154,16 @@ class DailyJournal(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 
-with app.app_context():
-    db.create_all()
-    print("The database has been created.")
-    # create_admin_user(User, db, "hehehe")
+def create_admin_account():
+    if not app.config.get('ADMIN_ACCOUNT_CREATED', False):
+        db.create_all()
+        print("The database has been created.")
+        create_admin_user(User, db, "hehehe")
+        app.config['ADMIN_ACCOUNT_CREATED'] = True
+
+
+# with app.app_context():
+#     create_admin_account()
 
 
 def format_number(number):
@@ -165,7 +175,7 @@ def format_number(number):
     suffixes = ['', 'K', 'M', 'B', 'T']
     suffix_idx = 0
 
-    while abs(number) >= 1000 and suffix_idx < len(suffixes)-1:
+    while abs(number) >= 1000 and suffix_idx < len(suffixes) - 1:
         suffix_idx += 1
         number /= 1000
 
