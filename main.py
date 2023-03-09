@@ -162,8 +162,8 @@ def create_admin_account():
         app.config['ADMIN_ACCOUNT_CREATED'] = True
 
 
-# with app.app_context():
-#     create_admin_account()
+with app.app_context():
+    create_admin_account()
 
 
 def format_number(number):
