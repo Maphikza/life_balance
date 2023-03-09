@@ -10,6 +10,10 @@ from route_functions import register_user, login, create_admin_user
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired, BadSignature
 from werkzeug.security import generate_password_hash
 from cryptography.fernet import Fernet
+from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
+from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.backends import default_backend
+import base64
 import re
 from datetime import datetime
 import json
@@ -71,6 +75,42 @@ def generate(content: str) -> str:
     return response["choices"][0]["message"]["content"]
 
 
+# ENCRYPTION
+# Get the password and salt from environment variables
+password = os.environ.get('MY_PASSWORD').encode()
+salt = os.environ.get('MY_SALT').encode()
+
+
+# Use PBKDF2HMAC to derive a 256-bit key from the password and salt
+kdf = PBKDF2HMAC(
+    algorithm=hashes.SHA256(),
+    length=32,
+    salt=salt,
+    iterations=100000,
+    backend=default_backend()
+)
+key = base64.urlsafe_b64encode(kdf.derive(password))
+
+# Use the derived key to create a Fernet instance
+fernet = Fernet(key)
+
+# Encode the key as url-safe base64
+# fernet_key = base64.urlsafe_b64encode(key)
+
+
+def encrypt_data(data):
+    # Convert the data to bytes and encrypt it using Fernet
+    encrypted_data = fernet.encrypt(data.encode())
+    return encrypted_data
+
+
+def decrypt_data(encrypted_data):
+    # Decrypt the encrypted data using Fernet and convert it to a string
+    print(type(encrypted_data))
+    decrypted_data = fernet.decrypt(encrypted_data).decode()
+    return decrypted_data
+
+
 # with app.app_context():
 #     key = Fernet.generate_key()
 #     print(key)
@@ -78,26 +118,26 @@ def generate(content: str) -> str:
 # with app.app_context():
 #     key = os.environ.get("F_KEY")
 #     fernet = Fernet(key)
-key = os.environ.get("F_KEY")
-
-fernet = Fernet(key)
+# key = os.environ.get("F_KEY")
+#
+# fernet = Fernet(key)
 
 
 # def encrypt_data(data):
 #     return fernet.encrypt(data.encode())  # data.encode()
 
-def encrypt_data(data):
-    encoded_data = json.dumps(data).encode('utf-8')
-    return fernet.encrypt(encoded_data)
+# def encrypt_data(data):
+#     encoded_data = json.dumps(data).encode('utf-8')
+#     return fernet.encrypt(encoded_data)
 
 
 # def decrypt_data(data):
 #     return fernet.decrypt(data).decode()
 
-def decrypt_data(data):
-    print(type(data))
-    decoded_data = fernet.decrypt(data).decode('utf-8')
-    return json.loads(decoded_data)
+# def decrypt_data(data):
+#     print(type(data))
+#     decoded_data = fernet.decrypt(data).decode('utf-8')
+#     return json.loads(decoded_data)
 
 
 class User(UserMixin, db.Model):
