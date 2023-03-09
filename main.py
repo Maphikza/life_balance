@@ -87,7 +87,7 @@ def encrypt_data(data):
 
 
 def decrypt_data(data):
-    return fernet.decrypt(data.decode())
+    return fernet.decrypt(data).decode()
 
 
 class User(UserMixin, db.Model):
