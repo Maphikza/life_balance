@@ -12,6 +12,7 @@ from werkzeug.security import generate_password_hash
 from cryptography.fernet import Fernet
 import re
 from datetime import datetime
+import json
 
 path = Path(r"C:\Users\stapi\PycharmProjects\life_scale\instance\living.db")
 COMPANY_NAME = "LifePath"
@@ -82,12 +83,20 @@ key = os.environ.get("F_KEY")
 fernet = Fernet(key)
 
 
-def encrypt_data(data):
-    return fernet.encrypt(data.encode())
+# def encrypt_data(data):
+#     return fernet.encrypt(data.encode())  # data.encode()
 
+def encrypt_data(data):
+    encoded_data = json.dumps(data).encode('utf-8')
+    return fernet.encrypt(encoded_data)
+
+
+# def decrypt_data(data):
+#     return fernet.decrypt(data).decode()
 
 def decrypt_data(data):
-    return fernet.decrypt(data).decode()
+    decoded_data = fernet.decrypt(data).decode('utf-8')
+    return json.loads(decoded_data)
 
 
 class User(UserMixin, db.Model):
