@@ -740,7 +740,7 @@ def delete_user():
     and finally deletes the user profile.
     :return: url_redirect
     """
-    if current_user.id == 1:
+    if current_user.is_admin:
         if request.method == "POST":
             user_to_remove = int(request.form.get("userID").replace(" ", ""))
             user_goals = Goal.query.filter_by(user_id=user_to_remove).all()

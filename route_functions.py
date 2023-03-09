@@ -50,4 +50,5 @@ def login(name, entered_password, user):
             return redirect(url_for('implements_login'))
         elif main_user_password and main_user.verified == 1:
             login_user(user=main_user)
+            print(main_user.id)
             return redirect(url_for('home'))
