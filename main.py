@@ -107,18 +107,17 @@ def encrypt_data(data):
     # Convert the data to bytes and encrypt it using Fernet
     data = data.encode('utf-8')
     encrypted_data = fernet.encrypt(data)
-    return encrypted_data
+    # Convert the encrypted data to a hex string
+    encrypted_data_hex = encrypted_data.hex()
+    return encrypted_data_hex
 
 
-def decrypt_data(encrypted_data):
+def decrypt_data(encrypted_data_hex):
     key = os.environ.get("F_KEY")
     fernet = Fernet(key)
+    # Convert the hex string back to bytes
+    encrypted_data = bytes.fromhex(encrypted_data_hex)
     # Decrypt the encrypted data using Fernet and convert it to a string
-    # print(type(encrypted_data))
-    print(encrypted_data)
-    print(type(encrypted_data))
-    if type(encrypted_data) == str:
-        encrypted_data = bytes.fromhex(encrypted_data[1:])
     decrypted_data = fernet.decrypt(encrypted_data).decode()
     return decrypted_data
 
