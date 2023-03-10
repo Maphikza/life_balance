@@ -89,22 +89,26 @@ kdf = PBKDF2HMAC(
     iterations=100000,
     backend=default_backend()
 )
-key = base64.urlsafe_b64encode(kdf.derive(password))
+# key = base64.urlsafe_b64encode(kdf.derive(password))
+# print(key)
+key = os.environ.get("F_KEY")
 
 # Use the derived key to create a Fernet instance
-fernet = Fernet(key)
+# fernet = Fernet(key)
 
 # Encode the key as url-safe base64
 # fernet_key = base64.urlsafe_b64encode(key)
 
 
-def encrypt_data(data):
+def encrypt_data(data, key_one=key):
+    fernet = Fernet(key_one)
     # Convert the data to bytes and encrypt it using Fernet
     encrypted_data = fernet.encrypt(data.encode())
     return encrypted_data
 
 
-def decrypt_data(encrypted_data):
+def decrypt_data(encrypted_data, key_one=key):
+    fernet = Fernet(key_one)
     # Decrypt the encrypted data using Fernet and convert it to a string
     print(type(encrypted_data))
     decrypted_data = fernet.decrypt(encrypted_data).decode()
@@ -164,43 +168,43 @@ class User(UserMixin, db.Model):
 class Connection(db.Model):
     __tablename__ = 'life connections'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), nullable=False)
-    relationship_to_user = db.Column(db.String(20), nullable=False)
-    birth_date = db.Column(db.String(12), nullable=False)
-    relationship_thoughts = db.Column(db.String(120), nullable=True)
+    name = db.Column(db.String(500), nullable=False)
+    relationship_to_user = db.Column(db.String(100), nullable=False)
+    birth_date = db.Column(db.String(100), nullable=False)
+    relationship_thoughts = db.Column(db.Text, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 
 class Goal(db.Model):
     __tablename__ = "life goals"
     id = db.Column(db.Integer, primary_key=True)
-    life_goal_title = db.Column(db.String(100), nullable=True)
-    chosen_goal = db.Column(db.Text, unique=True, nullable=True)
+    life_goal_title = db.Column(db.String(500), nullable=True)
+    chosen_goal = db.Column(db.Text, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 
 class Finances(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    goal_title = db.Column(db.String(100), nullable=True)
-    financial_goal = db.Column(db.String(500), nullable=True)
+    goal_title = db.Column(db.String(500), nullable=True)
+    financial_goal = db.Column(db.Text, nullable=True)
     target_amount = db.Column(db.Float, nullable=True)
-    formatted_amount = db.Column(db.String(50), nullable=True)
+    formatted_amount = db.Column(db.String(500), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 
 class Bucketlist(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    bucket_list_item_title = db.Column(db.String(100), nullable=True)
-    bucket_list_item = db.Column(db.String(500), nullable=True)
+    bucket_list_item_title = db.Column(db.String(500), nullable=True)
+    bucket_list_item = db.Column(db.Text, nullable=True)
     item_cost = db.Column(db.Float, nullable=True)
-    formatted_cost = db.Column(db.String(50), nullable=True)
+    formatted_cost = db.Column(db.String(200), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 
 class DailyJournal(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    entry_date = db.Column(db.String(50), nullable=True)
-    journal_entry = db.Column(db.String(1500), nullable=True)
+    entry_date = db.Column(db.String(200), nullable=True)
+    journal_entry = db.Column(db.Text, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 
@@ -214,6 +218,9 @@ def create_admin_account():
 
 # with app.app_context():
 #     create_admin_account()
+
+with app.app_context():
+    db.drop_all()
 
 
 def format_number(number):
