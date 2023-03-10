@@ -105,6 +105,7 @@ def encrypt_data(data):
     fernet = Fernet(key)
     # Convert the data to bytes and encrypt it using Fernet
     encrypted_data = fernet.encrypt(data.encode())
+    print(type(encrypted_data))
     return encrypted_data
 
 
