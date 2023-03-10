@@ -228,14 +228,14 @@ def create_admin_account():
 #     create_admin_account()
 
 
-with app.app_context():
-    print("first sleep")
-    time.sleep(2)
-    db.drop_all()
-    time.sleep(4)
-    create_admin_account()
-    print("new admin and tables created.")
-    time.sleep(4)
+# with app.app_context():
+#     print("first sleep")
+#     time.sleep(2)
+#     db.drop_all()
+#     time.sleep(4)
+#     create_admin_account()
+#     print("new admin and tables created.")
+#     time.sleep(4)
 
 
 def format_number(number):
