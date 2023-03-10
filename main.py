@@ -80,7 +80,6 @@ def generate(content: str) -> str:
 password = os.environ.get('MY_PASSWORD').encode()
 salt = os.environ.get('MY_SALT').encode()
 
-
 # Use PBKDF2HMAC to derive a 256-bit key from the password and salt
 kdf = PBKDF2HMAC(
     algorithm=hashes.SHA256(),
@@ -89,6 +88,8 @@ kdf = PBKDF2HMAC(
     iterations=100000,
     backend=default_backend()
 )
+
+
 # key = base64.urlsafe_b64encode(kdf.derive(password))
 # print(key)
 # key = os.environ.get("F_KEY")
@@ -105,7 +106,7 @@ def encrypt_data(data):
     fernet = Fernet(key)
     # Convert the data to bytes and encrypt it using Fernet
     encrypted_data = fernet.encrypt(data.encode())
-    print(type(encrypted_data))
+    print(encrypted_data)
     return encrypted_data
 
 
@@ -113,7 +114,10 @@ def decrypt_data(encrypted_data):
     key = os.environ.get("F_KEY")
     fernet = Fernet(key)
     # Decrypt the encrypted data using Fernet and convert it to a string
-    print(type(encrypted_data))
+    # print(type(encrypted_data))
+    if type(encrypted_data) == str:
+        encrypted_data = encrypted_data.encode()
+        print(type(encrypted_data))
     decrypted_data = fernet.decrypt(encrypted_data).decode()
     return decrypted_data
 
