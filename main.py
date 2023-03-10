@@ -91,7 +91,7 @@ kdf = PBKDF2HMAC(
 )
 # key = base64.urlsafe_b64encode(kdf.derive(password))
 # print(key)
-key = os.environ.get("F_KEY")
+# key = os.environ.get("F_KEY")
 
 # Use the derived key to create a Fernet instance
 # fernet = Fernet(key)
@@ -100,15 +100,17 @@ key = os.environ.get("F_KEY")
 # fernet_key = base64.urlsafe_b64encode(key)
 
 
-def encrypt_data(data, key_one=key):
-    fernet = Fernet(key_one)
+def encrypt_data(data):
+    key = os.environ.get("F_KEY")
+    fernet = Fernet(key)
     # Convert the data to bytes and encrypt it using Fernet
     encrypted_data = fernet.encrypt(data.encode())
     return encrypted_data
 
 
-def decrypt_data(encrypted_data, key_one=key):
-    fernet = Fernet(key_one)
+def decrypt_data(encrypted_data):
+    key = os.environ.get("F_KEY")
+    fernet = Fernet(key)
     # Decrypt the encrypted data using Fernet and convert it to a string
     print(type(encrypted_data))
     decrypted_data = fernet.decrypt(encrypted_data).decode()
