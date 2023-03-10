@@ -105,7 +105,7 @@ def encrypt_data(data):
     key = os.environ.get("F_KEY")
     fernet = Fernet(key)
     # Convert the data to bytes and encrypt it using Fernet
-    data = data.encode()
+    data = data.encode('utf-8')
     encrypted_data = fernet.encrypt(data)
     return encrypted_data
 
@@ -118,7 +118,7 @@ def decrypt_data(encrypted_data):
     print(encrypted_data)
     print(type(encrypted_data))
     if type(encrypted_data) == str:
-        encrypted_data = bytes.fromhex(encrypted_data)
+        print("it is still a bloody string.")
     decrypted_data = fernet.decrypt(encrypted_data).decode()
     return decrypted_data
 
