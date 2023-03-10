@@ -17,6 +17,7 @@ import base64
 import re
 from datetime import datetime
 import json
+import time
 
 path = Path(r"C:\Users\stapi\PycharmProjects\life_scale\instance\living.db")
 COMPANY_NAME = "LifePath"
@@ -154,12 +155,12 @@ def decrypt_data(encrypted_data_hex):
 class User(UserMixin, db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(120), nullable=False)
-    birth_date = db.Column(db.String(12), nullable=False)
-    country_name = db.Column(db.String(80), nullable=False)
-    currency_symbol = db.Column(db.String(50), nullable=False)
+    username = db.Column(db.String(500), nullable=False)
+    email = db.Column(db.String(500), unique=True, nullable=False)
+    password = db.Column(db.String(500), nullable=False)
+    birth_date = db.Column(db.String(500), nullable=False)
+    country_name = db.Column(db.String(500), nullable=False)
+    currency_symbol = db.Column(db.String(500), nullable=False)
     verified = db.Column(db.Boolean, nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
     use_count = db.Column(db.Integer, default=20)
@@ -175,9 +176,9 @@ class User(UserMixin, db.Model):
 class Connection(db.Model):
     __tablename__ = 'life connections'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(500), nullable=False)
-    relationship_to_user = db.Column(db.String(100), nullable=False)
-    birth_date = db.Column(db.String(100), nullable=False)
+    name = db.Column(db.String(1000), nullable=False)
+    relationship_to_user = db.Column(db.String(1000), nullable=False)
+    birth_date = db.Column(db.String(500), nullable=False)
     relationship_thoughts = db.Column(db.Text, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
@@ -185,26 +186,26 @@ class Connection(db.Model):
 class Goal(db.Model):
     __tablename__ = "life goals"
     id = db.Column(db.Integer, primary_key=True)
-    life_goal_title = db.Column(db.String(500), nullable=True)
+    life_goal_title = db.Column(db.String(1000), nullable=True)
     chosen_goal = db.Column(db.Text, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 
 class Finances(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    goal_title = db.Column(db.String(500), nullable=True)
+    goal_title = db.Column(db.String(900), nullable=True)
     financial_goal = db.Column(db.Text, nullable=True)
     target_amount = db.Column(db.Float, nullable=True)
-    formatted_amount = db.Column(db.String(500), nullable=True)
+    formatted_amount = db.Column(db.String(900), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 
 class Bucketlist(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    bucket_list_item_title = db.Column(db.String(500), nullable=True)
+    bucket_list_item_title = db.Column(db.String(900), nullable=True)
     bucket_list_item = db.Column(db.Text, nullable=True)
     item_cost = db.Column(db.Float, nullable=True)
-    formatted_cost = db.Column(db.String(200), nullable=True)
+    formatted_cost = db.Column(db.String(900), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 
@@ -225,6 +226,16 @@ def create_admin_account():
 
 # with app.app_context():
 #     create_admin_account()
+
+
+with app.app_context():
+    print("first sleep")
+    time.sleep(2)
+    db.drop_all()
+    time.sleep(4)
+    create_admin_account()
+    print("new admin and tables created.")
+    time.sleep(4)
 
 
 def format_number(number):
