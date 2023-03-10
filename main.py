@@ -118,8 +118,8 @@ def decrypt_data(encrypted_data):
     print(encrypted_data)
     print(type(encrypted_data))
     if type(encrypted_data) == str:
-        print(encrypted_data)
-    decrypted_data = fernet.decrypt(encrypted_data.decode())
+        encrypted_data = bytes.fromhex(encrypted_data)
+    decrypted_data = fernet.decrypt(encrypted_data).decode()
     return decrypted_data
 
 
