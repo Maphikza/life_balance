@@ -2,13 +2,13 @@ body {
   background-color: #EEF6F9;
 }
 
-.login {
+/* .login {
   height: 47rem;
 }
 
 .home {
   height: 43rem;
-}
+} */
 
 .pizza {
   border-radius: 50px;
@@ -18,13 +18,13 @@ body {
   color: #4C8891;
 }
 
-.journal-side {
+/* .journal-side {
   height: 44rem;
 }
 
 .journal-main {
   height: 44rem;
-}
+} */
 
 .flashes {
   color: red;
@@ -138,12 +138,12 @@ audio {
     font-size: 0.2rem;
   }
 
-  .home {
+  /* .home {
     height: 55rem;
-  }
+  } */
 }
 
-.email-conf {
+/* .email-conf {
   height: 32rem;
-}
+} */
 
