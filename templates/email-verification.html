@@ -71,16 +71,19 @@
       <p class="lead fw-normal fs-2">{{ response }}</p>
     </div>
   </div>
-  <div class="container footer-container">
-    <footer class="footer mt-auto  my-4 pt-5 text-center fw-bold fs-5">
-      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-        <li class="nav-item"><a href="{{url_for('mission')}}" class="nav-link px-2" style="color: #453C41;">Mission</a>
-        </li>
-        <li class="nav-item"><a type="button" href="{{url_for('privacy')}}" class="nav-link px-2"
-            style="color: #453C41;">Privacy</a></li>
-        <li class="nav-item"><a href="{{url_for('contact')}}" class="nav-link px-2" style="color: #453C41;">Contact</a>
-        </li>
-      </ul>
+  <div class="container">
+    <footer class="footer mt-auto my-4 pt-5 text-center fw-bold fs-5">
+      <div class="row justify-content-center mb-3">
+        <div class="col-auto">
+          <a href="{{url_for('mission')}}" class="nav-link" style="color: #453C41;">Mission</a>
+        </div>
+        <div class="col-auto">
+          <a type="button" href="{{url_for('privacy')}}" class="nav-link" style="color: #453C41;">Privacy</a>
+        </div>
+        <div class="col-auto">
+          <a href="{{url_for('contact')}}" class="nav-link" style="color: #453C41;">Contact</a>
+        </div>
+      </div>
       <p>&copy; <span id="year"></span> {{name}}, Inc</p>
     </footer>
   </div>
