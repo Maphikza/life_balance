@@ -222,7 +222,7 @@
                     <div id="flush-collapseThree" class="accordion-collapse collapse show"
                       aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushPrimers">
                       <div class="accordion-body">
-                        <div class="pt-2 text-center">
+                        <div class="text-center">
                           <p class="fw-bold fs-5 accordion-text"> You can listen or read the primer.</p>
                           <audio controls controlsList="nodownload">
                             <source src="{{ url_for('static', filename='synthesized_audio_bella_mental.mp3') }}"
@@ -230,13 +230,13 @@
                           </audio>
                         </div>
                         <p class="text-center mt-2">
-                          <a class="btn btn-dark" data-bs-toggle="collapse" href="#collapseSelf-devPrimer" role="button"
-                            aria-expanded="false" aria-controls="collapseSelf-devPrimer"
+                          <a class="btn btn-dark fw-normal" data-bs-toggle="collapse" href="#collapseSelfDevPrimer" role="button"
+                            aria-expanded="false" aria-controls="collapseSelfDevPrimer"
                             style="background-color: #453C41">
                             Read Self-development Primer
                           </a>
                         </p>
-                        <div class="collapse" id="collapseSelf-devPrimer">
+                        <div class="collapse" id="collapseSelfDevPrimer">
                           <div class="card card-body border-light">
                             We hope you've already worked through the purpose and spiritual sections, as they can guide
                             you
@@ -358,7 +358,7 @@
     function countCharacters(e, t) { var l = e.value, a = l.length, s = document.getElementById("characterCount"); s.innerHTML = a + " / " + t, a > t ? (e.value = l.slice(0, t), s.style.color = "red", s.innerHTML = "Max limit of " + t + " characters reached!") : s.style.color = "inherit" } const form = document.querySelector("form"), submitButton = document.querySelector("#submitButton"), select = document.querySelector("#life-goals"); form.addEventListener("submit", e => { if ("selection" === select.value) { e.preventDefault(), select.classList.add("is-invalid"); let t = document.createElement("div"); t.classList.add("invalid-feedback"), t.innerText = "Please select a valid option", select.after(t) } }), select.addEventListener("change", () => { select.classList.remove("is-invalid"); let e = select.nextElementSibling; e && e.classList.contains("invalid-feedback") && e.remove() }); const myForm = document.querySelector(".life-goal-form"), mySelect = document.querySelector("#life-goals"); mySelect.addEventListener("change", function () { let e = this.options[this.selectedIndex], t = document.querySelector(`.${e.dataset.target}`), l = document.querySelectorAll(".goal-card"); "selection" !== e.value ? (l.forEach(e => e.style.display = "none"), t.style.display = "block") : l.forEach(e => e.style.display = "none") }); const allCards = document.querySelectorAll(".goal-card"); allCards.forEach(e => e.style.display = "none");
   </script>
   <script>
-    const selectGoal = document.getElementById("life-goals"), purposeCard = document.querySelector(".purpose-card"), spiritualCard = document.querySelector(".spiritual-card"), selfDevCard = document.querySelector(".self-development-card"), fitnessCard = document.querySelector(".physical-fitness-card"); purposeCard.style.display = "none", spiritualCard.style.display = "none", selfDevCard.style.display = "none", fitnessCard.style.display = "none", selectGoal.addEventListener("change", function () { let e = selectGoal.value; purposeCard.style.display = "none", spiritualCard.style.display = "none", selfDevCard.style.display = "none", fitnessCard.style.display = "none", "Purpose" === e ? (purposeCard.style.display = "block", selectGoal.classList.add("rounded-0", "rounded-top")) : "Spirit" === e ? spiritualCard.style.display = "block" : "Mental" === e ? selfDevCard.style.display = "block" : "Physical" === e ? fitnessCard.style.display = "block" : selectGoal.classList.remove("rounded-0", "rounded-top") });
+    const selectGoal = document.getElementById("life-goals"), purposeCard = document.querySelector(".purpose-card"), spiritualCard = document.querySelector(".spiritual-card"), selfDevCard = document.querySelector(".self-development-card"), fitnessCard = document.querySelector(".physical-fitness-card"); purposeCard.style.display = "none", spiritualCard.style.display = "none", selfDevCard.style.display = "none", fitnessCard.style.display = "none", selectGoal.addEventListener("change", function () { let e = selectGoal.value; purposeCard.style.display = "none", spiritualCard.style.display = "none", selfDevCard.style.display = "none", fitnessCard.style.display = "none", "Purpose" === e ? (purposeCard.style.display = "block", selectGoal.classList.add("rounded-0", "rounded-top")) : "Spirit" === e ? spiritualCard.style.display = "block" : "Self-Development" === e ? selfDevCard.style.display = "block" : "Physical" === e ? fitnessCard.style.display = "block" : selectGoal.classList.remove("rounded-0", "rounded-top") });
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
