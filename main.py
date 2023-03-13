@@ -20,7 +20,7 @@ import json
 import time
 
 path = Path(r"C:\Users\stapi\PycharmProjects\life_scale\instance\living.db")
-COMPANY_NAME = "LifePath"
+COMPANY_NAME = "LifePathMate"
 now = datetime.now()
 current_month = now.month
 
