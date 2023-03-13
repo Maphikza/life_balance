@@ -49,9 +49,10 @@
             </li>
           </ul>
           <div class="text-end pe-5">
-            <a href="https://www.buymeacoffee.com/siphiwereah" target="_blank" rel="noopener noreferrer" class="pizza"><img
-                    src="https://img.buymeacoffee.com/button-api/?text=Buy us a pizza&emoji=&slug=siphiwereah&button_colour=FFDD00&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=ffffff" /></a>
-        </div>
+            <a href="https://www.buymeacoffee.com/siphiwereah" target="_blank" rel="noopener noreferrer"
+              class="pizza"><img
+                src="https://img.buymeacoffee.com/button-api/?text=Buy us a pizza&emoji=&slug=siphiwereah&button_colour=FFDD00&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=ffffff" /></a>
+          </div>
         </div>
       </div>
     </nav>
@@ -67,7 +68,8 @@
             requires protection against the rare but significant events that can occur in a lifetime. We believe that
             it's
             important to consider these areas carefully. Take some time to develop plans to safeguard yourself against
-            these events. Although it may be challenging to think about worst-case scenarios, it's always better to remain prepared.</em>
+            these events. Although it may be challenging to think about worst-case scenarios, it's always better to
+            remain prepared.</em>
         </p>
         <noscript>
           <style>
@@ -114,27 +116,27 @@
             href="{{url_for('finance_edit', goal_id=goal.id)}}">Edit</a>
           {% if current_user.use_count > 0 %}
           <a type="submit" class="btn btn-outline-light btn-sm m-1 ai-button" data-goal-id="{{ goal.id }}"
-            href="{{url_for('finance_edit_ai_enhance', goal_id=goal.id)}}">AI Enhance</a>
+            href="{{url_for('finance_edit_ai_enhance', goal_id=goal.id)}}" id="ai-enhance-button"
+            rel="noopener noreferrer">AI Enhance</a>
           {% endif %}
           <a type="submit" class="btn btn-outline-light btn-sm m-1"
             href="{{url_for('delete_finance_goal', goal_id=goal.id)}}">Delete</a>
-            {% if current_user.use_count <= 0 %}
-            <div>
-              <p class="fw-normal fs-5 mt-2 ps-1">You have run out of AI-Edits for this month.</p>
-            </div>
-            {% endif %}
-          <div class="d-flex align-items-center mt-3">
-            <strong id="goal_spinner1_{{goal.id}}" style="display: none;">Generating edit...</strong>
-            <div class="spinner-border ms-auto" role="status" aria-hidden="true" id="goal_spinner_{{goal.id}}"
-              style="display: none;"></div>
-          </div>
+          {% if current_user.use_count <= 0 %} <div>
+            <p class="fw-normal fs-5 mt-2 ps-1">You have run out of AI-Edits for this month.</p>
+        </div>
+        {% endif %}
+        <div class="d-flex align-items-center mt-3">
+          <strong id="goal_spinner1_{{goal.id}}" style="display: none;">Generating edit...</strong>
+          <div class="spinner-border ms-auto" role="status" aria-hidden="true" id="goal_spinner_{{goal.id}}"
+            style="display: none;"></div>
         </div>
       </div>
-      {% endif %}
-      {% endfor %}
     </div>
+    {% endif %}
+    {% endfor %}
+  </div>
 
-    <hr class="mid-breaker mt-4">
+  <hr class="mid-breaker mt-4">
   </div>
   <script>
     document.querySelectorAll(".ai-button").forEach(function (t) { t.addEventListener("click", function () { var t = "goal_spinner_" + this.dataset.goalId, e = "goal_spinner1_" + this.dataset.goalId; document.getElementById(e).style.display = "block", document.getElementById(t).style.display = "block", this.disabled = !0 }) });
@@ -142,6 +144,31 @@
   <script>
     function showMore(e, n) { n.preventDefault(); var l = document.getElementById("dots-" + e), t = document.getElementById("more-" + e), s = document.getElementById("short-text-" + e), y = document.getElementById("read-more-" + e); "none" === l.style.display ? (l.style.display = "inline", y.innerHTML = "Read more", t.style.display = "none", s.style.display = "inline") : (l.style.display = "none", y.innerHTML = "Show less", t.style.display = "inline", s.style.display = "none") }
   </script>
+  <script>
+    // Get the button element
+    const aiButton = document.getElementById('ai-enhance-button');
+
+    // Add a click event listener to the button
+    aiButton.addEventListener('click', function (event) {
+      // Prevent the default behavior of the button
+      event.preventDefault();
+
+      // Generate a unique identifier for the URL
+      const uniqueId = new Date().getTime();
+
+      // Get the URL of the button and append the unique identifier to the query string
+      const url = this.href + '?_=' + uniqueId;
+
+      // Open the URL in the same window
+      window.location.href = url;
+
+      // Reload the page when the user navigates away from the AI Enhance page
+      window.addEventListener('unload', function () {
+        window.location.reload();
+      });
+    });
+  </script>
+
   <div class="container">
     <footer class="footer mt-auto my-4 pt-5 text-center fw-bold fs-5">
       <div class="row justify-content-center mb-3">

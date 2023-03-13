@@ -104,26 +104,26 @@
             href="{{url_for('edit_bucket_list_item', item_id=goal.id)}}">Edit</a>
           {% if current_user.use_count > 0 %}
           <a type="submit" class="btn btn-outline-light btn-sm m-1 ai-button" data-goal-id="{{ goal.id }}"
-            href="{{url_for('ai_edit_bucket_list_item', item_id=goal.id)}}">AI Enhance</a>
+            href="{{url_for('ai_edit_bucket_list_item', item_id=goal.id)}}" id="ai-enhance-button-three"
+            rel="noopener noreferrer">AI Enhance</a>
           {% endif %}
           <a type="submit" class="btn btn-outline-light btn-sm m-1"
             href="{{url_for('delete_bucketlist_item', item_id=goal.id)}}">Delete</a>
-            {% if current_user.use_count <= 0 %}
-            <div>
-              <p class="fw-normal fs-5 mt-2 ps-1">You have run out of AI-Edits for this month.</p>
-            </div>
-            {% endif %}
-          <div class="d-flex align-items-center mt-3">
-            <strong id="goal_spinner1_{{goal.id}}" style="display: none;">Generating edit...</strong>
-            <div class="spinner-border ms-auto" role="status" aria-hidden="true" id="goal_spinner_{{goal.id}}"
-              style="display: none;"></div>
-          </div>
+          {% if current_user.use_count <= 0 %} <div>
+            <p class="fw-normal fs-5 mt-2 ps-1">You have run out of AI-Edits for this month.</p>
+        </div>
+        {% endif %}
+        <div class="d-flex align-items-center mt-3">
+          <strong id="goal_spinner1_{{goal.id}}" style="display: none;">Generating edit...</strong>
+          <div class="spinner-border ms-auto" role="status" aria-hidden="true" id="goal_spinner_{{goal.id}}"
+            style="display: none;"></div>
         </div>
       </div>
-      {% endif %}
-      {% endfor %}
     </div>
-    <hr class="mid-breaker mt-4">
+    {% endif %}
+    {% endfor %}
+  </div>
+  <hr class="mid-breaker mt-4">
   </div>
 
 
@@ -136,25 +136,49 @@
   </script>
 
 
-<div class="container">
-  <footer class="footer mt-auto my-4 pt-5 text-center fw-bold fs-5">
-    <div class="row justify-content-center mb-3">
-      <div class="col-auto">
-        <a href="{{url_for('mission')}}" class="nav-link" style="color: #453C41;">Mission</a>
+  <div class="container">
+    <footer class="footer mt-auto my-4 pt-5 text-center fw-bold fs-5">
+      <div class="row justify-content-center mb-3">
+        <div class="col-auto">
+          <a href="{{url_for('mission')}}" class="nav-link" style="color: #453C41;">Mission</a>
+        </div>
+        <div class="col-auto">
+          <a type="button" href="{{url_for('privacy')}}" class="nav-link" style="color: #453C41;">Privacy</a>
+        </div>
+        <div class="col-auto">
+          <a href="{{url_for('contact')}}" class="nav-link" style="color: #453C41;">Contact</a>
+        </div>
       </div>
-      <div class="col-auto">
-        <a type="button" href="{{url_for('privacy')}}" class="nav-link" style="color: #453C41;">Privacy</a>
-      </div>
-      <div class="col-auto">
-        <a href="{{url_for('contact')}}" class="nav-link" style="color: #453C41;">Contact</a>
-      </div>
-    </div>
-    <p>&copy; <span id="year"></span> {{name}}, Inc</p>
-  </footer>
-</div>
+      <p>&copy; <span id="year"></span> {{name}}, Inc</p>
+    </footer>
+  </div>
   <script>
     document.getElementById("year").innerHTML = new Date().getFullYear();
   </script>
+<script>
+  // Get the button element
+  const aiButton = document.getElementById('ai-enhance-button-three');
+
+  // Add a click event listener to the button
+  aiButton.addEventListener('click', function(event) {
+    // Prevent the default behavior of the button
+    event.preventDefault();
+
+    // Generate a unique identifier for the URL
+    const uniqueId = new Date().getTime();
+
+    // Get the URL of the button and append the unique identifier to the query string
+    const url = this.href + '?_=' + uniqueId;
+
+    // Open the URL in the same window
+    window.location.href = url;
+
+    // Reload the page when the user navigates away from the AI Enhance page
+    window.addEventListener('unload', function() {
+      window.location.reload();
+    });
+  });
+</script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
