@@ -110,17 +110,16 @@
     </div>
   </div>
   <div class="container">
-    <!-- <footer class="footer mt-auto  my-4 pt-5 text-center fw-bold fs-5"></footer> -->
-    <footer class="footer py-3 my-4">
-        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+    <footer class="footer mt-auto my-4 pt-5 text-center fw-bold fs-5 d-flex flex-wrap justify-content-center">
+        <ul class="nav border-bottom pb-3 mb-3">
             <li class="nav-item"><a href="{{url_for('mission')}}" class="nav-link" style="color: #453C41;">Mission</a></li>
             <li class="nav-item"><a type="button" href="{{url_for('privacy')}}" class="nav-link" style="color: #453C41;">Privacy</a></li>
-            <li class="nav-item"><a href="{{url_for('contact')}}" class="nav-link"
-                    style="color: #453C41;">Contact</a></li>
+            <li class="nav-item"><a href="{{url_for('contact')}}" class="nav-link" style="color: #453C41;">Contact</a></li>
         </ul>
-        <p>&copy; <span id="year"></span> {{name}}, Inc</p>
+        <p class="w-100">&copy; <span id="year"></span> {{name}}, Inc</p>
     </footer>
 </div>
+
   <script>
     document.getElementById("year").innerHTML = new Date().getFullYear();
   </script>
