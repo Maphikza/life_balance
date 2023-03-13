@@ -2,14 +2,6 @@ body {
   background-color: #EEF6F9;
 }
 
-/* .login {
-  height: 47rem;
-}
-
-.home {
-  height: 43rem;
-} */
-
 .pizza {
   border-radius: 50px;
 }
@@ -18,27 +10,20 @@ body {
   color: #4C8891;
 }
 
-/* .journal-side {
-  height: 44rem;
-}
-
-.journal-main {
-  height: 44rem;
-} */
 
 .flashes {
   color: red;
 }
 
-.footer-container {
+/* .footer-container {
   display: flex;
-  /* min-height: 32vh; */
+  min-height: 32vh;
   flex-direction: column;
-}
+} */
 
 .footer {
-  margin-top: auto;
-  text-align: center;
+  /* margin-top: auto;
+  text-align: center; */
   font-family: 'Source Sans Pro', sans-serif;
 }
 
@@ -137,13 +122,5 @@ audio {
   .lead {
     font-size: 0.2rem;
   }
-
-  /* .home {
-    height: 55rem;
-  } */
 }
-
-/* .email-conf {
-  height: 32rem;
-} */
 
