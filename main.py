@@ -102,7 +102,7 @@ kdf = PBKDF2HMAC(
 # fernet_key = base64.urlsafe_b64encode(key)
 
 
-def encrypt_data(data):
+def encrypt_data(data: str) -> hex:
     key = os.environ.get("F_KEY")
     fernet = Fernet(key)
     # Convert the data to bytes and encrypt it using Fernet
@@ -113,7 +113,7 @@ def encrypt_data(data):
     return encrypted_data_hex
 
 
-def decrypt_data(encrypted_data_hex):
+def decrypt_data(encrypted_data_hex: hex) -> str:
     key = os.environ.get("F_KEY")
     fernet = Fernet(key)
     # Convert the hex string back to bytes
@@ -121,35 +121,6 @@ def decrypt_data(encrypted_data_hex):
     # Decrypt the encrypted data using Fernet and convert it to a string
     decrypted_data = fernet.decrypt(encrypted_data).decode()
     return decrypted_data
-
-
-# with app.app_context():
-#     key = Fernet.generate_key()
-#     print(key)
-
-# with app.app_context():
-#     key = os.environ.get("F_KEY")
-#     fernet = Fernet(key)
-# key = os.environ.get("F_KEY")
-#
-# fernet = Fernet(key)
-
-
-# def encrypt_data(data):
-#     return fernet.encrypt(data.encode())  # data.encode()
-
-# def encrypt_data(data):
-#     encoded_data = json.dumps(data).encode('utf-8')
-#     return fernet.encrypt(encoded_data)
-
-
-# def decrypt_data(data):
-#     return fernet.decrypt(data).decode()
-
-# def decrypt_data(data):
-#     print(type(data))
-#     decoded_data = fernet.decrypt(data).decode('utf-8')
-#     return json.loads(decoded_data)
 
 
 class User(UserMixin, db.Model):
@@ -238,7 +209,7 @@ def create_admin_account():
 #     time.sleep(4)
 
 
-def format_number(number):
+def format_number(number: float) -> str:
     if number == 0:
         return '0'
     elif number < 0:
@@ -262,7 +233,7 @@ def load_user(user_id):
 
 
 # This is the function for resetting the ai_edit credits at the beginning of every month.
-def reset_edit_credits():
+def reset_edit_credits() -> None:
     user = User.query.get(int(current_user.id))
     if user.use_count_month != current_month:
         user.use_count = 20  # Set the default value for use_count
@@ -281,17 +252,24 @@ def implement_registration():
     if request.method == "POST":
         name = request.form.get("entryUsername").lower()
         email = request.form.get("entryEmail").lower()
-        password = request.form.get("entryPassword")
+        password_ = request.form.get("entryPassword")
         date_of_birth = request.form.get("entryDate")
         country_currency = request.form.get("country").split(";")[-1]
         country = request.form.get("country").split(";")[0]
+        user = User.query.filter_by(email=email).first()
+        if user and user.verified == 0:
+            flash("This email address is already registered. However, it is still pending email verification.")
+            return redirect(url_for('implement_registration'))
+        elif user and user.verified == 1:
+            flash("This email address is already registered. You can log in with your credentials.")
+            return redirect(url_for('implement_registration'))
         token = s.dumps(email, salt="email-verification")
         msg = Message("Verify Your Email", recipients=[email])
         msg.body = f"Click the link to verify your email: {url_for('verify_email', token=token, _external=True)}"
         mail.send(msg)
         registered_user = register_user(username=name,
                                         email=email,
-                                        password=password,
+                                        password=password_,
                                         date_of_birth=date_of_birth,
                                         state=country,
                                         money=country_currency,
@@ -804,6 +782,7 @@ def delete_user():
     :return: url_redirect
     """
     if current_user.is_admin:
+        users = User.query.all()
         if request.method == "POST":
             user_to_remove = int(request.form.get("userID").replace(" ", ""))
             user_goals = Goal.query.filter_by(user_id=user_to_remove).all()
@@ -848,7 +827,7 @@ def delete_user():
             return redirect(url_for('home'))
     else:
         abort(401)
-    return render_template("admin-delete.html", name=COMPANY_NAME)
+    return render_template("admin-delete.html", name=COMPANY_NAME, users=users)
 
 
 @app.route('/reset_password', methods=['GET', 'POST'])

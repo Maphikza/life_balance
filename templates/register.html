@@ -56,9 +56,9 @@
               <a class="nav-link" href="{{url_for('bucket_list')}}">Bucket List</a>
             </li>
             {% if current_user.id == 1 %}
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link" href="{{url_for('bucket_list')}}">Bucket List</a>
-            </li>
+            </li> -->
             {% endif %}
             <li class="nav-item">
               <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
@@ -74,6 +74,13 @@
       <div class="col-md-9 p-lg-5 mx-auto my-5">
         <h4 class="display-4 fw-normal pb-2 page-header">Sign-up
         </h4>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <p class="flashes">{{ message }}</p>
+        {% endfor %}
+        {% endif%}
+        {% endwith %}
         <form class="registration-form row g-3 text-start" method="post">
           <div>
             <label for="entryUsername" class="fw-bold fs-5">Username</label>
@@ -142,7 +149,8 @@
               <option value="Colombia; $">Colombia</option>
               <option value="Comoros; CF">Comoros</option>
               <option value="Congo; FC">Congo</option>
-              <option value="Congo, Democratic Republic of the Congo; FC">Congo, Democratic Republic of the Congo</option>
+              <option value="Congo, Democratic Republic of the Congo; FC">Congo, Democratic Republic of the Congo
+              </option>
               <option value="Cook Islands; $">Cook Islands</option>
               <option value="Costa Rica; ₡">Costa Rica</option>
               <option value="Cote D'Ivoire; CFA">Cote D'Ivoire</option>
@@ -223,7 +231,8 @@
               <option value="Lithuania; €">Lithuania</option>
               <option value="Luxembourg; €">Luxembourg</option>
               <option value="Macao; $">Macao</option>
-              <option value="Macedonia, the Former Yugoslav Republic of; ден">Macedonia, the Former Yugoslav Republic of</option>
+              <option value="Macedonia, the Former Yugoslav Republic of; ден">Macedonia, the Former Yugoslav Republic of
+              </option>
               <option value="Madagascar; Ar">Madagascar</option>
               <option value="Malawi; MK">Malawi</option>
               <option value="Malaysia; RM">Malaysia</option>
@@ -300,7 +309,8 @@
               <option value="Solomon Islands; Si$">Solomon Islands</option>
               <option value="Somalia; Sh.so.">Somalia</option>
               <option value="South Africa; R">South Africa</option>
-              <option value="South Georgia and the South Sandwich Islands; £">South Georgia and the South Sandwich Islands</option>
+              <option value="South Georgia and the South Sandwich Islands; £">South Georgia and the South Sandwich
+                Islands</option>
               <option value="South Sudan; £">South Sudan</option>
               <option value="Spain; €">Spain</option>
               <option value="Sri Lanka; Rs">Sri Lanka</option>

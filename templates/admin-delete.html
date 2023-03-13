@@ -66,8 +66,28 @@
   <div class="container w-50 main-page">
     <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center">
       <div class="col-md-9 p-lg-5 mx-auto my-5">
-        <h4 class="display-4 fw-normal pb-2 page-header">Delete User
+        <h4 class="display-4 fw-normal pb-2 page-header">Users
         </h4>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Username</th>
+              <th scope="col">email</th>
+              <th scope="col">Country</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for user in users %}
+            <tr>
+              <th scope="row">{{user.id}}</th>
+              <td>{{user.username}}</td>
+              <td>{{user.email}}</td>
+              <td>{{user.country_name}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
         <form class="admin-delete-form g-3 text-start" method="post">
           <div class="mb-3">
             <label for="userID" class="fw-bold fs-5 pb-1">User To Delete:</label>
