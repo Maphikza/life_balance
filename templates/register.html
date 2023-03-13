@@ -81,7 +81,7 @@
         {% endfor %}
         {% endif%}
         {% endwith %}
-        <form class="registration-form row g-3 text-start" method="post">
+        <form class="registration-form row g-3 text-start" method="post" onsubmit="return validateForm()" name="registrationForm">
           <div>
             <label for="entryUsername" class="fw-bold fs-5">Username</label>
             <input type="text" class="form-control" id="entryUsername" name="entryUsername" placeholder="Username">
@@ -97,7 +97,7 @@
           <div>
             <label class="fw-bold fs-5">Country</label>
             <select class="form-select fw-normal " aria-label="Default select country" id="country" name="country">
-              <option>Country</option>
+              <option value="">Country</option>
               <option value="Afghanistan; ؋">Afghanistan</option>
               <option value="Aland Islands; €">Aland Islands</option>
               <option value="Albania; Lek">Albania</option>
@@ -395,6 +395,56 @@
   <script>
     document.getElementById("year").innerHTML = new Date().getFullYear();
   </script>
+  <script>
+    function validateForm() {
+      var username = document.forms["registrationForm"]["entryUsername"].value;
+      var email = document.forms["registrationForm"]["entryEmail"].value;
+      var birthday = document.forms["registrationForm"]["entryDate"].value;
+      var country = document.forms["registrationForm"]["country"].value;
+      var password = document.forms["registrationForm"]["entryPassword"].value;
+      
+      var errorMessages = {
+        entryUsername: "Please enter a username.",
+        entryEmail: "Please enter an email.",
+        entryDate: "Please enter a birthday.",
+        country: "Please select a country.",
+        entryPassword: "Please enter a password."
+      };
+      
+      var hasError = false;
+      
+      Object.keys(errorMessages).forEach(function(id) {
+        var element = document.getElementById(id);
+        var value = element.value.trim();
+        var message = errorMessages[id];
+        var errorElement = element.nextElementSibling;
+        
+        if (value === "") {
+          hasError = true;
+          element.classList.add("is-invalid");
+          if (errorElement) {
+            errorElement.textContent = message;
+          } else {
+            errorElement = document.createElement("span");
+            errorElement.className = "invalid-feedback";
+            errorElement.textContent = message;
+            element.insertAdjacentElement("afterend", errorElement);
+          }
+        } else {
+          element.classList.remove("is-invalid");
+          if (errorElement) {
+            errorElement.textContent = "";
+          }
+        }
+      });
+      
+      if (hasError) {
+        return false;
+      }
+    }
+  </script>
+  
+  
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
     crossorigin="anonymous"></script>

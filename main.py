@@ -13,6 +13,7 @@ from cryptography.fernet import Fernet
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.backends import default_backend
+from email_validator import validate_email, EmailNotValidError
 import base64
 import re
 from datetime import datetime
@@ -257,6 +258,17 @@ def implement_registration():
         country_currency = request.form.get("country").split(";")[-1]
         country = request.form.get("country").split(";")[0]
         user = User.query.filter_by(email=email).first()
+        try:
+            # Validate email
+            valid = validate_email(email)
+            email = valid.email
+        except EmailNotValidError as e:
+            # Handle invalid email
+            flash("Invalid email address.")
+            return redirect(url_for('implement_registration'))
+        if not name or not password_ or not country or not date_of_birth:
+            flash("You did not complete all the fields.")
+            return redirect(url_for('implement_registration'))
         if user and user.verified == 0:
             flash("This email address is already registered. However, it is still pending email verification.")
             return redirect(url_for('implement_registration'))
