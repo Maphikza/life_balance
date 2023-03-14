@@ -134,5 +134,19 @@ audio {
   }
 }
 
+@media (max-width: 767px) {
+  .accordion .accordion-body {
+    position: relative;
+  }
+  
+  .accordion .accordion-body audio {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
+}
+
+
 
 
