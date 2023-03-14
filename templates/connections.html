@@ -63,18 +63,14 @@
     <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center">
       <div class="col-lg-12 col-md-9 p-lg-5 mx-auto my-5">
         <h1 class="display-3 fw-bold pb-2">Relationships</h1>
-        <p class="lead fw-normal fs-3"><em>The people we choose to spend our lives with can have a profound impact on
-            our
-            happiness and well-being. In this section, we invite you to reflect on the people who are closest to your
-            heart and consider what they mean to you. We believe that connections with others are essential to our
-            overall
-            sense of well-being. The relationships you cultivate should be ones that truly matter to you, and this
-            exercise can help you appreciate the good people in your life or identify areas where you may want to invest
-            more time and effort. Having family and friends who love you for who you are is a precious gift, and it's
-            important to consider how you can nurture these relationships over time.</em>
+        <p class="lead fw-normal fs-3"><em>Take time to reflect on those closest to your heart - the relationships we
+            choose have a profound impact on our happiness and well-being. In this section, we'll help you appreciate
+            the good people in your life and identify where you can invest more time and effort. Having family and
+            friends who love you for who you are is a precious gift, so it's important to nurture these relationships
+            over time.</em>
         </p>
         <a type="submit" class="btn btn-dark btn-lg m-1" href="{{url_for('add_connections')}}"
-          style="background-color: #453C41">Add Relationship</a>
+          style="background-color: #453C41">Dive in</a>
       </div>
     </div>
     <noscript>
@@ -111,7 +107,8 @@
             href="{{url_for('connections_edit', connect_id=connection.id)}}">Edit</a>
           {% if current_user.use_count > 0 %}
           <a type="submit" class="btn btn-outline-light btn-sm m-1 ai-button" data-connect-id="{{ connection.id }}"
-            href="{{url_for('connections_ai_enhance_edit', connect_id=connection.id)}}" id="ai-enhance-button-two" rel="noopener noreferrer">AI Enhance</a>
+            href="{{url_for('connections_ai_enhance_edit', connect_id=connection.id)}}" id="ai-enhance-button-two"
+            rel="noopener noreferrer">AI Enhance</a>
           {% endif %}
           <a type="submit" class="btn btn-outline-light btn-sm m-1"
             href="{{url_for('delete_connection', connect_id=connection.id)}}">Delete</a>
@@ -153,30 +150,30 @@
   <script>
     function showMore(e, n) { n.preventDefault(); var l = document.getElementById("dots-" + e), t = document.getElementById("more-" + e), s = document.getElementById("short-text-" + e), y = document.getElementById("read-more-" + e); "none" === l.style.display ? (l.style.display = "inline", y.innerHTML = "Read more", t.style.display = "none", s.style.display = "inline") : (l.style.display = "none", y.innerHTML = "Show less", t.style.display = "inline", s.style.display = "none") }
   </script>
- <script>
-  // Get the button element
-  const aiButton = document.getElementById('ai-enhance-button-two');
+  <script>
+    // Get the button element
+    const aiButton = document.getElementById('ai-enhance-button-two');
 
-  // Add a click event listener to the button
-  aiButton.addEventListener('click', function(event) {
-    // Prevent the default behavior of the button
-    event.preventDefault();
+    // Add a click event listener to the button
+    aiButton.addEventListener('click', function (event) {
+      // Prevent the default behavior of the button
+      event.preventDefault();
 
-    // Generate a unique identifier for the URL
-    const uniqueId = new Date().getTime();
+      // Generate a unique identifier for the URL
+      const uniqueId = new Date().getTime();
 
-    // Get the URL of the button and append the unique identifier to the query string
-    const url = this.href + '?_=' + uniqueId;
+      // Get the URL of the button and append the unique identifier to the query string
+      const url = this.href + '?_=' + uniqueId;
 
-    // Open the URL in the same window
-    window.location.href = url;
+      // Open the URL in the same window
+      window.location.href = url;
 
-    // Reload the page when the user navigates away from the AI Enhance page
-    window.addEventListener('unload', function() {
-      window.location.reload();
+      // Reload the page when the user navigates away from the AI Enhance page
+      window.addEventListener('unload', function () {
+        window.location.reload();
+      });
     });
-  });
-</script>
+  </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"

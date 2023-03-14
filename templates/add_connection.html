@@ -56,13 +56,16 @@
   <div class="container main-page">
     <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center">
       <div class="col-md-9 p-lg-5 mx-auto my-5">
-        <h4 class="display-3 fw-bold pb-2">Relationships.</h4>
-        <p class="lead fw-normal fs-4"><em>Reflecting on what a person means to you can help you develop deeper
-            connections with them. Consider what you would like to say to them while they are alive, how often you
-            need to make time for them, and what you would say to them on their birthday or at their funeral.
-            While this can be a heavy exercise, it can help you think more deeply about the person and be more
-            intentional in your interactions with them in the future. Use this exercise as an opportunity to
-            strengthen your relationships with those who matter most to you.</em>
+        <h4 class="display-3 fw-bold pb-2">Relationships</h4>
+        <p class="lead fw-normal fs-4"><em>Taking time to reflect on what a person means to you can deepen your
+            connections with them and remind you to cherish them while you have the opportunity. Consider what you would
+            like to express to them while they are still alive, how frequently you should make time for them, and what
+            you would like to say to them on special occasions such as birthdays or in the event of their passing. While
+            this exercise may be emotionally challenging, it can help you think more deeply about the person and be more
+            mindful in your interactions with them, recognizing that time is limited and precious. Take advantage of
+            this opportunity to record your thoughts and reflections about your relationships with those who are most
+            important to you. Feel free to include as many people as you like, as long as they hold significant meaning
+            for you. Give it a try; you won't regret taking the time to work through this exercise.</em>
         </p>
 
         <div class="container main-page">
@@ -84,7 +87,9 @@
             <div class="mb-1 has-validation">
               <label for="relationshipFormControlTextarea" class="fw-bold fs-5">Your thoughts</label>
               <textarea class="form-control" id="relationshipFormControlTextarea" name="relationshipFormControlTextarea"
-                rows="6" oninput="countChars(this,1000)" placeholder="I am so grateful for my friend's support. I love her so much. I love how she...." required></textarea>
+                rows="6" oninput="countChars(this,1000)"
+                placeholder="I am so grateful for my friend's support. I love her so much. I love how she...."
+                required></textarea>
               <div id="charNum"></div>
             </div>
             <noscript>
@@ -110,25 +115,25 @@
     </div>
   </div>
   <script>
-  function countChars(e,r){var l=e.value,n=l.length,t=document.getElementById("charNum");t.innerHTML=n+" / "+r,n>r?(e.value=l.slice(0,r),t.style.color="red",t.innerHTML="Max limit of "+r+" characters reached!"):t.style.color="inherit"}
+    function countChars(e, r) { var l = e.value, n = l.length, t = document.getElementById("charNum"); t.innerHTML = n + " / " + r, n > r ? (e.value = l.slice(0, r), t.style.color = "red", t.innerHTML = "Max limit of " + r + " characters reached!") : t.style.color = "inherit" }
   </script>
 
-<div class="container">
-  <footer class="footer mt-auto my-4 pt-5 text-center fw-bold fs-5">
-    <div class="row justify-content-center mb-3">
-      <div class="col-auto">
-        <a href="{{url_for('mission')}}" class="nav-link" style="color: #453C41;">Mission</a>
+  <div class="container">
+    <footer class="footer mt-auto my-4 pt-5 text-center fw-bold fs-5">
+      <div class="row justify-content-center mb-3">
+        <div class="col-auto">
+          <a href="{{url_for('mission')}}" class="nav-link" style="color: #453C41;">Mission</a>
+        </div>
+        <div class="col-auto">
+          <a type="button" href="{{url_for('privacy')}}" class="nav-link" style="color: #453C41;">Privacy</a>
+        </div>
+        <div class="col-auto">
+          <a href="{{url_for('contact')}}" class="nav-link" style="color: #453C41;">Contact</a>
+        </div>
       </div>
-      <div class="col-auto">
-        <a type="button" href="{{url_for('privacy')}}" class="nav-link" style="color: #453C41;">Privacy</a>
-      </div>
-      <div class="col-auto">
-        <a href="{{url_for('contact')}}" class="nav-link" style="color: #453C41;">Contact</a>
-      </div>
-    </div>
-    <p>&copy; <span id="year"></span> {{name}}, Inc</p>
-  </footer>
-</div>
+      <p>&copy; <span id="year"></span> {{name}}, Inc</p>
+    </footer>
+  </div>
   <script>
     document.getElementById("year").innerHTML = new Date().getFullYear();
   </script>
