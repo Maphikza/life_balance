@@ -882,15 +882,29 @@ def reset_token(token):
 @app.route("/contact", methods=["GET", "POST"])
 def contact():
     if request.method == "POST":
+        state = request.form.get("status")
+        if state and state == "False":
+            flash("Please enable Javascript in your browser settings.")
+            return redirect(url_for('contact'))
         if current_user.is_authenticated:
-            email_address = current_user.email
+            email = current_user.email
         else:
-            email_address = request.form.get("entryEmail")
-
+            email = request.form.get("entryEmail")
+        try:
+            # Validate email
+            valid = validate_email(email)
+            email = valid.email
+        except EmailNotValidError:
+            # Handle invalid email
+            flash("Invalid email address.")
+            return redirect(url_for('contact'))
         email_subject = request.form.get("Subject")
         email_message = request.form.get("messageFormControlTextarea")
+        if not email or not email_subject or not email_message:
+            flash("You did not complete all the fields.")
+            return redirect(url_for('contact'))
         msg = Message(f'{email_subject}', sender=os.environ.get("MY_EMAIL"), recipients=[os.environ.get("MY_EMAIL")])
-        msg.body = f'Email from {email_address}\nMessage:\n{email_message}'
+        msg.body = f'Email from {email}\nMessage:\n{email_message}'
         mail.send(msg)
 
     return render_template("contact.html", name=COMPANY_NAME)
