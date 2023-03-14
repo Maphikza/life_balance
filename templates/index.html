@@ -85,16 +85,10 @@
     <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center">
       <div class="col-md-9 p-lg-5 my-1 mx-auto main-page">
         <h1 class="display-4 fw-bold main-page page-header mb-3">Welcome to {{name}}!</h1>
-        <p class="lead fw-normal fs-2"><em>In today's busy world, it can be hard to find time for self-reflection and
-            personal growth. That's why we've created a platform to help you explore life's big questions
-            and discover what truly matters. Our mission is to provide you with the tools and guidance you need to
-            create a life filled with purpose and meaning.
-
-            We believe everyone deserves to find their own path in life, and we're here to help you on that journey. By
-            working through the questions and topics we provide,
-            you'll be able to gain a deeper understanding of yourself and what matters most to you.
-
-            Join us on this journey of self-discovery!</em>
+        <p class="lead fw-normal fs-2"><em>Discover your path to purpose and meaning with LifePathMate. Our service
+            provides the tools and guidance you need to explore life's big questions and gain a deeper understanding of
+            yourself. Through self-reflection and writing, you'll create a life that feels fulfilling and meaningful.
+            Join us on this exciting journey of self-discovery.</em>
         </p>
         {% if not current_user.is_authenticated %}
         <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center">
@@ -118,7 +112,7 @@
     </noscript>
     {% if current_user.is_authenticated %}
     <div class="container text-center main-page">
-      <h3 class="display-5 fw-bold"><em>Where would you like to begin {{current_user.username.title()}}?</em></h3>
+      <h3 class="display-5 fw-bold"><em>What would you like to explore {{current_user.username.title()}}?</em></h3>
       <div class="row position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center">
         <a href="{{url_for('goals')}}" class="btn btn-lg btn-dark col-md-3" style="background-color: #453C41;">Life</a>
         <a href="{{url_for('connections')}}" class="btn btn-lg btn-dark col-md-3"
