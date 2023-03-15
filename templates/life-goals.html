@@ -98,7 +98,7 @@
           <a type="submit" class="btn btn-dark btn-lg btn-pulse" style="background-color: #453C41"
             href="{{url_for('add_life_goal')}}">Dive in</a>
           {% endif %}
-          {% if num_goals > 0 %}
+          {% if num_goals > 0 and num_goals < 4 %}
           <a type="submit" class="btn btn-dark btn-lg btn-pulse mt-2" style="background-color: #453C41"
             href="{{url_for('add_life_goal')}}">Work on next Goal</a>
           {% endif %}
