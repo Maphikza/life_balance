@@ -418,7 +418,7 @@ def delete_life_goal(life_goal_id):
         db.session.delete(item_to_delete)
         db.session.commit()
         user = User.query.get(int(current_user.id))
-        num_goals = current_user.num_life_goals - 2
+        num_goals = current_user.num_life_goals - 1
         user.num_life_goals = num_goals
         db.session.commit()
         return redirect(url_for("goals"))
