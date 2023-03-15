@@ -61,8 +61,9 @@ prompt = 'You are going to act as an assistant to users as they work on their go
          'For example if the user says "I love my soccer and want to play it professionally", your response should ' \
          'never change it to "You love soccer and want to play it professionally", by doing this you would have ' \
          'imposed yourself into the user\'s thoughts and this is not allowed. Your should improve the statement ' \
-         'without changing its underlying context. Note that you are helping the user with their private thoughts, ' \
-         'it is not your job to police their thoughts. Fulfill your duties with excellence.'
+         'without changing its underlying context, this means you should try and improve it without making it ' \
+         'sound too different to how the user actually writes. Note that you are helping the user with their ' \
+         'private thoughts, it is not your job to police their thoughts. Fulfill your duties with excellence.'
 
 
 def generate(content: str) -> str:
@@ -136,6 +137,10 @@ class User(UserMixin, db.Model):
     verified = db.Column(db.Boolean, nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
     use_count = db.Column(db.Integer, default=20)
+    num_life_goals = db.Column(db.Integer, default=0)
+    num_connections = db.Column(db.Integer, default=0)
+    num_bucketlist = db.Column(db.Integer, default=0)
+    num_finance_goals = db.Column(db.Integer, default=0)
     use_count_month = db.Column(db.Integer, nullable=False, default=current_month)
     subscriber = db.Column(db.Boolean, default=False)
     connections = db.relationship('Connection', backref='user', lazy=True)
@@ -183,7 +188,10 @@ class Bucketlist(db.Model):
 
 class DailyJournal(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    entry_date = db.Column(db.String(200), nullable=True)
+    entry_date_year = db.Column(db.String(200), nullable=True)
+    entry_date_month = db.Column(db.String(200), nullable=True)
+    entry_date_day = db.Column(db.String(200), nullable=True)
+    entry_date_time = db.Column(db.String(200), nullable=True)
     journal_entry = db.Column(db.Text, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
@@ -200,14 +208,15 @@ def create_admin_account():
 #     create_admin_account()
 
 
-# with app.app_context():
-#     print("first sleep")
-#     time.sleep(2)
-#     db.drop_all()
-#     time.sleep(4)
-#     create_admin_account()
-#     print("new admin and tables created.")
-#     time.sleep(4)
+with app.app_context():
+    print("first sleep")
+    time.sleep(2)
+    db.drop_all()
+    print("All tables dropped")
+    time.sleep(4)
+    create_admin_account()
+    print("new admin and tables created. Switch it off.")
+    time.sleep(120)
 
 
 def format_number(number: float) -> str:
@@ -347,6 +356,10 @@ def add_life_goal():
 
         your_life_goal = request.form.get("lifeGoalFormControlTextarea")
         your_life_goal = encrypt_data(your_life_goal)
+        user = User.query.get(int(current_user.id))
+        num_goals = current_user.num_life_goals + 1
+        user.num_life_goals = num_goals
+        db.session.commit()
         life_goal = Goal(life_goal_title=selected_title,
                          chosen_goal=your_life_goal,
                          user_id=current_user.id)
@@ -411,10 +424,15 @@ def delete_life_goal(life_goal_id):
 @login_required
 def goals():
     user_goals = Goal.query.filter_by(user_id=current_user.id).all()
+    num_goals = current_user.num_life_goals
     if current_user.use_count_month != current_month:
         with app.app_context():
             reset_edit_credits()
-    return render_template("life-goals.html", user_goals=user_goals, d_func=decrypt_data, name=COMPANY_NAME)
+    return render_template("life-goals.html",
+                           user_goals=user_goals,
+                           d_func=decrypt_data,
+                           name=COMPANY_NAME,
+                           num_goals=num_goals)
 
 
 @app.route("/add_connections", methods=["GET", "POST"])
