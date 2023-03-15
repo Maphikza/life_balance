@@ -30,24 +30,77 @@
       This website requires JavaScript to function properly. Please enable JavaScript in your browser settings.
     </div>
   </noscript>
-  <header class="container-fluid pt-5" style="height: 54rem;">
-    <div class="container w-50 pt-5">
-      <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center bg-light">
+  <header class="main-page navs-link">
+    <nav class="my-navbar navbar navbar-expand-lg navbar-dark" aria-label="goals navbar">
+      <div class="container-fluid my-navbar">
+        <a class="navbar-brand fw-bold fs-3 my-navbar" href="{{url_for('home')}}">{{name}}</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarGoal"
+          aria-controls="navbarGoal" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon my-navbar"></span>
+        </button>
+
+        <div class="collapse navbar-collapse my-navbar" id="navbarGoal">
+          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            {% if not current_user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link active" href="{{url_for('implements_login')}}">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('implement_registration')}}">Sign up</a>
+            </li>
+            {% endif %}
+            {% if current_user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="{{url_for('goals')}}">Goals</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('connections')}}">Relationships</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('finance')}}">Finances</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('bucket_list')}}">Bucket List</a>
+            </li>
+            {% if current_user.id == 1 %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('delete_user')}}">Admin</a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <div class="container pt-5">
+    <div class="container pt-5">
+      <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center">
         <div class="col-md-9 p-lg-5 mx-auto my-5">
-          <form class="password-reset-form row g-3" method="post">
+          {% with messages = get_flashed_messages() %}
+          {% if messages %}
+          {% for message in messages %}
+          <p class="flashes">{{ message }}</p>
+          {% endfor %}
+          {% endif%}
+          {% endwith %}
+          <form class="password-reset-form row g-3 text-start" method="post">
             <div>
               <label for="passwordEntry" class="visually-hidden">Enter New Password</label>
               <input type="password" class="form-control" id="passwordEntry" name="password"
                 placeholder="Enter New Password">
             </div>
             <div>
-              <button type="submit" class="btn btn-primary mb-3">Reset Password</button>
+              <button type="submit" class="btn btn-lg btn-dark" style="background-color: #453C41;">Reset Password</button>
             </div>
           </form>
         </div>
       </div>
     </div>
-  </header>
+  </div>
   <div class="container">
     <footer class="footer mt-auto my-4 pt-5 text-center fw-bold fs-5">
       <div class="row justify-content-center mb-3">

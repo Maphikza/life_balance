@@ -66,9 +66,24 @@
       </div>
     </nav>
   </header>
+  <canvas id="confetti-canvas" style="z-index: 999;"></canvas>
   <div class="container pb-4 main-page text-center email-conf">
     <div class="col-lg-12 col-md-9 p-lg-5 mx-auto my-5">
-      <p class="lead fw-normal fs-2">Registration successful. Check your email to verify your account.</p>
+      <noscript>
+        <style>
+          #js-disabled-message {
+            display: block !important;
+          }
+        </style>
+        <div id="js-disabled-message" class="alert alert-danger">
+          This website requires JavaScript to function properly. Please enable JavaScript in your browser settings and reload the page.
+        </div>
+      </noscript>
+      <h1 class="display-5 fw-bold main-page page-header mb-3">Registration successful!</h1>
+      <p class="lead fw-normal fs-2">
+        <em>Check your email to verify your account.<br>
+          Please note that the verification link will only be valid for 1 hour.
+      </p></em>
     </div>
   </div>
   <div class="container">
@@ -93,6 +108,17 @@
   <script>
     function showMore(e, n) { n.preventDefault(); var l = document.getElementById("dots-" + e), t = document.getElementById("more-" + e), s = document.getElementById("short-text-" + e), y = document.getElementById("read-more-" + e); "none" === l.style.display ? (l.style.display = "inline", y.innerHTML = "Read more", t.style.display = "none", s.style.display = "inline") : (l.style.display = "none", y.innerHTML = "Show less", t.style.display = "inline", s.style.display = "none") }
   </script>
+  <script src="{{url_for('static', filename='js/confetti.js')}}"></script>
+  <script>
+    window.onload = function() {
+      startConfetti();
+      setTimeout(function() {
+        stopConfetti();
+        document.getElementById("confetti-canvas").style.zIndex = "-1";
+      }, 2000);
+    };
+  </script>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
     crossorigin="anonymous"></script>

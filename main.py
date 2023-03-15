@@ -277,7 +277,8 @@ def implement_registration():
             return redirect(url_for('implement_registration'))
         token = s.dumps(email, salt="email-verification")
         msg = Message("Verify Your Email", recipients=[email])
-        msg.body = f"Click the link to verify your email: {url_for('verify_email', token=token, _external=True)}"
+        msg.body = f"Hi {name.title()},\n\nThank you for signing up with us. \n\nClick the link to verify your email: " \
+                   f"{url_for('verify_email', token=token, _external=True)}\n\nRegards,\n{COMPANY_NAME}"
         mail.send(msg)
         registered_user = register_user(username=name,
                                         email=email,
@@ -877,6 +878,8 @@ def reset_token(token):
             db.session.commit()
             return '<h1>Your password has been updated!</h1>'
         return render_template('reset_token.html', name=COMPANY_NAME)
+    else:
+        return redirect(url_for('implements_login'))
 
 
 @app.route("/contact", methods=["GET", "POST"])
