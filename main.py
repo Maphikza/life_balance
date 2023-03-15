@@ -208,15 +208,15 @@ def create_admin_account():
 #     create_admin_account()
 
 
-with app.app_context():
-    print("first sleep")
-    time.sleep(2)
-    db.drop_all()
-    print("All tables dropped")
-    time.sleep(4)
-    create_admin_account()
-    print("new admin and tables created. Switch it off.")
-    time.sleep(120)
+# with app.app_context():
+#     print("first sleep")
+#     time.sleep(2)
+#     db.drop_all()
+#     print("All tables dropped")
+#     time.sleep(4)
+#     create_admin_account()
+#     print("new admin and tables created. Switch it off.")
+#     time.sleep(120)
 
 
 def format_number(number: float) -> str:
