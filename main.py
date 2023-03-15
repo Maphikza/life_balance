@@ -843,7 +843,7 @@ def delete_user():
     return render_template("admin-delete.html", name=COMPANY_NAME, users=users)
 
 
-@app.route('/reset_password', methods=['GET', 'POST'])
+@app.route('/reset-password', methods=['GET', 'POST'])
 def reset_request():
     if request.method == 'POST':
         user = User.query.filter_by(email=request.form['emailEntry']).first()
@@ -854,12 +854,12 @@ def reset_request():
             msg.body = 'Your link is {}'.format(link)
             mail.send(msg)
 
-            return '<h1>An email has been sent with instructions to reset your password.</h1>'
+            return render_template('reset_password.html', name=COMPANY_NAME, response=True)
         else:
             flash(f'This account does not exist with us. However, you can register')
             return redirect(url_for('reset_request'))
 
-    return render_template('reset_password.html', name=COMPANY_NAME)
+    return render_template('reset_password.html', name=COMPANY_NAME, response=None)
 
 
 @app.route('/reset_password/<token>', methods=['GET', 'POST'])
