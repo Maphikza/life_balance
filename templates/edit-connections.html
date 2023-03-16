@@ -62,7 +62,8 @@
         <form class="connections-edit-form g-3 text-start" method="post">
           <div class="mb-3">
             <label for="editEntryName" class="fs-4 fw-bold pb-2">Connection Name:</label>
-            <input type="text" class="form-control" id="editEntryName" name="editEntryName" placeholder="{{d_func(connect.name)}}">
+            <input type="text" class="form-control" id="editEntryName" name="editEntryName"
+              placeholder="{{d_func(connect.name)}}">
           </div>
           <div class="mb-3">
             <label for="editEntryRelate" class="fs-4 fw-bold pb-2">Relationship:</label>
@@ -92,8 +93,15 @@
             </div>
             <input type="hidden" name="status" id="status" value="False">
           </noscript>
-          <div class="col">
-            <button type="submit" class="btn btn-lg btn-dark mb-3" style="background-color: #453C41;">Submit Edit</button>
+          <div class="row mt-2">
+            <div class="col-auto">
+              <button type="submit" class="btn btn-lg btn-dark mb-3" style="background-color: #453C41;">Save
+                Edit</button>
+            </div>
+            <div class="col-auto">
+              <a role="button" href="{{url_for('connections')}}" class="btn btn-lg btn-dark mb-3 fw-normal fs-5"
+                style="background-color: #453C41">Keep Original</a>
+            </div>
           </div>
         </form>
         <hr class="mid-breaker mt-4">
@@ -101,7 +109,7 @@
     </div>
   </div>
   <script>
-    function countCharacters(e,r){var t=e.value,a=t.length,c=e.parentElement.querySelector("#characterCount");c.innerHTML=a+" / "+r,a>r?(e.value=t.slice(0,r),c.style.color="red",c.innerHTML="Max limit of "+r+" characters reached!"):c.style.color="inherit"}
+    function countCharacters(e, r) { var t = e.value, a = t.length, c = e.parentElement.querySelector("#characterCount"); c.innerHTML = a + " / " + r, a > r ? (e.value = t.slice(0, r), c.style.color = "red", c.innerHTML = "Max limit of " + r + " characters reached!") : c.style.color = "inherit" }
   </script>
   <div class="container">
     <footer class="footer mt-auto my-4 pt-5 text-center fw-bold fs-5">

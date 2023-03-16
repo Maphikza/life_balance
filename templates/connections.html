@@ -63,7 +63,8 @@
     <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center">
       <div class="col-lg-12 col-md-9 p-lg-5 mx-auto my-5">
         <h1 class="display-3 fw-bold pb-2">Relationships</h1>
-        <p class="lead fw-normal fs-3"><em>Take time to reflect on those closest to your heart - the relationships we
+        {% if current_user.num_connections == 0 %}
+        <p class="lead fw-normal fs-4"><em>Take time to reflect on those closest to your heart - the relationships we
             choose have a profound impact on our happiness and well-being. In this section, we'll help you appreciate
             the good people in your life and identify where you can invest more time and effort. Having family and
             friends who love you for who you are is a precious gift, so it's important to nurture these relationships
@@ -71,6 +72,25 @@
         </p>
         <a type="submit" class="btn btn-dark btn-lg m-1" href="{{url_for('add_connections')}}"
           style="background-color: #453C41">Dive in</a>
+        {% endif %}
+        {% if current_user.num_connections == 1 %}
+        <p class="lead fw-normal fs-4"><em>This individual is a wonderful addition to your life {{current_user.username.title()}}, and we encourage you
+            to show your appreciation for them in meaningful ways. The thoughts you have recorded about your loved ones
+            can be a great source of inspiration for personalized birthday messages. Feel free to incorporate some of
+            the sentiments you've expressed here into your greetings for this special person.</em>
+        </p>
+        <a type="submit" class="btn btn-dark btn-lg m-1" href="{{url_for('add_connections')}}"
+          style="background-color: #453C41">Add Another Person</a>
+        {% endif %}
+        {% if current_user.num_connections > 1 %}
+        <p class="lead fw-normal fs-4"><em>These individuals are a wonderful addition to your life {{current_user.username.title()}}, and we encourage you
+            to show your appreciation for them in meaningful ways. The thoughts you have recorded about your loved ones
+            can be a great source of inspiration for personalized birthday messages. Feel free to incorporate some of
+            the sentiments you've expressed here into your greetings for these special people.</em>
+        </p>
+        <a type="submit" class="btn btn-dark btn-lg m-1" href="{{url_for('add_connections')}}"
+          style="background-color: #453C41">Add Another Person</a>
+        {% endif %}
       </div>
     </div>
     <noscript>
