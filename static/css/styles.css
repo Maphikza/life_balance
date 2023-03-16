@@ -156,6 +156,11 @@ audio {
   z-index: -1;
 }
 
+.table-centered {
+  margin: 0 auto;
+  float: none !important;
+}
+
 
 
 

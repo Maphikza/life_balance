@@ -571,6 +571,10 @@ def add_finance_goals():
         if state and state == "False":
             flash("Please enable Javascript in your browser settings.")
             return redirect(url_for('add_finance_goals'))
+
+        if current_user.num_finance_goals >= 6:
+            flash("You cannot add more goals to this section.")
+            return redirect(url_for('finance'))
         title = request.form.get("finance-goals")
         amount = request.form.get("quantity").replace(" ", "")
         amount = re.sub(r'(?!\.)\D', '', amount)
@@ -600,6 +604,10 @@ def add_finance_goals():
                                   financial_goal=plan,
                                   user_id=current_user.id)
         db.session.add(financial_goal)
+        db.session.commit()
+        user = User.query.get(int(current_user.id))
+        num_finance_goals = current_user.num_finance_goals + 1
+        user.num_finance_goals = num_finance_goals
         db.session.commit()
         return redirect(url_for('finance'))
     return render_template("add-finance.html", name=COMPANY_NAME)
@@ -687,6 +695,10 @@ def delete_finance_goal(goal_id):
         item_to_delete = Finances.query.get(goal_id)
         db.session.delete(item_to_delete)
         db.session.commit()
+        user = User.query.get(int(current_user.id))
+        num_finance_goals = current_user.num_finance_goals - 1
+        user.num_finance_goals = num_finance_goals
+        db.session.commit()
         return redirect(url_for("finance"))
 
 
@@ -694,11 +706,16 @@ def delete_finance_goal(goal_id):
 @login_required
 def finance():
     user_finances = Finances.query.filter_by(user_id=current_user.id)
+    num_goals = current_user.num_finance_goals
     if current_user.use_count_month != current_month:
         with app.app_context():
             reset_edit_credits()
     return render_template("finance.html",
-                           user_finances=user_finances, func=format_number, d_func=decrypt_data, name=COMPANY_NAME)
+                           user_finances=user_finances,
+                           func=format_number,
+                           d_func=decrypt_data,
+                           num_goals=num_goals,
+                           name=COMPANY_NAME)
 
 
 @app.route("/add-bucketlist", methods=["GET", "POST"])

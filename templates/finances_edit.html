@@ -88,9 +88,15 @@
             </div>
             <input type="hidden" name="status" value="False">
           </noscript>
-          <div>
-            <button type="submit" class="btn btn-lg btn-dark mb-3 fw-normal fs-5"
-              style="background-color: #453C41;">Save edit</button>
+          <div class="row mt-2">
+            <div class="col-auto">
+              <button type="submit" class="btn btn-lg btn-dark mb-3 fw-normal fs-5"
+                style="background-color: #453C41;">Save Edit</button>
+            </div>
+            <div class="col-auto">
+              <a role="button" href="{{url_for('finance')}}" class="btn btn-lg btn-dark mb-3 fw-normal fs-5"
+                style="background-color: #453C41">Keep Original</a>
+            </div>
           </div>
         </form>
         <hr class="mid-breaker mt-4">
