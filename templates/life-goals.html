@@ -67,27 +67,40 @@
       <div class="col-lg-12 col-md-9 p-lg-5 mx-auto my-5">
         <h1 class="display-3 fw-bold pb-2">Hi {{current_user.username.title()}}.</h1>
         {% if num_goals == 0 %}
-        <p class="lead fw-normal fs-3"><em>This section is dedicated to exploring the most profound aspects of
+        <p class="lead fw-normal fs-4"><em>This section is dedicated to exploring the most profound aspects of
             human existence: purpose, spirituality, self-improvement, and physical health. By delving into these topics
             and taking the time for introspection, you have the opportunity to gain deep insights that can transform
             your life.</em>
         </p>
         {% endif %}
-        {% if num_goals > 0 and num_goals < 4 %} <p class="lead fw-normal fs-3">
+        {% if num_goals > 0 and num_goals < 4 %} <p class="fw-normal fs-4">You have now worked on...</p>
+          <table class="table table-sm">
+            <thead>
+              <tr class="fw-normal fs-4">
+                <th scope="col">Target</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for goal in user_goals %}
+              <tr>
+                {% if goal.life_goal_title != None %}
 
-          {% for goal in user_goals %}
-          {% if goal.life_goal_title != None %}
+                <td scope="row" class="fw-normal fs-4">{{goal.life_goal_title}}</td>
+                <td>✔️</td>
 
-          {{goal.life_goal_title}} ✔️ <br>
-
-          {% endif %}
-          {% endfor%}
-          <!-- <br> -->
-          <em>Remember you have an AI assistant who will gladly help make your words clearer. Just click AI Enhance and see the magic ✨</em>
+                {% endif %}
+              </tr>
+              {% endfor%}
+            </tbody>
+          </table>
+          <p class="fw-normal fs-4">
+            <em>Keep in mind that you have an <b style="color: #4C8891;">AI assistant</b> at your disposal who is more than happy to assist you in
+              refining your writing. Simply click on <b style="color: #4C8891;">AI Enhance</b> and witness the remarkable transformation.</em>
           </p>
           {% endif %}
           {% if num_goals == 4 %}
-          <p class="lead fw-normal fs-3"><em>Congratulations on completing this section! We hope it has provided
+          <p class="lead fw-normal fs-4"><em>Congratulations on completing this section! We hope it has provided
               valuable insights to help you navigate your life going forward. Remember that personal growth is an
               iterative process, so feel free to make edits as needed. This document is meant to be a living record of
               your progress, so don't hesitate to update it as you continue on your journey.</em>
@@ -98,10 +111,9 @@
           <a type="submit" class="btn btn-dark btn-lg btn-pulse" style="background-color: #453C41"
             href="{{url_for('add_life_goal')}}">Dive in</a>
           {% endif %}
-          {% if num_goals > 0 and num_goals < 4 %}
-          <a type="submit" class="btn btn-dark btn-lg btn-pulse mt-2" style="background-color: #453C41"
-            href="{{url_for('add_life_goal')}}">Work on next Goal</a>
-          {% endif %}
+          {% if num_goals > 0 and num_goals < 4 %} <a type="submit" class="btn btn-dark btn-lg btn-pulse mt-2"
+            style="background-color: #453C41" href="{{url_for('add_life_goal')}}">Work on next Goal</a>
+            {% endif %}
       </div>
     </div>
     <hr class="mid-breaker">

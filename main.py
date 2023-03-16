@@ -328,9 +328,9 @@ def verify_email(token):
 @app.route("/login", methods=["GET", "POST"])
 def implements_login():
     if request.method == "POST":
-        user_name = request.form.get("entryUsername").lower()
+        user_email = request.form.get("entryUsername").lower()
         user_password = request.form.get("entryPassword")
-        log_in = login(name=user_name, entered_password=user_password, user=User)
+        log_in = login(name=user_email, entered_password=user_password, user=User)
         return log_in
     return render_template("login.html", name=COMPANY_NAME)
 
@@ -343,6 +343,10 @@ def add_life_goal():
         if state and state == "False":
             flash("Please enable Javascript in your browser settings.")
             return redirect(url_for('add_life_goal'))
+
+        if current_user.num_life_goals >= 4:
+            flash("You cannot add more goals to this section.")
+            return redirect(url_for('goals'))
 
         selected_title = request.form.get("life-goals")
         goal_check = Goal.query.filter_by(user_id=current_user.id).all()
@@ -413,7 +417,7 @@ def life_goal_ai_enhance(life_goal_id):
 @app.route("/life-goals/delete/<int:life_goal_id>", methods=["GET", "POST"])
 @login_required
 def delete_life_goal(life_goal_id):
-    if current_user.is_authenticated and current_user.is_authenticated:
+    if current_user.is_authenticated:
         item_to_delete = Goal.query.get(life_goal_id)
         db.session.delete(item_to_delete)
         db.session.commit()
@@ -463,6 +467,10 @@ def add_connections():
                                      relationship_thoughts=what_you_think_about_person,
                                      user_id=current_user.id)
         db.session.add(your_connection)
+        db.session.commit()
+        user = User.query.get(int(current_user.id))
+        num_connections = current_user.num_connections + 1
+        user.num_connections = num_connections
         db.session.commit()
         return redirect(url_for('connections'))
     return render_template('add_connection.html', name=COMPANY_NAME)
@@ -534,6 +542,11 @@ def delete_connection(connect_id):
         item_to_delete = Connection.query.get(connect_id)
         db.session.delete(item_to_delete)
         db.session.commit()
+        user = User.query.get(int(current_user.id))
+        num_connections = current_user.num_connections - 1
+        user.num_connections = num_connections
+        db.session.commit()
+
         return redirect(url_for("connections"))
 
 

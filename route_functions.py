@@ -36,9 +36,9 @@ def register_user(username, email, password, date_of_birth, user, goal, finances
 
 
 def login(name, entered_password, user):
-    main_user = user.query.filter_by(username=name).first()
+    main_user = user.query.filter_by(email=name).first()
     if not main_user:
-        flash("The username or password is incorrect.")
+        flash("The email or password is incorrect.")
         return redirect(url_for('implements_login'))
     elif main_user and main_user.verified != 1:
         flash("You need to verify your account before logging in.")
