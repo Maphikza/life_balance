@@ -55,7 +55,7 @@
     </header>
 
     <div class="container main-page">
-        <div class="toast-container position-fixed bottom-0 start-50 translate-middle-x p-3">
+        <!-- <div class="toast-container position-fixed bottom-0 start-50 translate-middle-x p-3">
             <div id="bucketTextAreaToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="toast-header" style="background-color: #4C8891">
                     <strong class="me-auto toast-title">AI Message</strong>
@@ -66,19 +66,23 @@
                     you're happy with it.
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center">
             <div class="col-md-9 p-lg-5 mx-auto my-5">
                 <h4 class="display-4 fw-bold pb-3">Edit Item
                 </h4>
+                <p class="fw-normal fs-4">An AI has edited this text. You are welcome to make any changes you wish. If you are
+                    unsatisfied with the AI edit, you can select 'Keep Original' and it will discard the AI's modifications.</p>
                 <hr class="mid-breaker mt-4">
                 <form class="ai-edit-list-form g-3 text-start" method="post">
                     {% if current_user.use_count > 8 %}
-                    <h6 class="fw-normal fs-5">You have <em class="edit-count fw-bold">{{current_user.use_count}}</em> AI-edits left.</h6>
+                    <h6 class="fw-normal fs-5">You have <em class="edit-count fw-bold">{{current_user.use_count}}</em>
+                        AI-edits left.</h6>
                     {% endif %}
-                    {% if current_user.use_count <= 8 %} 
-                    <h6 class="fw-normal fs-5">You have <em class="edit-count fw-bold" style="color: orangered;">{{current_user.use_count}}</em> AI-edits left.</h6>
-                    {% endif %}
+                    {% if current_user.use_count <= 8 %} <h6 class="fw-normal fs-5">You have <em
+                            class="edit-count fw-bold" style="color: orangered;">{{current_user.use_count}}</em>
+                        AI-edits left.</h6>
+                        {% endif %}
                         <div class="mb-3">
                             <label for="aiEditBucketListFormControlInput" class="fs-5 fw-bold">Title:</label>
                             <input type="text" class="form-control" id="aiEditBucketListFormControlInput"
@@ -109,9 +113,16 @@
                             </div>
                             <input type="hidden" name="status" id="status" value="False">
                         </noscript>
-                        <div>
-                            <button type="submit" class="btn btn-lg btn-dark mb-3 fw-normal fs-5"
-                                style="background-color: #453C41;">Save Edit</button>
+                        <div class="row mt-2">
+                            <div class="col-auto">
+                                <button type="submit" class="btn btn-lg btn-dark mb-3 fw-normal fs-5"
+                                    style="background-color: #453C41;">Save Edit</button>
+                            </div>
+                            <div class="col-auto">
+                                <a role="button" href="{{url_for('bucket_list')}}"
+                                    class="btn btn-lg btn-dark mb-3 fw-normal fs-5"
+                                    style="background-color: #453C41">Keep Original</a>
+                            </div>
                         </div>
                 </form>
                 <hr class="mid-breaker mt-4">
@@ -124,22 +135,22 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () { document.getElementById("aiEditBucketListFormControlTextarea").focus(), document.getElementById("aiEditBucketListFormControlTextarea").select(), document.getElementById("bucketTextAreaToast").classList.add("show") }); function countCharacters(e, t) { var a = e.value, n = a.length, r = document.getElementById("characterCount"); r.innerHTML = n + " / " + t, n > t ? (e.value = a.slice(0, t), r.style.color = "red", r.innerHTML = "Max limit of " + t + " characters reached!") : r.style.color = "inherit" }
     </script>
-  <div class="container">
-    <footer class="footer mt-auto my-4 pt-5 text-center fw-bold fs-5">
-      <div class="row justify-content-center mb-3">
-        <div class="col-auto">
-          <a href="{{url_for('mission')}}" class="nav-link" style="color: #453C41;">Mission</a>
-        </div>
-        <div class="col-auto">
-          <a type="button" href="{{url_for('privacy')}}" class="nav-link" style="color: #453C41;">Privacy</a>
-        </div>
-        <div class="col-auto">
-          <a href="{{url_for('contact')}}" class="nav-link" style="color: #453C41;">Contact</a>
-        </div>
-      </div>
-      <p>&copy; <span id="year"></span> {{name}}, Inc</p>
-    </footer>
-  </div>
+    <div class="container">
+        <footer class="footer mt-auto my-4 pt-5 text-center fw-bold fs-5">
+            <div class="row justify-content-center mb-3">
+                <div class="col-auto">
+                    <a href="{{url_for('mission')}}" class="nav-link" style="color: #453C41;">Mission</a>
+                </div>
+                <div class="col-auto">
+                    <a type="button" href="{{url_for('privacy')}}" class="nav-link" style="color: #453C41;">Privacy</a>
+                </div>
+                <div class="col-auto">
+                    <a href="{{url_for('contact')}}" class="nav-link" style="color: #453C41;">Contact</a>
+                </div>
+            </div>
+            <p>&copy; <span id="year"></span> {{name}}, Inc</p>
+        </footer>
+    </div>
     <script>
         document.getElementById("year").innerHTML = new Date().getFullYear();
     </script>

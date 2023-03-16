@@ -747,6 +747,10 @@ def add_bucketlist_item():
                                       user_id=current_user.id)
         db.session.add(bucket_list_item)
         db.session.commit()
+        user = User.query.get(int(current_user.id))
+        num_bucketlist = current_user.num_bucketlist + 1
+        user.num_bucketlist = num_bucketlist
+        db.session.commit()
         return redirect(url_for('bucket_list'))
     return render_template("add_bucketlist.html", name=COMPANY_NAME)
 
@@ -822,6 +826,10 @@ def delete_bucketlist_item(item_id):
     if current_user.is_authenticated:
         item_to_delete = Bucketlist.query.get(item_id)
         db.session.delete(item_to_delete)
+        db.session.commit()
+        user = User.query.get(int(current_user.id))
+        num_bucketlist = current_user.num_bucketlist - 1
+        user.num_bucketlist = num_bucketlist
         db.session.commit()
         return redirect(url_for("bucket_list"))
 
