@@ -261,7 +261,7 @@ def home():
 def implement_registration():
     if request.method == "POST":
         name = request.form.get("entryUsername").lower()
-        email = request.form.get("entryEmail").lower()
+        email = request.form.get("entryEmail").replace(" ", "").lower()
         password_ = request.form.get("entryPassword")
         date_of_birth = request.form.get("entryDate")
         country_currency = request.form.get("country").split(";")[-1]
@@ -311,7 +311,7 @@ def registration_success():
 def verify_email(token):
     try:
         # Validate the token and mark the user as verified
-        email = s.loads(token, salt="email-verification", max_age=3600)
+        email = s.loads(token, salt="email-verification", max_age=21600)
         user = User.query.filter_by(email=email).first()
         user.verified = True
         db.session.commit()
@@ -328,7 +328,7 @@ def verify_email(token):
 @app.route("/login", methods=["GET", "POST"])
 def implements_login():
     if request.method == "POST":
-        user_email = request.form.get("entryUsername").lower()
+        user_email = request.form.get("entryUsername").replace(" ", "").lower()
         user_password = request.form.get("entryPassword")
         log_in = login(name=user_email, entered_password=user_password, user=User)
         return log_in
