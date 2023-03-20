@@ -986,8 +986,47 @@ def mission():
 @app.route("/journal", methods=["GET", "POST"])
 @login_required
 def journal():
+    journal_entries = DailyJournal.query.filter_by(user_id=current_user.id)
     if current_user.is_admin:
-        return render_template("daily-journal.html", name=COMPANY_NAME)
+        if current_user.is_authenticated and request.method == "POST":
+            state = request.form.get("status")
+            if state and state == "False":
+                flash("Please enable Javascript in your browser settings.")
+                return redirect(url_for('journal'))
+            new_entry: str = request.form.get("content")
+            journal_title: str = request.form.get("title")
+            if not journal_title or not new_entry:
+                flash("Your Entry is not saved because you didn't complete all entry fields.")
+                return redirect(url_for('journal'))
+            if new_entry:
+                new_entry: hex = encrypt_data(new_entry)
+            if len(journal_title) > 100:
+                journal_title: str = journal_title[:96] + "..."
+            daily_journal_entry = DailyJournal(entry_date_year=now.year,
+                                               entry_date_month=now.month,
+                                               entry_date_day=now.day,
+                                               entry_date_time=journal_title,
+                                               journal_entry=new_entry,
+                                               user_id=current_user.id)
+            db.session.add(daily_journal_entry)
+            db.session.commit()
+            return redirect(url_for('journal'))
+
+        return render_template("daily-journal.html",
+                               name=COMPANY_NAME,
+                               d_func=decrypt_data,
+                               journal_entries=journal_entries,
+                               date=now)
+
+
+@app.route("/journal/delete/<int:item_id>", methods=["GET", "POST"])
+@login_required
+def delete_entry_item(item_id):
+    if current_user.is_authenticated:
+        item_to_delete = DailyJournal.query.get(item_id)
+        db.session.delete(item_to_delete)
+        db.session.commit()
+        return redirect(url_for("journal"))
 
 
 @app.route("/logout")

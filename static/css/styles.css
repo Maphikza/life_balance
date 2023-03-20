@@ -58,6 +58,12 @@ audio {
   /* #EEF6F9 */
 }
 
+.journal-page {
+  font-family: 'Source Sans Pro', sans-serif;
+  color: #453C41;
+  background-color: #ECEBE9;
+}
+
 .my-navbar {
   background-color: #4C8891;
   font-family: 'Source Sans Pro', sans-serif;
@@ -159,6 +165,11 @@ audio {
 .table-centered {
   margin: 0 auto;
   float: none !important;
+}
+
+.modal-header {
+  background-color: #4C8891;
+  color: whitesmoke;
 }
 
 
