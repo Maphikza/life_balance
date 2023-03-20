@@ -105,11 +105,11 @@
           {% endif%}
           {% endwith %}
           <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center">
-            <button type="button" class="btn btn-dark btn-lg" data-bs-toggle="modal" data-bs-target="#new-entry-modal"
+            <button type="button" class="btn btn-dark mt-1" data-bs-toggle="modal" data-bs-target="#new-entry-modal"
               style="background-color: #453C41">
               New Entry
             </button>
-            <button class="btn btn-dark btn-lg" type="button" data-bs-toggle="offcanvas"
+            <button class="btn btn-dark mt-1" type="button" data-bs-toggle="offcanvas"
               data-bs-target="#staticBackdrop" aria-controls="staticBackdrop" style="background-color: #4C8891">Past
               Entries</button>
           </div>
@@ -163,19 +163,18 @@
             <div class="offcanvas offcanvas-start  w-100 journal-page" data-bs-backdrop="static" tabindex="-1"
               id="staticBackdrop" aria-labelledby="staticBackdropLabel">
               <div class="offcanvas-header journal-page">
-                <h5 class="offcanvas-title fw-bold journal-page" id="staticBackdropLabel">Your Journal</h5>
-                <button type="button" class="btn btn-primary" data-bs-dismiss="offcanvas"
-                  aria-label="Close">Close</button>
+                <h2 class="offcanvas-title fw-bold journal-page" id="staticBackdropLabel">Journal</h2>
+                <button type="button" class="btn btn-dark" data-bs-dismiss="offcanvas"
+                  aria-label="Close" style="background-color: #453C41">Close</button>
               </div>
               <div class="offcanvas-body journal-page">
-                <p class="fw-normal fs-4">For Entries beyond the last five days, You can Search for it by date.</p>
                 <hr>
                 <form>
                   <div class="accordion accordion-flush journal-page" id="accordionFlushExample">
                     <div class="accordion-item">
                       <h2 class="accordion-header" id="flush-headingOne">
                         <button class="accordion-button collapsed fw-bold fs-5" type="button" data-bs-toggle="collapse"
-                          data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                          data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne" style="background-color: whitesmoke;">
                           Search By Date
                         </button>
                       </h2>
@@ -193,7 +192,7 @@
                   </div>
                 </form>
                 <hr>
-                <h2 class="fw-bold text-center">Your Latest Entries</h2>
+                <h2 class="fw-bold text-center mb-3">Your Latest Entries</h2>
                 <div class="row align-items-md-stretch">
                   {% for entry in journal_entries %}
                   {% if entry.entry_date_time != None %}
