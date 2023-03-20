@@ -994,7 +994,7 @@ def journal():
                 flash("Please enable Javascript in your browser settings.")
                 return redirect(url_for('journal'))
             new_entry: str = request.form.get("content")
-            journal_title: str = str(now.date())
+            journal_title: str = str(now.strftime("%Y %A %d"))
 
             if new_entry:
                 new_entry: hex = encrypt_data(new_entry)

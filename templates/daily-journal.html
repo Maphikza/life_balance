@@ -194,7 +194,7 @@
                   <div class="col-md-6">
                     <div class="h-100 p-5 goal-stretch border rounded"
                       style="background-color: #A0C8C3; color: #453C41;">
-                      <h2 class="fw-normal fs-1">{{entry.entry_date_time}}</h2>
+                      <h2 class="fw-bold">{{entry.entry_date_time}}</h2>
                       <hr class="break-lines">
                       <p id="goal-text-{{entry.id}}" class="goal-text">
                         <span id="short-text-{{entry.id}}"><em>"{{d_func(entry.journal_entry) |
@@ -208,26 +208,8 @@
                         {% endif %}
                       </p>
                       <hr class="break-lines">
-                      {% if entry.entry_date_year == date.year and entry.entry_date_month == date.month and
-                      entry.entry_date_day == date.day %}
-                      {% if current_user.use_count > 0 %}
-                      <a type="submit" class="btn btn-outline-dark btn-sm m-1 ai-button" data-goal-id="{{entry.id}}"
-                        href="{{url_for('life_goal_ai_enhance', life_goal_id=entry.id)}}" id="button1"
-                        rel="noopener noreferrer">AI
-                        Enhance</a>
-                      {% endif %}
-                      {% endif %}
                       <a type="submit" class="btn btn-outline-dark btn-sm m-1"
                         href="{{url_for('delete_entry_item', item_id=entry.id)}}">Delete</a>
-                      {% if current_user.use_count <= 0 %} <div>
-                        <p class="fw-normal fs-5 mt-2 ps-1">You have run out of AI-Edits for this month.</p>
-                    </div>
-                    {% endif %}
-                    <div class="d-flex align-items-center mt-3">
-                      <strong id="goal_spinner1_{{entry.id}}" style="display: none;">Generating edit...</strong>
-                      <div class="spinner-border ms-auto" role="status" aria-hidden="true"
-                        id="goal_spinner_{{entry.id}}" style="display: none;"></div>
-                    </div>
                   </div>
                 </div>
                 {% endif %}
