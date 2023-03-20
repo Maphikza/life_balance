@@ -994,10 +994,8 @@ def journal():
                 flash("Please enable Javascript in your browser settings.")
                 return redirect(url_for('journal'))
             new_entry: str = request.form.get("content")
-            journal_title: str = request.form.get("title")
-            if not journal_title or not new_entry:
-                flash("Your Entry is not saved because you didn't complete all entry fields.")
-                return redirect(url_for('journal'))
+            journal_title: str = str(now.date())
+
             if new_entry:
                 new_entry: hex = encrypt_data(new_entry)
             if len(journal_title) > 100:
