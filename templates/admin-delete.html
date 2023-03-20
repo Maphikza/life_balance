@@ -66,7 +66,7 @@
       </div>
     </nav>
   </header>
-  <div class="container w-50 main-page">
+  <div class="container main-page">
     <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center">
       <div class="col-md-9 p-lg-5 mx-auto my-5">
         <h4 class="display-4 fw-normal pb-2 page-header">Users
@@ -78,6 +78,7 @@
               <th scope="col">Username</th>
               <th scope="col">email</th>
               <th scope="col">Country</th>
+              <th scope="col">Verified</th>
             </tr>
           </thead>
           <tbody>
@@ -87,6 +88,7 @@
               <td>{{user.username}}</td>
               <td>{{user.email}}</td>
               <td>{{user.country_name}}</td>
+              <td>{{user.verified}}</td>
             </tr>
             {% endfor %}
           </tbody>
