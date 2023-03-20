@@ -104,13 +104,15 @@
           {% endfor %}
           {% endif%}
           {% endwith %}
-          <!-- Button trigger modal -->
-          <button type="button" class="btn btn-dark btn-lg" data-bs-toggle="modal" data-bs-target="#new-entry-modal"
-            style="background-color: #453C41">
-            New Entry
-          </button>
-          <button class="btn btn-dark btn-lg" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop"
-            aria-controls="staticBackdrop" style="background-color: #4C8891">Past Entries</button>
+          <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center">
+            <button type="button" class="btn btn-dark btn-lg" data-bs-toggle="modal" data-bs-target="#new-entry-modal"
+              style="background-color: #453C41">
+              New Entry
+            </button>
+            <button class="btn btn-dark btn-lg" type="button" data-bs-toggle="offcanvas"
+              data-bs-target="#staticBackdrop" aria-controls="staticBackdrop" style="background-color: #4C8891">Past
+              Entries</button>
+          </div>
 
           <div class="container text-start journal-page">
             <!-- Modal -->
@@ -177,8 +179,8 @@
                           Search By Date
                         </button>
                       </h2>
-                      <div id="flush-collapseOne" class="accordion-collapse collapse journal-page" aria-labelledby="flush-headingOne"
-                        data-bs-parent="#accordionFlushExample">
+                      <div id="flush-collapseOne" class="accordion-collapse collapse journal-page"
+                        aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                         <div class="accordion-body journal-page">
                           <div class="form-group text-start">
                             <label for="date" class="fw-bold mb-1">Search Entries By Date</label>
