@@ -1,10 +1,11 @@
-from flask import Flask, request, render_template, redirect, url_for, flash, abort
+from flask import Flask, request, render_template, redirect, url_for, flash, abort, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, LoginManager, logout_user, current_user, login_required
 from flask_mail import Mail, Message
 from pathlib import Path
 import os
 import openai
+from sqlalchemy import func
 from sqlalchemy.orm.exc import UnmappedInstanceError
 from route_functions import register_user, login, create_admin_user
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired, BadSignature
@@ -987,44 +988,73 @@ def mission():
 @login_required
 def journal():
     journal_entries = DailyJournal.query.filter_by(user_id=current_user.id)
+    cv_o = request.args.get('cv_o', False)  # Controls canvas opening.
+
     if current_user.is_admin:
         if current_user.is_authenticated and request.method == "POST":
-            state = request.form.get("status")
-            if state and state == "False":
-                flash("Please enable Javascript in your browser settings.")
-                return redirect(url_for('journal'))
-            new_entry: str = request.form.get("content")
-            journal_title: str = str(now.strftime("%Y %A %d"))
+            if "Journal-form" in request.form:  # Checking form Identity.
+                state = request.form.get("status")
+                if state and state == "False":
+                    flash("Please enable Javascript in your browser settings.")
+                    return redirect(url_for('journal'))
+                new_entry: str = request.form.get("content")
+                journal_title = now.strftime("%Y %B %d")
 
-            if new_entry:
-                new_entry: hex = encrypt_data(new_entry)
-            if len(journal_title) > 100:
-                journal_title: str = journal_title[:96] + "..."
-            daily_journal_entry = DailyJournal(entry_date_year=now.year,
-                                               entry_date_month=now.month,
-                                               entry_date_day=now.day,
-                                               entry_date_time=journal_title,
-                                               journal_entry=new_entry,
-                                               user_id=current_user.id)
-            db.session.add(daily_journal_entry)
-            db.session.commit()
-            return redirect(url_for('journal'))
+                if new_entry:
+                    new_entry: hex = encrypt_data(new_entry)
+
+                daily_journal_entry = DailyJournal(entry_date_year=now.year,
+                                                   entry_date_month=now.month,
+                                                   entry_date_day=now.day,
+                                                   entry_date_time=journal_title,
+                                                   journal_entry=new_entry,
+                                                   user_id=current_user.id)
+                db.session.add(daily_journal_entry)
+                db.session.commit()
+                return render_template("daily-journal.html",
+                                       name=COMPANY_NAME,
+                                       d_func=decrypt_data,
+                                       journal_entries=journal_entries,
+                                       date=now, cv_o=True)
+
+            elif "Journal-date-form" in request.form:
+                search_date = request.form.get("date")
+                formatted_date = datetime.strptime(search_date, '%Y-%m-%d').strftime('%Y %B %d')
+                matching_entries = DailyJournal.query.filter(DailyJournal.entry_date_time == formatted_date).all()
+                entry_dates = DailyJournal.query.with_entities(DailyJournal.entry_date_time).filter_by(
+                    user_id=current_user.id).all()
+
+                return render_template("daily-journal.html",
+                                       name=COMPANY_NAME,
+                                       d_func=decrypt_data,
+                                       journal_entries=matching_entries,
+                                       date=now, cv_o=True)
 
         return render_template("daily-journal.html",
                                name=COMPANY_NAME,
                                d_func=decrypt_data,
                                journal_entries=journal_entries,
-                               date=now)
+                               date=now,
+                               cv_o=cv_o)
 
 
 @app.route("/journal/delete/<int:item_id>", methods=["GET", "POST"])
 @login_required
 def delete_entry_item(item_id):
+    journal_entries = DailyJournal.query.filter_by(user_id=current_user.id)
     if current_user.is_authenticated:
         item_to_delete = DailyJournal.query.get(item_id)
         db.session.delete(item_to_delete)
         db.session.commit()
-        return redirect(url_for("journal"))
+        return redirect(url_for('journal', cv_o=True))
+
+
+@app.route("/journal-dates")
+@login_required
+def journal_dates():
+    query = db.session.query(DailyJournal.entry_date_time).distinct()
+    dates = [date[0].strftime("%Y-%m-%d") for date in query.all()]
+    return jsonify(dates)
 
 
 @app.route("/logout")
