@@ -5,7 +5,7 @@ from flask_mail import Mail, Message
 from pathlib import Path
 import os
 import openai
-from sqlalchemy import func
+from collections import defaultdict
 from sqlalchemy.orm.exc import UnmappedInstanceError
 from route_functions import register_user, login, create_admin_user
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired, BadSignature
@@ -984,11 +984,34 @@ def mission():
     return render_template("mission.html", name=COMPANY_NAME)
 
 
+def generate_journal_dict(journal_entries):
+    journal_dict = defaultdict(lambda: defaultdict(set))
+    for entry in journal_entries:
+        journal_dict[entry.entry_date_year][entry.entry_date_month].add(entry.entry_date_day)
+    for year, months in journal_dict.items():
+        for month, days in months.items():
+            journal_dict[year][month] = list(days)
+    return dict(journal_dict)
+
+
+def iterate_journal_entries(journal_dict):
+    for year in journal_dict.keys():
+        print(f"Year: {year}")
+        for month in journal_dict[year].keys():
+            print(f"Month: {month}")
+            for day in journal_dict[year][month]:
+                print(f"Day: {day}")
+
+
 @app.route("/journal", methods=["GET", "POST"])
 @login_required
 def journal():
     journal_entries = DailyJournal.query.filter_by(user_id=current_user.id)
     cv_o = request.args.get('cv_o', False)  # Controls canvas opening.
+    entry_years = generate_journal_dict(journal_entries)
+    iterate_journal_entries(entry_years)
+    # print(entry_years)
+    # get_months_with_entries(list(entry_years)[0])
 
     if current_user.is_admin:
         if current_user.is_authenticated and request.method == "POST":
@@ -1015,10 +1038,17 @@ def journal():
                                        name=COMPANY_NAME,
                                        d_func=decrypt_data,
                                        journal_entries=journal_entries,
-                                       date=now, cv_o=True)
+                                       date=now,
+                                       cv_o=True,
+                                       journal_dict=entry_years)
 
             elif "Journal-date-form" in request.form:
-                search_date = request.form.get("date")
+                search_year = request.form.get("Journal-Year")
+                search_month = request.form.get("month")
+                search_day = request.form.get("day")
+                print(f"{search_year} {search_month} {search_day}")
+                search_date = f'{search_year}-{search_month}-{search_day}'
+
                 formatted_date = datetime.strptime(search_date, '%Y-%m-%d').strftime('%Y %B %d')
                 matching_entries = DailyJournal.query.filter(DailyJournal.entry_date_time == formatted_date).all()
                 entry_dates = DailyJournal.query.with_entities(DailyJournal.entry_date_time).filter_by(
@@ -1028,33 +1058,27 @@ def journal():
                                        name=COMPANY_NAME,
                                        d_func=decrypt_data,
                                        journal_entries=matching_entries,
-                                       date=now, cv_o=True)
+                                       date=now,
+                                       cv_o=True,
+                                       journal_dict=entry_years)
 
         return render_template("daily-journal.html",
                                name=COMPANY_NAME,
                                d_func=decrypt_data,
                                journal_entries=journal_entries,
                                date=now,
-                               cv_o=cv_o)
+                               cv_o=cv_o,
+                               journal_dict=entry_years)
 
 
 @app.route("/journal/delete/<int:item_id>", methods=["GET", "POST"])
 @login_required
 def delete_entry_item(item_id):
-    journal_entries = DailyJournal.query.filter_by(user_id=current_user.id)
     if current_user.is_authenticated:
         item_to_delete = DailyJournal.query.get(item_id)
         db.session.delete(item_to_delete)
         db.session.commit()
         return redirect(url_for('journal', cv_o=True))
-
-
-@app.route("/journal-dates")
-@login_required
-def journal_dates():
-    query = db.session.query(DailyJournal.entry_date_time).distinct()
-    dates = [date[0].strftime("%Y-%m-%d") for date in query.all()]
-    return jsonify(dates)
 
 
 @app.route("/logout")

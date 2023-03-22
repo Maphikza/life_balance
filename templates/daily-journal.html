@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{name}}</title>
   <link href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet">
-  <link rel="shortcut icon" type="image/png" href="{{url_for('static', filename='lpmfavicon.png')}}"/>
+  <link rel="shortcut icon" type="image/png" href="{{url_for('static', filename='lpmfavicon.png')}}" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap" rel="stylesheet">
@@ -167,8 +167,7 @@
               </div>
               <div class="offcanvas-body journal-page">
                 <hr>
-                <form class="Journal-date-form" id="Journal-date-form" name="Journal-date-form"
-                   method="post">
+                <form class="Journal-date-form" id="Journal-date-form" name="Journal-date-form" method="post">
                   <div class="accordion accordion-flush journal-page" id="accordionFlushExample">
                     <div class="accordion-item">
                       <h2 class="accordion-header" id="flush-headingOne">
@@ -182,11 +181,33 @@
                         aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                         <div class="accordion-body journal-page">
                           <div class="form-group text-start">
-                            <label for="date" class="fw-bold mb-1">Search Entries By Date</label>
+                            <label for="Journal-Year">Year:</label>
+                            <select id="Journal-Year" name="Journal-Year">
+                              <option value="" disabled selected>Select year</option>
+                              {% for year_ in journal_dict.keys() %}
+                              <option value="{{ year_ }}">{{ year_ }}</option>
+                              {% endfor %}
+                            </select>
+
+                            <br>
+
+                            <label for="month">Month:</label>
+                            <select id="month" name="month" disabled>
+                              <option value="">Select month</option>
+                            </select>
+
+                            <br>
+
+                            <label for="day">Day:</label>
+                            <select id="day" name="day" disabled>
+                              <option value="">Select day</option>
+                            </select>
+
+                            <!-- <label for="date" class="fw-bold mb-1">Search Entries By Date</label>
                             <input type="date" class="form-control mb-3" id="date" name="date"
-                              onchange="highlightDates()">
+                              onchange="highlightDates()"> -->
                           </div>
-                          
+
                           <button type="submit" name="Journal-date-form" class="btn btn-dark"
                             style="background-color: #453C41">Search</button>
                         </div>
@@ -272,53 +293,74 @@
       }
     });
   </script>
-  <!-- search script -->
-  <!-- <script>
 
-    function highlightDates() {
-      // Get the date input element
-      const dateInput = document.getElementById("date");
 
-      // Get the selected date
-      const selectedDate = dateInput.value;
+  <script>
+    const journal_dict = JSON.parse('{{ journal_dict | tojson | safe }}');
+    const yearSelect = document.getElementById("Journal-Year");
+    const monthSelect = document.getElementById("month");
+    const daySelect = document.getElementById("day");
 
-      // Get all the journal entry dates from the server
-      fetch("/journal-dates")
-        .then(response => response.json())
-        .then(dates => {
-          // Loop through all the calendar days and remove the "journal-entry" class
-          const calendarDays = document.querySelectorAll("option[data-date]");
-          calendarDays.forEach(calendarDay => {
-            calendarDay.classList.remove("journal-entry");
-          });
+    yearSelect.addEventListener("change", () => {
+      // Clear previous options
+      monthSelect.innerHTML = '<option value="" disabled selected>Select month</option>';
+      daySelect.innerHTML = '<option value="" disabled selected>Select day</option>';
 
-          // Loop through all the journal entry dates
-          let hasJournalEntry = false;
-          dates.forEach(date => {
-            // If the date matches the selected date, add the "journal-entry" class
-            if (date === selectedDate) {
-              const calendarDay = document.querySelector(`option[data-date="${selectedDate}"]`);
-              calendarDay.classList.add("journal-entry");
-              hasJournalEntry = true;
-            }
-            // Add the "journal-entry" class to all dates with journal entries
-            const calendarDay = document.querySelector(`option[data-date="${date}"]`);
-            calendarDay.classList.add("journal-entry");
-          });
+      if (!yearSelect.value) {
+        // Year not selected, disable month and day selects
+        monthSelect.disabled = true;
+        daySelect.disabled = true;
+        return;
+      }
 
-          // If there are no journal entries for the selected date, show a message
-          const noEntriesMessage = document.getElementById("no-entries-message");
-          if (!hasJournalEntry) {
-            noEntriesMessage.classList.remove("d-none");
-          } else {
-            noEntriesMessage.classList.add("d-none");
-          }
-        });
+      // Add options for selected year
+      const months = Object.keys(journal_dict[yearSelect.value]);
+      for (const month of months) {
+        const option = document.createElement("option");
+        option.value = month;
+        option.text = month;
+        monthSelect.add(option);
+      }
 
-      return true; // allow form submission
-    }
+      // Enable month select
+      monthSelect.disabled = false;
+      monthSelect.selectedIndex = 0; // Select the default "Select month" option
 
-  </script> -->
+      // Disable day select
+      daySelect.disabled = true;
+    });
+
+
+    monthSelect.addEventListener("change", () => {
+      // Clear previous options
+      daySelect.innerHTML = '<option value="" disabled selected>Select day</option>';
+
+      if (!monthSelect.value) {
+        // Month not selected, disable day select
+        daySelect.disabled = true;
+        return;
+      }
+
+      // Add options for selected month
+      const days = journal_dict[yearSelect.value][monthSelect.value].slice();
+      days.sort();
+      for (const day of days) {
+        const option = document.createElement("option");
+        option.value = day;
+        option.text = day;
+        daySelect.add(option);
+      }
+
+      // Enable day select
+      daySelect.disabled = false;
+      daySelect.selectedIndex = 0; // Select the default "Select day" option
+    });
+
+
+  </script>
+
+
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
     crossorigin="anonymous"></script>
