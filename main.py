@@ -1004,7 +1004,10 @@ def journal():
         DailyJournal.entry_date_time >= start_date,
         DailyJournal.entry_date_time <= end_date
     ).all()
-    last_entry = journal_entries[-1].entry_date_time
+    try:
+        last_entry = journal_entries[-1].entry_date_time
+    except IndexError:
+        last_entry = start_date
     cv_o = request.args.get('cv_o', False)  # Controls canvas opening.
     searched = request.args.get('searched', False)
     entry_years = generate_journal_dict(all_entries)
@@ -1046,7 +1049,10 @@ def journal():
                 DailyJournal.entry_date_time >= start_date,
                 DailyJournal.entry_date_time <= end_date
             ).all()
-            last_entry = journal_entries[-1].entry_date_time
+            try:
+                last_entry = journal_entries[-1].entry_date_time
+            except IndexError:
+                last_entry = start_date
             return render_template("daily-journal.html",
                                    name=COMPANY_NAME,
                                    d_func=decrypt_data,
@@ -1067,7 +1073,10 @@ def journal():
 
             formatted_date = datetime.strptime(search_date, '%Y-%m-%d').strftime('%Y %B %d')
             matching_entries = DailyJournal.query.filter(DailyJournal.entry_date_time == formatted_date).all()
-            last_entry = journal_entries[-1].entry_date_time
+            try:
+                last_entry = journal_entries[-1].entry_date_time
+            except IndexError:
+                last_entry = start_date
 
             return render_template("daily-journal.html",
                                    name=COMPANY_NAME,
