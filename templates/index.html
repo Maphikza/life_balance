@@ -58,9 +58,6 @@
             </li>
             {% if current_user.is_admin %}
             <li class="nav-item">
-              <a class="nav-link" href="{{url_for('journal')}}">Daily-Journal</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="{{url_for('delete_user')}}">Admin</a>
             </li>
             {% endif %}
@@ -117,14 +114,16 @@
     {% if current_user.is_authenticated %}
     <div class="container text-center main-page">
       <h3 class="display-5 fw-bold"><em>What would you like to explore {{current_user.username.title()}}?</em></h3>
-      <div class="row position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center">
-        <a href="{{url_for('goals')}}" class="btn btn-lg btn-dark col-md-3" style="background-color: #453C41;">Life</a>
-        <a href="{{url_for('connections')}}" class="btn btn-lg btn-dark col-md-3"
+      <div class="row position-relative overflow-hidden p-3 p-md-2 m-md-2 align-items-md-stretch justify-content-center">
+        <a href="{{url_for('goals')}}" class="btn btn-lg btn-dark col-md-2" style="background-color: #453C41;">Life</a>
+        <a href="{{url_for('connections')}}" class="btn btn-lg btn-dark col-md-2"
           style="background-color: #453C41;">Relationships</a>
-        <a href="{{url_for('finance')}}" class="btn btn-lg btn-dark col-md-3"
+        <a href="{{url_for('finance')}}" class="btn btn-lg btn-dark col-md-2"
           style="background-color: #453C41;">Finances</a>
-        <a href="{{url_for('bucket_list')}}" class="btn btn-lg btn-dark col-md-3"
+        <a href="{{url_for('bucket_list')}}" class="btn btn-lg btn-dark col-md-2"
           style="background-color: #453C41;">Bucket List</a>
+        <a href="{{url_for('journal')}}" class="btn btn-lg btn-dark col-md-2"
+          style="background-color: #453C41;">Daily-Journal</a>
       </div>
       {% endif %}
     </div>
