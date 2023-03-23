@@ -179,36 +179,40 @@
                       </h2>
                       <div id="flush-collapseOne" class="accordion-collapse collapse journal-page"
                         aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                        <div class="accordion-body journal-page">
-                          <div class="form-group text-start">
-                            <label for="Journal-Year">Year:</label>
-                            <select id="Journal-Year" name="Journal-Year">
-                              <option value="" disabled selected>Select year</option>
-                              {% for year_ in journal_dict.keys() %}
-                              <option value="{{ year_ }}">{{ year_ }}</option>
-                              {% endfor %}
-                            </select>
+                        <div class="accordion-body journal-page text-start">
+                          <div class="form-group text-start row gy-2 gx-3">
+                            <div class="col-md-3">
+                              <label for="Journal-Year">Year:</label>
+                              <select class="form-select fw-normal" id="Journal-Year" name="Journal-Year">
+                                <option value="" disabled selected>Select year</option>
+                                {% for year_ in journal_dict.keys() %}
+                                <option value="{{ year_ }}">{{year_}}</option>
+                                {% endfor %}
+                              </select>
+                            </div>
 
                             <br>
-
-                            <label for="month">Month:</label>
-                            <select id="month" name="month" disabled>
-                              <option value="">Select month</option>
-                            </select>
+                            <div class="col-md-3">
+                              <label for="month">Month:</label>
+                              <select class="form-select fw-normal" id="month" name="month" disabled>
+                                <option value="">Select month</option>
+                              </select>
+                            </div>
 
                             <br>
-
-                            <label for="day">Day:</label>
-                            <select id="day" name="day" disabled>
-                              <option value="">Select day</option>
-                            </select>
+                            <div class="col-md-3">
+                              <label for="day">Day:</label>
+                              <select class="form-select fw-normal mb-3 col-auto" id="day" name="day" disabled>
+                                <option value="">Select day</option>
+                              </select>
+                            </div>
 
                             <!-- <label for="date" class="fw-bold mb-1">Search Entries By Date</label>
                             <input type="date" class="form-control mb-3" id="date" name="date"
                               onchange="highlightDates()"> -->
                           </div>
 
-                          <button type="submit" name="Journal-date-form" class="btn btn-dark"
+                          <button type="submit" name="Journal-date-form" class="btn btn-dark text-start"
                             style="background-color: #453C41">Search</button>
                         </div>
                       </div>
@@ -216,7 +220,15 @@
                   </div>
                 </form>
                 <hr>
+                {% if not searched %}
                 <h2 class="fw-bold text-center mb-3">Your Latest Entries</h2>
+                {% endif %}
+                {% if searched %}
+                <div class="mb-3">
+                <h2 class="fw-bold text-center mb-3">Your result</h2>
+                <a type="submit" class="btn btn-dark mb-3" href="{{url_for('journal', cv_o=True)}}" style="background-color: #453C41">Latest Entries</a>
+                </div>
+                {% endif %}
                 <div class="row align-items-md-stretch">
                   {% for entry in journal_entries %}
                   {% if entry.entry_date_time != None %}
@@ -297,6 +309,7 @@
 
   <script>
     const journal_dict = JSON.parse('{{ journal_dict | tojson | safe }}');
+    const months_dict = JSON.parse('{{ months_dict | tojson | safe }}');
     const yearSelect = document.getElementById("Journal-Year");
     const monthSelect = document.getElementById("month");
     const daySelect = document.getElementById("day");
@@ -318,7 +331,7 @@
       for (const month of months) {
         const option = document.createElement("option");
         option.value = month;
-        option.text = month;
+        option.text = months_dict[month];
         monthSelect.add(option);
       }
 

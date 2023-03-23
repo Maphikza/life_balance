@@ -15,10 +15,8 @@ from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.backends import default_backend
 from email_validator import validate_email, EmailNotValidError
-import base64
 import re
-from datetime import datetime
-import json
+from datetime import datetime, timedelta
 import time
 
 path = Path(r"C:\Users\stapi\PycharmProjects\life_scale\instance\living.db")
@@ -1006,13 +1004,33 @@ def iterate_journal_entries(journal_dict):
 @app.route("/journal", methods=["GET", "POST"])
 @login_required
 def journal():
-    journal_entries = DailyJournal.query.filter_by(user_id=current_user.id)
+    week_ago = datetime.now() - timedelta(days=7)
+    week_ago_str = week_ago.strftime("%Y %B %d")
+    start_date = datetime.strptime(week_ago_str, '%Y %B %d').strftime("%Y %B %d")
+    end_date = datetime.strptime(now.strftime("%Y %B %d"), '%Y %B %d').strftime("%Y %B %d")
+    all_entries = DailyJournal.query.filter_by(user_id=current_user.id)
+    journal_entries = DailyJournal.query.filter_by(user_id=current_user.id).filter(
+        DailyJournal.entry_date_time >= start_date,
+        DailyJournal.entry_date_time <= end_date
+    ).all()
     cv_o = request.args.get('cv_o', False)  # Controls canvas opening.
-    entry_years = generate_journal_dict(journal_entries)
+    searched = request.args.get('searched', False)
+    entry_years = generate_journal_dict(all_entries)
     iterate_journal_entries(entry_years)
-    # print(entry_years)
-    # get_months_with_entries(list(entry_years)[0])
-
+    months_dict = {
+        1: "January",
+        2: "February",
+        3: "March",
+        4: "April",
+        5: "May",
+        6: "June",
+        7: "July",
+        8: "August",
+        9: "September",
+        10: "October",
+        11: "November",
+        12: "December"
+    }
     if current_user.is_admin:
         if current_user.is_authenticated and request.method == "POST":
             if "Journal-form" in request.form:  # Checking form Identity.
@@ -1040,7 +1058,9 @@ def journal():
                                        journal_entries=journal_entries,
                                        date=now,
                                        cv_o=True,
-                                       journal_dict=entry_years)
+                                       searched=searched,
+                                       journal_dict=entry_years,
+                                       months_dict=months_dict)
 
             elif "Journal-date-form" in request.form:
                 search_year = request.form.get("Journal-Year")
@@ -1051,8 +1071,6 @@ def journal():
 
                 formatted_date = datetime.strptime(search_date, '%Y-%m-%d').strftime('%Y %B %d')
                 matching_entries = DailyJournal.query.filter(DailyJournal.entry_date_time == formatted_date).all()
-                entry_dates = DailyJournal.query.with_entities(DailyJournal.entry_date_time).filter_by(
-                    user_id=current_user.id).all()
 
                 return render_template("daily-journal.html",
                                        name=COMPANY_NAME,
@@ -1060,7 +1078,9 @@ def journal():
                                        journal_entries=matching_entries,
                                        date=now,
                                        cv_o=True,
-                                       journal_dict=entry_years)
+                                       searched=True,
+                                       journal_dict=entry_years,
+                                       months_dict=months_dict)
 
         return render_template("daily-journal.html",
                                name=COMPANY_NAME,
@@ -1068,7 +1088,9 @@ def journal():
                                journal_entries=journal_entries,
                                date=now,
                                cv_o=cv_o,
-                               journal_dict=entry_years)
+                               searched=searched,
+                               journal_dict=entry_years,
+                               months_dict=months_dict)
 
 
 @app.route("/journal/delete/<int:item_id>", methods=["GET", "POST"])
