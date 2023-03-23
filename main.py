@@ -26,6 +26,7 @@ current_month = now.month
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('LIFE_KEY')
+app.config['TIMEOUT'] = 60
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL", "sqlite:///living.db")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['MAIL_SERVER'] = "smtpout.secureserver.net"
