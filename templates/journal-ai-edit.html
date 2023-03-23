@@ -86,6 +86,61 @@
         </nav>
     </header>
 
+    <div class="container main-page">
+        <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center">
+            <div class="col-md-9 p-lg-5 mx-auto my-5">
+                <h4 class="display-3 fw-bold pb-2">Edit Entry
+                </h4>
+                <p class="fw-normal fs-4">An AI has edited this text. You are welcome to make any changes you wish. If
+                    you are
+                    unsatisfied with the AI edit, you can select 'Keep Original' and it will discard the AI's
+                    modifications.</p>
+                <hr class="mid-breaker mt-4">
+                <form class="journal-form g-3 text-start" method="post">
+                    {% if current_user.use_count > 8 %}
+                    <p class="fw-normal fs-4">You have <em class="edit-count fw-bold">{{current_user.use_count}}</em>
+                        AI-edits left.</p>
+                    {% endif %}
+                    {% if current_user.use_count <= 8 %} <p class="fw-normal fs-4">You have <em
+                            class="edit-count fw-bold" style="color: orangered;">{{current_user.use_count}}</em> AI-edits left.</p>
+                    {% endif %}
+                        <div>
+                            <label for="aiEditJournalEntryFormControlTextarea" class="fs-5 fw-bold">Edit
+                                {{journal_edit.entry_date_time}}:</label>
+                            <textarea class="form-control" id="aiEditJournalEntryFormControlTextarea"
+                                name="aiEditJournalEntryFormControlTextarea" rows="6"
+                                oninput="countCharacters(this, 1000)">{{ enhancer(d_func(journal_edit.journal_entry)) }}</textarea>
+                            <div id="characterCount"></div>
+                        </div>
+                        <noscript>
+                            <style>
+                                #js-disabled-message {
+                                    display: block !important;
+                                }
+                            </style>
+                            <div id="js-disabled-message" class="alert alert-danger">
+                                This website requires JavaScript to function properly. Please enable JavaScript in your
+                                browser settings.
+                            </div>
+                            <input type="hidden" name="status" id="status" value="False">
+                        </noscript>
+                        <div class="row mt-2">
+                            <div class="col-auto">
+                                <button type="submit" class="btn btn-lg btn-dark mb-3 fw-normal fs-5"
+                                    style="background-color: #453C41;">Save Edit</button>
+                            </div>
+                            <div class="col-auto">
+                                <a role="button" href="{{url_for('journal', cv_o=True)}}"
+                                    class="btn btn-lg btn-dark mb-3 fw-normal fs-5"
+                                    style="background-color: #453C41">Keep Original</a>
+                            </div>
+                        </div>
+                </form>
+                <hr class="mid-breaker mt-4">
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <footer class="footer mt-auto my-4 pt-5 text-center fw-bold fs-5">
             <div class="row justify-content-center mb-3">
@@ -103,7 +158,7 @@
         </footer>
     </div>
     <script>
-        document.getElementById("year").innerHTML = new Date().getFullYear();
+        document.getElementById("year").innerHTML = new Date().getFullYear(); function countCharacters(e, n) { var r = e.value, l = r.length, t = e.nextElementSibling; t.innerHTML = l + " / " + n, l > n ? (e.value = r.slice(0, n), t.style.color = "red", t.innerHTML = "Max limit of " + n + " characters reached!") : t.style.color = "inherit" } document.addEventListener("DOMContentLoaded", function () { document.getElementById("aiEditJournalEntryFormControlTextarea").focus(), document.getElementById("aiEditJournalEntryFormControlTextarea").select() });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"

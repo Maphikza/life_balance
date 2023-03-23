@@ -992,31 +992,22 @@ def generate_journal_dict(journal_entries):
     return dict(journal_dict)
 
 
-def iterate_journal_entries(journal_dict):
-    for year in journal_dict.keys():
-        print(f"Year: {year}")
-        for month in journal_dict[year].keys():
-            print(f"Month: {month}")
-            for day in journal_dict[year][month]:
-                print(f"Day: {day}")
-
-
 @app.route("/journal", methods=["GET", "POST"])
 @login_required
 def journal():
-    week_ago = datetime.now() - timedelta(days=7)
+    week_ago = datetime.now() - timedelta(days=6)
     week_ago_str = week_ago.strftime("%Y %B %d")
-    start_date = datetime.strptime(week_ago_str, '%Y %B %d').strftime("%Y %B %d")
-    end_date = datetime.strptime(now.strftime("%Y %B %d"), '%Y %B %d').strftime("%Y %B %d")
+    start_date = datetime.strptime(week_ago_str, '%Y %B %d').strftime("%Y %B %d")  # A week back from today.
+    end_date = datetime.strptime(now.strftime("%Y %B %d"), '%Y %B %d').strftime("%Y %B %d")  # Today's date.
     all_entries = DailyJournal.query.filter_by(user_id=current_user.id)
     journal_entries = DailyJournal.query.filter_by(user_id=current_user.id).filter(
         DailyJournal.entry_date_time >= start_date,
         DailyJournal.entry_date_time <= end_date
     ).all()
+    last_entry = journal_entries[-1].entry_date_times
     cv_o = request.args.get('cv_o', False)  # Controls canvas opening.
     searched = request.args.get('searched', False)
     entry_years = generate_journal_dict(all_entries)
-    iterate_journal_entries(entry_years)
     months_dict = {
         1: "January",
         2: "February",
@@ -1052,6 +1043,10 @@ def journal():
                                                    user_id=current_user.id)
                 db.session.add(daily_journal_entry)
                 db.session.commit()
+                journal_entries = DailyJournal.query.filter_by(user_id=current_user.id).filter(
+                    DailyJournal.entry_date_time >= start_date,
+                    DailyJournal.entry_date_time <= end_date
+                ).all()
                 return render_template("daily-journal.html",
                                        name=COMPANY_NAME,
                                        d_func=decrypt_data,
@@ -1060,13 +1055,14 @@ def journal():
                                        cv_o=True,
                                        searched=searched,
                                        journal_dict=entry_years,
-                                       months_dict=months_dict)
+                                       months_dict=months_dict,
+                                       today=end_date,
+                                       last_entry=last_entry)
 
             elif "Journal-date-form" in request.form:
                 search_year = request.form.get("Journal-Year")
                 search_month = request.form.get("month")
                 search_day = request.form.get("day")
-                print(f"{search_year} {search_month} {search_day}")
                 search_date = f'{search_year}-{search_month}-{search_day}'
 
                 formatted_date = datetime.strptime(search_date, '%Y-%m-%d').strftime('%Y %B %d')
@@ -1080,7 +1076,9 @@ def journal():
                                        cv_o=True,
                                        searched=True,
                                        journal_dict=entry_years,
-                                       months_dict=months_dict)
+                                       months_dict=months_dict,
+                                       today=end_date,
+                                       last_entry=last_entry)
 
         return render_template("daily-journal.html",
                                name=COMPANY_NAME,
@@ -1090,7 +1088,9 @@ def journal():
                                cv_o=cv_o,
                                searched=searched,
                                journal_dict=entry_years,
-                               months_dict=months_dict)
+                               months_dict=months_dict,
+                               today=end_date,
+                               last_entry=last_entry)
 
 
 @app.route("/journal/edit/<int:item_id>", methods=["GET", "POST"])
@@ -1103,11 +1103,34 @@ def journal_entry_edit(item_id):
             flash("Please enable Javascript in your browser settings.")
             return redirect(url_for('journal_entry_edit'))
         the_edit = request.form.get("editJournalEntryFormControlTextarea")
+        if the_edit.startswith('"') and the_edit.endswith('"'):
+            the_edit = the_edit[1:-2]
         the_edit = encrypt_data(the_edit)
         entry_edit.journal_entry = the_edit
         db.session.commit()
         return redirect(url_for('journal', cv_o=True))
     return render_template("journal-edit.html", journal_edit=entry_edit, d_func=decrypt_data, name=COMPANY_NAME)
+
+
+@app.route("/journal/ai-edit/<int:item_id>", methods=["GET", "POST"])
+@login_required
+def journal_entry_ai_edit(item_id):
+    entry_edit = DailyJournal.query.get(item_id)
+    if current_user.is_authenticated and current_user.use_count > 0 and request.method == "POST":
+        user = User.query.get(current_user.id)
+        user.use_count = current_user.use_count - 1
+        db.session.commit()
+        state = request.form.get("status")
+        if state and state == "False":
+            flash("Please enable Javascript in your browser settings.")
+            return redirect(url_for('journal_entry_edit'))
+        the_edit = request.form.get("aiEditJournalEntryFormControlTextarea")
+        the_edit = encrypt_data(the_edit)
+        entry_edit.journal_entry = the_edit
+        db.session.commit()
+        return redirect(url_for('journal', cv_o=True))
+    return render_template("journal-ai-edit.html", journal_edit=entry_edit, d_func=decrypt_data, enhancer=generate,
+                           name=COMPANY_NAME)
 
 
 @app.route("/journal/delete/<int:item_id>", methods=["GET", "POST"])

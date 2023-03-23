@@ -106,10 +106,12 @@
           {% endif%}
           {% endwith %}
           <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center">
+            {% if last_entry != today %}
             <button type="button" class="btn btn-dark mt-1" data-bs-toggle="modal" data-bs-target="#new-entry-modal"
               style="background-color: #453C41">
               New Entry
             </button>
+            {% endif %}
             <button class="btn btn-dark mt-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop"
               aria-controls="staticBackdrop" style="background-color: #4C8891">Past
               Entries</button>
@@ -230,7 +232,7 @@
                     style="background-color: #453C41">Latest Entries</a>
                 </div>
                 {% endif %}
-                <div class="row align-items-md-stretch">
+                <div class="row align-items-md-stretch mb-5">
                   {% for entry in journal_entries %}
                   {% if entry.entry_date_time != None %}
                   <div class="col-md-6">
@@ -250,23 +252,39 @@
                         {% endif %}
                       </p>
                       <hr class="break-lines">
+                      {% if entry.entry_date_time == today %}
                       <a type="submit" class="btn btn-outline-dark btn-sm m-1"
                         href="{{url_for('journal_entry_edit', item_id=entry.id)}}">Edit</a>
+                      {% if current_user.use_count > 0 %}
+                      <a type="submit" class="btn btn-outline-dark btn-sm m-1 ai-button" data-goal-id="{{entry.id}}"
+                        href="{{url_for('journal_entry_ai_edit', item_id=entry.id)}}" id="buttonjournal"
+                        rel="noopener noreferrer">AI Enhance</a>
+                      {% endif %}
+                      {% endif %}
                       <a type="submit" class="btn btn-outline-dark btn-sm m-1"
                         href="{{url_for('delete_entry_item', item_id=entry.id)}}">Delete</a>
+                      {% if current_user.use_count <= 0 %} <div>
+                        <p class="fw-normal fs-5 mt-2 ps-1">You have run out of AI-Edits for this month.</p>
+                    </div>
+                    {% endif %}
+                    <div class="d-flex align-items-center mt-3">
+                      <strong id="goal_spinner1_{{entry.id}}" style="display: none;">Generating edit...</strong>
+                      <div class="spinner-border ms-auto" role="status" aria-hidden="true"
+                        id="goal_spinner_{{entry.id}}" style="display: none;"></div>
                     </div>
                   </div>
-                  {% endif %}
-                  {% endfor %}
                 </div>
+                {% endif %}
+                {% endfor %}
               </div>
             </div>
           </div>
-
-
         </div>
+
+
       </div>
     </div>
+  </div>
 
   </div>
   </div>
@@ -287,7 +305,7 @@
     </footer>
   </div>
   <script>
-    document.getElementById("year").innerHTML = new Date().getFullYear();
+    document.getElementById("year").innerHTML = new Date().getFullYear(), document.querySelectorAll(".ai-button").forEach(function (e) { e.addEventListener("click", function () { var e = "goal_spinner_" + this.dataset.goalId, t = "goal_spinner1_" + this.dataset.goalId; document.getElementById(t).style.display = "block", document.getElementById(e).style.display = "block", this.disabled = !0 }) });
   </script>
   <script>
     function showMore(e, n) { n.preventDefault(); var l = document.getElementById("dots-" + e), t = document.getElementById("more-" + e), s = document.getElementById("short-text-" + e), y = document.getElementById("read-more-" + e); "none" === l.style.display ? (l.style.display = "inline", y.innerHTML = "Read more", t.style.display = "none", s.style.display = "inline") : (l.style.display = "none", y.innerHTML = "Show less", t.style.display = "inline", s.style.display = "none") }
@@ -308,7 +326,30 @@
       }
     });
   </script>
+  <script>
+    // Get the button element
+    const aiButton = document.getElementById('buttonjournal');
 
+    // Add a click event listener to the button
+    aiButton.addEventListener('click', function (event) {
+      // Prevent the default behavior of the button
+      event.preventDefault();
+
+      // Generate a unique identifier for the URL
+      const uniqueId = new Date().getTime();
+
+      // Get the URL of the button and append the unique identifier to the query string
+      const url = this.href + '?_=' + uniqueId;
+
+      // Open the URL in the same window
+      window.location.href = url;
+
+      // Reload the page when the user navigates away from the AI Enhance page
+      window.addEventListener('unload', function () {
+        window.location.reload();
+      });
+    });
+  </script>
 
   <script>
     const journal_dict = JSON.parse('{{ journal_dict | tojson | safe }}');
