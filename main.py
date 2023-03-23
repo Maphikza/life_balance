@@ -1022,77 +1022,76 @@ def journal():
         11: "November",
         12: "December"
     }
-    if current_user.is_admin:
-        if current_user.is_authenticated and request.method == "POST":
-            if "Journal-form" in request.form:  # Checking form Identity.
-                state = request.form.get("status")
-                if state and state == "False":
-                    flash("Please enable Javascript in your browser settings.")
-                    return redirect(url_for('journal'))
-                new_entry: str = request.form.get("content")
-                journal_title = now.strftime("%Y %B %d")
+    if current_user.is_authenticated and request.method == "POST":
+        if "Journal-form" in request.form:  # Checking form Identity.
+            state = request.form.get("status")
+            if state and state == "False":
+                flash("Please enable Javascript in your browser settings.")
+                return redirect(url_for('journal'))
+            new_entry: str = request.form.get("content")
+            journal_title = now.strftime("%Y %B %d")
 
-                if new_entry:
-                    new_entry: hex = encrypt_data(new_entry)
+            if new_entry:
+                new_entry: hex = encrypt_data(new_entry)
 
-                daily_journal_entry = DailyJournal(entry_date_year=now.year,
-                                                   entry_date_month=now.month,
-                                                   entry_date_day=now.day,
-                                                   entry_date_time=journal_title,
-                                                   journal_entry=new_entry,
-                                                   user_id=current_user.id)
-                db.session.add(daily_journal_entry)
-                db.session.commit()
-                journal_entries = DailyJournal.query.filter_by(user_id=current_user.id).filter(
-                    DailyJournal.entry_date_time >= start_date,
-                    DailyJournal.entry_date_time <= end_date
-                ).all()
-                last_entry = journal_entries[-1].entry_date_time
-                return render_template("daily-journal.html",
-                                       name=COMPANY_NAME,
-                                       d_func=decrypt_data,
-                                       journal_entries=journal_entries,
-                                       date=now,
-                                       cv_o=True,
-                                       searched=searched,
-                                       journal_dict=entry_years,
-                                       months_dict=months_dict,
-                                       today=end_date,
-                                       last_entry=last_entry)
+            daily_journal_entry = DailyJournal(entry_date_year=now.year,
+                                               entry_date_month=now.month,
+                                               entry_date_day=now.day,
+                                               entry_date_time=journal_title,
+                                               journal_entry=new_entry,
+                                               user_id=current_user.id)
+            db.session.add(daily_journal_entry)
+            db.session.commit()
+            journal_entries = DailyJournal.query.filter_by(user_id=current_user.id).filter(
+                DailyJournal.entry_date_time >= start_date,
+                DailyJournal.entry_date_time <= end_date
+            ).all()
+            last_entry = journal_entries[-1].entry_date_time
+            return render_template("daily-journal.html",
+                                   name=COMPANY_NAME,
+                                   d_func=decrypt_data,
+                                   journal_entries=journal_entries,
+                                   date=now,
+                                   cv_o=True,
+                                   searched=searched,
+                                   journal_dict=entry_years,
+                                   months_dict=months_dict,
+                                   today=end_date,
+                                   last_entry=last_entry)
 
-            elif "Journal-date-form" in request.form:
-                search_year = request.form.get("Journal-Year")
-                search_month = request.form.get("month")
-                search_day = request.form.get("day")
-                search_date = f'{search_year}-{search_month}-{search_day}'
+        elif "Journal-date-form" in request.form:
+            search_year = request.form.get("Journal-Year")
+            search_month = request.form.get("month")
+            search_day = request.form.get("day")
+            search_date = f'{search_year}-{search_month}-{search_day}'
 
-                formatted_date = datetime.strptime(search_date, '%Y-%m-%d').strftime('%Y %B %d')
-                matching_entries = DailyJournal.query.filter(DailyJournal.entry_date_time == formatted_date).all()
-                last_entry = journal_entries[-1].entry_date_time
+            formatted_date = datetime.strptime(search_date, '%Y-%m-%d').strftime('%Y %B %d')
+            matching_entries = DailyJournal.query.filter(DailyJournal.entry_date_time == formatted_date).all()
+            last_entry = journal_entries[-1].entry_date_time
 
-                return render_template("daily-journal.html",
-                                       name=COMPANY_NAME,
-                                       d_func=decrypt_data,
-                                       journal_entries=matching_entries,
-                                       date=now,
-                                       cv_o=True,
-                                       searched=True,
-                                       journal_dict=entry_years,
-                                       months_dict=months_dict,
-                                       today=end_date,
-                                       last_entry=last_entry)
+            return render_template("daily-journal.html",
+                                   name=COMPANY_NAME,
+                                   d_func=decrypt_data,
+                                   journal_entries=matching_entries,
+                                   date=now,
+                                   cv_o=True,
+                                   searched=True,
+                                   journal_dict=entry_years,
+                                   months_dict=months_dict,
+                                   today=end_date,
+                                   last_entry=last_entry)
 
-        return render_template("daily-journal.html",
-                               name=COMPANY_NAME,
-                               d_func=decrypt_data,
-                               journal_entries=journal_entries,
-                               date=now,
-                               cv_o=cv_o,
-                               searched=searched,
-                               journal_dict=entry_years,
-                               months_dict=months_dict,
-                               today=end_date,
-                               last_entry=last_entry)
+    return render_template("daily-journal.html",
+                           name=COMPANY_NAME,
+                           d_func=decrypt_data,
+                           journal_entries=journal_entries,
+                           date=now,
+                           cv_o=cv_o,
+                           searched=searched,
+                           journal_dict=entry_years,
+                           months_dict=months_dict,
+                           today=end_date,
+                           last_entry=last_entry)
 
 
 @app.route("/journal/edit/<int:item_id>", methods=["GET", "POST"])

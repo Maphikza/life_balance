@@ -63,10 +63,10 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{url_for('bucket_list')}}">Bucket List</a>
                         </li>
-                        {% if current_user.is_admin %}
                         <li class="nav-item">
                             <a class="nav-link active" href="{{url_for('journal')}}">Daily-Journal</a>
-                        </li>
+                          </li>
+                        {% if current_user.is_admin %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{url_for('delete_user')}}">Admin</a>
                         </li>
