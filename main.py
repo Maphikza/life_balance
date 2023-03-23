@@ -1135,6 +1135,8 @@ def journal_entry_ai_edit(item_id):
             flash("Please enable Javascript in your browser settings.")
             return redirect(url_for('journal_entry_edit'))
         the_edit = request.form.get("aiEditJournalEntryFormControlTextarea")
+        if the_edit.startswith('"') and the_edit.endswith('"'):
+            the_edit = the_edit[1:-2]
         the_edit = encrypt_data(the_edit)
         entry_edit.journal_entry = the_edit
         db.session.commit()
