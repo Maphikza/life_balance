@@ -225,8 +225,9 @@
                 {% endif %}
                 {% if searched %}
                 <div class="mb-3">
-                <h2 class="fw-bold text-center mb-3">Your result</h2>
-                <a type="submit" class="btn btn-dark mb-3" href="{{url_for('journal', cv_o=True)}}" style="background-color: #453C41">Latest Entries</a>
+                  <h2 class="fw-bold text-center mb-3">Your result</h2>
+                  <a type="submit" class="btn btn-dark mb-3" href="{{url_for('journal', cv_o=True)}}"
+                    style="background-color: #453C41">Latest Entries</a>
                 </div>
                 {% endif %}
                 <div class="row align-items-md-stretch">
@@ -249,6 +250,8 @@
                         {% endif %}
                       </p>
                       <hr class="break-lines">
+                      <a type="submit" class="btn btn-outline-dark btn-sm m-1"
+                        href="{{url_for('journal_entry_edit', item_id=entry.id)}}">Edit</a>
                       <a type="submit" class="btn btn-outline-dark btn-sm m-1"
                         href="{{url_for('delete_entry_item', item_id=entry.id)}}">Delete</a>
                     </div>

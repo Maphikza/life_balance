@@ -1093,6 +1093,23 @@ def journal():
                                months_dict=months_dict)
 
 
+@app.route("/journal/edit/<int:item_id>", methods=["GET", "POST"])
+@login_required
+def journal_entry_edit(item_id):
+    entry_edit = DailyJournal.query.get(item_id)
+    if current_user.is_authenticated and request.method == "POST":
+        state = request.form.get("status")
+        if state and state == "False":
+            flash("Please enable Javascript in your browser settings.")
+            return redirect(url_for('journal_entry_edit'))
+        the_edit = request.form.get("editJournalEntryFormControlTextarea")
+        the_edit = encrypt_data(the_edit)
+        entry_edit.journal_entry = the_edit
+        db.session.commit()
+        return redirect(url_for('journal', cv_o=True))
+    return render_template("journal-edit.html", journal_edit=entry_edit, d_func=decrypt_data, name=COMPANY_NAME)
+
+
 @app.route("/journal/delete/<int:item_id>", methods=["GET", "POST"])
 @login_required
 def delete_entry_item(item_id):

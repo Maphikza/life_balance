@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{name}}</title>
+    <link href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="{{url_for('static', filename='lpmfavicon.png')}}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+</head>
+
+<body class="main-page">
+    <noscript>
+        <style>
+            #js-disabled-message {
+                display: block !important;
+            }
+        </style>
+        <div id="js-disabled-message" class="alert alert-danger">
+            This website requires JavaScript to function properly. Please enable JavaScript in your browser settings.
+        </div>
+    </noscript>
+    <header class="main-page navs-link">
+        <nav class="my-navbar navbar navbar-expand-lg navbar-dark" aria-label="goals navbar">
+            <div class="container-fluid my-navbar">
+                <a class="navbar-brand fw-bold fs-3 my-navbar" href="{{url_for('home')}}">{{name}}</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarGoal"
+                    aria-controls="navbarGoal" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon my-navbar"></span>
+                </button>
+
+                <div class="collapse navbar-collapse my-navbar" id="navbarGoal">
+                    <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                        {% if not current_user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('implements_login')}}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('implement_registration')}}">Sign up</a>
+                        </li>
+                        {% endif %}
+                        {% if current_user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="{{url_for('goals')}}">Life</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('connections')}}">Relationships</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('finance')}}">Finances</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('bucket_list')}}">Bucket List</a>
+                        </li>
+                        {% if current_user.is_admin %}
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{{url_for('journal')}}">Daily-Journal</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('delete_user')}}">Admin</a>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                    <div class="text-end pe-5">
+                        <a href="https://www.buymeacoffee.com/siphiwereah" target="_blank" rel="noopener noreferrer"
+                            class="pizza"><img
+                                src="https://img.buymeacoffee.com/button-api/?text=Buy us a pizza&emoji=&slug=siphiwereah&button_colour=FFDD00&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=ffffff" /></a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container main-page">
+        <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center">
+          <div class="col-md-9 p-lg-5 mx-auto my-5">
+            <h4 class="display-3 fw-bold pb-2">Edit Entry
+            </h4>
+            <hr class="mid-breaker mt-4">
+            <form class="journal-form g-3 text-start" method="post">
+              <div>
+                <label for="editJournalEntryFormControlTextarea" class="fs-5 fw-bold">Edit
+                  {{journal_edit.entry_date_time}}:</label>
+                <textarea class="form-control" id="editJournalEntryFormControlTextarea" name="editJournalEntryFormControlTextarea"
+                  rows="6" oninput="countCharacters(this, 1000)">{{d_func(journal_edit.journal_entry)}}</textarea>
+                <div id="characterCount"></div>
+              </div>
+              <noscript>
+                <style>
+                  #js-disabled-message {
+                    display: block !important;
+                  }
+                </style>
+                <div id="js-disabled-message" class="alert alert-danger">
+                  This website requires JavaScript to function properly. Please enable JavaScript in your browser settings.
+                </div>
+                <input type="hidden" name="status" id="status" value="False">
+              </noscript>
+              <div class="row mt-2">
+              <div class="col-auto">
+                <button type="submit" class="btn btn-lg btn-dark mb-3 fw-normal fs-5"
+                  style="background-color: #453C41;">Save Edit</button>
+              </div>
+              <div class="col-auto">
+                <a role="button" href="{{url_for('journal', cv_o=True)}}" class="btn btn-lg btn-dark mb-3 fw-normal fs-5"
+                  style="background-color: #453C41">Keep Original</a>
+              </div>
+            </div>
+            </form>
+            <hr class="mid-breaker mt-4">
+          </div>
+        </div>
+      </div>
+
+    <div class="container">
+        <footer class="footer mt-auto my-4 pt-5 text-center fw-bold fs-5">
+            <div class="row justify-content-center mb-3">
+                <div class="col-auto">
+                    <a href="{{url_for('mission')}}" class="nav-link" style="color: #453C41;">Mission</a>
+                </div>
+                <div class="col-auto">
+                    <a type="button" href="{{url_for('privacy')}}" class="nav-link" style="color: #453C41;">Privacy</a>
+                </div>
+                <div class="col-auto">
+                    <a href="{{url_for('contact')}}" class="nav-link" style="color: #453C41;">Contact</a>
+                </div>
+            </div>
+            <p>&copy; <span id="year"></span> {{name}}, Inc</p>
+        </footer>
+    </div>
+    <script>
+        document.getElementById("year").innerHTML = new Date().getFullYear(); function countCharacters(e, n) { var r = e.value, l = r.length, t = e.nextElementSibling; t.innerHTML = l + " / " + n, l > n ? (e.value = r.slice(0, n), t.style.color = "red", t.innerHTML = "Max limit of " + n + " characters reached!") : t.style.color = "inherit" }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
