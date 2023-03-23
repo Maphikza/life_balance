@@ -223,19 +223,24 @@
                 </form>
                 <hr>
                 {% if not searched %}
-                <h2 class="fw-bold text-center mb-3">Your Latest Entries</h2>
+                <h2 class="fw-bold text-center mb-3">Recent Entries</h2>
                 {% endif %}
                 {% if searched %}
                 <div class="mb-3">
-                  <h2 class="fw-bold text-center mb-3">Your result</h2>
-                  <a type="submit" class="btn btn-dark mb-3" href="{{url_for('journal', cv_o=True)}}"
-                    style="background-color: #453C41">Latest Entries</a>
+                  <h2 class="fw-bold text-center mb-3">Search Result</h2>
+                  <a type="submit" class="btn btn-dark btn-lg mb-3" href="{{url_for('journal', cv_o=True)}}"
+                    style="background-color: #453C41">See Recent Entries</a>
                 </div>
                 {% endif %}
                 <div class="row align-items-md-stretch mb-5">
                   {% for entry in journal_entries %}
                   {% if entry.entry_date_time != None %}
+                  {% if journal_entries|length > 1 %}
                   <div class="col-md-6">
+                  {% endif %}
+                  {% if journal_entries|length == 1 %}
+                  <div class="col-md-12">
+                  {% endif %}
                     <div class="h-100 p-5 goal-stretch border rounded"
                       style="background-color: #A0C8C3; color: #453C41;">
                       <h2 class="fw-bold">{{entry.entry_date_time}}</h2>
