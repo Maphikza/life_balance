@@ -109,8 +109,13 @@
     <hr class="mid-breaker">
     <div class="row align-items-md-stretch">
       {% for connection in user_connections %}
+      {% if user_connections|length == 1 %}
+      <div class="col-lg-12 col-md-12"></div>
+      {% endif %}
+      {% if user_connections|length > 1 %}
       <div class="col-lg-6 col-md-12">
-        <div class="h-100 p-5 goal-stretch border rounded-0">
+      {% endif %}
+        <div class="h-100 p-5 goal-stretch border rounded">
           <h2 class="fw-normal fs-1">{{d_func(connection.name)}} | {{d_func(connection.relationship_to_user)}}</h2>
           <hr class="break-lines">
           <p id="goal-text-{{connection.id}}" class="goal-text">

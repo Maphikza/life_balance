@@ -583,7 +583,7 @@ def delete_connection(connect_id):
 @app.route("/connections", methods=["GET", "POST"])
 @login_required
 def connections():
-    user_connections = Connection.query.filter_by(user_id=current_user.id)
+    user_connections = Connection.query.filter_by(user_id=current_user.id).all()
     if current_user.use_count_month != current_month:
         with app.app_context():
             reset_edit_credits()
@@ -735,7 +735,7 @@ def delete_finance_goal(goal_id):
 @app.route("/finance", methods=["GET", "POST"])
 @login_required
 def finance():
-    user_finances = Finances.query.filter_by(user_id=current_user.id)
+    user_finances = Finances.query.filter_by(user_id=current_user.id).all()
     num_goals = current_user.num_finance_goals
     if current_user.use_count_month != current_month:
         with app.app_context():
@@ -867,7 +867,7 @@ def delete_bucketlist_item(item_id):
 @app.route("/bucket-list", methods=["GET", "POST"])
 @login_required
 def bucket_list():
-    user_bucketlist = Bucketlist.query.filter_by(user_id=current_user.id)
+    user_bucketlist = Bucketlist.query.filter_by(user_id=current_user.id).all()
     if current_user.use_count_month != current_month:
         with app.app_context():
             reset_edit_credits()

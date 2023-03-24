@@ -64,7 +64,7 @@
       <div class="col-lg-12 col-md-9 p-lg-5 mx-auto my-5">
 
         <h1 class="display-3 fw-bold pb-2">Finances</h1>
-        {% if num_goals == 0 %}
+        {% if user_finances|length == 0 %}
         <p class="lead fw-normal fs-4"><em>Having your finances in order is crucial for a well balanced life. While we
             hope for the
             best, unexpected situations can sometimes impact our financial well-being. This section offers a chance to
@@ -76,7 +76,7 @@
             remain prepared.</em>
         </p>
         {% endif %}
-        {% if num_goals >= 1 %}
+        {% if user_finances|length >= 1 %}
         <p class="lead fw-normal fs-4"><em>Great work {{ current_user.username.title() }}!
             It's important to keep building your financial preparedness to help you navigate life's
             unexpected challenges. Keep going and make sure to cover the financial aspects that are most important to
@@ -84,11 +84,11 @@
         </p>
         {% endif %}
 
-        {% if num_goals == 0 %}
+        {% if user_finances|length == 0 %}
         <a type="submit" class="btn btn-dark btn-lg " href="{{url_for('add_finance_goals')}}"
           style="background-color: #453C41">Dive in</a>
         {% endif %}
-        {% if num_goals >= 1 and num_goals < 6 %}
+        {% if user_finances|length >= 1 and user_finances|length < 6 %}
         <a type="submit" class="btn btn-dark btn-lg" href="{{url_for('add_finance_goals')}}"
           style="background-color: #453C41">Work on next Goal</a>
         {% endif %}
@@ -117,8 +117,13 @@
     <div class="row align-items-md-stretch">
       {% for goal in user_finances %}
       {% if goal.goal_title != None %}
+      {% if user_finances|length == 1 %}
+      <div class="col-lg-12">
+      {% endif %}
+      {% if user_finances|length > 1 %}
       <div class="col-md-6">
-        <div class="h-100 p-5 goal-stretch border rounded-0">
+      {% endif %}
+        <div class="h-100 p-5 goal-stretch border rounded">
           <h2>{{goal.goal_title}} | {{current_user.currency_symbol}}{{d_func(goal.formatted_amount)}}</h2>
           <hr class="break-lines">
           <p id="goal-text-{{goal.id}}" class="goal-text">
