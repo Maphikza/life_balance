@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect, url_for, flash, abort, jsonify
+from flask import Flask, request, render_template, redirect, url_for, flash, abort
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, LoginManager, logout_user, current_user, login_required
 from flask_mail import Mail, Message
@@ -197,11 +197,12 @@ class DailyJournal(db.Model):
 
 
 def create_admin_account():
-    if not app.config.get('ADMIN_ACCOUNT_CREATED', False):
-        db.create_all()
-        print("The database has been created.")
-        create_admin_user(User, db, "hehehe")
-        app.config['ADMIN_ACCOUNT_CREATED'] = True
+    db.create_all()
+    print("The database has been created.")
+
+    print("upgrade is done, going to sleep.")
+    time.sleep(600)
+    # create_admin_user(User, db, "hehehe")
 
 
 # with app.app_context():
@@ -926,7 +927,7 @@ def delete_user():
             db.session.delete(site_user)
             db.session.commit()
             flash(f"User: {user_to_remove} is deleted")
-            return redirect(url_for('home'))
+            return redirect(url_for('delete_user'))
     else:
         abort(401)
     return render_template("admin-delete.html", name=COMPANY_NAME, users=users)
@@ -938,15 +939,21 @@ def reset_request():
         user = User.query.filter_by(email=request.form['emailEntry']).first()
         if user:
             token = s.dumps(user.email, salt='email-confirm')
-            msg = Message('Password Reset Request', sender=os.environ.get("MY_EMAIL"), recipients=[user.email])
+            msg = Message('Password Reset Request', recipients=[user.email])
             link = url_for('reset_token', token=token, _external=True)
-            msg.body = 'Your link is {}'.format(link)
+            msg.body = f"Hello {user.username.title()}\n\nWe understand how important it is to have access to " \
+                       f"your LifePathMate account, and we're here to help you get back in. Please click the " \
+                       f"link below to reset your password and regain access to your account, the link will only " \
+                       f"be valid for one hour:\n{link}\n\nIf " \
+                       f"you did not request a password reset, please contact us immediately " \
+                       f"at {os.environ.get('MY_EMAIL')}.\n\nThank you for being a part of the LifePathMate " \
+                       f"community.\n\nBest regards,\nThe LifePathMate Team"
             mail.send(msg)
 
             return render_template('reset_password.html', name=COMPANY_NAME, response=True)
         else:
-            flash(f'This account does not exist with us. However, you can register')
-            return redirect(url_for('reset_request'))
+            flash(f'This account does not exist with us. However, you can sign up for a new account.')
+            return redirect(url_for('implement_registration'))
 
     return render_template('reset_password.html', name=COMPANY_NAME, response=None)
 
@@ -956,19 +963,29 @@ def reset_token(token):
     try:
         email = s.loads(token, salt='email-confirm', max_age=3600)
     except SignatureExpired:
-        return '<h1>The token is expired!</h1>'
+        flash('The token is expired! You can request a new one here.')
+        return redirect(url_for("reset_request"))
     user = User.query.filter_by(email=email).first()
     if user:
         if request.method == 'POST':
-            hashed_password = generate_password_hash(password=request.form['password'],
-                                                     method='pbkdf2:sha256',
-                                                     salt_length=4)
-            user.password = hashed_password
-            db.session.commit()
-            return '<h1>Your password has been updated!</h1>'
-        return render_template('reset_token.html', name=COMPANY_NAME)
+            new_password = request.form.get("password")
+            confirm_password = request.form.get("password-confirm")
+            if new_password == confirm_password:
+
+                hashed_password = generate_password_hash(password=new_password,
+                                                         method='pbkdf2:sha256',
+                                                         salt_length=4)
+                user.password = hashed_password
+                db.session.commit()
+                response_message = "Your password has been updated!\nYou can go ahead and login."
+                return render_template('reset_token.html', name=COMPANY_NAME, response_message=response_message)
+            else:
+                flash("Your passwords did not match. Try again.")
+                return render_template('reset_token.html', name=COMPANY_NAME, response_message=None)
+        return render_template('reset_token.html', name=COMPANY_NAME, response_message=None)
     else:
-        return redirect(url_for('implements_login'))
+        flash("This account does not exist with us. However, you can sign up for a new account.")
+        return redirect(url_for('implement_registration'))
 
 
 @app.route("/contact", methods=["GET", "POST"])
