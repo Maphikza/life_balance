@@ -35,7 +35,7 @@ app.config['MAIL_USERNAME'] = os.environ.get("MY_EMAIL")
 app.config['MAIL_PASSWORD'] = os.environ.get("MY_EMAIL_APP_PASSWORD")
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
-app.config["MAIL_DEFAULT_SENDER"] = os.environ.get("MY_EMAIL")
+app.config["MAIL_DEFAULT_SENDER"] = ("LifePathMate", os.environ.get("MY_EMAIL"))
 
 db = SQLAlchemy(app)
 login_manager = LoginManager()
@@ -286,8 +286,13 @@ def implement_registration():
             return redirect(url_for('implement_registration'))
         token = s.dumps(email, salt="email-verification")
         msg = Message("Verify Your Email", recipients=[email])
-        msg.body = f"Hi {name.title()},\n\nThank you for signing up with us. \n\nClick the link to verify your email: " \
-                   f"{url_for('verify_email', token=token, _external=True)}\n\nRegards,\n{COMPANY_NAME}"
+        msg.body = f"Hello {name.title()},\n\nWelcome to LifePathMate!\n\nWe're excited to have you join our " \
+                   f"community of individuals dedicated to personal growth and living a life of purpose. Before we " \
+                   f"get started, we just need to verify your email address.\n\nClick the link below to verify your " \
+                   f"email and gain access to all the tools and resources LifePathMate has to offer: " \
+                   f"{url_for('verify_email', token=token, _external=True)}\n\nThank you for choosing LifePathMate " \
+                   f"as your partner on this journey towards a more fulfilling life.\n\nBest Regards," \
+                   f"\nThe {COMPANY_NAME} Team"
         mail.send(msg)
         registered_user = register_user(username=name,
                                         email=email,
@@ -307,7 +312,7 @@ def registration_success():
     return render_template("registration_success.html", name=COMPANY_NAME)
 
 
-@app.route("/verify-email/<token>")
+@app.route("/verify-email/<token>", methods=["GET", "POST"])
 def verify_email(token):
     try:
         # Validate the token and mark the user as verified
@@ -318,8 +323,32 @@ def verify_email(token):
         success_message = "Email verification successful."
         return render_template("email-verification.html", response=success_message, name=COMPANY_NAME)
     except SignatureExpired:
-        expired_link_message = "The verification link has expired. Please try again."
-        return render_template("email-verification.html", response=expired_link_message, name=COMPANY_NAME)
+        expired = True
+        if request.method == "POST":
+            # Resend verification email
+            email = request.form.get("entryEmail")
+            user = User.query.filter_by(email=email).first()
+            if not user:
+                flash("The email address you provided doesn't exist with us. You can register here.")
+                return redirect(url_for("implement_registration"))
+            token = s.dumps(email, salt="email-verification")
+            msg = Message("Verify Your Email", recipients=[email])
+            msg.body = f"Hi {user.username.title()},\n\nThank you for signing up with us. \n\nClick the link to " \
+                       f"verify your email: " \
+                       f"{url_for('verify_email', token=token, _external=True)}\n\nRegards,\n{COMPANY_NAME}"
+            mail.send(msg)
+            expired_link_message = "A new verification link has been sent to your email address."
+            return render_template("email-verification.html",
+                                   response=expired_link_message,
+                                   name=COMPANY_NAME,
+                                   expired=False)
+        expired_link_message = "The verification link has expired. Please provide the email address you registered " \
+                               "with and click the button below to resend a " \
+                               "new verification link."
+        return render_template("email-verification.html",
+                               response=expired_link_message,
+                               name=COMPANY_NAME,
+                               expired=expired)
     except BadSignature:
         invalid_link_message = "The verification link is invalid. Please check your email and try again."
         return render_template("email-verification.html", response=invalid_link_message, name=COMPANY_NAME)

@@ -71,8 +71,19 @@
     </nav>
   </header>
   <div class="container pb-4 main-page text-center email-conf">
-    <div class="col-lg-12 col-md-9 p-lg-5 mx-auto my-5">
+    <div class="col-md-9 p-lg-5 mx-auto my-5">
       <p class="lead fw-normal fs-2">{{ response }}</p>
+      {% if expired %}
+      <form class="failed-verification-form row g-3 text-start" method="post">
+        <div>
+          <label for="entryEmail" class="fw-bold fs-5">Email</label>
+          <input type="text" class="form-control" id="entryEmail" name="entryEmail" placeholder="Email">
+        </div>
+        <div>
+          <button type="submit" class="btn btn-lg btn-dark" style="background-color: #453C41;">Resend Link</button>
+        </div>
+      </form>
+      {% endif %}
     </div>
   </div>
   <div class="container">
