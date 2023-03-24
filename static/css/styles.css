@@ -151,6 +151,9 @@ audio {
     left: 0;
     width: 100%;
   }
+  .mission {
+    font-size: x-small;
+  }
 }
 
 #confetti-canvas {
