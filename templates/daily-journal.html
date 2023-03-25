@@ -21,16 +21,6 @@
 </head>
 
 <body class="main-page">
-  <noscript>
-    <style>
-      #js-disabled-message {
-        display: block !important;
-      }
-    </style>
-    <div id="js-disabled-message" class="alert alert-danger">
-      This website requires JavaScript to function properly. Please enable JavaScript in your browser settings.
-    </div>
-  </noscript>
   <header class="main-page navs-link">
     <nav class="my-navbar navbar navbar-expand-lg navbar-dark" aria-label="goals navbar">
       <div class="container-fluid my-navbar">
@@ -66,18 +56,13 @@
             <li class="nav-item">
               <a class="nav-link active" href="{{url_for('journal')}}">Daily-Journal</a>
             </li>
-            {% if current_user.is_admin %}
-            <li class="nav-item">
-              <a class="nav-link" href="{{url_for('delete_user')}}">Admin</a>
-            </li>
-            {% endif %}
             <li class="nav-item">
               <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
             </li>
             {% endif %}
           </ul>
           <div class="text-start me-5">
-            <script class="pizza" target="_blank" rel="noopener noreferrer" type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="siphiwereah" data-color="#F3D408" data-emoji="🍕"  data-font="Poppins" data-text="Buy us a pizza" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" ></script>
+            <script class="pizza" target="_blank" rel="noopener noreferrer" type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="siphiwereah" data-color="#F3D408" data-emoji="🍕"  data-font="Poppins" data-text="Buy us a pizza" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff"></script>
           </div>
         </div>
       </div>
