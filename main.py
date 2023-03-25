@@ -1120,7 +1120,8 @@ def journal():
             search_date = f'{search_year}-{search_month}-{search_day}'
 
             formatted_date = datetime.strptime(search_date, '%Y-%m-%d').strftime('%Y %B %d')
-            matching_entries = DailyJournal.query.filter(DailyJournal.entry_date_time == formatted_date).all()
+            matching_entries = DailyJournal.query.filter_by(user_id=current_user.id).filter(
+                DailyJournal.entry_date_time == formatted_date).all()
             try:
                 last_entry = journal_entries[-1].entry_date_time
             except IndexError:
