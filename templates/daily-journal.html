@@ -107,14 +107,14 @@
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title fw-bold" id="new-entry-modal-label">New Entry</h5>
+                    <h5 class="modal-title fw-bold" id="new-entry-modal-label">New Entry | {{ today }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
                     <form class="Journal-form" id="Journal-form" name="Journal-form" method="post">
                       <div class="mb-3">
                         <label for="content" class="form-label fw-bold" style="color: #453C41;">What's on your
-                          mind?</label>
+                          mind today?</label>
                         <textarea class="form-control" id="content" name="content" rows="4" maxlength="1000"></textarea>
                         <div id="charCount">0/1000 characters</div>
                       </div>
@@ -134,6 +134,8 @@
                         <button type="submit" name="Journal-form" class="btn btn-dark btn-sm"
                           style="background-color: #453C41">Save</button>
                       </div>
+                      <hr class="break-lines">
+                      <p class="fw-bold">Please note that you can create only one entry per day, but you're free to edit it as many times as you like during the day.</p>
                     </form>
 
                   </div>

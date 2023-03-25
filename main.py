@@ -391,7 +391,8 @@ def add_life_goal():
 
         your_life_goal = request.form.get("lifeGoalFormControlTextarea")
         your_life_goal = encrypt_data(your_life_goal)
-        user = User.query.get(int(current_user.id))
+        user = User.query.get(int(current_user.id)).first()
+        print(user)
         num_goals = current_user.num_life_goals + 1
         user.num_life_goals = num_goals
         db.session.commit()
@@ -408,6 +409,7 @@ def add_life_goal():
 @login_required
 def life_goal_edit(life_goal_id):
     goal_edit = Goal.query.get(life_goal_id)
+    print(goal_edit)
     if current_user.is_authenticated and request.method == "POST":
         state = request.form.get("status")
         if state and state == "False":
