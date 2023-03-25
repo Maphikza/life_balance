@@ -93,13 +93,6 @@
             </h4>
             <hr class="mid-breaker mt-4">
             <form class="journal-form g-3 text-start" method="post">
-                {% if current_user.use_count > 8 %}
-                    <p class="fw-normal fs-4">You have <em class="edit-count fw-bold">{{current_user.use_count}}</em>
-                        AI-edits left.</p>
-                    {% endif %}
-                    {% if current_user.use_count <= 8 %} <p class="fw-normal fs-4">You have <em
-                            class="edit-count fw-bold" style="color: orangered;">{{current_user.use_count}}</em> AI-edits left.</p>
-                    {% endif %}
               <div>
                 <label for="editJournalEntryFormControlTextarea" class="fs-5 fw-bold">Edit
                   {{journal_edit.entry_date_time}}:</label>
