@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Contact</title>
     <link href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet">
-    <link rel="shortcut icon" type="image/png" href="{{url_for('static', filename='lpmfavicon.png')}}"/>
+    <link rel="shortcut icon" type="image/png" href="{{url_for('static', filename='lpmfavicon.png')}}" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap" rel="stylesheet">
@@ -56,7 +56,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{url_for('journal')}}">Daily-Journal</a>
-                          </li>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
                         </li>
@@ -64,8 +64,12 @@
                     </ul>
                     {% if current_user.is_authenticated %}
                     <div class="text-start me-5">
-                        <script class="pizza" target="_blank" rel="noopener noreferrer" type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="siphiwereah" data-color="#F3D408" data-emoji="🍕"  data-font="Poppins" data-text="Buy us a pizza" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" ></script>
-                      </div>
+                        <script class="pizza" target="_blank" rel="noopener noreferrer" type="text/javascript"
+                            src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button"
+                            data-slug="siphiwereah" data-color="#F3D408" data-emoji="🍕" data-font="Poppins"
+                            data-text="Buy us a pizza" data-outline-color="#000000" data-font-color="#000000"
+                            data-coffee-color="#ffffff"></script>
+                    </div>
                     {% endif %}
                 </div>
             </div>
@@ -74,8 +78,10 @@
     <div class="container main-page">
         <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center">
             <div class="col-md-9 p-lg-5 mx-auto my-5">
+                {% if not email_sent %}
                 <h4 class="display-4 fw-normal pb-2 page-header">Contact Us.
                 </h4>
+                {% endif %}
                 <div id="message" style="display:none;"></div>
                 {% with messages = get_flashed_messages() %}
                 {% if messages %}
@@ -84,21 +90,30 @@
                 {% endfor %}
                 {% endif%}
                 {% endwith %}
-                <form class="contact-form row g-3 text-start" method="post" onsubmit="handleSubmit(event)">
+                {% if email_sent %}
+                <h1 class="fw-normal fs-3 mt-2">Your email was sent successfully!</h1>
+                {% endif %}
+                {% if not email_sent %}
+                <form class="contact-form row g-3 text-start needs-validation" method="post"
+                    onsubmit="return validateAndSubmit();" novalidate>
                     {% if not current_user.is_authenticated %}
                     <div>
                         <label for="entryEmail" class="fw-bold fs-5">Email:</label>
-                        <input type="text" class="form-control" id="entryEmail" name="entryEmail" placeholder="Email">
+                        <input type="email" class="form-control" id="entryEmail" name="entryEmail" placeholder="Email"
+                            required>
+                        <span class="invalid-feedback" id="emailError">Please enter a valid email.</span>
                     </div>
                     {% endif %}
                     <div>
                         <label for="Subject" class="fw-bold fs-5">Subject</label>
-                        <input type="text" class="form-control" id="Subject" name="Subject" placeholder="">
+                        <input type="text" class="form-control" id="Subject" name="Subject" placeholder="" required>
+                        <span class="invalid-feedback" id="subjectError">Please enter a subject.</span>
                     </div>
                     <div class="mb-1">
                         <label for="messageFormControlTextarea" class="fs-5 fw-bold">Your Message:</label>
                         <textarea class="form-control" id="messageFormControlTextarea" name="messageFormControlTextarea"
-                            rows="6"></textarea>
+                            rows="6" required></textarea>
+                        <span class="invalid-feedback" id="messageError">Please enter a message.</span>
                     </div>
                     <noscript>
                         <style>
@@ -113,10 +128,17 @@
                         <input type="hidden" name="status" id="status" value="False">
                     </noscript>
                     <div>
-                        <button type="submit" class="btn btn-lg btn-dark" style="background-color: #453C41;">Send
-                            Email</button>
+                        <button type="submit" class="btn btn-lg btn-dark" id="submitBtn"
+                            style="background-color: #453C41;">
+                            Send Email
+                        </button>
+                        <div id="spinner" style="display:none;">
+                            <span class="main-page fw-bold fs-5 ms-1">Your email is sending...</span>
+                            <i class="fa fa-spinner fa-spin"></i>
+                        </div>
                     </div>
                 </form>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -137,105 +159,34 @@
         </footer>
     </div>
     <script>
-        function isValidEmail(email) {
-            // regular expression to check if the email is valid
-            var emailRegex = /\S+@\S+\.\S+/;
-            return emailRegex.test(email);
+        (() => {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    } else {
+                        showSpinner();
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
+
+        function showSpinner() {
+            document.getElementById("submitBtn").style.display = "none";
+            document.getElementById("spinner").style.display = "block";
         }
-        function handleSubmit(event) {
-            event.preventDefault();
-
-            // Clear any existing error messages
-            var errorElements = document.querySelectorAll('.invalid-feedback');
-            for (var i = 0; i < errorElements.length; i++) {
-                errorElements[i].remove();
-            }
-
-            // Show spinner
-            var button = document.querySelector('button[type="submit"]');
-            button.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Sending...';
-            button.disabled = true;
-
-            // Submit form
-            var form = event.target;
-            var formData = new FormData(form);
-
-            // Check if required fields are filled in and if email is valid
-            var emailInput = document.getElementById('entryEmail');
-            var subjectInput = document.getElementById('Subject');
-            var messageInput = document.getElementById('messageFormControlTextarea');
-            var isValid = true;
-
-            if (!emailInput.value) {
-                emailInput.classList.add('is-invalid');
-                var emailError = document.createElement('div');
-                emailError.classList.add('invalid-feedback');
-                emailError.innerHTML = 'Please enter your email address.';
-                emailInput.parentNode.appendChild(emailError);
-                isValid = false;
-            } else if (!isValidEmail(emailInput.value)) {
-                emailInput.classList.add('is-invalid');
-                var emailError = document.createElement('div');
-                emailError.classList.add('invalid-feedback');
-                emailError.innerHTML = 'Please enter a valid email address.';
-                emailInput.parentNode.appendChild(emailError);
-                isValid = false;
-            }
-
-            if (!subjectInput.value) {
-                subjectInput.classList.add('is-invalid');
-                var subjectError = document.createElement('div');
-                subjectError.classList.add('invalid-feedback');
-                subjectError.innerHTML = 'Please enter a subject.';
-                subjectInput.parentNode.appendChild(subjectError);
-                isValid = false;
-            }
-
-            if (!messageInput.value) {
-                messageInput.classList.add('is-invalid');
-                var messageError = document.createElement('div');
-                messageError.classList.add('invalid-feedback');
-                messageError.innerHTML = 'Please enter your message.';
-                messageInput.parentNode.appendChild(messageError);
-                isValid = false;
-            }
-
-            if (isValid) {
-                fetch(form.action, {
-                    method: form.method,
-                    body: formData
-                })
-                    .then(response => {
-                        if (response.ok) {
-                            // Show success message
-                            var messageElement = document.getElementById('message');
-                            messageElement.innerHTML = '<div class="alert alert-success" role="alert">Your message has been sent.</div>';
-                            messageElement.style.display = 'block';
-
-                            // Hide form
-                            form.style.display = 'none';
-                        } else {
-                            throw new Error('Network response was not ok.');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('There was an error sending the form:', error);
-                        alert('There was an error sending the form. Please try again later.');
-                    })
-                    .finally(() => {
-                        // Hide spinner
-                        button.innerHTML = 'Send Email';
-                        button.disabled = false;
-                    });
-            } else {
-                // Hide spinner
-                button.innerHTML = 'Send Email';
-                button.disabled = false;
-            }
-        }
-
-
     </script>
+
+
     <script>
         document.getElementById("year").innerHTML = new Date().getFullYear();
     </script>

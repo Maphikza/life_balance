@@ -991,6 +991,7 @@ def reset_token(token):
 
 @app.route("/contact", methods=["GET", "POST"])
 def contact():
+    sent = request.args.get('email_sent', False)
     if request.method == "POST":
         state = request.form.get("status")
         if state and state == "False":
@@ -1013,11 +1014,13 @@ def contact():
         if not email or not email_subject or not email_message:
             flash("You did not complete all the fields.")
             return redirect(url_for('contact'))
-        msg = Message(f'{email_subject}', sender=os.environ.get("MY_EMAIL"), recipients=[os.environ.get("MY_EMAIL")])
+
+        msg = Message(f'{email_subject}', recipients=[os.environ.get("MY_EMAIL")])
         msg.body = f'Email from {email}\nMessage:\n{email_message}'
         mail.send(msg)
+        return redirect(url_for('contact', email_sent=True))
 
-    return render_template("contact.html", name=COMPANY_NAME)
+    return render_template("contact.html", name=COMPANY_NAME, email_sent=sent)
 
 
 @app.route("/privacy-policy")
