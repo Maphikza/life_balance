@@ -307,7 +307,7 @@ def implement_registration():
                                         db=db,
                                         user=User, goal=Goal, finances=Finances)
         return registered_user
-    return render_template('register.html', name=COMPANY_NAME)
+    return render_template('register.html', name=COMPANY_NAME, now=now.year)
 
 
 @app.route("/registration/success")
