@@ -482,11 +482,12 @@ def add_connections():
         if state and state == "False":
             flash("Please enable Javascript in your browser settings.")
             return redirect(url_for('add_connections'))
-        person_name = request.form.get("entryName")
+        person_name = request.form.get("entryName").title()
         person_name = encrypt_data(person_name)
-        relationship_to_person = request.form.get("entryRelate")
+        relationship_to_person = request.form.get("entryRelate").title()
         relationship_to_person = encrypt_data(relationship_to_person)
-        person_date_of_birth = request.form.get("entryDate")
+        person_date_of_birth = f'{request.form.get("dob-year")}-' \
+                               f'{request.form.get("dob-month")}-{request.form.get("dob-day")}'
         what_you_think_about_person = request.form.get("relationshipFormControlTextarea")
         if not person_name or not relationship_to_person or not person_date_of_birth or not what_you_think_about_person:
             flash("Please make sure that you have filled in the entire form.")
@@ -504,7 +505,7 @@ def add_connections():
         user.num_connections = num_connections
         db.session.commit()
         return redirect(url_for('connections'))
-    return render_template('add_connection.html', name=COMPANY_NAME)
+    return render_template('add_connection.html', name=COMPANY_NAME, now=now.year)
 
 
 @app.route("/connections/edit/<int:connect_id>", methods=["GET", "POST"])
