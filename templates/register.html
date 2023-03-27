@@ -77,14 +77,20 @@
         {% endfor %}
         {% endif%}
         {% endwith %}
-        <form class="registration-form row g-3 text-start" method="post" onsubmit="return validateForm()" name="registrationForm">
+        <form class="registration-form row g-3 text-start needs-validation" method="post" name="registrationForm" novalidate>
           <div>
             <label for="entryUsername" class="fw-bold fs-5">Username</label>
-            <input type="text" class="form-control" id="entryUsername" name="entryUsername" placeholder="Username">
+            <input type="text" class="form-control" id="entryUsername" name="entryUsername" placeholder="Username" required>
+            <div class="invalid-feedback">
+              Please enter a username.
+            </div>
           </div>
           <div>
             <label for="entryEmail" class="fw-bold fs-5">Email</label>
-            <input type="text" class="form-control" id="entryEmail" name="entryEmail" placeholder="Email">
+            <input type="text" class="form-control" id="entryEmail" name="entryEmail" placeholder="Email" required>
+            <div class="invalid-feedback">
+              Please enter an email.
+            </div>
           </div>
           <!-- <div>
             <label for="entryDate" class="fw-bold fs-5">Birthday</label>
@@ -93,8 +99,8 @@
           <div class="mb-3">
             <label for="dob" class="fw-bold fs-5">Birthday</label>
             <div class="row">
-              <div class="col-auto">
-                <select class="form-control" id="reg-dob-month" name="reg-dob-month">
+              <div class="col-lg-4">
+                <select class="form-control" id="reg-dob-month" name="reg-dob-month" required>
                   <option value="">Month</option>
                   <option value="01">January</option>
                   <option value="02">February</option>
@@ -109,17 +115,23 @@
                   <option value="11">November</option>
                   <option value="12">December</option>
                 </select>
+                <div class="invalid-feedback">
+                  Missing birthday Month.
+                </div>
               </div>
-              <div class="col-auto">
-                <select class="form-control" id="reg-dob-day" name="reg-dob-day">
+              <div class="col-lg-4">
+                <select class="form-control" id="reg-dob-day" name="reg-dob-day" required>
                   <option value="">Day</option>
                   {% for day_num in range(1, 32) %}
                     <option value="{{ day_num }}">{{ day_num }}</option>
                   {% endfor %}
                 </select>
+                <div class="invalid-feedback">
+                  Missing Day.
+                </div>
               </div>
-              <div class="col-auto">
-                <select class="form-control" id="reg-dob-year" name="reg-dob-year">
+              <div class="col-lg-4">
+                <select class="form-control" id="reg-dob-year" name="reg-dob-year" required>
                   <option value="">Year</option>
                   {% set current_year = now %}
                   {% set min_year = current_year - 110 %}
@@ -129,12 +141,15 @@
                   <option value="{{ birth_year }}">{{ birth_year }}</option>
                   {% endfor %}
                 </select>
+                <div class="invalid-feedback">
+                  Missing birthday Year.
+                </div>
               </div>
             </div>
           </div>
           <div>
             <label class="fw-bold fs-5">Country</label>
-            <select class="form-select fw-normal " aria-label="Default select country" id="country" name="country">
+            <select class="form-select fw-normal " aria-label="Default select country" id="country" name="country" required>
               <option value="">Country</option>
               <option value="Afghanistan; ؋">Afghanistan</option>
               <option value="Aland Islands; €">Aland Islands</option>
@@ -392,10 +407,16 @@
               <option value="Zambia; ZK">Zambia</option>
               <option value="Zimbabwe; $">Zimbabwe</option>
             </select>
+            <div class="invalid-feedback">
+              Please select a country.
+            </div>
           </div>
           <div>
             <label for="entryPassword" class="fw-bold fs-5">Password:</label>
-            <input type="password" class="form-control" id="entryPassword" name="entryPassword" placeholder="Password">
+            <input type="password" class="form-control" id="entryPassword" name="entryPassword" placeholder="Password" required>
+            <div class="invalid-feedback">
+              Please enter a password.
+            </div>
           </div>
           <div>
             <button type="submit" class="btn btn-lg btn-dark" style="background-color: #453C41;">Register</button>
@@ -433,54 +454,27 @@
   <script>
     document.getElementById("year").innerHTML = new Date().getFullYear();
   </script>
-  <script>
-    function validateForm() {
-      var username = document.forms["registrationForm"]["entryUsername"].value;
-      var email = document.forms["registrationForm"]["entryEmail"].value;
-      var birthday = document.forms["registrationForm"]["entryDate"].value;
-      var country = document.forms["registrationForm"]["country"].value;
-      var password = document.forms["registrationForm"]["entryPassword"].value;
-      
-      var errorMessages = {
-        entryUsername: "Please enter a username.",
-        entryEmail: "Please enter an email.",
-        entryDate: "Please enter a birthday.",
-        country: "Please select a country.",
-        entryPassword: "Please enter a password."
-      };
-      
-      var hasError = false;
-      
-      Object.keys(errorMessages).forEach(function(id) {
-        var element = document.getElementById(id);
-        var value = element.value.trim();
-        var message = errorMessages[id];
-        var errorElement = element.nextElementSibling;
-        
-        if (value === "") {
-          hasError = true;
-          element.classList.add("is-invalid");
-          if (errorElement) {
-            errorElement.textContent = message;
-          } else {
-            errorElement = document.createElement("span");
-            errorElement.className = "invalid-feedback";
-            errorElement.textContent = message;
-            element.insertAdjacentElement("afterend", errorElement);
-          }
-        } else {
-          element.classList.remove("is-invalid");
-          if (errorElement) {
-            errorElement.textContent = "";
-          }
-        }
-      });
-      
-      if (hasError) {
-        return false;
-      }
-    }
-  </script>
+    <script>
+      (() => {
+        'use strict'
+  
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation')
+  
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+          form.addEventListener('submit', event => {
+            if (!form.checkValidity()) {
+              event.preventDefault()
+              event.stopPropagation()
+            }
+  
+            form.classList.add('was-validated')
+          }, false)
+        })
+      })()
+      function countChars(e, r) { var l = e.value, n = l.length, t = document.getElementById("charNum"); t.innerHTML = n + " / " + r, n > r ? (e.value = l.slice(0, r), t.style.color = "red", t.innerHTML = "Max limit of " + r + " characters reached!") : t.style.color = "inherit" }
+    </script>
   
   
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
