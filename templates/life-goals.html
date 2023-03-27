@@ -76,26 +76,14 @@
         </p>
         {% endif %}
         {% if num_goals > 0 and num_goals < 4 %} <p class="fw-normal fs-4">You have now worked on...</p>
-          <table class="table table-sm">
-            <thead>
-              <tr class="fw-normal fs-4">
-                <th scope="col">Target</th>
-                <th scope="col">Status</th>
-              </tr>
-            </thead>
-            <tbody>
+              
               {% for goal in user_goals %}
-              <tr>
+              <p class="fw-bold fs-4">
                 {% if goal.life_goal_title != None %}
-
-                <td scope="row" class="fw-normal fs-4">{{goal.life_goal_title}}</td>
-                <td>✔️</td>
-
+                {{ goal.life_goal_title }}
                 {% endif %}
-              </tr>
+              </p>
               {% endfor%}
-            </tbody>
-          </table>
           <p class="fw-normal fs-4">
             <em>Keep in mind that you have an <b style="color: #4C8891;">AI assistant</b> at your disposal who is more than happy to assist you in
               refining your writing. Simply click on <b style="color: #4C8891;">AI Enhance</b> and witness the remarkable transformation.</em>
