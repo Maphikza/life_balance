@@ -91,7 +91,7 @@
             <div class="mb-3">
               <label for="dob" class="fw-bold fs-5">Birthday</label>
               <div class="row">
-                <div class="col">
+                <div class="col-auto">
                   <select class="form-control" id="dob-month" name="dob-month">
                     <option value="">Month</option>
                     <option value="01">January</option>
@@ -108,7 +108,7 @@
                     <option value="12">December</option>
                   </select>
                 </div>
-                <div class="col">
+                <div class="col-auto">
                   <select class="form-control" id="dob-day" name="dob-day">
                     <option value="">Day</option>
                     {% for day_num in range(1, 32) %}
@@ -116,7 +116,7 @@
                     {% endfor %}
                   </select>
                 </div>
-                <div class="col">
+                <div class="col-auto">
                   <select class="form-control" id="dob-year" name="dob-year">
                     <option value="">Year</option>
                     {% set current_year = now %}

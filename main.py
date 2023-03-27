@@ -265,7 +265,8 @@ def implement_registration():
         name = request.form.get("entryUsername").lower()
         email = request.form.get("entryEmail").replace(" ", "").lower()
         password_ = request.form.get("entryPassword")
-        date_of_birth = request.form.get("entryDate")
+        date_of_birth = f'{request.form.get("reg-dob-year")}' \
+                        f'-{request.form.get("reg-dob-month")}-{request.form.get("reg-dob-day")}'
         country_currency = request.form.get("country").split(";")[-1]
         country = request.form.get("country").split(";")[0]
         user = User.query.filter_by(email=email).first()
