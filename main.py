@@ -197,6 +197,11 @@ class DailyJournal(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 
+class DailyPrompts(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    prompt = db.Column(db.Text, nullable=True)
+
+
 def create_admin_account():
     db.create_all()
     print("The database has been created.")
@@ -206,8 +211,8 @@ def create_admin_account():
     # create_admin_user(User, db, "hehehe")
 
 
-# with app.app_context():
-#     create_admin_account()
+with app.app_context():
+    create_admin_account()
 
 
 # with app.app_context():
@@ -879,9 +884,9 @@ def bucket_list():
                            d_func=decrypt_data, name=COMPANY_NAME)
 
 
-@app.route("/admin", methods=["GET", "POST"])
+@app.route("/admeen", methods=["GET", "POST"])
 @login_required
-def delete_user():
+def delete_user():  # also handles other admin work.
     """
     This function takes user id from admin form and systematically removes user data
     and finally deletes the user profile.
@@ -890,50 +895,56 @@ def delete_user():
     if current_user.is_admin:
         users = User.query.all()
         if request.method == "POST":
-            user_to_remove = int(request.form.get("userID").replace(" ", ""))
-            user_goals = Goal.query.filter_by(user_id=user_to_remove).all()
-            user_connections = Connection.query.filter_by(user_id=user_to_remove)
-            user_finances = Finances.query.filter_by(user_id=user_to_remove)
-            user_bucketlist = Bucketlist.query.filter_by(user_id=current_user.id)
-            for goal_item in user_goals:
-                try:
-                    item_to_delete = Goal.query.get(goal_item.id)
-                    db.session.delete(item_to_delete)
-                    db.session.commit()
-                except (AttributeError, UnmappedInstanceError):
-                    continue
+            if "admin-delete-form" in request.form:
+                user_to_remove = int(request.form.get("userID").replace(" ", ""))
+                user_goals = Goal.query.filter_by(user_id=user_to_remove).all()
+                user_connections = Connection.query.filter_by(user_id=user_to_remove)
+                user_finances = Finances.query.filter_by(user_id=user_to_remove)
+                user_bucketlist = Bucketlist.query.filter_by(user_id=current_user.id)
+                for goal_item in user_goals:
+                    try:
+                        item_to_delete = Goal.query.get(goal_item.id)
+                        db.session.delete(item_to_delete)
+                        db.session.commit()
+                    except (AttributeError, UnmappedInstanceError):
+                        continue
 
-            for relation in user_connections:
-                try:
-                    item_to_delete = Connection.query.get(relation.id)
-                    db.session.delete(item_to_delete)
-                    db.session.commit()
-                except (AttributeError, UnmappedInstanceError):
-                    continue
+                for relation in user_connections:
+                    try:
+                        item_to_delete = Connection.query.get(relation.id)
+                        db.session.delete(item_to_delete)
+                        db.session.commit()
+                    except (AttributeError, UnmappedInstanceError):
+                        continue
 
-            for insurance in user_finances:
-                try:
-                    item_to_delete = Finances.query.get(insurance.id)
-                    db.session.delete(item_to_delete)
-                    db.session.commit()
-                except (AttributeError, UnmappedInstanceError):
-                    continue
+                for insurance in user_finances:
+                    try:
+                        item_to_delete = Finances.query.get(insurance.id)
+                        db.session.delete(item_to_delete)
+                        db.session.commit()
+                    except (AttributeError, UnmappedInstanceError):
+                        continue
 
-            for bucket in user_bucketlist:
-                try:
-                    item_to_delete = Bucketlist.query.get(bucket.id)
-                    db.session.delete(item_to_delete)
-                    db.session.commit()
-                except (AttributeError, UnmappedInstanceError):
-                    continue
-            site_user = User.query.get(user_to_remove)
-            db.session.delete(site_user)
-            db.session.commit()
-            flash(f"User: {user_to_remove} is deleted")
-            return redirect(url_for('delete_user'))
+                for bucket in user_bucketlist:
+                    try:
+                        item_to_delete = Bucketlist.query.get(bucket.id)
+                        db.session.delete(item_to_delete)
+                        db.session.commit()
+                    except (AttributeError, UnmappedInstanceError):
+                        continue
+                site_user = User.query.get(user_to_remove)
+                db.session.delete(site_user)
+                db.session.commit()
+                flash(f"User: {user_to_remove} is deleted")
+                return redirect(url_for('delete_user'))
+            if "Prompt-form" in request.form:
+                prompt_to_load = request.form.get("prompt_content")
+                prompt_content = DailyPrompts(prompt=prompt_to_load)
+                db.session.add(prompt_content)
+                db.session.commit()
     else:
         abort(401)
-    return render_template("admin-delete.html", name=COMPANY_NAME, users=users)
+    return render_template("admeen.html", name=COMPANY_NAME, users=users)
 
 
 @app.route('/reset-password', methods=['GET', 'POST'])
@@ -1052,11 +1063,12 @@ def journal():
     week_ago_str = week_ago.strftime("%Y %B %d")
     start_date = datetime.strptime(week_ago_str, '%Y %B %d').strftime("%Y %B %d")  # A week back from today.
     end_date = datetime.strptime(now.strftime("%Y %B %d"), '%Y %B %d').strftime("%Y %B %d")  # Today's date.
-    all_entries = DailyJournal.query.filter_by(user_id=current_user.id)
+    all_entries = DailyJournal.query.filter_by(user_id=current_user.id).all()
     journal_entries = DailyJournal.query.filter_by(user_id=current_user.id).filter(
         DailyJournal.entry_date_time >= start_date,
         DailyJournal.entry_date_time <= end_date
     ).all()
+    content_prompts = db.session.query(DailyPrompts).all()
     try:
         last_entry = journal_entries[-1].entry_date_time
     except IndexError:
@@ -1116,7 +1128,9 @@ def journal():
                                    journal_dict=entry_years,
                                    months_dict=months_dict,
                                    today=end_date,
-                                   last_entry=last_entry)
+                                   last_entry=last_entry,
+                                   content_prompts=content_prompts,
+                                   all_entries=all_entries)
 
         elif "Journal-date-form" in request.form:
             search_year = request.form.get("Journal-Year")
@@ -1142,7 +1156,9 @@ def journal():
                                    journal_dict=entry_years,
                                    months_dict=months_dict,
                                    today=end_date,
-                                   last_entry=last_entry)
+                                   last_entry=last_entry,
+                                   content_prompts=content_prompts,
+                                   all_entries=all_entries)
 
     return render_template("daily-journal.html",
                            name=COMPANY_NAME,
@@ -1154,7 +1170,9 @@ def journal():
                            journal_dict=entry_years,
                            months_dict=months_dict,
                            today=end_date,
-                           last_entry=last_entry)
+                           last_entry=last_entry,
+                           content_prompts=content_prompts,
+                           all_entries=all_entries)
 
 
 @app.route("/journal/edit/<int:item_id>", methods=["GET", "POST"])

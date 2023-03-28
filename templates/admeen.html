@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Life Goals</title>
+  <link href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet">
+  <link rel="shortcut icon" type="image/png" href="{{url_for('static', filename='lpmfavicon.png')}}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+</head>
+
+<body class="main-page">
+  <header class="main-page navs-link">
+    <nav class="my-navbar navbar navbar-expand-lg navbar-dark" aria-label="goals navbar">
+      <div class="container-fluid my-navbar">
+        <a class="navbar-brand fw-bold fs-3 my-navbar" href="{{url_for('home')}}">{{name}}</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarGoal"
+          aria-controls="navbarGoal" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarGoal">
+          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            {% if not current_user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('implements_login')}}">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('implement_registration')}}">Register</a>
+            </li>
+            {% endif %}
+            {% if current_user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('goals')}}">Life</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('connections')}}">Relationships</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('finance')}}">Finance</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('bucket_list')}}">Bucket List</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('journal')}}">Daily-Journal</a>
+            </li>
+            {% if current_user.id == 1 %}
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{{url_for('delete_user')}}">Admin</a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <div class="container main-page">
+    <div class="position-relative overflow-hidden p-3 p-md-2 m-md-2 text-center">
+      <div class="p-lg-5 mx-auto my-5">
+        <h4 class="display-4 fw-normal pb-2 page-header">Users
+          <!-- User list Container -->
+          <div class="container main-page">
+            <p>
+              <button class="btn btn-dark" type="button" data-bs-toggle="collapse" data-bs-target="#userCollapse"
+                aria-expanded="false" aria-controls="userCollapse" style="background-color: #453C41;">
+                Current Users
+              </button>
+            </p>
+            <div class="collapse main-page" id="userCollapse">
+              <div class="card card-body table-holder">
+                <table class="table fs-6">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Username</th>
+                      <th scope="col">email</th>
+                      <th scope="col">Country</th>
+                      <th scope="col">Verified</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for user in users %}
+                    <tr>
+                      <th scope="row">{{user.id}}</th>
+                      <td>{{user.username}}</td>
+                      <td>{{user.email}}</td>
+                      <td>{{user.country_name}}</td>
+                      <td>{{user.verified}}</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!-- delete function -->
+          <div class="container main-page">
+            <p>
+              <button class="btn btn-dark" type="button" data-bs-toggle="collapse" data-bs-target="#deleteCollapse"
+                aria-expanded="false" aria-controls="deleteCollapse" style="background-color: #453C41;">
+                User Delete Form
+              </button>
+            </p>
+            <div class="collapse" id="deleteCollapse">
+              <div class="card card-body">
+                <form class="admin-delete-form g-3 text-start" method="post">
+                  <div class="mb-3">
+                    <label for="userID" class="fw-bold fs-5 pb-1">User To Delete:</label>
+                    <input type="text" class="form-control" id="userID" name="userID" placeholder="User ID number">
+                  </div>
+                  <div class="col">
+                    <button type="submit" name="admin-delete-form" class="btn btn-lg btn-danger mb-3">Delete User</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- prompt loader -->
+          <div class="container main-page">
+            <p>
+              <button class="btn btn-dark" type="button" data-bs-toggle="collapse" data-bs-target="#promptCollapse"
+                aria-expanded="false" aria-controls="promptCollapse" style="background-color: #453C41;">
+                Upload Prompt Content
+              </button>
+            </p>
+            <div class="collapse text-start" id="promptCollapse">
+              <div class="card card-body">
+                <form class="Prompt-form" id="Prompt-form" name="Prompt-form" method="post">
+                  <div class="mb-3">
+                    <label for="prompt_content" class="form-label fw-bold fs-4" style="color: #453C41;">Prompt:</label>
+                    <textarea class="form-control" id="prompt_content" name="prompt_content" rows="4" maxlength="1000"></textarea>
+                  </div>
+                  <noscript>
+                    <style>
+                      #js-disabled-message {
+                        display: block !important;
+                      }
+                    </style>
+                    <div id="js-disabled-message" class="alert alert-danger">
+                      This website requires JavaScript to function properly. Please enable JavaScript in your
+                      browser settings.
+                    </div>
+                    <input type="hidden" name="status" id="status" value="False">
+                  </noscript>
+                  <div>
+                    <button type="submit" name="Prompt-form" class="btn btn-dark"
+                      style="background-color: #453C41">Save Prompt</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          {% with messages = get_flashed_messages() %}
+          {% if messages %}
+          {% for message in messages %}
+          <p class="flashes">{{ message }}</p>
+          {% endfor %}
+          {% endif%}
+          {% endwith %}
+          <noscript>
+            <style>
+              #js-disabled-message {
+                display: block !important;
+              }
+            </style>
+            <div id="js-disabled-message" class="alert alert-danger">
+              This website requires JavaScript to function properly. Please enable JavaScript in your browser settings.
+            </div>
+          </noscript>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <footer class="footer mt-auto my-4 pt-5 text-center fw-bold fs-5">
+      <div class="row justify-content-center mb-3">
+        <div class="col-auto">
+          <a href="{{url_for('mission')}}" class="nav-link" style="color: #453C41;">Mission</a>
+        </div>
+        <div class="col-auto">
+          <a type="button" href="{{url_for('privacy')}}" class="nav-link" style="color: #453C41;">Privacy</a>
+        </div>
+        <div class="col-auto">
+          <a href="{{url_for('contact')}}" class="nav-link" style="color: #453C41;">Contact</a>
+        </div>
+      </div>
+      <p>&copy; <span id="year"></span> {{name}}, Inc</p>
+    </footer>
+  </div>
+  <script>
+    document.getElementById("year").innerHTML = new Date().getFullYear();
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

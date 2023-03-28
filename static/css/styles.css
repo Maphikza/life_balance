@@ -176,3 +176,6 @@ audio {
   color: whitesmoke;
 }
 
+.table-holder {
+  overflow-x: auto;
+}
