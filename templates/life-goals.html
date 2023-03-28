@@ -150,8 +150,8 @@
           <a type="submit" class="btn btn-outline-light btn-sm m-1"
             href="{{url_for('life_goal_edit', life_goal_id=goal.id)}}">Edit</a>
           {% if current_user.use_count > 0 %}
-          <a type="submit" class="btn btn-outline-light btn-sm m-1 ai-button" data-goal-id="{{goal.id}}"
-            href="{{url_for('life_goal_ai_enhance', life_goal_id=goal.id)}}" id="button1" rel="noopener noreferrer">AI
+          <a type="submit" class="btn btn-outline-dark btn-sm m-1 ai-button" data-goal-id="{{goal.id}}"
+            href="{{url_for('life_goal_ai_enhance', life_goal_id=goal.id)}}" id="button1" rel="noopener noreferrer" style="background-color: #29354B; color: #ECEBE9;">AI
             Enhance</a>
           {% endif %}
           <a type="submit" class="btn btn-outline-light btn-sm m-1"

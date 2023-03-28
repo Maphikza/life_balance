@@ -133,9 +133,9 @@
           <a type="submit" class="btn btn-outline-light btn-sm m-1"
             href="{{url_for('connections_edit', connect_id=connection.id)}}">Edit</a>
           {% if current_user.use_count > 0 %}
-          <a type="submit" class="btn btn-outline-light btn-sm m-1 ai-button" data-connect-id="{{ connection.id }}"
+          <a type="submit" class="btn btn-outline-dark btn-sm m-1 ai-button" data-connect-id="{{ connection.id }}"
             href="{{url_for('connections_ai_enhance_edit', connect_id=connection.id)}}" id="ai-enhance-button-two"
-            rel="noopener noreferrer">AI Enhance</a>
+            rel="noopener noreferrer" style="background-color: #29354B; color: #ECEBE9;">AI Enhance</a>
           {% endif %}
           <a type="submit" class="btn btn-outline-light btn-sm m-1"
             href="{{url_for('delete_connection', connect_id=connection.id)}}">Delete</a>
