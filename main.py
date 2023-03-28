@@ -211,8 +211,8 @@ def create_admin_account():
     # create_admin_user(User, db, "hehehe")
 
 
-with app.app_context():
-    create_admin_account()
+# with app.app_context():
+#     create_admin_account()
 
 
 # with app.app_context():
