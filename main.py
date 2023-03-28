@@ -197,11 +197,6 @@ class DailyJournal(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 
-class DailyPrompts(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    prompt = db.Column(db.Text, nullable=True)
-
-
 def create_admin_account():
     db.create_all()
     print("The database has been created.")
@@ -939,9 +934,10 @@ def delete_user():  # also handles other admin work.
                 return redirect(url_for('delete_user'))
             if "Prompt-form" in request.form:
                 prompt_to_load = request.form.get("prompt_content")
-                prompt_content = DailyPrompts(prompt=prompt_to_load)
-                db.session.add(prompt_content)
-                db.session.commit()
+                print(prompt_to_load)
+                # prompt_content = DailyPrompts(prompt=prompt_to_load)
+                # db.session.add(prompt_content)
+                # db.session.commit()
     else:
         abort(401)
     return render_template("admeen.html", name=COMPANY_NAME, users=users)
@@ -1068,7 +1064,7 @@ def journal():
         DailyJournal.entry_date_time >= start_date,
         DailyJournal.entry_date_time <= end_date
     ).all()
-    content_prompts = db.session.query(DailyPrompts).all()
+    # content_prompts = db.session.query(DailyPrompts).all()
     try:
         last_entry = journal_entries[-1].entry_date_time
     except IndexError:
@@ -1129,7 +1125,6 @@ def journal():
                                    months_dict=months_dict,
                                    today=end_date,
                                    last_entry=last_entry,
-                                   content_prompts=content_prompts,
                                    all_entries=all_entries)
 
         elif "Journal-date-form" in request.form:
@@ -1157,7 +1152,6 @@ def journal():
                                    months_dict=months_dict,
                                    today=end_date,
                                    last_entry=last_entry,
-                                   content_prompts=content_prompts,
                                    all_entries=all_entries)
 
     return render_template("daily-journal.html",
@@ -1171,7 +1165,6 @@ def journal():
                            months_dict=months_dict,
                            today=end_date,
                            last_entry=last_entry,
-                           content_prompts=content_prompts,
                            all_entries=all_entries)
 
 
