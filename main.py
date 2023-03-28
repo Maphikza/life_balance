@@ -889,6 +889,10 @@ def delete_user():  # also handles other admin work.
     """
     if current_user.is_admin:
         users = User.query.all()
+        user_len_list = []
+        for user in users:
+            all_entries = DailyJournal.query.filter_by(user_id=user.id).all()
+            user_len_list.append(len(all_entries))
         if request.method == "POST":
             if "admin-delete-form" in request.form:
                 user_to_remove = int(request.form.get("userID").replace(" ", ""))
@@ -940,7 +944,7 @@ def delete_user():  # also handles other admin work.
                 # db.session.commit()
     else:
         abort(401)
-    return render_template("admeen.html", name=COMPANY_NAME, users=users)
+    return render_template("admeen.html", name=COMPANY_NAME, users=users, user_len_list=user_len_list)
 
 
 @app.route('/reset-password', methods=['GET', 'POST'])
