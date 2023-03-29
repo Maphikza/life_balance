@@ -197,6 +197,11 @@ class DailyJournal(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 
+class DailyPrompts(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    prompt = db.Column(db.Text, nullable=True)
+
+
 def create_admin_account():
     db.create_all()
     print("The database has been created.")
@@ -206,8 +211,8 @@ def create_admin_account():
     # create_admin_user(User, db, "hehehe")
 
 
-# with app.app_context():
-#     create_admin_account()
+with app.app_context():
+    create_admin_account()
 
 
 # with app.app_context():
@@ -939,9 +944,9 @@ def delete_user():  # also handles other admin work.
             if "Prompt-form" in request.form:
                 prompt_to_load = request.form.get("prompt_content")
                 print(prompt_to_load)
-                # prompt_content = DailyPrompts(prompt=prompt_to_load)
-                # db.session.add(prompt_content)
-                # db.session.commit()
+                prompt_content = DailyPrompts(prompt=prompt_to_load)
+                db.session.add(prompt_content)
+                db.session.commit()
     else:
         abort(401)
     return render_template("admeen.html", name=COMPANY_NAME, users=users, user_len_list=user_len_list)
