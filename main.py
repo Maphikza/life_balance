@@ -470,6 +470,7 @@ def delete_life_goal(life_goal_id):
 def goals():
     user_goals = Goal.query.filter_by(user_id=current_user.id).all()
     num_goals = current_user.num_life_goals
+    print(current_user.id)
     if current_user.use_count_month != current_month:
         with app.app_context():
             reset_edit_credits()
@@ -592,6 +593,7 @@ def delete_connection(connect_id):
 @login_required
 def connections():
     user_connections = Connection.query.filter_by(user_id=current_user.id).all()
+    print(current_user.id)
     if current_user.use_count_month != current_month:
         with app.app_context():
             reset_edit_credits()
@@ -745,6 +747,7 @@ def delete_finance_goal(goal_id):
 def finance():
     user_finances = Finances.query.filter_by(user_id=current_user.id).all()
     num_goals = current_user.num_finance_goals
+    print(current_user.id)
     if current_user.use_count_month != current_month:
         with app.app_context():
             reset_edit_credits()
@@ -876,6 +879,7 @@ def delete_bucketlist_item(item_id):
 @login_required
 def bucket_list():
     user_bucketlist = Bucketlist.query.filter_by(user_id=current_user.id).all()
+    print(current_user.id)
     if current_user.use_count_month != current_month:
         with app.app_context():
             reset_edit_credits()
@@ -1073,6 +1077,7 @@ def journal():
         DailyJournal.entry_date_time >= start_date,
         DailyJournal.entry_date_time <= end_date
     ).all()
+    print(current_user.id)
     # content_prompts = db.session.query(DailyPrompts).all()
     try:
         last_entry = journal_entries[-1].entry_date_time
