@@ -1073,10 +1073,10 @@ def journal():
     start_date = datetime.strptime(week_ago_str, '%Y %B %d').strftime("%Y %B %d")  # A week back from today.
     end_date = datetime.strptime(now.strftime("%Y %B %d"), '%Y %B %d').strftime("%Y %B %d")  # Today's date.
     all_entries = DailyJournal.query.filter_by(user_id=current_user.id).all()
-    journal_entries = DailyJournal.query.filter_by(user_id=current_user.id).filter(
-        DailyJournal.entry_date_time >= start_date,
-        DailyJournal.entry_date_time <= end_date
-    ).all()
+    if len(all_entries) > 6:
+        journal_entries = all_entries[-6:]
+    else:
+        journal_entries = all_entries
     print(current_user.id)
     # content_prompts = db.session.query(DailyPrompts).all()
     try:
