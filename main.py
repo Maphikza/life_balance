@@ -1074,7 +1074,7 @@ def journal():
     end_date = datetime.strptime(now.strftime("%Y %B %d"), '%Y %B %d').strftime("%Y %B %d")  # Today's date.
     all_entries = DailyJournal.query.filter_by(user_id=current_user.id).all()
     if len(all_entries) > 6:
-        journal_entries = all_entries[-6:]
+        journal_entries = all_entries[::-1][:6]
     else:
         journal_entries = all_entries
     print(current_user.id)
