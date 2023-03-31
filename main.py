@@ -1068,11 +1068,12 @@ def generate_journal_dict(journal_entries):
 @app.route("/journal", methods=["GET", "POST"])
 @login_required
 def journal():
-    week_ago = datetime.now() - timedelta(days=6)
-    week_ago_str = week_ago.strftime("%Y %B %d")
-    start_date = datetime.strptime(week_ago_str, '%Y %B %d').strftime("%Y %B %d")  # A week back from today.
+    yesterday = datetime.now() - timedelta(days=1)
+    yesterday_str = yesterday.strftime("%Y %B %d")
+    start_date = datetime.strptime(yesterday_str, '%Y %B %d').strftime("%Y %B %d")  # A week back from today.
     end_date = datetime.strptime(now.strftime("%Y %B %d"), '%Y %B %d').strftime("%Y %B %d")  # Today's date.
     all_entries = DailyJournal.query.filter_by(user_id=current_user.id).all()
+    print(start_date)
     if len(all_entries) > 6:
         journal_entries = all_entries[::-1][:6]
     else:
@@ -1120,14 +1121,20 @@ def journal():
                                                user_id=current_user.id)
             db.session.add(daily_journal_entry)
             db.session.commit()
-            journal_entries = DailyJournal.query.filter_by(user_id=current_user.id).filter(
-                DailyJournal.entry_date_time >= start_date,
-                DailyJournal.entry_date_time <= end_date
-            ).all()
+            end_date = datetime.strptime(now.strftime("%Y %B %d"), '%Y %B %d').strftime("%Y %B %d")
+            all_entries = DailyJournal.query.filter_by(user_id=current_user.id).all()
+            if len(all_entries) > 6:
+                journal_entries = all_entries[::-1][:6]
+            else:
+                journal_entries = all_entries
             try:
-                last_entry = journal_entries[-1].entry_date_time
+                last_entry = journal_entries[0].entry_date_time
+                print(last_entry)
+                print(end_date)
             except IndexError:
                 last_entry = start_date
+                print(last_entry)
+                print(end_date)
             return render_template("daily-journal.html",
                                    name=COMPANY_NAME,
                                    d_func=decrypt_data,
@@ -1150,8 +1157,9 @@ def journal():
             formatted_date = datetime.strptime(search_date, '%Y-%m-%d').strftime('%Y %B %d')
             matching_entries = DailyJournal.query.filter_by(user_id=current_user.id).filter(
                 DailyJournal.entry_date_time == formatted_date).all()
+            end_date = datetime.strptime(now.strftime("%Y %B %d"), '%Y %B %d').strftime("%Y %B %d")
             try:
-                last_entry = journal_entries[-1].entry_date_time
+                last_entry = journal_entries[0].entry_date_time
             except IndexError:
                 last_entry = start_date
 
