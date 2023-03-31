@@ -323,8 +323,8 @@ def registration_success():
 @app.route("/verify-email/<token>", methods=["GET", "POST"])
 def verify_email(token):
     try:
-        # Validate the token and mark the user as verified
-        email = s.loads(token, salt="email-verification", max_age=21600)
+        # Validate the token and mark the user as verified 21600
+        email = s.loads(token, salt="email-verification", max_age=10)
         user = User.query.filter_by(email=email).first()
         user.verified = True
         db.session.commit()
