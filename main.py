@@ -1074,6 +1074,7 @@ def journal():
     end_date = datetime.strptime(now.strftime("%Y %B %d"), '%Y %B %d').strftime("%Y %B %d")  # Today's date.
     all_entries = DailyJournal.query.filter_by(user_id=current_user.id).all()
     print(start_date)
+    print(end_date)
     if len(all_entries) > 6:
         journal_entries = all_entries[::-1][:6]
     else:
@@ -1081,7 +1082,7 @@ def journal():
     print(current_user.id)
     # content_prompts = db.session.query(DailyPrompts).all()
     try:
-        last_entry = journal_entries[-1].entry_date_time
+        last_entry = journal_entries[0].entry_date_time
     except IndexError:
         last_entry = start_date
     cv_o = request.args.get('cv_o', False)  # Controls canvas opening.
@@ -1129,12 +1130,8 @@ def journal():
                 journal_entries = all_entries
             try:
                 last_entry = journal_entries[0].entry_date_time
-                print(last_entry)
-                print(end_date)
             except IndexError:
                 last_entry = start_date
-                print(last_entry)
-                print(end_date)
             return render_template("daily-journal.html",
                                    name=COMPANY_NAME,
                                    d_func=decrypt_data,
