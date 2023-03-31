@@ -334,7 +334,7 @@ def verify_email(token):
         expired = True
         if request.method == "POST":
             # Resend verification email
-            email = request.form.get("entryEmail")
+            email = request.form.get("entryEmail").replace(" ", "").lower()
             user = User.query.filter_by(email=email).first()
             if not user:
                 flash("The email address you provided doesn't exist with us. You can register here.")
